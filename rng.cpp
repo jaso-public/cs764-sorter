@@ -24,7 +24,7 @@ uint64_t shift() {
 }
 
 /**
- * initial the Xoshiro256plus randon generator with some seed.
+ * initialize the Xoshiro256plus random generator with some seed.
  */
 void seed(uint64_t seed) {
     x = seed;
@@ -77,9 +77,8 @@ void fill(int size, void* array) {
 }
 
 /**
-
     Measure the rate of random byte generation.  Note this is not a very
-    sophiticated test, and very susceptible to the L1,L2,L3 caching.  But
+    sophisticated test, and very susceptible to the L1,L2,L3 caching.  But
     It does give a sense for how fast we can generated random bytes.
 
     running on my MacAir compiled with gcc -O3 I got just shy of 8 GB/s.
@@ -137,7 +136,7 @@ int main() {
 
     count = 1000000; size = 100000;
     printf("count:%u size: %d rate:%f GB/s\n", count, size, bytesPerSecond(count, size));
-    
+
     count = 100000000; size = 1000;
     printf("count:%u size: %d rate:%f GB/s\n", count, size, bytesPerSecond(count, size));
 
