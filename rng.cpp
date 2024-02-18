@@ -1,4 +1,3 @@
-
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -69,16 +68,22 @@ uint64_t next() {
  * fill an array of size bytes with a bunch of random bytes.
  */
 void fill(int size, void* array) {
-    // TODO: what does int & int do?
+    // preforms bitwise AND on size
     int extra = size & 7;
+    // completes right shift
     int num = size >> 3;
 
+    // defines empty array
     uint64_t *a = (uint64_t*) array;
+    // places a random number at every index in the array
     for(int i=0; i<num ; i++) a[i] = next(); 
 
+    //TODO: how to you compare extra if it is an int?
     if(extra) {
+        // gets a random number
         uint64_t tmp = next();
-        void* ending = a + num; 
+        void* ending = a + num;
+        // copies extra number of data from tmp to ending
         memcpy(ending, &tmp, extra);   
     }
 }
@@ -98,8 +103,9 @@ double bytesPerSecond(uint32_t count, uint32_t size) {
     struct timespec start;
     struct timespec end;
 
-
+    // allocates the required amount of size needed for array
     void* buffer = malloc(size);
+    // checks that memory was allocated
     if(buffer == NULL) {
         perror("malloc");
         return -1;
@@ -111,11 +117,12 @@ double bytesPerSecond(uint32_t count, uint32_t size) {
         return -1;
     }
 
-    // do the work of generating the random arrays
+    // fills the allocated array with random numbers
     for(int i=0 ; i<count ; i++) {
         fill(size, buffer);
     }
 
+    // frees array from memory
     free(buffer);
       
     if (clock_gettime(CLOCK_REALTIME, &end) == -1) {
@@ -123,6 +130,7 @@ double bytesPerSecond(uint32_t count, uint32_t size) {
         return -1;
     }
 
+    // computes the computation rate of array creation
     uint64_t elapsed = end.tv_sec - start.tv_sec;
     elapsed *= (1000 * 1000 * 1000);
     elapsed += (end.tv_nsec - start.tv_nsec);
@@ -136,11 +144,12 @@ double bytesPerSecond(uint32_t count, uint32_t size) {
     return result;
 }
 
-/*
+
 int main() {
     uint32_t count, size;
     seed(4);
-
+    // TODO: I think this is wrong count is the number of records??
+    // size is the size of the array
     count = 1000000; size = 100000;
     printf("count:%u size: %d rate:%f GB/s\n", count, size, bytesPerSecond(count, size));
 
@@ -151,4 +160,3 @@ int main() {
     printf("count:%u size: %d rate:%f GB/s\n", count, size, bytesPerSecond(count, size));
     return 0;
 }
-*/
