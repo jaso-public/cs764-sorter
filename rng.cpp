@@ -6,16 +6,21 @@
 #include <time.h>
 #include "rng.h"
 
-// from: https://github.com/thompsonsed/RandomNumberGeneration/blob/main/Xoshiro256plus.h
-
+// A Generic Random Number Generator from: https://github.com/thompsonsed/RandomNumberGeneration/blob/main/Xoshiro256plus.h
+// declares unsigned integer/array with 64 bits
 static uint64_t x = 12345;
+// a table used to produce random numbers
 static uint64_t shuffle_table[4] = {UINT64_C(0x94D049BB133111EB), 
                                     UINT64_C(0x9E3779B97F4A7C15), 
                                     UINT64_C(0xBF58476D1CE4E5B9),
                                     UINT64_C(0xF384A7BD1945DEB1)};
 
-// the SplitMix64 taken from above.
-// this is just used to initialize the Xoshiro256plus generator
+
+/**
+ * Creates a hash value for x
+ * the SplitMix64 taken from above
+ * this is just used to initialize the Xoshiro256plus generator
+ */
 uint64_t shift() {
     uint64_t z = (x += UINT64_C(0x9E3779B97F4A7C15));
     z = (z ^ (z >> 30)) * UINT64_C(0xBF58476D1CE4E5B9);
@@ -25,6 +30,7 @@ uint64_t shift() {
 
 /**
  * initialize the Xoshiro256plus random generator with some seed.
+ * Creates a hash value for the seed and hashes shuffle_table
  */
 void seed(uint64_t seed) {
     x = seed;
@@ -63,6 +69,7 @@ uint64_t next() {
  * fill an array of size bytes with a bunch of random bytes.
  */
 void fill(int size, void* array) {
+    // TODO: what does int & int do?
     int extra = size & 7;
     int num = size >> 3;
 
