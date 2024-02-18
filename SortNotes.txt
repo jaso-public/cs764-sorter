@@ -1,0 +1,48 @@
+External Sort Purpose
+Problem: 5GB data on disk; need to sort on RAM which can hold 1GB; CPU will compute sorting operations
+How Data Flows:
+CPU (with cache) -> <- RAM -> <- Disk
+- Moving data from disk to RAM is slow
+- Moving data from RAM to CPU is fast
+- Moving data from cache (stored within CPU) to CPU is fastest
+
+Issue with Normal Sort:
+1. add 1GB of data to RAM
+2. RAM will send 1GB to CPU to sort
+3. When you want to sort the next 1GB, it cannot be fit into the RAM (can only hold 1GB)
+
+External Sort
+Input: 5GB data
+Steps:
+1. Break input into 1GB (whatever the size of RAM is) units where each unit is written into its own file
+2.
+    2a: Load the first 1GB file, F1, into RAM
+    2b: Sort this file within RAM using sorting algorithm
+    2c: Store sorted file into new file: F1-sorted
+3. Repeat step 2 for all 1GB files
+4. Take first 150MB of each sorted file (F1-sorted, F2-sorted, ... , F5-sorted) and place it into RAM
+    - leaves 250MB of free RAM
+5. Preform a K-way Merge (where k represents the total number of sorted files obtained)
+    5a: create k indices such that each sorted file has an index variable starting at its first index
+    5b: Out of all the indexes, place the smallest value (sorted[i]) into new sorted array (stored within RAM free space)
+    5c: check if the index, i, used for 5b is at the end of the array for the given file
+        yes:
+            1. Check if there is more data from the sorted file that has not been moved to RAM
+                yes: empty space used by this data and replace it with the next 150MB from the selected file
+                no: empty space used by this data and replace it with the 150MB from a different file
+        no: increment i by 1
+    5d: Continue to preform the K-way merge until free space is full (250MB)
+    5e: Write free space sorted input onto DISK in an output file (ex: Output1 with 250MB of data)
+    5f: empty free space, go back to 5b
+    5g: Once all data has been sorted, there will be multiple sorted output files (Output1, Output2,....)
+        - all output files can be utilized together to produce the sorted order
+
+Algorithm Walkthrough: https://www.youtube.com/watch?v=Bp7fGofslng
+
+
+
+
+
+
+
+
