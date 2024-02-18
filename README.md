@@ -30,3 +30,7 @@ Definition: capacity that a network can transmit data
 - Store info on magnetic disks
 - Head reads info
 - Mechanical process
+
+### Page Size
+- SSD and HDD have different page sizes
+Page size = latency * bandwidth

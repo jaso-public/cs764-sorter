@@ -18,7 +18,7 @@ Steps:
 2.
     2a: Load the first 1GB file, F1, into RAM
     2b: Sort this file within RAM using sorting algorithm
-    2c: Store sorted file into new file: F1-sorted
+    2c: Store sorted file, removing duplicates, into new file: F1-sorted
 3. Repeat step 2 for all 1GB files
 4. Take first 150MB of each sorted file (F1-sorted, F2-sorted, ... , F5-sorted) and place it into RAM
     - leaves 250MB of free RAM
@@ -31,7 +31,7 @@ Steps:
                 yes: empty space used by this data and replace it with the next 150MB from the selected file
                 no: empty space used by this data and replace it with the 150MB from a different file
         no: increment i by 1
-    5d: Continue to preform the K-way merge until free space is full (250MB)
+    5d: Continue to preform the K-way merge until free space is full, remove duplicates (250MB)
     5e: Write free space sorted input onto DISK in an output file (ex: Output1 with 250MB of data)
     5f: empty free space, go back to 5b
     5g: Once all data has been sorted, there will be multiple sorted output files (Output1, Output2,....)
