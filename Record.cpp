@@ -1,5 +1,5 @@
-#include <stdlib.h>
-#include "rng.h"
+#include <iostream>
+#include "rng.cpp"
 
 /**
  * This method will create a record in memory and fill it with random 64 bit integers
@@ -43,4 +43,11 @@ int compareRecordKeys(void* r1, void* r2, uint32_t keyOffset){
     } else {
         return 0;
     }
+}
+
+int main(){
+    // creates a record of size 100
+    int size = 100;
+    void* recordPointer = createRecord(size);
+    std::cout << recordPointer;
 }
