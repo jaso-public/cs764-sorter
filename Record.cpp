@@ -15,6 +15,7 @@ void* createRecord(int size){
 /**
 * This method will compute a checksum on the record
 */
+//TODO: complete this method
 
 
 
@@ -50,4 +51,8 @@ int main(){
     int size = 100;
     void* recordPointer = createRecord(size);
     std::cout << recordPointer;
+    //TODO: check that record is properly created
+    //TODO: check that compare returns 1 when key1 > key2
+    //TODO: check that compare returns 1 when key1 < key2
+    //TODO: check that compare returns 1 when key1 == key2
 }
