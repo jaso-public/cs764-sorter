@@ -1,5 +1,10 @@
 #include "Iterator.h"
 
+/**
+ * This class will be utilized it iteratively generate individual records
+ * This class will contain a next method that will return the next record, or null if count has been exceeded
+ */
+
 Plan::Plan ()
 {
 	TRACE (true);

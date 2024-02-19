@@ -9,9 +9,9 @@
 #include "defs.h"
 
 /**
- * This function is utilized for checking errors in ???
+ * This function is utilized for debugging
  * @param predicate true of false value, unsure what it represents
- * @param file pointer to a constant char within a file?
+ * @param file file to debug
  * @param line line that is producing error
  */
 void Assert (bool const predicate,
@@ -28,7 +28,7 @@ void Assert (bool const predicate,
 #if 0
 	assert (false);
 #else
-    // indicates that an error/interrupt has occured
+    // indicates that an error/interrupt has occurred
 	exit (1);
 #endif
 } // Assert

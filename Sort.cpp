@@ -1,5 +1,12 @@
 #include "Sort.h"
 
+/**
+ * This class will preform the sort computations
+ * It will utilize 2 witnesses to check the correctness of the sort
+ * It will utilize a tournament tree for sorting
+ * @param input a chunk of records to sort
+ */
+
 SortPlan::SortPlan (Plan * const input) : _input (input)
 {
 	TRACE (true);

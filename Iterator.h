@@ -20,6 +20,7 @@ public:
 	Iterator ();
 	virtual ~Iterator ();
 	void run ();
+    // will return a record
 	virtual bool next () = 0;
 private:
 	RowCount _count;

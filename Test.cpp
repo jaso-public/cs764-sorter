@@ -46,7 +46,9 @@ int main (int argc, char * argv []) {
 
 	uint64_t numRecords = 1000;
 	uint32_t recordSize = 128;
+    // key will be second group of 8 bytes
 	uint32_t keyOffset = 8;
+    // key is 8 bytes
 	uint32_t keyLength = 8;
 
     uint64_t cacheSize = 1L * 1024 * 1024;
