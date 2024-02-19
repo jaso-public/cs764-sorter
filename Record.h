@@ -10,7 +10,7 @@ class Record {
      */
     void* createRecord(int size);
     /**
-    * This method compare two record's keys to see which one is great
+    * This method compares two records' keys to see which one is greater
      * @param r1 is the first record for comparison
      * @param r2 is the second record for comparison
      * @returns 1 if r1's key > r2's key2, -1 if r1's key1 < r2's key2, or 0 if both keys are equal
