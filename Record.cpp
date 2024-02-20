@@ -13,9 +13,21 @@ void* createRecord(int size){
 }
 
 /**
-* This method will compute a checksum on the record
+ * This method obtains the key from a given record
+ * @param record the record to get key from
+ * @param keyOffset the offset value used to find key location
+ * @return record's key
+ */
+uint64_t getRecordKey(void* record, uint32_t keyOffset){
+    uint64_t* p = (uint64_t*) record;
+    uint64_t* keyLocation = p + keyOffset;
+    uint64_t key = *keyLocation;
+    return key;
+}
+
+/**
+* This method will compute a checksum on a record's key
 */
-//TODO: complete this method
 
 
 
@@ -27,15 +39,9 @@ void* createRecord(int size){
   */
   //TODO: decide if we want to only allow keys to be integers as compare() is for strings
 int compareRecordKeys(void* r1, void* r2, uint32_t keyOffset){
-    // defines pointer to the first element in each record
-    uint64_t* p1 = (uint64_t*) r1;
-    uint64_t* p2 = (uint64_t*) r2;
-    // obtains key location for each record
-    uint64_t* key1Location = p1 + keyOffset;
-    uint64_t* key2Location = p2 + keyOffset;
     // obtains key for each record
-    uint64_t key1 = *key1Location;
-    uint64_t key2 = *key2Location;
+    uint64_t key1 = getRecordKey(r1, keyOffset);
+    uint64_t key2 = getRecordKey(r2, keyOffset);
     // compares keys to return comparison value
     if (key1 > key2){
         return 1;
@@ -46,6 +52,9 @@ int compareRecordKeys(void* r1, void* r2, uint32_t keyOffset){
     }
 }
 
+/**
+ * Used for testing purposes
+ */
 int main(){
     // creates a record of size 100
     int size = 100;
