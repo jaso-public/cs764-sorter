@@ -51,23 +51,19 @@ uint64_t getRecordKey(void* record, uint32_t keyOffset){
  * https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting was used for the binary conversion
  * https://www.geeksforgeeks.org/c-c-program-to-implement-checksum/ was utilized for the checksum algorithm
 */
-string getChecksum(void* record, uint32_t keyOffset){
-    // obtain key
-    uint64_t key = getRecordKey(record, keyOffset);
-    // converts key into binary representation
-    string binary = bitset<64>(key).to_string();
+string getChecksum(string binaryKey, uint32_t keyOffset){
     // divide binary value into 8 blocks of 8 bits
     string tempCheckSum = "";
     // first 8 bits
     for (int i = 0; i < keyOffset; i++) {
-        tempCheckSum += binary[i];
+        tempCheckSum += binaryKey[i];
     }
     // loops through all 8 blocks and adds them together
-    for (int i = keyOffset; i < binary.length(); i += keyOffset) {
+    for (int i = keyOffset; i < binaryKey.length(); i += keyOffset) {
         // obtains next 8 bits
         string next8Bits = "";
         for (int j = i; j < i + keyOffset; j++) {
-            next8Bits += binary[j];
+            next8Bits += binaryKey[j];
         }
         // Stores the binary addition of tempCheckSum and next8Bits
         string blockAddition = "";
@@ -131,9 +127,19 @@ string getChecksum(void* record, uint32_t keyOffset){
  */
 bool completeChecksumCheck(void* r1, void* r2, uint32_t keyOffset)
 {
+    // obtain key from each record
+    uint64_t key1 = getRecordKey(r1, keyOffset);
+    uint64_t key2 = getRecordKey(r2, keyOffset);
+    // converts key into binary representation
+    string binary1 = bitset<64>(key1).to_string();
+    string binary2 = bitset<64>(key2).to_string();
     // gets the checksum value of each record
-    string r1CheckSum= getChecksum(r1, keyOffset);
-    string r2CheckSum = getChecksum(r2, keyOffset);
+    string r1CheckSum= getChecksum(binary1, keyOffset);
+    string r2CheckSum = getChecksum(binary2 + r1CheckSum, keyOffset);
+    cout << binary1 << "\n";
+    cout << binary2 << "\n";
+    cout << r1CheckSum << "\n";
+    cout << r2CheckSum << "\n";
     // checks r2's checksum
     if (count(r2CheckSum.begin(),r2CheckSum.end(), '0')== keyOffset) {
         return true;
@@ -182,22 +188,13 @@ int main(){
     uint64_t* recordPointer2 = (uint64_t*) createRecord(size);
     int comparisonValue1 = compareRecordKeys(recordPointer1, recordPointer2, keyOffset);
     int comparisonValue2 = compareRecordKeys(recordPointer2, recordPointer1, keyOffset);
-    cout << "\nfirst value " << comparisonValue1;
-    cout << "\nsecond value " << comparisonValue2;
-    string sent_message
-            = "10000101011000111001010011101101";
-    string recv_message
-            = "10000101011000111001010011101101";
-    int block_size = 8;
-
-    if (completeChecksumCheck(recordPointer1,
-                              recordPointer1,
-                block_size)) {
+    cout << "\nfirst value " << comparisonValue1 << "\n";
+    cout << "\nsecond value " << comparisonValue2 << "\n";;
+    // check checksum
+    if (completeChecksumCheck(recordPointer2,recordPointer1, keyOffset)) {
         cout << "No Error";
     }
     else {
         cout << "Error";
     }
-
-    return 0;
 }
