@@ -13,11 +13,12 @@ void* createRecord(int size){
     return record;
 }
 
+//TODO: all checksum methods are designed to check a record's key; can make them iteratively check every records value if we want to check every value in a record
 /**
  * This method will calculate the ones complement of a given key
  * @param key a binary representation of a record key as a string
  * @return string of the ones complement version of the key
- * Taken from: https://www.geeksforgeeks.org/c-c-program-to-implement-checksum/
+ * Source: https://www.geeksforgeeks.org/c-c-program-to-implement-checksum/
  */
 string getOnesComplement(string key)
 {
@@ -45,16 +46,15 @@ uint64_t getRecordKey(void* record, uint32_t keyOffset){
 
 /**
  * This method will compute a checksum on a record's key
- * @param record is a record
- * @param keyOffset the offset value of key used to define how many blocks of data the binary record will be divded into
+ * @param binaryKey is a record's key in binary form
+ * @param keyOffset the offset value of the key; used to define how many blocks of data the binary key will be divided into
  * @return the checksum value of the record
- * https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting was used for the binary conversion
- * https://www.geeksforgeeks.org/c-c-program-to-implement-checksum/ was utilized for the checksum algorithm
+ * Source: https://www.geeksforgeeks.org/c-c-program-to-implement-checksum/ was utilized for the checksum algorithm
 */
 string getChecksum(string binaryKey, uint32_t keyOffset){
-    // divide binary value into 8 blocks of 8 bits
+    // will contain the result of the checksum through the iterations
     string tempCheckSum = "";
-    // first 8 bits
+    // obtains first highest 8 bits of key
     for (int i = 0; i < keyOffset; i++) {
         tempCheckSum += binaryKey[i];
     }
@@ -110,20 +110,22 @@ string getChecksum(string binaryKey, uint32_t keyOffset){
             tempCheckSum = result;
         }
         else {
+            // no carry was necessary
             tempCheckSum = blockAddition;
         }
     }
-    // Return One's complements of result value
-    // which represents the required checksum value
+    // returns the one's complement of tempCheckSum to get true checksum
     return getOnesComplement(tempCheckSum);
 }
 
 /**
- * This method will if r1's key is the same as r2's to ensure that the key did not change during sort
+ * This method will check if r1's key is the same as r2's to ensure that the key did not change during sort
  * @param r1 the record prior to manipulation
  * @param r2 the record after manipulation
  * @param keyOffset the offset value used to find the key location
  * @returns true if r2 checksum is 0; else returns false
+ * Source: https://www.geeksforgeeks.org/c-c-program-to-implement-checksum/ was used to help create checker
+ * Source: https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting was used for the binary conversion
  */
 bool completeChecksumCheck(void* r1, void* r2, uint32_t keyOffset)
 {
@@ -136,10 +138,6 @@ bool completeChecksumCheck(void* r1, void* r2, uint32_t keyOffset)
     // gets the checksum value of each record
     string r1CheckSum= getChecksum(binary1, keyOffset);
     string r2CheckSum = getChecksum(binary2 + r1CheckSum, keyOffset);
-    cout << binary1 << "\n";
-    cout << binary2 << "\n";
-    cout << r1CheckSum << "\n";
-    cout << r2CheckSum << "\n";
     // checks r2's checksum
     if (count(r2CheckSum.begin(),r2CheckSum.end(), '0')== keyOffset) {
         return true;
