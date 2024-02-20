@@ -1,6 +1,6 @@
-using namespace std;
 #include <iostream>
 #include "rng.cpp"
+using namespace std;
 
 /**
  * This method will create a record in memory and fill it with random 64 bit integers
