@@ -127,8 +127,7 @@ string getChecksum(string binaryKey, uint32_t keyOffset){
  * Source: https://www.geeksforgeeks.org/c-c-program-to-implement-checksum/ was used to help create checker
  * Source: https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting was used for the binary conversion
  */
-bool completeChecksumCheck(void* r1, void* r2, uint32_t keyOffset)
-{
+bool completeChecksumCheck(void* r1, void* r2, uint32_t keyOffset){
     // obtain key from each record
     uint64_t key1 = getRecordKey(r1, keyOffset);
     uint64_t key2 = getRecordKey(r2, keyOffset);
@@ -171,6 +170,7 @@ int compareRecordKeys(void* r1, void* r2, uint32_t keyOffset){
 /**
  * main method created for testing purposes
  */
+ /*
 int main(){
     // creates a record of size 100
     int size = 100;
@@ -198,3 +198,4 @@ int main(){
         cout << "Error";
     }
 }
+  */
