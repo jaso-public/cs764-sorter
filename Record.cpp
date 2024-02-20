@@ -169,7 +169,7 @@ int compareRecordKeys(void* r1, void* r2, uint32_t keyOffset){
 }
 
 /**
- * Used for testing purposes
+ * main method created for testing purposes
  */
 int main(){
     // creates a record of size 100
@@ -179,17 +179,19 @@ int main(){
     int chunksInArray = ceil(size/keyOffset);
     uint64_t* recordPointer1 = (uint64_t*) createRecord(size);
     //prints out values in created record
+    cout << "here is the created record:";
     for (int i = 0; i <= chunksInArray; i++){
-        std::cout << *(recordPointer1 + (i)) << ", ";
+        cout << *(recordPointer1 + (i)) << ", ";
     }
+    cout << "\n";
     // displays comparison result for comparing records
     uint64_t* recordPointer2 = (uint64_t*) createRecord(size);
     int comparisonValue1 = compareRecordKeys(recordPointer1, recordPointer2, keyOffset);
     int comparisonValue2 = compareRecordKeys(recordPointer2, recordPointer1, keyOffset);
     cout << "\nfirst value " << comparisonValue1 << "\n";
     cout << "\nsecond value " << comparisonValue2 << "\n";;
-    // check checksum
-    if (completeChecksumCheck(recordPointer2,recordPointer1, keyOffset)) {
+    // displays the check sum result
+    if (completeChecksumCheck(recordPointer2,recordPointer2, keyOffset)) {
         cout << "No Error";
     }
     else {
