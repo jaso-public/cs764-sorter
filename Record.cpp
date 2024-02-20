@@ -49,10 +49,18 @@ int compareRecordKeys(void* r1, void* r2, uint32_t keyOffset){
 int main(){
     // creates a record of size 100
     int size = 100;
-    void* recordPointer = createRecord(size);
-    std::cout << recordPointer;
-    //TODO: check that record is properly created
-    //TODO: check that compare returns 1 when key1 > key2
-    //TODO: check that compare returns 1 when key1 < key2
-    //TODO: check that compare returns 1 when key1 == key2
+    uint32_t keyOffset = 8;
+    // calculates expected chunks
+    int chunksInArray = ceil(size/keyOffset);
+    uint64_t* recordPointer1 = (uint64_t*) createRecord(size);
+    // prints out values in created record
+    for (int i = 0; i <= chunksInArray; i++){
+        std::cout << *(recordPointer1 + (i)) << ", ";
+    }
+    // displays comparison result for comparing records
+    uint64_t* recordPointer2 = (uint64_t*) createRecord(size);
+    int comparisonValue1 = compareRecordKeys(recordPointer1, recordPointer2, keyOffset);
+    int comparisonValue2 = compareRecordKeys(recordPointer2, recordPointer1, keyOffset);
+    std::cout << "\nfirst value " << comparisonValue1;
+    std::cout << "\nsecond value " << comparisonValue2;
 }
