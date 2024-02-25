@@ -1,8 +1,12 @@
 package sorter;
 
+/**
+ * This class is utilized print out the next record with a desired message
+ */
 public class Printer implements Provider {
     
     public final Provider source;
+    // message to be printed out for each record
     public String message;
      
     public Printer(Provider source, String message) {
@@ -10,6 +14,10 @@ public class Printer implements Provider {
         this.message = message;
     }
 
+    /**
+     * Obtains the next record and prints out the record's key and checksum if not null
+     * @return the generated record or null if all records have been generated
+     */
     @Override
     public Record next() {
         Record rec = source.next();

@@ -2,6 +2,9 @@ package sorter;
 
 import java.util.Random;
 
+/**
+ *
+ */
 public class RandomGenerator implements Provider {
 
     public final long count;
