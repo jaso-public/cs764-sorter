@@ -39,7 +39,7 @@ uint64_t getXORChecksum(int size, void* record) {
     uint64_t result = 0;
     uint64_t *a = (uint64_t*) record;
     for(int i=0; i<num ; i++){
-        result ^= a[i];
+        result = result ^ a[i];
     }
 
     if(extra) {
@@ -52,23 +52,23 @@ uint64_t getXORChecksum(int size, void* record) {
     return result;
 }
 
-/**
- * main method created for testing purposes
- */
 
-int main(){
-    // creates a record of size 100
-    int size = 100;
-    uint32_t keyOffset = 8;
-    // calculates expected chunks
-    int chunksInArray = ceil(size/keyOffset);
-    uint64_t* recordPointer1 = (uint64_t*) createRecord(size);
-    //prints out values in created record
-    cout << "here is the created record: ";
-    for (int i = 0; i <= chunksInArray; i++){
-        cout << *(recordPointer1 + (i)) << ", ";
-    }
-    // prints out result of checksum
-    //TODO: pretty sure this value is not correct, need to test
-    cout << "\n here is the record after the checksum: " << getXORChecksum(size, recordPointer1);
-}
+///**
+// * main method created for testing purposes
+// */
+//
+//int main(){
+//    // creates a record of size 100
+//    int size = 100;
+//    uint32_t keyOffset = 8;
+//    // calculates expected chunks
+//    int chunksInArray = ceil(size/keyOffset);
+//    uint64_t* recordPointer1 = (uint64_t*) createRecord(size);
+//    //prints out values in created record
+//    cout << "here is the created record: ";
+//    for (int i = 0; i <= chunksInArray; i++){
+//        cout << *(recordPointer1 + (i)) << ", ";
+//    }
+//    // prints out result of checksum
+//    cout << "\n here is the record after the checksum: " << getXORChecksum(size, recordPointer1);
+//}
