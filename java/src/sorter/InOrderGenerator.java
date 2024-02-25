@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.Random;
 
 /**
- * This class will generate records of a certain size and amount
+ * This class can be used to generate records of a certain size and amount
  */
 public class InOrderGenerator implements Provider {
 
@@ -23,7 +23,7 @@ public class InOrderGenerator implements Provider {
 
     /**
      * Continues to generate a new record in memory until records of the desired count have been generated
-     * @return a generated record or null if count has been reached
+     * @return the next record or null if count has been reached
      */
     @Override
     public Record next() {

@@ -16,7 +16,7 @@ public class Printer implements Provider {
 
     /**
      * Obtains the next record and prints out the record's key and checksum if not null
-     * @return the generated record or null if all records have been generated
+     * @return the next generated record or null if all records have been generated
      */
     @Override
     public Record next() {
