@@ -8,6 +8,13 @@
 
 #include "defs.h"
 
+/**
+ * This class is a testing class
+ * @param predicate a predicate value indicating a failure if false; if true, nothing prints to terminal
+ * @param file the file being read
+ * @param line the line within the file that is causing the error
+ */
+
 void Assert (bool const predicate,
 		char const * const file, int const line)
 {

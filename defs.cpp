@@ -5,6 +5,13 @@
 
 // -----------------------------------------------------------------
 
+/**
+ * This class can signify the completion of a function on a specific line within a file
+ * @param trace a true or false value indicating whether the trace should occur; if true, the trace gets printed out; if false, it does not
+ * @param function the function being preformed
+ * @param file the file that the function is using
+ * @param line the line in the file being evaluated upon
+ */
 Trace::Trace (bool const trace, char const * const function,
 		char const * const file, int const line)
 	: _output (trace), _function (function), _file (file), _line (line)
@@ -17,6 +24,10 @@ Trace::~Trace ()
 	_trace ("<<<<<");
 } // Trace::~Trace
 
+/**
+ * prints out trace information if output is true
+ * @param lead
+ */
 void Trace::_trace (char const lead [])
 {
 	if (_output)

@@ -12,6 +12,12 @@ typedef uint8_t byte;
 
 // call-through to assert() from <assert.h>
 //
+/**
+ * This method can be used to uncover a failure within a file at a given line
+ * @param predicate a predicate value indicating a failure if false
+ * @param file the file being read
+ * @param line the line within the file that is causing the error
+ */
 void Assert (bool const predicate,
 		char const * const file, int const line);
 //
@@ -32,10 +38,19 @@ void Assert (bool const predicate,
 
 // -----------------------------------------------------------------
 
+/**
+ * This class is able to trace the occurrence of an error
+ */
 class Trace
 {
 public :
-
+    /**
+   * This class can signify the completion of a function on a specific line within a file
+   * @param trace a true or false value indicating whether the trace should occur; if true, the trace gets printed out; if false, it does not
+   * @param function the function being preformed
+   * @param file the file that the function is using
+   * @param line the line in the file being evaluated upon
+   */
 	Trace (bool const trace, char const * const function,
 			char const * const file, int const line);
 	~Trace ();
