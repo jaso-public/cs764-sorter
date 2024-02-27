@@ -20,8 +20,11 @@ Iterator::~Iterator ()
 	TRACE (true);
 } // Iterator::~Iterator
 
+// starts the iterator
 void Iterator::run ()
 {
+    //TODO: call the record class to generate the necessary set of records
+    //TODO: implement next class to return another record
 	TRACE (true);
 
 	while (next ())  ++ _count;

@@ -3,7 +3,8 @@
 /**
  * This class is utilized to obtain records and remove duplicate keys within records
  * sets _input to given input value
- * @param input is a Plan class that contains all the generated records
+ * @param input is a Plan class
+ * //TODO: what is the purpose of the plan class
  */
 FilterPlan::FilterPlan (Plan * const input) : _input (input)
 {
@@ -55,12 +56,11 @@ FilterIterator::~FilterIterator ()
 /**
  * Continues to obtain a new record until all records are obtained
  * @return true indicating another record exists, false if all records have been returned
+ * //TODO: make this method evaluate to true or false on if a next record class is generated or not
  */
 bool FilterIterator::next ()
 {
     TRACE (true);
-    //TODO: call the record class to generate the necessary set of records
-    //TODO: make this method evaluate to true or false on if a next record class is generated or not
 
     do
     {
