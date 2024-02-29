@@ -14,6 +14,7 @@ Record::Record(int sizeFromUser, uint32_t keyOffsetFromUser) {
     record = createRecord();
 }
 
+
 /**
  * This method will create a record in memory and fill it with random 64 bit integers
  * @return void* array as the created record

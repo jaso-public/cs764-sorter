@@ -18,13 +18,11 @@ public:
      * @return record's key
      */
     uint64_t getRecordKey();
+
     /**
-     * This method will check if r1's key is the same as r2's to ensure that the key did not change during sort
-     * @param r1 the record prior to manipulation
-     * @param r2 the record after manipulation
-     * @param keyOffset the offset value used to find the key location
-     * @returns true if r2 checksum is 0; else returns false
-     */
+    * This method will compute the checksum value of a given record
+    * @returns the checksum value of the record
+    */
     bool completeChecksumCheck();
 
 private:

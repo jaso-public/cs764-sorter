@@ -1,19 +1,28 @@
 #include "Provider.h"
 #include "Record.h"
 
-int size;
-uint32_t keyOffset;
-
-Record::Record(int size, uint32_t keyOffset){
-
+/**
+ * Initializes provider constructor
+ * @param numOfRecordsFromUser number of records needing to be generated
+ * @param sizeOfRecordsFromUser size of each individual record
+ * @param keyOffsetFromUser key offset value
+ */
+Provider::Provider(uint64_t numOfRecordsFromUser, uint64_t sizeOfRecordsFromUser, uint32_t keyOffsetFromUser) {
+    numOfRecords = numOfRecordsFromUser;
+    sizeOfRecords = sizeOfRecordsFromUser;
+    keyOffset = keyOffsetFromUser;
+    // starts as 0 since none have been generated yet
+    numGenerated = 0;
 }
 
-//TODO: find out to reference the constructor here
-Record next(){
-    int size = 100;
-    uint32_t keyOffset = 8;
+/**
+ * Generates the next record
+ * @return a pointer to the next record or null if all records have been generated
+ */
+Record* Provider::next(){
     if (numGenerated < numOfRecords){
-        Record r =  *new Record(100, keyOffset);
-        return r.record;
+        numGenerated++;
+        return new Record(sizeOfRecords, keyOffset);
     }
+    return nullptr;
 }
