@@ -1,13 +1,14 @@
 #include "rng.cpp"
 #include "Record.h"
 using namespace std;
+#include <iostream>
 
 /**
  * Initializes record constructor
  * @param sizeFromUser size of record
  * @param keyOffsetFromUser key offset of record
  */
-Record::Record(int sizeFromUser, uint32_t keyOffsetFromUser) {
+Record::Record(uint64_t sizeFromUser, uint32_t keyOffsetFromUser) {
     size = sizeFromUser;
     keyOffset = keyOffsetFromUser;
     // created record
@@ -60,21 +61,13 @@ bool Record::completeChecksumCheck(){
     return result;
 }
 
-// * main method created for testing purposes
-// */
-//
-//int main(){
-//    // creates a record of size 100
-//    int size = 100;
-//    uint32_t keyOffset = 8;
-//    // calculates expected chunks
-//    int chunksInArray = ceil(size/keyOffset);
-//    uint64_t* recordPointer1 = (uint64_t*) createRecord(size);
-//    //prints out values in created record
-//    cout << "here is the created record: ";
-//    for (int i = 0; i <= chunksInArray; i++){
-//        cout << *(recordPointer1 + (i)) << ", ";
-//    }
-//    // prints out result of checksum
-//    cout << "\n here is the record after the checksum: " << getXORChecksum(size, recordPointer1);
-//}
+// Main method to see output
+
+ int main(){
+    int size = 100;
+    uint32_t keyOffset = 8;
+    Record r(size,keyOffset);
+    cout << r.record ;
+    cout << "\n" << r.getRecordKey();
+    cout << "\n"<< r.completeChecksumCheck();
+}

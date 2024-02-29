@@ -5,13 +5,13 @@
 class Record {
 public:
     // size of the record
-    int size;
+    uint64_t size;
     // key offset of record
     uint32_t keyOffset;
     // created record
     void* record;
     // record constructor
-    Record(int sizeFromUser,  uint32_t keyOffsetFromUser);
+    Record(uint64_t sizeFromUser,  uint32_t keyOffsetFromUser);
 
     /**
      * This method obtains the key from a given record

@@ -1,5 +1,7 @@
 #include "Provider.h"
 #include "Record.h"
+#include <iostream>
+
 
 /**
  * Initializes provider constructor
@@ -17,12 +19,20 @@ Provider::Provider(uint64_t numOfRecordsFromUser, uint64_t sizeOfRecordsFromUser
 
 /**
  * Generates the next record
- * @return a pointer to the next record or null if all records have been generated
+ * @returns the next record or a null record if the end of the list been reached
  */
-Record* Provider::next(){
+Record Provider::next(){
+    Record r(sizeOfRecords, keyOffset);
     if (numGenerated < numOfRecords){
         numGenerated++;
-        return new Record(sizeOfRecords, keyOffset);
+    } else {
+        r.record = NULL;
     }
-    return nullptr;
+    return r;
+}
+
+
+//TODO: fix why this is not working
+ int main(){
+    Provider p(10,10,8);
 }
