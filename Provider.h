@@ -20,7 +20,7 @@ private:
 public:
     // Provider constructor
     Provider(uint64_t numOfRecordsFromUser, uint64_t sizeOfRecordsFromUser, uint32_t keyOffsetFromUser);
-    // returns a pointer to the next record or null if all desired records have been retrieved
+    // returns a pointer to the next record or a null pointer if all desired records have been retrieved
     Record* next();
 };
 
