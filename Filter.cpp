@@ -4,7 +4,6 @@
  * This class is utilized to obtain records and remove duplicate keys within records
  * sets _input to given input value
  * @param input is a Plan class
- * //TODO: what is the purpose of the plan class
  */
 FilterPlan::FilterPlan (Plan * const input) : _input (input)
 {
@@ -64,6 +63,7 @@ bool FilterIterator::next ()
 
     do
     {
+
         // assigning value of next to input variable
         // returns false when next if false (no more records to generate)
         if ( ! _input->next ())  return false;

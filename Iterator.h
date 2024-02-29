@@ -3,6 +3,9 @@
 #include "defs.h"
 
 typedef uint64_t RowCount;
+typedef uint64_t TotalRecordsToProduce;
+typedef uint64_t SizeOfRecord;
+
 
 /**
  * The Plan class utilizes the Iterator class
@@ -12,7 +15,6 @@ class Plan
 {
 	friend class Iterator;
 public:
-    // TODO: unsure what this plan method will do
 	Plan ();
 	virtual ~Plan ();
 	virtual class Iterator * init () const = 0;
@@ -34,4 +36,6 @@ public:
 private:
     // keeps track of the number of rows produced
 	RowCount _count;
+    TotalRecordsToProduce _totalRecordsCount;
+    SizeOfRecord _sizeOfRecord;
 }; // class Iterator

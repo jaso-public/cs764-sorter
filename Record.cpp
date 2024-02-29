@@ -1,4 +1,3 @@
-#include <iostream>
 #include "rng.cpp"
 using namespace std;
 
