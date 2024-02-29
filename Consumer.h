@@ -15,7 +15,6 @@ public:
 
     // continues to get new records until a null record has been reached
     void consume();
-
 };
 
 
