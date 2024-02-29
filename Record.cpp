@@ -60,8 +60,6 @@ bool Record::completeChecksumCheck(){
     return result;
 }
 
-
-///**
 // * main method created for testing purposes
 // */
 //
