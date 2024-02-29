@@ -36,6 +36,4 @@ public:
 private:
     // keeps track of the number of rows produced
 	RowCount _count;
-    TotalRecordsToProduce _totalRecordsCount;
-    SizeOfRecord _sizeOfRecord;
 }; // class Iterator
