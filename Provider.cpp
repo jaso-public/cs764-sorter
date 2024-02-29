@@ -1,6 +1,13 @@
 #include "Provider.h"
 #include "Record.h"
 
+int size;
+uint32_t keyOffset;
+
+Record::Record(int size, uint32_t keyOffset){
+
+}
+
 //TODO: find out to reference the constructor here
 Record next(){
     int size = 100;

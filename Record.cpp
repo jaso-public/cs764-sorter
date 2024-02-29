@@ -1,12 +1,24 @@
 #include "rng.cpp"
+#include "Record.h"
 using namespace std;
 
 /**
+ * Initializes record constructor
+ * @param sizeFromUser size of record
+ * @param keyOffsetFromUser key offset of record
+ */
+Record::Record(int sizeFromUser, uint32_t keyOffsetFromUser) {
+    size = sizeFromUser;
+    keyOffset = keyOffsetFromUser;
+    // created record
+    record = createRecord();
+}
+
+/**
  * This method will create a record in memory and fill it with random 64 bit integers
- * @param size the size of the record
  * @return void* array as the created record
  */
-void* createRecord(int size){
+void* Record::createRecord(){
     void* record = malloc(size);
     fill(size, record);
     return record;
@@ -14,11 +26,9 @@ void* createRecord(int size){
 
 /**
  * This method obtains the key from a given record
- * @param record the record to get the key from
- * @param keyOffset the offset value used to find the key location
  * @return record's key
  */
-uint64_t getRecordKey(void* record, uint32_t keyOffset){
+uint64_t Record::getRecordKey(){
     uint64_t* p = (uint64_t*) record;
     uint64_t* keyLocation = p + keyOffset;
     uint64_t key = *keyLocation;
@@ -27,11 +37,9 @@ uint64_t getRecordKey(void* record, uint32_t keyOffset){
 
 /**
  * This method will compute the checksum value of a given record
- * @param size the size of the record
- * @param record the record
  * @returns the checksum value of the record
  */
-uint64_t getXORChecksum(int size, void* record) {
+bool Record::completeChecksumCheck(){
     int extra = size & 7;
     int num = size >> 3;
 
