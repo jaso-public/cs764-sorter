@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defs.h"
+#include <stdint.h>
 
 typedef uint64_t RowCount;
 typedef uint64_t TotalRecordsToProduce;
