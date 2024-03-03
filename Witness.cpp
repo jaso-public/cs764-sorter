@@ -43,7 +43,7 @@ Record *Witness::next() {
   * @return the total number of record returned by next()
   */
 long Witness::getCount() {
-
+    return count;
 }
 
 /**
@@ -51,7 +51,7 @@ long Witness::getCount() {
   * @return checksum value
   */
 long Witness::getCrc() {
-
+    return crc;
 }
 
 /**
@@ -59,5 +59,10 @@ long Witness::getCrc() {
  * @return true if records are sorted else false
  */
 bool Witness::checkSorted() {
+    return isSorted;
+}
+
+//TODO: test witness
+int main(){
 
 }
