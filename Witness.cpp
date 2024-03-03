@@ -9,6 +9,10 @@ using namespace std;
  * @param givenSource the source to get records from
  */
 Witness::Witness(Provider givenSource) {
+    count = 0;
+    crc = 0;
+    lastKeyPtr = nullptr;
+    isSorted = true;
     source = givenSource;
 }
 
@@ -62,7 +66,31 @@ bool Witness::checkSorted() {
     return isSorted;
 }
 
-//TODO: test witness
+// main method to check that witness is working
 int main(){
-
+    //create a provider to generate 10 records
+    Provider p(10,10,8);
+    // test witness methods
+    Witness w(p);
+    bool sorted = w.checkSorted();
+    long crc = w.getCrc();
+    long count = w.getCount();
+    cout << "Should be false: " << sorted << "\n";
+    cout << "Should be 0: " << crc << "\n";
+    cout << "Should be 0: "<< count << "\n";
+    for (int i = 0; i < 11; i++){
+        Record* ptr = w.next();
+        if (!ptr){
+            cout << "Null pointer was reached" << "\n";
+        } else{
+            Record r = *ptr;
+            cout << r.record << "\n";
+        }
+    }
+    sorted = w.checkSorted();
+    crc = w.getCrc();
+    count = w.getCount();
+    cout << "Should be false: " << sorted << "\n";
+    cout << "Should not be 0: " << crc << "\n";
+    cout << "Should be 10: "<< count << "\n";
 }
