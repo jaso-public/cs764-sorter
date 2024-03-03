@@ -32,7 +32,7 @@ void Consumer::consume() {
     }
 }
 
-// main method so show it consumes 10 records then stops
+// main method to show it consumes 10 records then stops
 /**
 int main(){
     //create a provider to generate 10 records
