@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 public class ArrayProvider implements Provider {
 
+    @SuppressWarnings("unused")
     private final String name;
     private final Iterator<Record> records;
     
