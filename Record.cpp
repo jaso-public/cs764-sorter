@@ -63,7 +63,7 @@ bool Record::completeChecksumCheck(){
 
 // Main method to see output
 /**
- int mainX(){
+ int main(){
     int size = 100;
     uint32_t keyOffset = 8;
     Record r(size,keyOffset);
