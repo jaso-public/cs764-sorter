@@ -18,7 +18,6 @@ public class TournamentPQ implements Provider {
         this.records = new Record[size];
         for(int i=0 ; i<providers.length ; i++) {
             records[i] = providers[i].next();
-            System.out.println(i +" "+records[i].getKey());
         }
         
         losers = new int[size];

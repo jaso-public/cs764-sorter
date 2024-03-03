@@ -16,14 +16,14 @@ public class ArrayProvider implements Provider {
 
     @Override
     public Record next() {
-        System.out.println("from provider "+name);
+        //System.out.println("from "+name);
         if(records.hasNext()) {
             Record result = records.next();
-            System.out.println(name+": key="+result.getKey());
+            //System.out.println(name+": key="+result.getKey());
             return result;
         }
         
-        System.out.println(name+": null");
+        //System.out.println(name+": null");
         return null;
     }
 }
