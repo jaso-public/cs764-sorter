@@ -22,8 +22,11 @@ public:
     Provider();
     // Provider constructor
     Provider(uint64_t numOfRecordsFromUser, uint64_t sizeOfRecordsFromUser, uint32_t keyOffsetFromUser);
-    // returns the next record
-    Record next();
+    /**
+     * Generates the next record
+     * @returns the a pointer to the next record or a null pointer record if the end of the list been reached
+     */
+    Record* next();
 };
 
 
