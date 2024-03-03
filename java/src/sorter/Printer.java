@@ -22,10 +22,10 @@ public class Printer implements Provider {
     public Record next() {
         Record rec = source.next();
         if(rec==null) {
-            System.out.println(message+": record is null!");
+            System.out.println(System.currentTimeMillis()+" "+message+": record is null!");
             return null;
         }
-        System.out.println(message+": "+rec.getKey()+" "+Long.toHexString(rec.getCrc()));
+        System.out.println(System.currentTimeMillis()+" "+message+": "+rec.getKey()+" "+Long.toHexString(rec.getCrc()));
         return rec;
     }
     
