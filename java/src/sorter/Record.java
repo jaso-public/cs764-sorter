@@ -6,7 +6,7 @@ import java.util.zip.CRC32;
 /**
  * This class contains the record object and operations to preform on individual records
  */
-public class Record {
+public class Record implements Comparable<Record> {
 
     // stores the data within a record
     public final byte[] data;
@@ -27,4 +27,10 @@ public class Record {
         crc.update(data);
         return crc.getValue();
     }
+
+    @Override
+    public int compareTo(Record other) {
+        return Long.compare(getKey(), other.getKey());
+    }
+
 }
