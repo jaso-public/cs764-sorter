@@ -17,7 +17,25 @@ Witness::Witness(Provider givenSource) {
 * @return pointer to next record or null if no more records exists
 */
 Record *Witness::next() {
-
+    // gets the next record pointer and returns the pointer if it is null
+    Record* recordPtr = source.next();
+    if (!recordPtr) return recordPtr;
+    // else obtains the record and checks if it is sorted
+    Record record = *recordPtr;
+    if (isSorted){
+        uint64_t key = record.getRecordKey();
+        if (lastKeyPtr){
+            // gets the last key value
+            uint64_t lastKey = *lastKeyPtr;
+            if (lastKey>key) isSorted = false;
+        }
+        // sets pointer to most recently obtained key
+        lastKeyPtr = &key;
+    }
+    // increases count and computes the sequential check sum value
+    count++;
+    crc ^= record.completeChecksumCheck();
+    return recordPtr;
 }
 
 /**

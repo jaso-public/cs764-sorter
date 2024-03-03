@@ -44,7 +44,7 @@ private:
     // keeps track of checksum value
     long crc = 0;
     // pointer to the key of the last record generated
-    long* lastKey = nullptr;
+    uint64_t* lastKeyPtr = nullptr;
     // bool value that indicates if records have been sorted
     bool isSorted = true;
 };
