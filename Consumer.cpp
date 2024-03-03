@@ -1,5 +1,8 @@
 #include "Consumer.h"
-#include "Provider.cpp"
+#include "Provider.h"
+#include "Record.h"
+using namespace std;
+#include <iostream>
 
 /**
  * Initializes consumer constructor
@@ -16,12 +19,25 @@ void Consumer::consume() {
     bool moreRecords = true;
     while (moreRecords){
         Record* ptr = source.next();
-        if (ptr == nullptr){
+        // if null ptr then end consuming
+        if (!ptr){
             moreRecords = false;
+            //cout << "Null pointer was reached";
+        }
+        //TODO: in for testing, can delete else statement later
+        else {
+            Record r = *ptr;
+            cout << r.record << "\n";
         }
     }
-
-
-
 }
 
+// main method so show it consumes 10 records then stops
+/**
+int main(){
+    //create a provider to generate 10 records
+    Provider p(10,10,8);
+    Consumer c(p);
+    c.consume();
+}
+ */

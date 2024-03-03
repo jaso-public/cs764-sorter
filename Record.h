@@ -20,7 +20,7 @@ public:
     uint64_t getRecordKey();
 
     /**
-    * This method will compute the checksum value of a given record
+    * This method will compute the checksum value of the record
     * @returns the checksum value of the record
     */
     bool completeChecksumCheck();
@@ -28,6 +28,7 @@ public:
 private:
     /**
     * This method will create a record in memory and fill it with random 64 bit integers
+     * It is used to create the record during the initialization of the Record constructor
     * @return void* array as the created record
     */
     void* createRecord();

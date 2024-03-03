@@ -1,7 +1,10 @@
 #include "Provider.h"
 #include "Record.h"
+using namespace std;
 #include <iostream>
 
+// Defines empty default constructor
+Provider::Provider() {}
 
 /**
  * Initializes provider constructor
@@ -19,20 +22,31 @@ Provider::Provider(uint64_t numOfRecordsFromUser, uint64_t sizeOfRecordsFromUser
 
 /**
  * Generates the next record
- * @returns the next record or a null record if the end of the list been reached
+ * @returns the a pointer to the next record or a null pointer record if the end of the list been reached
  */
-Record Provider::next(){
-    Record r(sizeOfRecords, keyOffset);
+Record* Provider::next(){
     if (numGenerated < numOfRecords){
         numGenerated++;
-    } else {
-        r.record = NULL;
+        Record r(sizeOfRecords, keyOffset);
+        Record* ptr = &r;
+        return ptr;
     }
-    return r;
+    return nullptr;
 }
 
+// int main(){
+//    // create a provider to generate 10 records
+//    Provider p(10,10,8);
+//    // checks that all 10 records are generated then null pointer is reached
+//    for (int i = 0; i < 11; i++){
+//        Record* ptr = p.next();
+//        if (!ptr){
+//            cout << "Null pointer was reached";
+//        } else{
+//            Record r = *ptr;
+//            cout << r.record << "\n";
+//        }
+//    }
+//}
 
-//TODO: fix why this is not working
- int main(){
-    Provider p(10,10,8);
-}
+

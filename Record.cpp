@@ -62,7 +62,7 @@ bool Record::completeChecksumCheck(){
 }
 
 // Main method to see output
-
+/**
  int main(){
     int size = 100;
     uint32_t keyOffset = 8;
@@ -71,3 +71,4 @@ bool Record::completeChecksumCheck(){
     cout << "\n" << r.getRecordKey();
     cout << "\n"<< r.completeChecksumCheck();
 }
+ */

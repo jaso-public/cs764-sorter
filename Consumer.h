@@ -1,6 +1,7 @@
 #ifndef DB_CONSUMER_H
 #define DB_CONSUMER_H
 #include "Provider.h"
+#include "Record.h"
 
 //TODO: this needs to be tested
 /**
@@ -17,6 +18,5 @@ public:
     // continues to get new records until a null record has been reached
     void consume();
 };
-
 
 #endif //DB_CONSUMER_H
