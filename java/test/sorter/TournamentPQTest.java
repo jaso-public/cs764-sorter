@@ -1,9 +1,11 @@
 package sorter;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
+
 import org.junit.jupiter.api.Test;
 
 class TournamentPQTest {
@@ -39,8 +41,8 @@ class TournamentPQTest {
         Consumer c = new Consumer(w);
         c.consume();
         
-        Assert.assertTrue(w.isSorted());  
-        Assert.assertEquals(before.getCrc(), w.getCrc());
+        assertTrue(w.isSorted());  
+        assertEquals(before.getCrc(), w.getCrc());
     }
     
     @Test

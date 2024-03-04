@@ -1,12 +1,13 @@
 package sorter;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class StagedProviderTest {
+class StorageProviderTest {
 
     public void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength) throws IOException {
         RandomGenerator rg = new RandomGenerator(recordCount, recordSize);
@@ -23,47 +24,32 @@ class StagedProviderTest {
             storage.write(storageOffset, rec.data, 0, rec.data.length);
             storageOffset += rec.data.length;            
         }
-        
-        File stagingFile = File.createTempFile("staging", ".tmp");
-        stagingFile.deleteOnExit();
-        IoDevice staging = new IoDevice(stagingFile);
-        
+                
         byte[] memory = new byte[10*1024*1024]; // 10MB
-        
-        
+              
         
         long storageStartOffset = 0; // we wrote the records at offset zero        
-        long stagingStartOffset = 12431; // some arbitrary place in the stagin file
-  
+   
         byte[] buffer = memory;
         int bufferStartOffset = 20;
 
-        byte[] transferBuffer = memory;
-        int transferStartOffset = bufferStartOffset + bufferLength;
-        int transferLength = stagingLength + bufferLength;
-
         
-        StagedProvider sp = new StagedProvider(
+        StorageProvider sp = new StorageProvider(
                 recordSize,
                 recordCount,
                 storage,
                 storageStartOffset,
-                staging,
-                stagingStartOffset,
-                stagingLength,
                 buffer,
                 bufferStartOffset,
-                bufferLength,
-                transferBuffer,
-                transferStartOffset,
-                transferLength);
+                bufferLength);
         
+         
         Witness after = new Witness(sp);
         Consumer c = new Consumer(after);
         c.consume();
         
-        Assert.assertEquals(before.getCount(), after.getCount());
-        Assert.assertEquals(before.getCrc(), after.getCrc());
+        assertEquals(before.getCount(), after.getCount());
+        assertEquals(before.getCrc(), after.getCrc());
      }
     
     

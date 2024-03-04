@@ -1,8 +1,6 @@
 package sorter;
 
-
-
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -24,10 +22,11 @@ class WitnessTest {
         Consumer consumer = new Consumer(upper);
         consumer.consume();
         
-        Assert.assertEquals(lower.getCount(), upper.getCount(), "The count of the lower witness did not equal the count of the upper but should have");
-        Assert.assertEquals(10, upper.getCount(), "The count of the upper witness was " + upper.getCount() + " but should have been 10");
-        Assert.assertTrue(upper.isSorted(), "The upper witness should have been sorted but was not");
-        Assert.assertEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness did not equal the checksum of the upper but should have");
+       
+        assertEquals(lower.getCount(), upper.getCount(), "The count of the lower witness did not equal the count of the upper but should have");
+        assertEquals(10, upper.getCount(), "The count of the upper witness was " + upper.getCount() + " but should have been 10");
+        assertTrue(upper.isSorted(), "The upper witness should have been sorted but was not");
+        assertEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness did not equal the checksum of the upper but should have");
     }
 
     /**
@@ -45,11 +44,11 @@ class WitnessTest {
         Consumer consumer = new Consumer(upper);
         consumer.consume();
         
-        Assert.assertEquals(10, lower.getCount(),  "The count of the lower witness was " + lower.getCount() + " but should have been 10");
-        Assert.assertEquals(9, upper.getCount(), "The count of the upper witness was " + upper.getCount() + " but should have been 9");
-        Assert.assertTrue(lower.isSorted(),  "The lower witness should have been sorted, but was not");
-        Assert.assertTrue(upper.isSorted(),  "The upper witness should have been sorted, but was not");
-        Assert.assertNotEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness equaled the checksum of the upper but should not have");
+        assertEquals(10, lower.getCount(),  "The count of the lower witness was " + lower.getCount() + " but should have been 10");
+        assertEquals(9, upper.getCount(), "The count of the upper witness was " + upper.getCount() + " but should have been 9");
+        assertTrue(lower.isSorted(),  "The lower witness should have been sorted, but was not");
+        assertTrue(upper.isSorted(),  "The upper witness should have been sorted, but was not");
+        assertNotEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness equaled the checksum of the upper but should not have");
     }
 
     /**
@@ -65,11 +64,11 @@ class WitnessTest {
         Consumer consumer = new Consumer(upper);
         consumer.consume();
         
-        Assert.assertEquals(10, lower.getCount(),  "The count of the lower witness was " + lower.getCount() + " but should have been 10");
-        Assert.assertEquals(10, upper.getCount(),  "The count of the upper witness was " + upper.getCount() + " but should have been 10");
-        Assert.assertFalse(lower.isSorted(),  "The lower witness should not have been sorted but was");
-        Assert.assertFalse(upper.isSorted(),  "The upper witness should not have been sorted but was");
-        Assert.assertEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness did not equal the checksum of the upper witness but should have");
+        assertEquals(10, lower.getCount(),  "The count of the lower witness was " + lower.getCount() + " but should have been 10");
+        assertEquals(10, upper.getCount(),  "The count of the upper witness was " + upper.getCount() + " but should have been 10");
+        assertFalse(lower.isSorted(),  "The lower witness should not have been sorted but was");
+        assertFalse(upper.isSorted(),  "The upper witness should not have been sorted but was");
+        assertEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness did not equal the checksum of the upper witness but should have");
     }
 
     /**
@@ -86,11 +85,11 @@ class WitnessTest {
         Consumer consumer = new Consumer(upper);
         consumer.consume();
         
-        Assert.assertEquals(10, lower.getCount(),  "The count of the lower witness was " + lower.getCount() + " but should have been 10");
-        Assert.assertEquals(10, upper.getCount(),  "The count of the upper witness was " + upper.getCount() + " but should have been 10");
-        Assert.assertFalse(lower.isSorted(), "The lower witness should not have been sorted but was");
-        Assert.assertTrue(upper.isSorted()), "The upper witness should have been sorted but was not";
-        Assert.assertEquals(lower.getCrc(), upper.getCrc(),  "The checksum of the lower witness did not equal the checksum of the upper but should have");
+        assertEquals(10, lower.getCount(),  "The count of the lower witness was " + lower.getCount() + " but should have been 10");
+        assertEquals(10, upper.getCount(),  "The count of the upper witness was " + upper.getCount() + " but should have been 10");
+        assertFalse(lower.isSorted(), "The lower witness should not have been sorted but was");
+        assertTrue(upper.isSorted(), "The upper witness should have been sorted but was not");
+        assertEquals(lower.getCrc(), upper.getCrc(),  "The checksum of the lower witness did not equal the checksum of the upper but should have");
     }
 
     /**
@@ -111,11 +110,11 @@ class WitnessTest {
         Consumer consumer = new Consumer(printer2);
         consumer.consume();
         
-        Assert.assertEquals(10, lower.getCount(),  "The count of the lower witness was " + lower.getCount() + " but should have been 10");
-        Assert.assertEquals(10, upper.getCount(),  "The count of the upper witness was " + upper.getCount() + " but should have been 10");
-        Assert.assertFalse(lower.isSorted(), "The lower witness should not have been sorted but was");
-        Assert.assertFalse(upper.isSorted(), "The upper witness should not have been sorted but was");
-        Assert.assertEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness did not equal the checksum of the upper but should have");
+        assertEquals(10, lower.getCount(),  "The count of the lower witness was " + lower.getCount() + " but should have been 10");
+        assertEquals(10, upper.getCount(),  "The count of the upper witness was " + upper.getCount() + " but should have been 10");
+        assertFalse(lower.isSorted(), "The lower witness should not have been sorted but was");
+        assertFalse(upper.isSorted(), "The upper witness should not have been sorted but was");
+        assertEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness did not equal the checksum of the upper but should have");
     }
 
 
@@ -136,11 +135,11 @@ class WitnessTest {
         Consumer consumer = new Consumer(printer2);
         consumer.consume();
         
-        Assert.assertEquals(10, lower.getCount(), "The count of the lower witness was " + lower.getCount() + " but should have been 10");
-        Assert.assertEquals(10, upper.getCount(), "The count of the upper witness was " + upper.getCount() + " but should have been 10");
-        Assert.assertFalse(lower.isSorted(),  "The lower witness should not have been sorted but was");
-        Assert.assertTrue(upper.isSorted(), "The upper witness was not sorted but should have been");
-        Assert.assertEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness did not equal the checksum of the upper but should have");
+        assertEquals(10, lower.getCount(), "The count of the lower witness was " + lower.getCount() + " but should have been 10");
+        assertEquals(10, upper.getCount(), "The count of the upper witness was " + upper.getCount() + " but should have been 10");
+        assertFalse(lower.isSorted(),  "The lower witness should not have been sorted but was");
+        assertTrue(upper.isSorted(), "The upper witness was not sorted but should have been");
+        assertEquals(lower.getCrc(), upper.getCrc(), "The checksum of the lower witness did not equal the checksum of the upper but should have");
     }
 
 
