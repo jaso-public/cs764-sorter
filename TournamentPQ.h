@@ -4,7 +4,7 @@
 
 
 /**
- * This is the tournament priority queue that will be utilized for sorting
+ * This is the tournament tree priority queue that will be utilized for sorting record keys
  */
 class TournamentPQ:Provider {
 private:
@@ -12,14 +12,14 @@ private:
     Provider* providers final;
     // array of created records
     Record* records final;
-    // array of loser keys
+    // array of loser records uncovered during the tournament
     uint64_t* losers final;
     // the number of record providers
     uint64_t size final;
     // key offset of record
     uint32_t keyOffset;
     /**
-    * Runs a match between to provider
+    * Runs a match between two provider
     *
     * @param first the first provider in the match
     * @param second the second provider in the match
