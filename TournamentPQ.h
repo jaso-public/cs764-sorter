@@ -8,14 +8,14 @@
  */
 class TournamentPQ:Provider {
 private:
-    // an array of providers to generate records
-    Provider* providers final;
-    // array of created records
-    Record* records final;
+    // a pointer to an array of providers to generate records
+    Provider *providersPtr;
+    // a pointer to an array of created records
+    Record *records;
     // array of loser records uncovered during the tournament
-    uint64_t* losers final;
+    uint64_t* losers;
     // the number of record providers
-    uint64_t size final;
+    uint64_t size;
     // key offset of record
     uint32_t keyOffset;
     /**
@@ -31,7 +31,7 @@ public:
     /**
      * TournamentPQ constructor
      * Determines which records are winners and losers in the given tournament
-     * @param givenProviders an array of providers that can generate records
+     * @param givenProviders a pointer to an array of providers
      * @param keyOffset the key offset value of the record
      */
     TournamentPQ(Provider *givenProviders, uint32_t givenKeyOffset);

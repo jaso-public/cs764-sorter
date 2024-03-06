@@ -7,16 +7,20 @@
 /**
    * Initializes TournamentPQ constructor
    * Determines which records are winners and losers in the given tournament
-   * @param givenProviders an array of providers that can generate records
+   * @param givenProviders a pointer to an array of providers
    */
 TournamentPQ::TournamentPQ(Provider *givenProviders, uint32_t givenKeyOffset) {
-    // sets given providers to class providers variable
-    providers = *givenProviders;
+    // obtains the providers
+    providersPtr = givenProviders;
+
+    // calculates the total number of given providers
+    int size = *(&givenProviders + 1) - givenProviders;
+    Provider providers[size];
+
     // sets givenKeyOffset to class offset variable
     keyOffset = givenKeyOffset;
 
-    // calculates the total number of given providers
-    size = sizeof(providers)/sizeof(providers[0]);
+
 
     // creates fills the records array with the next value from every provider
     this->records = new Record(size, keyOffset);
