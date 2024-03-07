@@ -3,6 +3,8 @@
 using namespace std;
 #include <iostream>
 
+Record::Record() {};
+
 /**
  * Initializes record constructor
  * @param sizeFromUser size of record
