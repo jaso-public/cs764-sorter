@@ -1,11 +1,11 @@
 #include "DropFirst.h"
 #include "Provider.h"
-#include "Record.h"
+#include "Records/Record.h"
 using namespace std;
 #include <iostream>
 
 /**
- * Class constructor that automatically drops the first record b
+ * Class constructor that automatically drops the first record
  * @param givenSource the provider to obtain records from
  */
 DropFirst::DropFirst(Provider givenSource) {

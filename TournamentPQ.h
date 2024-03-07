@@ -1,6 +1,6 @@
 #ifndef CS764_SORTER_TOURNAMENTPQ_H
 #define CS764_SORTER_TOURNAMENTPQ_H
-#include "Provider.h"
+#include "Providers/Provider.h"
 
 
 /**

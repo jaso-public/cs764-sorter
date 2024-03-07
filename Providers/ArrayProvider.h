@@ -2,7 +2,7 @@
 #include <iostream>
 #include<iterator>
 #include<vector>
-#include "Record.h"
+#include "Records/Record.h"
 using namespace std;
 #ifndef CS764_SORTER_ARRAYPROVIDER_H
 #define CS764_SORTER_ARRAYPROVIDER_H

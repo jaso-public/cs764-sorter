@@ -1,7 +1,7 @@
 #ifndef CS764_SORTER_DROPFIRST_H
 #define CS764_SORTER_DROPFIRST_H
 #include "Provider.h"
-#include "Record.h"
+#include "Records/Record.h"
 
 /**
  * This class is utilized to automatically skip the first record and return all other records

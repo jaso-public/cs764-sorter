@@ -15,12 +15,12 @@ add_executable(cs764_sorter
         Filter.h
         Iterator.cpp
         Iterator.h
-        Provider.cpp
-        Provider.h
-        Record.cpp
-        Record.h
-        rng.cpp
-        rng.h
+        Providers/Provider.cpp
+        Providers/Provider.h
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
         Scan.cpp
         Scan.h
         Sort.cpp
@@ -30,9 +30,9 @@ add_executable(cs764_sorter
         TournamentPQ.h
         Witness.cpp
         Witness.h
-        ArrayProvider.h
-        ArrayProvider.cpp
-        DropFirst.h
-        DropFirst.cpp
-        InOrderGenerator.h
-        InOrderGenerator.cpp)
+        Providers/ArrayProvider.h
+        Providers/ArrayProvider.cpp
+        Providers/DropFirst.h
+        Providers/DropFirst.cpp
+        Providers/InOrderGenerator.h
+        Providers/InOrderGenerator.cpp)

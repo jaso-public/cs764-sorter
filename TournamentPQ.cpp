@@ -1,6 +1,6 @@
 #include "TournamentPQ.h"
-#include "Provider.h"
-#include "Record.h"
+#include "Providers/Provider.h"
+#include "Records/Record.h"
 #include<iostream>
 #include<array>
 
