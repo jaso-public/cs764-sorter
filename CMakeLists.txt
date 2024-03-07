@@ -33,4 +33,5 @@ add_executable(cs764_sorter
         ArrayProvider.h
         ArrayProvider.cpp
         DropFirst.h
-        DropFirst.cpp)
+        DropFirst.cpp
+        InOrderGenerator.h)
