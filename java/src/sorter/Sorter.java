@@ -198,11 +198,12 @@ public class Sorter implements Provider {
             
             bufferOffset += ssdReadSize;
 
-            providers[i] = new StagedProvider(cfg);
+            providers[index++] = new StagedProvider(cfg);
         }
         
         for(Run run : ssdRuns) {
             providers[index++] = new StorageProvider(recordSize, run.numRecords, ssdDevice, run.offset, buffer, bufferOffset, ssdReadSize);
+            System.out.println("created ssd provider:"+index+" offset:"+run.offset+" count:"+run.numRecords);
             bufferOffset += ssdReadSize;
         }
 
@@ -262,13 +263,13 @@ public class Sorter implements Provider {
             deviceOffset = ssdOffset;
             ssdOffset += ssdRequired;
             ssdRemaining -= ssdRequired;
-            ssdRuns.add(new Run(deviceOffset, recordCount));
+            ssdRuns.add(new Run(recordCount, deviceOffset));
         } else {
             long hddRequired = roundUp(spaceRequired, hddReadSize); 
             device = getHddDevice();
             deviceOffset = hddOffset;
             hddOffset += hddRequired;
-            hddRuns.add(new Run(deviceOffset, recordCount));
+            hddRuns.add(new Run(recordCount, deviceOffset));
         }
         
         int bufferOffset = 0;
