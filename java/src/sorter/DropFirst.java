@@ -1,7 +1,7 @@
 package sorter;
 
 /**
- * This class is utilized to automatically obtain the first record
+ * This class is utilized to automatically skip the first record and return all other records
  * The next() method can be called to generate the next record
  */
 public class DropFirst implements Provider {

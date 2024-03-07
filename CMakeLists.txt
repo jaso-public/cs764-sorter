@@ -31,4 +31,6 @@ add_executable(cs764_sorter
         Witness.cpp
         Witness.h
         ArrayProvider.h
-        ArrayProvider.cpp)
+        ArrayProvider.cpp
+        DropFirst.h
+        DropFirst.cpp)
