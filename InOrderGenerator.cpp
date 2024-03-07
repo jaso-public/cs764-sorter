@@ -1,5 +1,19 @@
-//
-// Created by Morgan Nelson on 3/7/24.
-//
-
 #include "InOrderGenerator.h"
+
+// class constructor
+InOrderGenerator::InOrderGenerator(long givenCount, int givenSize) {
+    // sets given variables to class variables
+    count = givenCount;
+    size = givenSize;
+}
+
+/**
+    * Continues to generate a new record in memory until records of the desired count have been generated
+    * @return a pointer to the next record or a null pointer if count has been reached
+    */
+Record *InOrderGenerator::next() {
+    // returns a null pointer when no more records are to be generated
+    if (generated >= count) return nullptr;
+    //TODO: ending here
+}
+
