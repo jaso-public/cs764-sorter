@@ -29,4 +29,6 @@ add_executable(cs764_sorter
         TournamentPQ.cpp
         TournamentPQ.h
         Witness.cpp
-        Witness.h)
+        Witness.h
+        ArrayProvider.h
+        ArrayProvider.cpp)

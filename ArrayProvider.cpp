@@ -1,0 +1,39 @@
+#include "ArrayProvider.h"
+#include <string>
+#include<iterator>
+#include<vector>
+#include "Record.h"
+using namespace std;
+
+/**
+ * Array provider constructor
+ * @param givenName name to identify the given array iterator
+ * @param givenRecords a vector of records
+ */
+ArrayProvider::ArrayProvider(std::string givenName, vector<Record> givenRecords) {
+    // stores give variables as class variables
+    name = givenName;
+    records = givenRecords;
+    // places pointer at start of records vector
+    ptr = records.begin();
+
+}
+
+/**
+ * Continues to return the next method while one exists
+ * @return a pointer to the next record or a null pointer if the next record does not exist
+ */
+Record* ArrayProvider::next() {
+    // checks that another record exists
+    if (ptr < records.end()){
+        // create a temporary ptr to allow ptr to increment
+        vector<Record>::iterator tempPtr = ptr;
+        // ptr points to next Record if it exists
+        ptr++;
+        // create a pointer to the returned record
+        Record result = *tempPtr;
+        Record* recordPtr =  &result;
+        return recordPtr;
+    }
+    return nullptr;
+}
