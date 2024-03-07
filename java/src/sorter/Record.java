@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.zip.CRC32;
 
 /**
- * This class contains the record object and operations to preform on individual records
+ * This class contains the record object and operations to perform on individual records
  */
 public class Record implements Comparable<Record> {
 
@@ -32,5 +32,15 @@ public class Record implements Comparable<Record> {
     public int compareTo(Record other) {
         return Long.compare(getKey(), other.getKey());
     }
+
+    public void store(byte[] buffer, int offset) {
+        System.arraycopy(data,  0,  buffer,  offset,  data.length);        
+    }
+    
+    public void storePartial(byte[] buffer, int offset, int start, int length) {
+        System.arraycopy(data,  start,  buffer,  offset,  length);        
+    }
+
+
 
 }

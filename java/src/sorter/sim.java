@@ -3,7 +3,7 @@ package sorter;
 public class sim {
 
     public static void main(String[] args) {
-        int percent = 5;
+        float percentage = 0.01F;
         
         int numToSort = 120 * 1024;
         int sorted = 0;
@@ -21,7 +21,7 @@ public class sim {
             sorted += freeBlocks;
             freeBlocks = 0;
             
-            int numToMove = (sorted * percent) / 1000;
+            int numToMove = (int)(sorted * percentage); 
             //System.out.println("numToMove:"+numToMove);
             if(numToMove < 1) numToMove = 1;
             if(numToMove > 99) numToMove = 99;
@@ -42,6 +42,11 @@ public class sim {
         System.out.println("ssdStreams:"+ssdStreams);
         System.out.println("hddStreams:"+hddStreams);
         System.out.println("hddSize:"+hddSize);
+        
+        double total = ssdStreams + hddStreams;
+        total /= 16;
+        System.out.println("total: "+total);
+        
     }
 
 }
