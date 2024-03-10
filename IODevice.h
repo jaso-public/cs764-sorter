@@ -9,7 +9,7 @@
 class IODevice {
 private:
     // the file to read and write to
-    FILE * file;
+    void* file;
     // keeps track of how many times the file has been read
     long readCount = 0;
     // keeps track of the number of bytes read
@@ -24,7 +24,7 @@ public:
      * Class constructor that initializes a stream to the given file
      * @param givenFile is the file location to read and write to
      */
-    IODevice(* givenFile);
+    IODevice(void* givenFile);
     /**
      * Reads a number of bytes from the file at a certain location
      * @param offset the file pointer offset where reading will begin
