@@ -1,6 +1,6 @@
 #ifndef CS764_SORTER_PRINTER_H
 #define CS764_SORTER_PRINTER_H
-#include "Provier.h"
+#include "Provider.h"
 #include <string>
 
 /**
@@ -16,7 +16,7 @@ class Printer:Provider {
     // the message to print out with the record
     String message;
     /**
-     * Class constructor of the printer
+     * Class constructor of the printer that sets the given variables to the class variables
      * @param givenSource given provider to get records from
      * @param givenMessage message to print out with each record
      */
