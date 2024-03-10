@@ -26,8 +26,8 @@ add_executable(cs764_sorter
         Sort.cpp
         Sort.h
         Test.cpp
-        TournamentPQ.cpp
-        TournamentPQ.h
+        NotDone/TournamentPQ.cpp
+        NotDone/TournamentPQ.h
         Witness.cpp
         Witness.h
         Providers/ArrayProvider.h
@@ -36,5 +36,5 @@ add_executable(cs764_sorter
         Providers/DropFirst.cpp
         Providers/InOrderGenerator.h
         Providers/InOrderGenerator.cpp
-        IODevice.h
-        IODevice.cpp)
+        NotDone/IODevice.h
+        NotDone/IODevice.cpp)
