@@ -10,7 +10,7 @@ using namespace std;
  */
 DropFirst::DropFirst(Provider givenSource) {
     // sets the given provider to class provider variable and skips first record
-    source = givenSource;
+    this->source = givenSource;
     source.next();
 }
 

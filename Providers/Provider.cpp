@@ -13,11 +13,11 @@ Provider::Provider() {}
  * @param keyOffsetFromUser key offset value
  */
 Provider::Provider(uint64_t numOfRecordsFromUser, uint64_t sizeOfRecordsFromUser, uint32_t keyOffsetFromUser) {
-    numOfRecords = numOfRecordsFromUser;
-    sizeOfRecords = sizeOfRecordsFromUser;
-    keyOffset = keyOffsetFromUser;
+    this->numOfRecords = numOfRecordsFromUser;
+    this->sizeOfRecords = sizeOfRecordsFromUser;
+    this->keyOffset = keyOffsetFromUser;
     // starts as 0 since none have been generated yet
-    numGenerated = 0;
+    this->numGenerated = 0;
 }
 
 /**

@@ -11,10 +11,10 @@ Record::Record() {};
  * @param keyOffsetFromUser key offset of record
  */
 Record::Record(uint64_t sizeFromUser, uint32_t keyOffsetFromUser) {
-    size = sizeFromUser;
-    keyOffset = keyOffsetFromUser;
+    this->size = sizeFromUser;
+    this->keyOffset = keyOffsetFromUser;
     // created record
-    record = createRecord();
+    this->record = createRecord();
 }
 
 

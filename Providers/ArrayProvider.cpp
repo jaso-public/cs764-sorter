@@ -12,10 +12,10 @@ using namespace std;
  */
 ArrayProvider::ArrayProvider(std::string givenName, vector<Record> givenRecords) {
     // stores give variables as class variables
-    name = givenName;
-    records = givenRecords;
+    this->name = givenName;
+    this->records = givenRecords;
     // places pointer at start of records vector
-    ptr = records.begin();
+    this->ptr = records.begin();
 
 }
 

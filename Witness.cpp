@@ -9,11 +9,11 @@ using namespace std;
  * @param givenSource the source to get records from
  */
 Witness::Witness(Provider givenSource) {
-    count = 0;
-    crc = 0;
-    lastKeyPtr = nullptr;
-    isSorted = true;
-    source = givenSource;
+    this->count = 0;
+    this->crc = 0;
+    this->lastKeyPtr = nullptr;
+    this->isSorted = true;
+    this->source = givenSource;
 }
 
 /**

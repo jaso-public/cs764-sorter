@@ -3,8 +3,8 @@
 // class constructor
 InOrderGenerator::InOrderGenerator(long givenCount, int givenSize) {
     // sets given variables to class variables
-    count = givenCount;
-    size = givenSize;
+    this->count = givenCount;
+    this->size = givenSize;
 }
 
 /**
