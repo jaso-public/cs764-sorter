@@ -1,7 +1,5 @@
 #include "Printer.h"
 #include <iostream>
-#include <chrono>
-#include <ctime>
 using namespace std;
 /**
    * Class constructor of the printer that sets the given variables to the class variables

@@ -2,10 +2,6 @@
 #define CS764_SORTER_PRINTER_H
 #include "Provider.h"
 #include <string>
-#include <sys/time.h>
-#include <iostream>
-#include <unistd.h>
-#include <ctime>
 using namespace std;
 
 /**
