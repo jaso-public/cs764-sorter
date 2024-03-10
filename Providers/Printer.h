@@ -2,6 +2,11 @@
 #define CS764_SORTER_PRINTER_H
 #include "Provider.h"
 #include <string>
+#include <sys/time.h>
+#include <iostream>
+#include <unistd.h>
+#include <ctime>
+using namespace std;
 
 /**
  * This class is utilized print out the next record with other information including:
@@ -11,16 +16,17 @@
  * - the record's checksum (if it is not null)
  */
 class Printer:Provider {
+public:
     // the source to get the next record pointer from
     Provider source;
     // the message to print out with the record
-    String message;
+    string message;
     /**
      * Class constructor of the printer that sets the given variables to the class variables
      * @param givenSource given provider to get records from
      * @param givenMessage message to print out with each record
      */
-    Printer(Provider givenSource, String givenMessage);
+    Printer(Provider givenSource, string givenMessage);
     /*
      * Obtains the next record from the provider with a message
      * If the record is null, it will print out the current time, message, and a null response to console

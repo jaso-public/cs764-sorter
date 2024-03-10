@@ -1,7 +1,9 @@
 #include "Provider.h"
-#include "Records/Record.h"
-using namespace std;
+#include <stdint.h>
 #include <iostream>
+#include "../Records/Record.h"
+using namespace std;
+
 
 // Defines empty default constructor
 Provider::Provider() {}
