@@ -68,4 +68,9 @@ public class IoDevice implements Closeable {
     public void close() throws IOException {
         raf.close();        
     }
+
+    public String stats() {
+        // TODO Auto-generated method stub
+        return "read (count="+readCount+" size="+readSize+") write(count="+writeCount+" size="+writeSize+")";
+    }
 }

@@ -35,7 +35,7 @@ class TournamentPQTest {
         }
         
        
-        TournamentPQ pq = new TournamentPQ(providers);
+        TournamentPQ pq = new TournamentPQ(providers, providers.length);
         Witness w = new Witness(pq);
         //Printer pr = new Printer(w, "After Tournament");
         Consumer c = new Consumer(w);

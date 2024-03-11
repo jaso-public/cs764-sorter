@@ -8,15 +8,15 @@ public class TournamentPQ implements Provider {
     private final int size;
     
     
-    public TournamentPQ(Provider[] prov) {
+    public TournamentPQ(Provider[] prov, int count) {
         providers = prov;
         
         // the number of record providers.
-        size = providers.length;
+        size = count;
         
         // create and fill the records array
         this.records = new Record[size];
-        for(int i=0 ; i<providers.length ; i++) {
+        for(int i=0 ; i<count ; i++) {
             records[i] = providers[i].next();
         }
         

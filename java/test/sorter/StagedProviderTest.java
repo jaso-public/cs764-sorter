@@ -16,6 +16,7 @@ class StagedProviderTest {
         
         File storageFile = File.createTempFile("storage", ".tmp");
         storageFile.deleteOnExit();
+        @SuppressWarnings("resource")
         IoDevice storage = new IoDevice(storageFile);
         
         long storageOffset = 0;
@@ -28,6 +29,7 @@ class StagedProviderTest {
         
         File stagingFile = File.createTempFile("staging", ".tmp");
         stagingFile.deleteOnExit();
+        @SuppressWarnings("resource")
         IoDevice staging = new IoDevice(stagingFile);
         
         byte[] memory = new byte[10*1024*1024]; // 10MB
@@ -45,21 +47,22 @@ class StagedProviderTest {
         int transferLength = stagingLength + bufferLength;
 
         
-        StagedProvider sp = new StagedProvider(
-                recordSize,
-                recordCount,
-                storage,
-                storageStartOffset,
-                staging,
-                stagingStartOffset,
-                stagingLength,
-                buffer,
-                bufferStartOffset,
-                bufferLength,
-                transferBuffer,
-                transferStartOffset,
-                transferLength);
-        
+        StagedProvider.StagingConfig cfg = new StagedProvider.StagingConfig();
+        cfg.recordSize = recordSize;
+        cfg.recordCount = recordCount;
+        cfg.storage = storage;
+        cfg.storageStartOffset = storageStartOffset;
+        cfg.staging = staging;
+        cfg.stagingStartOffset = stagingStartOffset;
+        cfg.stagingLength = stagingLength;
+        cfg.buffer = buffer;
+        cfg.bufferStartOffset = bufferStartOffset;
+        cfg.bufferLength = bufferLength;
+        cfg.transferBuffer = transferBuffer;
+        cfg.transferStartOffset = transferStartOffset;
+        cfg.transferLength = transferLength;
+
+        StagedProvider sp = new StagedProvider(cfg);
         Witness after = new Witness(sp);
         Consumer c = new Consumer(after);
         c.consume();
