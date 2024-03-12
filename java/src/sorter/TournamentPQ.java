@@ -5,30 +5,28 @@ public class TournamentPQ implements Provider {
     private final Provider[] providers;
     private final Record[] records;
     private final int[] losers;
-    private final int size;
+    private final int numProviders;
     
     
-    public TournamentPQ(Provider[] prov, int count) {
+    public TournamentPQ(Provider[] prov, int numProviders) {
         providers = prov;
-        
-        // the number of record providers.
-        size = count;
-        
+        this.numProviders = numProviders;
+         
         // create and fill the records array
-        this.records = new Record[size];
-        for(int i=0 ; i<count ; i++) {
+        this.records = new Record[numProviders];
+        for(int i=0 ; i<numProviders ; i++) {
             records[i] = providers[i].next();
         }
         
-        losers = new int[size];
-        int[] winners = new int[size];
-        for(int match=size-1 ; match>0 ; match--) {
+        losers = new int[numProviders];
+        int[] winners = new int[numProviders];
+        for(int match=numProviders-1 ; match>0 ; match--) {
             int h1 = match * 2;
             int h2 = h1 + 1;
-            if(h1>=size) h1 = h1-size; else h1 = winners[h1];
-            if(h2>=size) h2 = h2-size; else h2 = winners[h2];
+            if(h1>=numProviders) h1 = h1-numProviders; else h1 = winners[h1];
+            if(h2>=numProviders) h2 = h2-numProviders; else h2 = winners[h2];
  
-            if(firstWins(h1, h2)) {
+            if(isFirstWinner(h1, h2)) {
                 winners[match] = h1; 
                 losers[match] = h2;
             } else {
@@ -50,11 +48,11 @@ public class TournamentPQ implements Provider {
         if(result == null) return null;
         
         records[provider] = providers[provider].next();
-        int match = (provider + size) / 2;
+        int match = (provider + numProviders) / 2;
         
         int winner = provider;
         while(match > 0) {
-            if(firstWins(losers[match], winner)) {
+            if(isFirstWinner(losers[match], winner)) {
                 int tmp = winner;
                 winner = losers[match];
                 losers[match] = tmp;
@@ -73,7 +71,7 @@ public class TournamentPQ implements Provider {
      * @param second the second provider in the match.
      * @return true if the first provider wins the match, false otherwise.
      */
-    private boolean firstWins(int first, int second) {
+    private boolean isFirstWinner(int first, int second) {
         Record r1 = records[first];
         Record r2 = records[second];
         if(r1 == null) {

@@ -33,7 +33,7 @@ public class IoDevice implements Closeable {
             readCount++;
             readSize += len;
         } catch (IOException e) {
-            throw new RuntimeException("read:"+file.getAbsolutePath(), e);
+            throw new RuntimeException("read:"+file.getAbsolutePath()+" offset:"+offset+" buffer.length:"+buffer.length+" off:"+off+" len:"+len, e);
         }
     }
 
@@ -73,4 +73,11 @@ public class IoDevice implements Closeable {
         // TODO Auto-generated method stub
         return "read (count="+readCount+" size="+readSize+") write(count="+writeCount+" size="+writeSize+")";
     }
+
+    @Override
+    public String toString() {
+        return "IoDevice [file=" + file + "]";
+    }
+    
+    
 }

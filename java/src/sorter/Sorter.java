@@ -1,52 +1,42 @@
 package sorter;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Sorter implements Provider {
     
-    private float percentage = 0.005F;
-
-    private final String ssdPath = "sddStaging.tmp";
-    private IoDevice ssdDevice = null;    
-    private long ssdOffset = 0;
-    public final int ssdReadSize = 16 * 1024;
-    private long ssdRemaining = 10L * 1024 * 1024 * 1024;
-   
-    
-    private final String hddPath = "hddStaging.tmp";
-    private IoDevice hddDevice = null;
-    private long hddOffset = 0;
-    public final int hddReadSize = 256 * 1024;
-
+    private final SorterConfig cfg;
     private final Provider source;
-    private final Provider sortedProvider;
-
-     
     private final int recordSize;
     
-    
-    // the first 1MB will always be our "work" area.
-    // when we are building runs we will get 1MB from the source records.
-    // when we are merging intermediate runs we will use this to stage 
-    // before writing it to the device.
+    private final Provider sortedProvider;
+
+    private long ssdOffset = 0;
+    private long ssdRemaining = 0;
+    private long hddOffset = 0;
     
  
-    private final int bufferPageSize = 1024 * 1024;
-    private final byte[] buffer  = new byte[100 * bufferPageSize]; // the rest of the memory we get to use
-    private final ArrayList<Integer> freeOffsets = new ArrayList<Integer>();
-    
+    private final byte[] buffer;
+    private final ArrayList<Integer> freeOffsets;   
+
     
     ArrayList<Run> memoryRuns = new ArrayList<>();
     ArrayList<Run> ssdRuns = new ArrayList<>();
     ArrayList<Run> hddRuns = new ArrayList<>();
     
     
-    public Sorter(Provider source, int recordSize) {
+    public Sorter(SorterConfig cfg, Provider source, int recordSize) {
+        this.cfg = cfg;
         this.source = source;
         this.recordSize = recordSize;
+             
         
-        for(int i=1 ; i<100 ; i++) freeOffsets.add(i*bufferPageSize);
+        ssdRemaining = cfg.ssdStorageSize;
+        
+        this.buffer = new byte[cfg.memoryBlockSize * cfg.memoryBlockCount];
+        
+        freeOffsets = new ArrayList<Integer>();
+        for(int i=1 ; i<cfg.memoryBlockCount ; i++) freeOffsets.add(i*cfg.memoryBlockSize);
+        
         this.sortedProvider = startSort();
     }
 
@@ -54,10 +44,18 @@ public class Sorter implements Provider {
         long numRecords;
         long offset;
         
+        long crc;
+        
         public Run(long numRecords, long offset) {
             this.numRecords = numRecords;
             this.offset = offset;
         }
+
+        public Run(long numRecords, long offset, long crc) {
+            this.numRecords = numRecords;
+            this.offset = offset;
+            this.crc = crc;
+        }       
     }
     
     @Override
@@ -66,7 +64,7 @@ public class Sorter implements Provider {
     }
 
     private Provider startSort() {
-        int maxRecordsPerRun = bufferPageSize / recordSize;
+        int maxRecordsPerRun = cfg.memoryBlockSize / recordSize;
         
         SingleProvider[] singles = new SingleProvider[maxRecordsPerRun];
         for(int i=0 ; i<maxRecordsPerRun ; i++) singles[i] = new SingleProvider();
@@ -101,115 +99,141 @@ public class Sorter implements Provider {
             return new EmptyProvider();
         }
 
-                
-        int memoryRequired = ssdRuns.size() * ssdReadSize + hddRuns.size() * hddReadSize;
-
-        // if the memory required to stage the ssd and hdd can fit without having
-        // to free up any memory, then do it.
-        if(memoryRequired <= freeOffsets.size() * bufferPageSize) {
-            // we can just do the merge with the memory we have.
-            Provider[] providers = new Provider[memoryRuns.size() + ssdRuns.size() + hddRuns.size()];
+//        
+//        System.out.println("memoryRuns.size():"+memoryRuns.size());
+//        System.out.println("ssdRuns.size():"+ssdRuns.size());
+//        System.out.println("hddRuns.size():"+hddRuns.size());
+//     
+//        for(Run run : hddRuns) {
+//            verifyRun(cfg.hddDevice, run.offset, run.numRecords);
+//        }
+//        
+//        for(Run run : ssdRuns) {
+//            verifyRun(cfg.ssdDevice, run.offset, run.numRecords);
+//        }
+//
+        int memoryRequired = ssdRuns.size() * cfg.ssdReadSize + (hddRuns.size() + 1) * cfg.hddReadSize;
+        if(memoryRequired < cfg.memoryBlockCount * cfg.memoryBlockSize) {
+            int chunksRequired = (memoryRequired + cfg.memoryBlockSize - 1) / cfg.memoryBlockSize;
+            chunksRequired -= 1; // we can use the first chunk
+            int additionalChunksToFree = chunksRequired - freeOffsets.size();
+            if(additionalChunksToFree>0) releaseMemory(additionalChunksToFree);
             
+            Provider[] providers = new Provider[memoryRuns.size() + ssdRuns.size() + hddRuns.size()];
             int index = 0;
+            
             for(Run run : memoryRuns) {
                 providers[index++] = new MemoryProvider(buffer, safeIntCast(run.offset), safeIntCast(run.numRecords), recordSize);
-            }          
-
-            int freeStart = 0; // the start of the free block of memory
-            int freeRem = 0;   // how many bytes are still available for holding staged data
-            int freeOff = 0;   // the offset into the block that we will use to stage data. 
+            }     
             
+            int freeStart = 0; // the start of the free block of memory
+            int freeRem = cfg.memoryBlockSize; // how many bytes are still available for holding staged data
+            int freeOff = 0; // the offset into the block that we will use to stage data.
+
             for(Run run : hddRuns) {
-                if(freeRem < hddReadSize) {
+                if (freeRem < cfg.hddReadSize) {
                     freeStart = getFreePage();
-                    freeRem = bufferPageSize;
+                    freeRem = cfg.memoryBlockSize;
                     freeOff = 0;
                 }
-                freeRem -= hddReadSize;
-                freeOff += hddReadSize;
-                providers[index++] = new StorageProvider(recordSize, run.numRecords, hddDevice, run.offset, buffer, freeStart + freeOff, hddReadSize);
+                providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.hddDevice, run.offset, buffer, freeStart+freeOff, cfg.hddReadSize);
+                freeRem -= cfg.hddReadSize;
+                freeOff += cfg.hddReadSize;
             }
 
-            for(Run run : ssdRuns) {
-                if(freeRem < ssdReadSize) {
+            for (Run run : ssdRuns) {
+                if (freeRem < cfg.ssdReadSize) {
                     freeStart = getFreePage();
-                    freeRem = bufferPageSize;
+                    freeRem = cfg.memoryBlockSize;
                     freeOff = 0;
                 }
-                freeRem -= ssdReadSize;
-                freeOff += ssdReadSize;
-                providers[index++] = new StorageProvider(recordSize, run.numRecords, ssdDevice, run.offset, buffer, freeStart + freeOff, ssdReadSize);
+                providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, freeStart+freeOff, cfg.ssdReadSize);
+
+                freeRem -= cfg.ssdReadSize;
+                freeOff += cfg.ssdReadSize;
             }
- 
+
             return new TournamentPQ(providers, index);
         }
+          
+        releaseMemory(memoryRuns.size());        
         
-        // flush all the memory buffers to an IoDevice
-        releaseMemory(99);
+        // there are two constraints that we have to wroong about now:
+        // 1. do we have enough space on the ssd to do the staging
+        // 2. do we have too many runs to merge in the final pass
         
-        // now make room to stage runs on the hdd that need to be staged on the ssd
-        if(hddRuns.size() > 0) {
         
-            // figure out how much space we need for staging hdd data back to the ssd.
-            long ssdStagingRequired = (hddReadSize - ssdReadSize) * (hddRuns.size() + 1);
-            int mergeCount = 0;
-            for(int i=0 ; i<ssdRuns.size(); i++) {
-                Run run = ssdRuns.get(i);
-                if(run.offset > ssdStagingRequired) {
-                    mergeCount = i;
-                    break;
-                }
-            }
-            
-            Provider[] providers = new Provider[mergeCount];
-            long recordCount = 0;
-            // all memory is free right now so we can just allocate from offset 1
-            for(int i=0; i<mergeCount ; i++) {
-                Run run = ssdRuns.remove(0);
-                recordCount += run.numRecords;
-                providers[i] = new StorageProvider(recordSize, run.numRecords, ssdDevice, run.offset, buffer, i*ssdReadSize, ssdReadSize);
-            }
-            
-            Provider mergeStaging = new TournamentPQ(providers, mergeCount);
-            storeRun(mergeStaging, recordCount);
+        // max number of merge runs that can be merged using cfg.ssdReadSize chunk sized memory
+        // for each run (and reserving cfg.hddReadSize for the transfer chunk)
+        int maxMergeRuns = ((cfg.memoryBlockCount * cfg.memoryBlockSize) - cfg.hddReadSize) / cfg.ssdReadSize;
+        int runsToMergeForCount = maxMergeRuns - (ssdRuns.size() + hddRuns.size()) + 1;
+        
+        // figure out how much space we need for staging hdd data
+        long stagingRequired = (hddRuns.size() + 1) * (cfg.hddReadSize - cfg.ssdReadSize);
+        int runsToMergeForSpace = 0;
+        for(Run run : ssdRuns) {
+            if(run.offset > stagingRequired) break;
+            runsToMergeForSpace++;
         }
         
-        Provider[] providers = new Provider[ssdRuns.size() + hddRuns.size()];
+        int runsToMerge = Math.max(runsToMergeForSpace, runsToMergeForCount);
+        Provider[] providers = new Provider[runsToMerge];
+         
+        long recordCount = 0;
+        for(int i=0 ; i<runsToMerge ; i++) {
+            Run run = ssdRuns.remove(0);
+            recordCount += run.numRecords;
+            int offset = cfg.memoryBlockSize + i * cfg.ssdReadSize; 
+            providers[i] = new StorageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset, cfg.ssdReadSize);    
+        }
+        
+        Provider provider = new TournamentPQ(providers, runsToMerge);
+        storeRun(provider, recordCount);
+        
+        providers = new Provider[ssdRuns.size() + hddRuns.size()];
         int index = 0;
-        int bufferOffset = hddReadSize; // reserve enough memory to read a block from disk and write it back to ssd
+        int memoryOffset = cfg.memoryBlockSize;
+        
         
         for(int i=0 ; i<hddRuns.size(); i++) {
             Run run = hddRuns.get(i);
             
-            StagedProvider.StagingConfig cfg = new StagedProvider.StagingConfig();
-            cfg.recordSize = recordSize;
-            cfg.recordCount = run.numRecords;
-            cfg.storage = getHddDevice();
-            cfg.storageStartOffset = run.offset;
-            cfg.staging = getSsdDevice();
-            cfg.stagingStartOffset = i * (hddReadSize - ssdReadSize);
-            cfg.stagingLength = hddReadSize - ssdReadSize;
-            cfg.buffer = buffer;
-            cfg.bufferStartOffset = bufferOffset;
-            cfg.bufferLength = ssdReadSize;
-            cfg.transferBuffer = buffer;
-            cfg.transferStartOffset = 0;
-            cfg.transferLength = hddReadSize;
-            
-            bufferOffset += ssdReadSize;
-
-            providers[index++] = new StagedProvider(cfg);
+            StagedProvider.StagingConfig stagingCfg = new StagedProvider.StagingConfig();
+            stagingCfg.recordSize = recordSize;
+            stagingCfg.recordCount = run.numRecords;
+            stagingCfg.storage = cfg.hddDevice;
+            stagingCfg.storageStartOffset = run.offset;
+            stagingCfg.staging = cfg.ssdDevice;
+            stagingCfg.stagingStartOffset = i * (cfg.hddReadSize - cfg.ssdReadSize);
+            stagingCfg.stagingLength = cfg.hddReadSize - cfg.ssdReadSize;
+            stagingCfg.buffer = buffer;
+            stagingCfg.bufferStartOffset = memoryOffset;
+            stagingCfg.bufferLength = cfg.ssdReadSize;
+            stagingCfg.transferBuffer = buffer;
+            stagingCfg.transferStartOffset = 0;
+            stagingCfg.transferLength = cfg.hddReadSize;
+            providers[index++] = new StagedProvider(stagingCfg);
+            memoryOffset += cfg.ssdStorageSize;
         }
         
         for(Run run : ssdRuns) {
-            providers[index++] = new StorageProvider(recordSize, run.numRecords, ssdDevice, run.offset, buffer, bufferOffset, ssdReadSize);
-            System.out.println("created ssd provider:"+index+" offset:"+run.offset+" count:"+run.numRecords);
-            bufferOffset += ssdReadSize;
+            providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, memoryOffset, cfg.ssdReadSize);
+            memoryOffset += cfg.ssdStorageSize;
         }
 
         return new TournamentPQ(providers, index);
-     }
+    }
     
+//    void verifyRun(IoDevice device, long offset, long count) {
+//        byte[] buffer = new byte[32768];
+//        Provider p = new StorageProvider(recordSize, count, device, offset, buffer, 0, buffer.length);
+//        for(int i=0 ; i<count ; i++) {
+//            Record r = p.next();
+//            CrcRandomGenerator.verifyCrc(r);
+//        }        
+//    }
+    
+     
     int getFreePage() {
         if(freeOffsets.isEmpty()) makeFreeSpace();           
         return freeOffsets.remove(freeOffsets.size()-1);
@@ -217,12 +241,11 @@ public class Sorter implements Provider {
     
     private void makeFreeSpace() {
         long sorted = ssdOffset + hddOffset;
-        sorted /= bufferPageSize;
+        sorted /= cfg.memoryBlockSize;
         sorted += memoryRuns.size();
         // at this point sorted contains the number of 1MB blocks we have.
-
-        
-        int numToMove = (int)(sorted * percentage); 
+       
+        int numToMove = (int)(sorted * cfg.fraction); 
         if(numToMove < 1) numToMove = 1;
         if(numToMove > 99) numToMove = 99;
         
@@ -248,43 +271,41 @@ public class Sorter implements Provider {
     }
     
     
-    private void storeRun(Provider provider, long recordCount) {
-        System.out.println("storing a run; recordCount="+recordCount);
-        printStats();
+    private void storeRun(Provider provider, long recordCount) {  
         
         long spaceRequired = recordCount * recordSize;
         
         IoDevice device = null;
         long deviceOffset = 0;
-        
-        long ssdRequired = roundUp(spaceRequired, ssdReadSize); 
+         
+        long ssdRequired = roundUp(spaceRequired, cfg.ssdReadSize); 
         if(ssdRequired <= ssdRemaining) {
-            device = getSsdDevice();
+            device = cfg.ssdDevice;
             deviceOffset = ssdOffset;
+            ssdRuns.add(new Run(recordCount, ssdOffset));
             ssdOffset += ssdRequired;
             ssdRemaining -= ssdRequired;
-            ssdRuns.add(new Run(recordCount, deviceOffset));
         } else {
-            long hddRequired = roundUp(spaceRequired, hddReadSize); 
-            device = getHddDevice();
+            long hddRequired = roundUp(spaceRequired, cfg.hddReadSize); 
+            device = cfg.hddDevice;
             deviceOffset = hddOffset;
+            hddRuns.add(new Run(recordCount, hddOffset));
             hddOffset += hddRequired;
-            hddRuns.add(new Run(recordCount, deviceOffset));
         }
         
         int bufferOffset = 0;
-        int bufferRemaining = bufferPageSize;
+        int bufferRemaining = cfg.memoryBlockSize;
         while(true) {
             Record r = provider.next();
             if(r==null) break;
             if(bufferRemaining < recordSize) {
                 r.storePartial(buffer, bufferOffset, 0, bufferRemaining);
                 int leftOver = recordSize-bufferRemaining;
-                device.write(deviceOffset, buffer, 0, bufferPageSize);
-                deviceOffset += bufferPageSize;
+                device.write(deviceOffset, buffer, 0, cfg.memoryBlockSize);
+                deviceOffset += cfg.memoryBlockSize;
                 r.storePartial(buffer, 0, bufferRemaining, leftOver);
                 bufferOffset = leftOver;
-                bufferRemaining = bufferPageSize - leftOver;                
+                bufferRemaining = cfg.memoryBlockSize - leftOver;                
             } else {
                 r.store(buffer, bufferOffset);
                 bufferOffset += recordSize;
@@ -294,20 +315,6 @@ public class Sorter implements Provider {
         
         // finally write out what ever is left in the buffer.
         device.write(deviceOffset, buffer, 0, bufferOffset);
-    }
-    
-    private IoDevice getSsdDevice() {
-        if(ssdDevice == null) {
-            ssdDevice = new IoDevice(new File(ssdPath));   
-        }
-        return ssdDevice;
-    }
-
-    private IoDevice getHddDevice() {
-        if(hddDevice == null) {
-            hddDevice = new IoDevice(new File(hddPath));   
-        }
-        return hddDevice;
     }
     
     private long roundUp(long value, long multiple) {
@@ -324,16 +331,7 @@ public class Sorter implements Provider {
     }
     
     public void printStats() {
-        if(ssdDevice == null) {
-            System.out.println("never used the SSD device.");
-        } else {
-            System.out.println("SSD usage:" + ssdDevice.stats());
-        }
-        if(hddDevice == null) {
-            System.out.println("never used the HDD device.");
-        } else {
-            System.out.println("HDD usage:" + hddDevice.stats());
-        }
+        System.out.println("SSD usage:" + cfg.ssdDevice.stats());
+        System.out.println("HDD usage:" + cfg.hddDevice.stats());
     }
-
  }

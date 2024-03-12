@@ -37,7 +37,7 @@ class StagedProviderTest {
         
         
         long storageStartOffset = 0; // we wrote the records at offset zero        
-        long stagingStartOffset = 12431; // some arbitrary place in the stagin file
+        long stagingStartOffset = 12431; // some arbitrary place in the staging file
   
         byte[] buffer = memory;
         int bufferStartOffset = 20;

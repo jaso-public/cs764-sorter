@@ -2,6 +2,7 @@ package sorter;
 
 public class StagedProvider implements Provider {
     
+
     private final int recordSize;
     private final long recordCount;
     
