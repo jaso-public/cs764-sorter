@@ -10,6 +10,7 @@ public class Record implements Comparable<Record> {
 
     // stores the data within a record
     public final byte[] data;
+    private static long compareCount = 0;
 
     public Record(byte[] data) {
         this.data = data;
@@ -30,6 +31,7 @@ public class Record implements Comparable<Record> {
 
     @Override
     public int compareTo(Record other) {
+        compareCount++;
         return Long.compare(getKey(), other.getKey());
     }
 
@@ -41,6 +43,12 @@ public class Record implements Comparable<Record> {
         System.arraycopy(data,  start,  buffer,  offset,  length);        
     }
 
-
+    public static void resetCompareCount() {
+        compareCount = 0;
+    }
+    
+    public static long getCompareCount() {
+        return compareCount;
+    }
 
 }

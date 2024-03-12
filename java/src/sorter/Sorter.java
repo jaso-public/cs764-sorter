@@ -56,6 +56,8 @@ public class Sorter implements Provider {
     }
 
     private Provider startSort() {
+        Record.resetCompareCount();
+        
         int maxRecordsPerRun = cfg.memoryBlockSize / recordSize;
         
         SingleProvider[] singles = new SingleProvider[maxRecordsPerRun];
@@ -325,5 +327,6 @@ public class Sorter implements Provider {
     public void printStats() {
         System.out.println("SSD usage:" + cfg.ssdDevice.stats());
         System.out.println("HDD usage:" + cfg.hddDevice.stats());
+        System.out.println("total number of record comparisons:" + Record.getCompareCount());
     }
  }

@@ -23,6 +23,8 @@ class SorterTest {
         Consumer consumer = new Consumer(printer2);
         consumer.consume();
         
+        sorter.printStats();
+        
         assertEquals(recordCount, lower.getCount(), "The count of the lower witness was " + lower.getCount() + " but should have been 10");
         assertEquals(recordCount, upper.getCount(), "The count of the upper witness was " + upper.getCount() + " but should have been 10");
         assertFalse(lower.isSorted(),  "The lower witness should not have been sorted but was");
@@ -46,6 +48,8 @@ class SorterTest {
         Consumer consumer = new Consumer(upper);
         consumer.consume();
         
+        sorter.printStats();
+
         assertEquals(recordCount, lower.getCount(), "The count of the lower witness was " + lower.getCount() + " but should have been "+recordCount);
         assertEquals(recordCount, upper.getCount(), "The count of the upper witness was " + upper.getCount() + " but should have been "+recordCount);
         assertFalse(lower.isSorted(),  "The lower witness should not have been sorted but was");
