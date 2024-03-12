@@ -114,7 +114,7 @@ class SorterTest {
         String test = "testSpillToSsd: ";
         
         SorterConfig cfg = new SorterConfig();
-        cfg.ssdStorageSize = 0*1024*1024;
+        cfg.ssdStorageSize = 2*1024*1024;
         cfg.memoryBlockCount = 10;
         
         Provider generator = new RandomGenerator(recordCount, recordSize);

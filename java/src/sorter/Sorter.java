@@ -44,18 +44,10 @@ public class Sorter implements Provider {
         long numRecords;
         long offset;
         
-        long crc;
-        
         public Run(long numRecords, long offset) {
             this.numRecords = numRecords;
             this.offset = offset;
         }
-
-        public Run(long numRecords, long offset, long crc) {
-            this.numRecords = numRecords;
-            this.offset = offset;
-            this.crc = crc;
-        }       
     }
     
     @Override
