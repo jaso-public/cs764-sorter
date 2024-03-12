@@ -12,6 +12,8 @@ public:
     void* record;
     // record constructor
     Record(uint64_t sizeFromUser,  uint32_t keyOffsetFromUser);
+    // default constructor
+    Record();
 
     /**
      * This method obtains the key from a given record

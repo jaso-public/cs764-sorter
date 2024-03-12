@@ -1,7 +1,7 @@
 #ifndef DB_CONSUMER_H
 #define DB_CONSUMER_H
-#include "Provider.h"
-#include "Record.h"
+#include "Providers/Provider.h"
+#include "Records/Record.h"
 
 //TODO: this needs to be tested
 /**

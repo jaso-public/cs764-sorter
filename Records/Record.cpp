@@ -3,16 +3,18 @@
 using namespace std;
 #include <iostream>
 
+Record::Record() {};
+
 /**
  * Initializes record constructor
  * @param sizeFromUser size of record
  * @param keyOffsetFromUser key offset of record
  */
 Record::Record(uint64_t sizeFromUser, uint32_t keyOffsetFromUser) {
-    size = sizeFromUser;
-    keyOffset = keyOffsetFromUser;
+    this->size = sizeFromUser;
+    this->keyOffset = keyOffsetFromUser;
     // created record
-    record = createRecord();
+    this->record = createRecord();
 }
 
 
