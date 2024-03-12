@@ -17,8 +17,6 @@ public class Sorter implements Provider {
  
     private final byte[] buffer;
     private int lastMemoryRun;
-//    private final ArrayList<Integer> freeOffsets;   
-
     
     ArrayList<Run> memoryRuns = new ArrayList<>();
     ArrayList<Run> ssdRuns = new ArrayList<>();
@@ -76,35 +74,26 @@ public class Sorter implements Provider {
             
             if(recordCount > 0) {
                 // find the buffer that we are going to fill.
-                int bufferOffset = getFreePage();
+                if(lastMemoryRun == cfg.memoryBlockSize) makeFreeSpace();                        
                 
+                lastMemoryRun -= cfg.memoryBlockSize;
+                                
                 TournamentPQ pq = new TournamentPQ(singles, recordCount);
                 for(int i=0 ; i<recordCount ; i++) {
                     Record r = pq.next();
-                    r.store(buffer, bufferOffset + i * recordSize);
+                    r.store(buffer, lastMemoryRun + i * recordSize);
                 }
-                memoryRuns.add(new Run(recordCount, bufferOffset));
+                memoryRuns.add(new Run(recordCount, lastMemoryRun));
             }  
         }
          
-        // if there was nothing to sort the return an empty provider.
+        // if there was nothing to sort then return an empty provider.
         if(memoryRuns.size() == 0 && ssdRuns.size() == 0 && hddRuns.size() == 0) {
             return new EmptyProvider();
         }
 
-//        
-//        System.out.println("memoryRuns.size():"+memoryRuns.size());
-//        System.out.println("ssdRuns.size():"+ssdRuns.size());
-//        System.out.println("hddRuns.size():"+hddRuns.size());
-//     
-//        for(Run run : hddRuns) {
-//            verifyRun(cfg.hddDevice, run.offset, run.numRecords);
-//        }
-//        
-//        for(Run run : ssdRuns) {
-//            verifyRun(cfg.ssdDevice, run.offset, run.numRecords);
-//        }
-//
+        // see if we can do the final merge with the memory we have.
+        // i.e not too many runs and no need to stage hdd runs to ssd
         int memoryRequired = ssdRuns.size() * cfg.ssdReadSize + (hddRuns.size() + 1) * cfg.hddReadSize;
         if(memoryRequired < cfg.memoryBlockCount * cfg.memoryBlockSize) {
             if(memoryRequired > lastMemoryRun) {
@@ -119,6 +108,7 @@ public class Sorter implements Provider {
                 providers[index++] = new MemoryProvider(buffer, safeIntCast(run.offset), safeIntCast(run.numRecords), recordSize);
             }     
             
+            // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
             int offset = 0;
 
             for(Run run : hddRuns) {
@@ -133,16 +123,18 @@ public class Sorter implements Provider {
 
             return new TournamentPQ(providers, index);
         }
-          
+         
+        // we did not have enough memory to do the final merge, so lets flush all of our memory
+        // runs and use all the memory to stage the final merge run.
         releaseMemory(memoryRuns.size());        
         
-        // there are two constraints that we have to wroong about now:
-        // 1. do we have enough space on the ssd to do the staging
-        // 2. do we have too many runs to merge in the final pass
+        // there are two constraints that we have to worry about now:
+        // 1. do we have enough free space on the ssd to do the staging?
+        // 2. do we have too many runs to merge in the final pass?
         
         
-        // max number of merge runs that can be merged using cfg.ssdReadSize chunk sized memory
-        // for each run (and reserving cfg.hddReadSize for the transfer chunk)
+        // max number of merge runs that can be merged using cfg.ssdReadSize chunk sized memory for each run 
+        // Note we reserve one cfg.hddReadSize block of memory to transfer data from the hdd back to the ssd
         int maxMergeRuns = ((cfg.memoryBlockCount * cfg.memoryBlockSize) - cfg.hddReadSize) / cfg.ssdReadSize;
         int runsToMergeForCount = maxMergeRuns - (ssdRuns.size() + hddRuns.size()) + 1;
         
@@ -202,23 +194,6 @@ public class Sorter implements Provider {
         return new TournamentPQ(providers, index);
     }
     
-//    void verifyRun(IoDevice device, long offset, long count) {
-//        byte[] buffer = new byte[32768];
-//        Provider p = new StorageProvider(recordSize, count, device, offset, buffer, 0, buffer.length);
-//        for(int i=0 ; i<count ; i++) {
-//            Record r = p.next();
-//            CrcRandomGenerator.verifyCrc(r);
-//        }        
-//    }
-    
-     
-    int getFreePage() {
-        if(lastMemoryRun == cfg.memoryBlockSize) {
-            makeFreeSpace();      
-        }
-        lastMemoryRun -= cfg.memoryBlockSize;
-        return lastMemoryRun;
-    }
     
     private void makeFreeSpace() {
         long sorted = ssdOffset + hddOffset;
