@@ -16,7 +16,8 @@ public class Sorter implements Provider {
     
  
     private final byte[] buffer;
-    private final ArrayList<Integer> freeOffsets;   
+    private int lastMemoryRun;
+//    private final ArrayList<Integer> freeOffsets;   
 
     
     ArrayList<Run> memoryRuns = new ArrayList<>();
@@ -33,9 +34,7 @@ public class Sorter implements Provider {
         ssdRemaining = cfg.ssdStorageSize;
         
         this.buffer = new byte[cfg.memoryBlockSize * cfg.memoryBlockCount];
-        
-        freeOffsets = new ArrayList<Integer>();
-        for(int i=1 ; i<cfg.memoryBlockCount ; i++) freeOffsets.add(i*cfg.memoryBlockSize);
+        lastMemoryRun = buffer.length;
         
         this.sortedProvider = startSort();
     }
@@ -108,10 +107,10 @@ public class Sorter implements Provider {
 //
         int memoryRequired = ssdRuns.size() * cfg.ssdReadSize + (hddRuns.size() + 1) * cfg.hddReadSize;
         if(memoryRequired < cfg.memoryBlockCount * cfg.memoryBlockSize) {
-            int chunksRequired = (memoryRequired + cfg.memoryBlockSize - 1) / cfg.memoryBlockSize;
-            chunksRequired -= 1; // we can use the first chunk
-            int additionalChunksToFree = chunksRequired - freeOffsets.size();
-            if(additionalChunksToFree>0) releaseMemory(additionalChunksToFree);
+            if(memoryRequired > lastMemoryRun) {
+                int toRelease = (memoryRequired - lastMemoryRun + cfg.memoryBlockSize - 1) / cfg.memoryBlockSize;
+                releaseMemory(toRelease);
+            }
             
             Provider[] providers = new Provider[memoryRuns.size() + ssdRuns.size() + hddRuns.size()];
             int index = 0;
@@ -120,31 +119,16 @@ public class Sorter implements Provider {
                 providers[index++] = new MemoryProvider(buffer, safeIntCast(run.offset), safeIntCast(run.numRecords), recordSize);
             }     
             
-            int freeStart = 0; // the start of the free block of memory
-            int freeRem = cfg.memoryBlockSize; // how many bytes are still available for holding staged data
-            int freeOff = 0; // the offset into the block that we will use to stage data.
+            int offset = 0;
 
             for(Run run : hddRuns) {
-                if (freeRem < cfg.hddReadSize) {
-                    freeStart = getFreePage();
-                    freeRem = cfg.memoryBlockSize;
-                    freeOff = 0;
-                }
-                providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.hddDevice, run.offset, buffer, freeStart+freeOff, cfg.hddReadSize);
-                freeRem -= cfg.hddReadSize;
-                freeOff += cfg.hddReadSize;
+                providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.hddDevice, run.offset, buffer, offset, cfg.hddReadSize);
+                offset += cfg.hddReadSize;
             }
 
             for (Run run : ssdRuns) {
-                if (freeRem < cfg.ssdReadSize) {
-                    freeStart = getFreePage();
-                    freeRem = cfg.memoryBlockSize;
-                    freeOff = 0;
-                }
-                providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, freeStart+freeOff, cfg.ssdReadSize);
-
-                freeRem -= cfg.ssdReadSize;
-                freeOff += cfg.ssdReadSize;
+                providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset, cfg.ssdReadSize);
+                offset += cfg.ssdReadSize;
             }
 
             return new TournamentPQ(providers, index);
@@ -229,8 +213,11 @@ public class Sorter implements Provider {
     
      
     int getFreePage() {
-        if(freeOffsets.isEmpty()) makeFreeSpace();           
-        return freeOffsets.remove(freeOffsets.size()-1);
+        if(lastMemoryRun == cfg.memoryBlockSize) {
+            makeFreeSpace();      
+        }
+        lastMemoryRun -= cfg.memoryBlockSize;
+        return lastMemoryRun;
     }
     
     private void makeFreeSpace() {
@@ -254,11 +241,11 @@ public class Sorter implements Provider {
         
         while(memoryRuns.size() > 0 && index < numberBuffersToRelease) {
             Run run = memoryRuns.remove(memoryRuns.size()-1);
-            int offset = safeIntCast(run.offset);
-            providers[index++] = new MemoryProvider(buffer, offset, safeIntCast(run.numRecords), recordSize);
+            providers[index++] = new MemoryProvider(buffer, safeIntCast(run.offset), safeIntCast(run.numRecords), recordSize);
             recordCount += run.numRecords;
-            freeOffsets.add(offset);
         }
+        
+        lastMemoryRun += numberBuffersToRelease * cfg.memoryBlockSize;
         
         Provider provider = new TournamentPQ(providers, index);
         storeRun(provider, recordCount);
