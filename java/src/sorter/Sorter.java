@@ -105,7 +105,7 @@ public class Sorter implements Provider {
             int index = 0;
             
             for(Run run : memoryRuns) {
-                providers[index++] = new MemoryProvider(buffer, safeIntCast(run.offset), safeIntCast(run.numRecords), recordSize);
+                providers[index++] = new MemoryProvider(buffer, run.offset, run.numRecords, recordSize);
             }     
             
             // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
@@ -128,6 +128,12 @@ public class Sorter implements Provider {
         // runs and use all the memory to stage the final merge run.
         releaseMemory(memoryRuns.size());        
         
+        
+//        System.out.println("------------------");
+//        System.out.println("memoryRuns.size():"+memoryRuns.size());
+//        System.out.println("ssdRuns.size():"+ssdRuns.size());
+//        System.out.println("hddRuns.size():"+hddRuns.size());
+
         // there are two constraints that we have to worry about now:
         // 1. do we have enough free space on the ssd to do the staging?
         // 2. do we have too many runs to merge in the final pass?
@@ -136,7 +142,7 @@ public class Sorter implements Provider {
         // max number of merge runs that can be merged using cfg.ssdReadSize chunk sized memory for each run 
         // Note we reserve one cfg.hddReadSize block of memory to transfer data from the hdd back to the ssd
         int maxMergeRuns = ((cfg.memoryBlockCount * cfg.memoryBlockSize) - cfg.hddReadSize) / cfg.ssdReadSize;
-        int runsToMergeForCount = maxMergeRuns - (ssdRuns.size() + hddRuns.size()) + 1;
+        int runsToMergeForCount = ssdRuns.size() + hddRuns.size() - maxMergeRuns;
         
         // figure out how much space we need for staging hdd data
         long stagingRequired = (hddRuns.size() + 1) * (cfg.hddReadSize - cfg.ssdReadSize);
@@ -147,6 +153,7 @@ public class Sorter implements Provider {
         }
         
         int runsToMerge = Math.max(runsToMergeForSpace, runsToMergeForCount);
+                
         Provider[] providers = new Provider[runsToMerge];
          
         long recordCount = 0;
@@ -183,12 +190,12 @@ public class Sorter implements Provider {
             stagingCfg.transferStartOffset = 0;
             stagingCfg.transferLength = cfg.hddReadSize;
             providers[index++] = new StagedProvider(stagingCfg);
-            memoryOffset += cfg.ssdStorageSize;
+            memoryOffset += cfg.ssdReadSize;
         }
         
         for(Run run : ssdRuns) {
             providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, memoryOffset, cfg.ssdReadSize);
-            memoryOffset += cfg.ssdStorageSize;
+            memoryOffset += cfg.ssdReadSize;
         }
 
         return new TournamentPQ(providers, index);
@@ -216,7 +223,7 @@ public class Sorter implements Provider {
         
         while(memoryRuns.size() > 0 && index < numberBuffersToRelease) {
             Run run = memoryRuns.remove(memoryRuns.size()-1);
-            providers[index++] = new MemoryProvider(buffer, safeIntCast(run.offset), safeIntCast(run.numRecords), recordSize);
+            providers[index++] = new MemoryProvider(buffer, run.offset, run.numRecords, recordSize);
             recordCount += run.numRecords;
         }
         
@@ -278,14 +285,7 @@ public class Sorter implements Provider {
         if(quotient * multiple == value) return value;
         return (quotient + 1) * multiple;
     }
-   
-    private int safeIntCast(long value) {
-        if(value < Integer.MIN_VALUE || value > Integer.MAX_VALUE) {
-            throw new RuntimeException("cannot cast long:"+value+" to an integer");
-        }
-        return (int) value;
-    }
-    
+       
     public void printStats() {
         System.out.println("SSD usage:" + cfg.ssdDevice.stats());
         System.out.println("HDD usage:" + cfg.hddDevice.stats());

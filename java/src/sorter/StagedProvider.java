@@ -82,6 +82,7 @@ public StagedProvider(StagingConfig cfg) {
         this.transferStartOffset = cfg.transferStartOffset;
         
         assert(cfg.transferLength >= bufferLength + stagingLength);
+        assert(cfg.bufferStartOffset + cfg.bufferLength <= cfg.buffer.length);
 
         storageRemaining = recordCount * (long)recordSize;
     }
