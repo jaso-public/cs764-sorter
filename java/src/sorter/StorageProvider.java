@@ -75,13 +75,5 @@ public class StorageProvider implements Provider {
             bufferOffset += sizeToCopy;
             bufferRemaining -= sizeToCopy;           
         }
-    }
-
-    @Override
-    public String toString() {
-        return "StorageProvider [storage=" + storage + ", storageStartOffset=" + storageStartOffset + ", storageOffset="
-                + storageOffset + "]";
-    }
-    
-    
+    }    
 }

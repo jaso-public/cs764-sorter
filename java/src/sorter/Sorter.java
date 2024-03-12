@@ -88,7 +88,7 @@ public class Sorter implements Provider {
         }
          
         // if there was nothing to sort then return an empty provider.
-        if(memoryRuns.size() == 0 && ssdRuns.size() == 0 && hddRuns.size() == 0) {
+        if(memoryRuns.size() + ssdRuns.size() + hddRuns.size() == 0) {
             return new EmptyProvider();
         }
 
@@ -129,10 +129,6 @@ public class Sorter implements Provider {
         releaseMemory(memoryRuns.size());        
         
         
-//        System.out.println("------------------");
-//        System.out.println("memoryRuns.size():"+memoryRuns.size());
-//        System.out.println("ssdRuns.size():"+ssdRuns.size());
-//        System.out.println("hddRuns.size():"+hddRuns.size());
 
         // there are two constraints that we have to worry about now:
         // 1. do we have enough free space on the ssd to do the staging?
@@ -153,7 +149,13 @@ public class Sorter implements Provider {
         }
         
         int runsToMerge = Math.max(runsToMergeForSpace, runsToMergeForCount);
-                
+         
+      System.out.println("------------------");
+      System.out.println("memoryRuns.size():"+memoryRuns.size());
+      System.out.println("ssdRuns.size():"+ssdRuns.size());
+      System.out.println("hddRuns.size():"+hddRuns.size());
+      System.out.println("runsToMerge:"+runsToMerge);
+
         Provider[] providers = new Provider[runsToMerge];
          
         long recordCount = 0;
@@ -210,7 +212,6 @@ public class Sorter implements Provider {
        
         int numToMove = (int)(sorted * cfg.fraction); 
         if(numToMove < 1) numToMove = 1;
-        if(numToMove > 99) numToMove = 99;
         
         releaseMemory(numToMove);
     }
