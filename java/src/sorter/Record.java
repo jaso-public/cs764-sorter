@@ -19,7 +19,7 @@ public class Record implements Comparable<Record> {
     // returns a record's key
     public long getKey() {
         ByteBuffer buffer = ByteBuffer.wrap(data);
-        return buffer.getLong(8);
+        return buffer.getLong(0);
     }
 
     // returns a records checksum value

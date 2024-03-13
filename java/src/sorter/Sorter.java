@@ -36,6 +36,11 @@ public class Sorter implements Provider {
         
         this.sortedProvider = startSort();
     }
+    
+    public Sorter(Provider source, int recordSize) {
+        this(new SorterConfig(), source, recordSize);
+    }
+    
 
     class Run {
         long numRecords;

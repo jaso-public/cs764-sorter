@@ -52,4 +52,11 @@ public class Witness implements Provider {
     public boolean isSorted() {
         return isSorted;
     }
+
+    @Override
+    public String toString() {
+        return "Witness [count=" + count + ", crc=" + crc + ", isSorted=" + isSorted + "]";
+    }
+    
+    
 }
