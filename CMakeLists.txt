@@ -42,9 +42,6 @@ add_executable(cs764_sorter
         Sim.cpp
         Providers/SingleProvider.h
         Providers/SingleProvider.cpp
-        Providers/SingleProvider.cpp
-        ../../../../EmptyProvider.h
         Providers/EmptyProvider.h
-        Providers/EmptyProvider.cpp
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h)

@@ -2,6 +2,8 @@
 #define CS764_SORTER_IODEVICE_H
 #include <stdio.h>
 #include <fstream>
+#include <string>
+using namespace std;
 
 /**
  * This class it utilized to read and write to a given file
@@ -51,6 +53,10 @@ public:
     long getWriteSize();
     // closes the stream reading the file
     void close();
+    // returns a string of read/write statistics
+    string stats();
+    // returns the given file as a string
+    string toString();
 };
 
 
