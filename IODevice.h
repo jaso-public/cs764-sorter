@@ -57,7 +57,7 @@ public:
     void close();
     // returns a string of read/write statistics
     string stats();
-    // returns the given file as a string
+    // returns the file path and class identification string
     string toString();
 };
 

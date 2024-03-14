@@ -93,4 +93,32 @@ long IODevice::getWriteSize() {
     return writeSize;
 }
 
+// closes the stream reading the file
+void IODevice::close() {
+    // catches exception if file cannot be close
+    stream.exceptions ( fstream::failbit);
+    try {
+        // closes stream
+        stream.close();
+    }
+    // catches exception when opening file
+    catch (fstream ::failure e) {
+        cerr << "Error closing: " << file << "\n";
+    }
+}
+
+// returns a string of read/write statistics
+string IODevice::stats() {
+    string readCount  = "read (count="+readCount;
+    string readSize = " size="+readSize;
+    string writeCount = ") write(count="+writeCount;
+    string writeSize = " size="+writeSize;
+    return readCount + readSize + writeCount + writeSize + ")";
+}
+
+// returns the file path and class identification string
+string IODevice::toString() {
+    return  "IoDevice [file=" + file + "]";
+}
+
 
