@@ -11,7 +11,9 @@ using namespace std;
 class IODevice {
 private:
     // the file to read and write to
-    void* file;
+    string file;
+    // stream to read/write to file
+    fstream stream;
     // keeps track of how many times the file has been read
     long readCount = 0;
     // keeps track of the number of bytes read
@@ -22,11 +24,11 @@ private:
     long writeSize = 0;
 
 public:
-    /*
-     * Class constructor that initializes a stream to the given file
-     * @param givenFile is the file location to read and write to
-     */
-    IODevice(void* givenFile);
+    /**
+    * Class constructor; Opens the given file in read/write mode
+    * @param givenFile the string file path of the file
+    */
+    IODevice(string filePath);
     /**
      * Reads a number of bytes from the file at a certain location
      * @param offset the file pointer offset where reading will begin
@@ -34,7 +36,7 @@ public:
      * @param off the location of the first read
      * @param len the number of byes to be read
      */
-    void read(long offset, void* buffer, int off, int len);
+    void read(long offset, char *buffer, int off, int len);
     /**
      * Writes a number of bytes from the file at a certain location
      * @param offset the file pointer offset where writing will begin
@@ -42,7 +44,7 @@ public:
      * @param off the location of the first write
      * @param len the number of byes to be written
      */
-    void write(long offset, void* buffer, int off, int len);
+    void write(long offset, char * buffer, int off, int len);
     // returns the class' read count
     long getReadCount();
     // returns the class' read size
