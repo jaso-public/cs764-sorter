@@ -30,12 +30,6 @@ add_executable(cs764_sorter
         NotDone/TournamentPQ.h
         Witness.cpp
         Witness.h
-        Providers/ArrayProvider.h
-        Providers/ArrayProvider.cpp
-        Providers/DropFirst.h
-        Providers/DropFirst.cpp
-        Providers/InOrderGenerator.h
-        Providers/InOrderGenerator.cpp
         IODevice.h
         IODevice.cpp
         Sim.h
