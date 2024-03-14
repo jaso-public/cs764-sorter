@@ -36,8 +36,8 @@ add_executable(cs764_sorter
         Providers/DropFirst.cpp
         Providers/InOrderGenerator.h
         Providers/InOrderGenerator.cpp
-        NotDone/IODevice.h
-        NotDone/IODevice.cpp
+        IODevice.h
+        IODevice.cpp
         Sim.h
         Sim.cpp
         Providers/SingleProvider.h
