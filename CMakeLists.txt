@@ -39,4 +39,5 @@ add_executable(cs764_sorter
         Providers/EmptyProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
-        Providers/MemoryProvider.h)
+        Providers/MemoryProvider.h
+        Providers/MemoryProvider.cpp)
