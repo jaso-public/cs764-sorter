@@ -39,4 +39,7 @@ add_executable(cs764_sorter
         NotDone/IODevice.h
         NotDone/IODevice.cpp
         Sim.h
-        Sim.cpp)
+        Sim.cpp
+        Providers/SingleProvider.h
+        Providers/SingleProvider.cpp
+        Providers/SingleProvider.cpp)
