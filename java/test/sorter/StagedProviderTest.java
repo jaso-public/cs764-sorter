@@ -47,7 +47,7 @@ class StagedProviderTest {
         int transferLength = stagingLength + bufferLength;
 
         
-        StagedProvider.StagingConfig cfg = new StagedProvider.StagingConfig();
+        StagingConfig cfg = new StagingConfig();
         cfg.recordSize = recordSize;
         cfg.recordCount = recordCount;
         cfg.storage = storage;
@@ -62,7 +62,7 @@ class StagedProviderTest {
         cfg.transferStartOffset = transferStartOffset;
         cfg.transferLength = transferLength;
 
-        StagedProvider sp = new StagedProvider(cfg);
+        StagingProvider sp = new StagingProvider(cfg);
         Witness after = new Witness(sp);
         Consumer c = new Consumer(after);
         c.consume();

@@ -182,7 +182,7 @@ public class Sorter implements Provider {
         for(int i=0 ; i<hddRuns.size(); i++) {
             Run run = hddRuns.get(i);
             
-            StagedProvider.StagingConfig stagingCfg = new StagedProvider.StagingConfig();
+            StagingConfig stagingCfg = new StagingConfig();
             stagingCfg.recordSize = recordSize;
             stagingCfg.recordCount = run.numRecords;
             stagingCfg.storage = cfg.hddDevice;
@@ -196,7 +196,7 @@ public class Sorter implements Provider {
             stagingCfg.transferBuffer = buffer;
             stagingCfg.transferStartOffset = 0;
             stagingCfg.transferLength = cfg.hddReadSize;
-            providers[index++] = new StagedProvider(stagingCfg);
+            providers[index++] = new StagingProvider(stagingCfg);
             memoryOffset += cfg.ssdReadSize;
         }
         
