@@ -9,10 +9,10 @@ public:
     long storageStartOffset;
     long stagingStartOffset;
     long stagingLength;
-    char * bufferPtr;
+    void* buffer;
     int bufferStartOffset;
     int bufferLength;
-    char * transferBuffer;
+    void* transferBuffer;
     int transferStartOffset;
     int transferLength;
     StagingConfig();

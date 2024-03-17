@@ -18,11 +18,11 @@ private:
     long stagingStartOffset;
     long stagingLength;
 
-    char * bufferPtr;
+    void* buffer;
     int bufferStartOffset;
     int bufferLength;
 
-    char * transferBuffer;
+    void* transferBuffer;
     int transferStartOffset;
 
     long storageOffset = 0;
@@ -42,7 +42,6 @@ public:
     Record* next();
 
     int minSize();
-
 };
 
 

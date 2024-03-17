@@ -7,15 +7,14 @@ StagedProvider::StagedProvider(StagingConfig cfg):storage("test"), staging("test
     this->storageStartOffset = cfg.storageStartOffset;
     this->stagingStartOffset = cfg.stagingStartOffset;
     this->stagingLength = cfg.stagingLength;
-    this->bufferPtr = cfg.bufferPtr;
+    this->buffer = cfg.buffer;
     this->bufferStartOffset = cfg.bufferStartOffset;
     this->bufferLength = cfg.bufferLength;
     this->transferBuffer = cfg.transferBuffer;
     this->transferStartOffset = cfg.transferStartOffset;
 
     assert(cfg.transferLength >= bufferLength + stagingLength);
-    //TODO: dereference buffer pointer
-   // assert(cfg.bufferStartOffset + cfg.bufferLength <= cfg.bufferPtr.length);
+    assert(cfg.bufferStartOffset + cfg.bufferLength <= sizeOf(cfg.buffer));
 
     storageRemaining = recordCount * (long)recordSize;
 }
