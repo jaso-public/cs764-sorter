@@ -40,4 +40,7 @@ add_executable(cs764_sorter
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
         Providers/Printer.cpp
-        Providers/Printer.h)
+        Providers/Printer.h
+        Sorter.h
+        SorterConfig.cpp
+        SorterConfig.h)
