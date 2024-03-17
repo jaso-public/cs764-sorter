@@ -203,6 +203,34 @@ build CMakeFiles/cs764_sorter.dir/StagingConfig.cpp.o: CXX_COMPILER__cs764_sorte
   OBJECT_DIR = CMakeFiles/cs764_sorter.dir
   OBJECT_FILE_DIR = CMakeFiles/cs764_sorter.dir
 
+build CMakeFiles/cs764_sorter.dir/Testing/ArrayProvider.cpp.o: CXX_COMPILER__cs764_sorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/ArrayProvider.cpp || cmake_object_order_depends_target_cs764_sorter
+  DEP_FILE = CMakeFiles/cs764_sorter.dir/Testing/ArrayProvider.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/cs764_sorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/cs764_sorter.dir/Testing
+
+build CMakeFiles/cs764_sorter.dir/Testing/DropFirst.cpp.o: CXX_COMPILER__cs764_sorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/DropFirst.cpp || cmake_object_order_depends_target_cs764_sorter
+  DEP_FILE = CMakeFiles/cs764_sorter.dir/Testing/DropFirst.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/cs764_sorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/cs764_sorter.dir/Testing
+
+build CMakeFiles/cs764_sorter.dir/Testing/InOrderGenerator.cpp.o: CXX_COMPILER__cs764_sorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/InOrderGenerator.cpp || cmake_object_order_depends_target_cs764_sorter
+  DEP_FILE = CMakeFiles/cs764_sorter.dir/Testing/InOrderGenerator.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/cs764_sorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/cs764_sorter.dir/Testing
+
+build CMakeFiles/cs764_sorter.dir/Testing/NoopSorter.cpp.o: CXX_COMPILER__cs764_sorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/NoopSorter.cpp || cmake_object_order_depends_target_cs764_sorter
+  DEP_FILE = CMakeFiles/cs764_sorter.dir/Testing/NoopSorter.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/cs764_sorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/cs764_sorter.dir/Testing
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target cs764_sorter
@@ -211,7 +239,7 @@ build CMakeFiles/cs764_sorter.dir/StagingConfig.cpp.o: CXX_COMPILER__cs764_sorte
 #############################################
 # Link the executable cs764_sorter
 
-build cs764_sorter: CXX_EXECUTABLE_LINKER__cs764_sorter_Debug CMakeFiles/cs764_sorter.dir/Assert.cpp.o CMakeFiles/cs764_sorter.dir/Consumer.cpp.o CMakeFiles/cs764_sorter.dir/defs.cpp.o CMakeFiles/cs764_sorter.dir/Filter.cpp.o CMakeFiles/cs764_sorter.dir/Iterator.cpp.o CMakeFiles/cs764_sorter.dir/Providers/Provider.cpp.o CMakeFiles/cs764_sorter.dir/Records/Record.cpp.o CMakeFiles/cs764_sorter.dir/Records/rng.cpp.o CMakeFiles/cs764_sorter.dir/Scan.cpp.o CMakeFiles/cs764_sorter.dir/Sort.cpp.o CMakeFiles/cs764_sorter.dir/Test.cpp.o CMakeFiles/cs764_sorter.dir/NotDone/TournamentPQ.cpp.o CMakeFiles/cs764_sorter.dir/Witness.cpp.o CMakeFiles/cs764_sorter.dir/IODevice.cpp.o CMakeFiles/cs764_sorter.dir/Sim.cpp.o CMakeFiles/cs764_sorter.dir/Providers/SingleProvider.cpp.o CMakeFiles/cs764_sorter.dir/Providers/EmptyProvider.cpp.o CMakeFiles/cs764_sorter.dir/Providers/Printer.cpp.o CMakeFiles/cs764_sorter.dir/SorterConfig.cpp.o CMakeFiles/cs764_sorter.dir/Providers/StagedProvider.cpp.o CMakeFiles/cs764_sorter.dir/Providers/StorageProvider.cpp.o CMakeFiles/cs764_sorter.dir/StagingConfig.cpp.o
+build cs764_sorter: CXX_EXECUTABLE_LINKER__cs764_sorter_Debug CMakeFiles/cs764_sorter.dir/Assert.cpp.o CMakeFiles/cs764_sorter.dir/Consumer.cpp.o CMakeFiles/cs764_sorter.dir/defs.cpp.o CMakeFiles/cs764_sorter.dir/Filter.cpp.o CMakeFiles/cs764_sorter.dir/Iterator.cpp.o CMakeFiles/cs764_sorter.dir/Providers/Provider.cpp.o CMakeFiles/cs764_sorter.dir/Records/Record.cpp.o CMakeFiles/cs764_sorter.dir/Records/rng.cpp.o CMakeFiles/cs764_sorter.dir/Scan.cpp.o CMakeFiles/cs764_sorter.dir/Sort.cpp.o CMakeFiles/cs764_sorter.dir/Test.cpp.o CMakeFiles/cs764_sorter.dir/NotDone/TournamentPQ.cpp.o CMakeFiles/cs764_sorter.dir/Witness.cpp.o CMakeFiles/cs764_sorter.dir/IODevice.cpp.o CMakeFiles/cs764_sorter.dir/Sim.cpp.o CMakeFiles/cs764_sorter.dir/Providers/SingleProvider.cpp.o CMakeFiles/cs764_sorter.dir/Providers/EmptyProvider.cpp.o CMakeFiles/cs764_sorter.dir/Providers/Printer.cpp.o CMakeFiles/cs764_sorter.dir/SorterConfig.cpp.o CMakeFiles/cs764_sorter.dir/Providers/StagedProvider.cpp.o CMakeFiles/cs764_sorter.dir/Providers/StorageProvider.cpp.o CMakeFiles/cs764_sorter.dir/StagingConfig.cpp.o CMakeFiles/cs764_sorter.dir/Testing/ArrayProvider.cpp.o CMakeFiles/cs764_sorter.dir/Testing/DropFirst.cpp.o CMakeFiles/cs764_sorter.dir/Testing/InOrderGenerator.cpp.o CMakeFiles/cs764_sorter.dir/Testing/NoopSorter.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/cs764_sorter.dir
   POST_BUILD = :

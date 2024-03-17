@@ -49,4 +49,12 @@ add_executable(cs764_sorter
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
         StagingConfig.h
-        StagingConfig.cpp)
+        StagingConfig.cpp
+        Testing/ArrayProvider.cpp
+        Testing/ArrayProvider.h
+        Testing/DropFirst.h
+        Testing/DropFirst.cpp
+        Testing/InOrderGenerator.cpp
+        Testing/InOrderGenerator.h
+        Testing/NoopSorter.h
+        Testing/NoopSorter.cpp)
