@@ -63,6 +63,36 @@ bool Record::completeChecksumCheck(){
     return result;
 }
 
+/**
+   * Compares two records' keys together
+   * @param other is the other record to compare keys to the class' record
+   * @return 1 if the class key is greater; -1 if the other key is greater
+   */
+int Record::compareTo(Record other) {
+    compareCount++;
+    uint64_t classKey = getRecordKey();
+    uint64_t otherKey =     other.getRecordKey();
+    if (classKey > otherKey){
+        return 1;
+    } else {
+        return -1;
+    }
+}
+
+/**
+ * Sets the compareCount variable back to 0
+ */
+void Record::resetCompareCount() {
+    compareCount = 0;
+}
+
+/**
+ * @return the compare count variable
+ */
+long Record::getCompareCount() {
+    return compareCount;
+}
+
 // Main method to see output
 /**
  int main(){

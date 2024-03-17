@@ -27,7 +27,26 @@ public:
     */
     bool completeChecksumCheck();
 
+    /**
+     * Compares two records' keys together
+     * @param other is the other record to compare keys to the class' record
+     * @return 1 if the class key is greater; -1 if the other key is greater
+     */
+     int compareTo(Record other);
+
+     /**
+      * Sets the compareCount variable back to 0
+      */
+     void resetCompareCount();
+
+     /**
+      * @return the compare count variable
+      */
+     long getCompareCount();
+
 private:
+    // the total times the record has been compared to another record
+    long compareCount = 0;
     /**
     * This method will create a record in memory and fill it with random 64 bit integers
      * It is used to create the record during the initialization of the Record constructor
