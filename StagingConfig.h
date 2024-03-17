@@ -2,6 +2,7 @@
 #define CS764_SORTER_STAGINGCONFIG_H
 #include "IODevice.h"
 
+
 class StagingConfig {
 public:
     int recordSize;
@@ -9,13 +10,12 @@ public:
     long storageStartOffset;
     long stagingStartOffset;
     long stagingLength;
-    void* buffer;
+    void *buffer;
     int bufferStartOffset;
     int bufferLength;
-    void* transferBuffer;
+    void *transferBuffer;
     int transferStartOffset;
     int transferLength;
-    StagingConfig();
 };
 
 
