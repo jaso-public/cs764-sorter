@@ -17,7 +17,7 @@ class SpillOneBlockToSssd {
         
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
-        Sorter sorter = new Sorter(new SorterConfig(), lower, recordSize);
+        Sorter sorter = new Sorter(new SorterConfig(), lower);
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();

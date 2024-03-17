@@ -5,40 +5,65 @@ import java.util.ArrayList;
 public class Sorter implements Provider {
     
     private final SorterConfig cfg;
-    private final Provider source;
-    private final int recordSize;
     
     private final Provider sortedProvider;
 
-    private long ssdOffset = 0;
-    private long ssdRemaining = 0;
-    private long hddOffset = 0;
-    
+    private long ssdOffset;
+    private long ssdRemaining;
+    private long hddOffset;    
  
     private final byte[] buffer;
     private int lastMemoryRun;
     
-    ArrayList<Run> memoryRuns = new ArrayList<>();
-    ArrayList<Run> ssdRuns = new ArrayList<>();
-    ArrayList<Run> hddRuns = new ArrayList<>();
+    private ArrayList<Run> memoryRuns = new ArrayList<>();
+    private ArrayList<Run> ssdRuns = new ArrayList<>();
+    private ArrayList<Run> hddRuns = new ArrayList<>();
     
     
-    public Sorter(SorterConfig cfg, Provider source, int recordSize) {
+    public Sorter(SorterConfig cfg, Provider source) {
         this.cfg = cfg;
-        this.source = source;
-        this.recordSize = recordSize;
              
-        
+        // as we write data to the ssd, we will record how much free
+        // space is remaining on the ssd.  Initially the entire ssd
+        // is consider free and we can start writing from the beginning
+        // of the ssd.
+        ssdOffset = 0;
         ssdRemaining = cfg.ssdStorageSize;
         
+        // we can consider the hdd to have infinite storage so there
+        // is no equivalent hddRemaining variable like there is for
+        // the ssd, but we do have hhdOffset, which is the location 
+        // where the next runs will be written to the hdd.
+        hddOffset = 0;
+        
+        
+        // this is the buffer that we get to use for the sorting run.
+        // our config breaks it blocks and then the number of block.
+        // the block size, should be considered our RAM cache size.
+        // for this project, it is 1MB, which is the size of our initial 
+        // runs.  Since out block size is 1MB and we are allowed 100MB
+        // of memory, we will have 100 of these blocks.  This memory
+        // is allocated as a single chunk of memory.
         this.buffer = new byte[cfg.memoryBlockSize * cfg.memoryBlockCount];
+        
+        // as we create the initial runs, we will store them in memory.  
+        // These runs are stored in the buffer, we will treat the buffer
+        // like a stack.  The first run will be stored at end of the buffer
+        // (the beginning offset will bebuffer.length - cfg.memoryBlockSize)
+        // and each subsequent memory run will be stored at an offset 
+        // cfg.memoryBlockSize bytes before the previous one.  Since we
+        // reserve the very first (offset=0) block as the staging area for 
+        // the records, we can only store 99 memory runs, once we have that 
+        // many, we have to flush some memory runs to the ssd. After flushing
+        // the lastMemoryRun will be increased by cfg.memoryBlockSize times
+        // the number of runs flushed.
         lastMemoryRun = buffer.length;
         
-        this.sortedProvider = startSort();
+        this.sortedProvider = startSort(source);
     }
     
-    public Sorter(Provider source, int recordSize) {
-        this(new SorterConfig(), source, recordSize);
+    public Sorter(Provider source) {
+        this(new SorterConfig(), source);
     }
     
 
@@ -57,53 +82,61 @@ public class Sorter implements Provider {
         return sortedProvider.next();
     }
 
-    private Provider startSort() {
+    private Provider startSort(Provider source) {
         Record.resetCompareCount();
+                
+        // if the provider returns null right away then there are
+        // no records so we can just return an EmptyProvider.
+        Record firstRecord = source.next();
+        if(firstRecord == null) return new EmptyProvider();
+        
+        int recordSize = firstRecord.data.length;
         
         int maxRecordsPerRun = cfg.memoryBlockSize / recordSize;
         
         SingleProvider[] singles = new SingleProvider[maxRecordsPerRun];
         for(int i=0 ; i<maxRecordsPerRun ; i++) singles[i] = new SingleProvider();
         
+        int count = 0;
+        singles[count++].reset(firstRecord);
+        
         boolean endReached = false;
         while(!endReached) {
-            int recordCount = 0;
-            while(recordCount < maxRecordsPerRun) {
+            while(count < maxRecordsPerRun) {
                 Record r = source.next();
                 if(r == null) {
                     endReached = true;
                     break;
                 }
-                singles[recordCount++].reset(r);     
+                singles[count++].reset(r);     
             }
             
-            if(recordCount > 0) {
+            if(count > 0) {
                 // find the buffer that we are going to fill.
-                if(lastMemoryRun == cfg.memoryBlockSize) makeFreeSpace();                        
+                if(lastMemoryRun == cfg.memoryBlockSize) makeFreeSpace(recordSize);                        
                 
                 lastMemoryRun -= cfg.memoryBlockSize;
                                 
-                TournamentPQ pq = new TournamentPQ(singles, recordCount);
-                for(int i=0 ; i<recordCount ; i++) {
+                TournamentPQ pq = new TournamentPQ(singles, count);
+                for(int i=0 ; i<count ; i++) {
                     Record r = pq.next();
                     r.store(buffer, lastMemoryRun + i * recordSize);
                 }
-                memoryRuns.add(new Run(recordCount, lastMemoryRun));
+                memoryRuns.add(new Run(count, lastMemoryRun));
             }  
+            count = 0;
         }
          
-        // if there was nothing to sort then return an empty provider.
-        if(memoryRuns.size() + ssdRuns.size() + hddRuns.size() == 0) {
-            return new EmptyProvider();
-        }
-
+        // there had better be at least one run to merge.
+        assert(memoryRuns.size() + ssdRuns.size() + hddRuns.size() > 0);
+ 
         // see if we can do the final merge with the memory we have.
         // i.e not too many runs and no need to stage hdd runs to ssd
         int memoryRequired = ssdRuns.size() * cfg.ssdReadSize + (hddRuns.size() + 1) * cfg.hddReadSize;
         if(memoryRequired < cfg.memoryBlockCount * cfg.memoryBlockSize) {
             if(memoryRequired > lastMemoryRun) {
                 int toRelease = (memoryRequired - lastMemoryRun + cfg.memoryBlockSize - 1) / cfg.memoryBlockSize;
-                releaseMemory(toRelease);
+                releaseMemory(toRelease, recordSize);
             }
             
             Provider[] providers = new Provider[memoryRuns.size() + ssdRuns.size() + hddRuns.size()];
@@ -131,7 +164,7 @@ public class Sorter implements Provider {
          
         // we did not have enough memory to do the final merge, so lets flush all of our memory
         // runs and use all the memory to stage the final merge run.
-        releaseMemory(memoryRuns.size());        
+        releaseMemory(memoryRuns.size(), recordSize);        
         
         
 
@@ -154,12 +187,6 @@ public class Sorter implements Provider {
         }
         
         int runsToMerge = Math.max(runsToMergeForSpace, runsToMergeForCount);
-         
-      System.out.println("------------------");
-      System.out.println("memoryRuns.size():"+memoryRuns.size());
-      System.out.println("ssdRuns.size():"+ssdRuns.size());
-      System.out.println("hddRuns.size():"+hddRuns.size());
-      System.out.println("runsToMerge:"+runsToMerge);
 
         Provider[] providers = new Provider[runsToMerge];
          
@@ -172,7 +199,7 @@ public class Sorter implements Provider {
         }
         
         Provider provider = new TournamentPQ(providers, runsToMerge);
-        storeRun(provider, recordCount);
+        storeRun(provider, recordCount, recordSize);
         
         providers = new Provider[ssdRuns.size() + hddRuns.size()];
         int index = 0;
@@ -209,7 +236,7 @@ public class Sorter implements Provider {
     }
     
     
-    private void makeFreeSpace() {
+    private void makeFreeSpace(int recordSize) {
         long sorted = ssdOffset + hddOffset;
         sorted /= cfg.memoryBlockSize;
         sorted += memoryRuns.size();
@@ -218,10 +245,10 @@ public class Sorter implements Provider {
         int numToMove = (int)(sorted * cfg.fraction); 
         if(numToMove < 1) numToMove = 1;
         
-        releaseMemory(numToMove);
+        releaseMemory(numToMove, recordSize);
     }
     
-    private void releaseMemory(int numberBuffersToRelease) {
+    private void releaseMemory(int numberBuffersToRelease, int recordSize) {
         Provider[] providers = new Provider[numberBuffersToRelease];
         
         long recordCount = 0;
@@ -236,11 +263,11 @@ public class Sorter implements Provider {
         lastMemoryRun += numberBuffersToRelease * cfg.memoryBlockSize;
         
         Provider provider = new TournamentPQ(providers, index);
-        storeRun(provider, recordCount);
+        storeRun(provider, recordCount, recordSize);
     }
     
     
-    private void storeRun(Provider provider, long recordCount) {  
+    private void storeRun(Provider provider, long recordCount, int recordSize) {  
         
         long spaceRequired = recordCount * recordSize;
         

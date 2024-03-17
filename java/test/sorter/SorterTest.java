@@ -17,7 +17,7 @@ class SorterTest {
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Printer printer1 = new Printer(generator, test+"from generator");
         Witness lower = new Witness(printer1);
-        Sorter sorter = new Sorter(new SorterConfig(), lower, recordSize);
+        Sorter sorter = new Sorter(new SorterConfig(), lower);
         Witness upper = new Witness(sorter);
         Printer printer2 = new Printer(upper, test+"from sorter");
         Consumer consumer = new Consumer(printer2);
@@ -43,7 +43,7 @@ class SorterTest {
         
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
-        Sorter sorter = new Sorter(new SorterConfig(), lower, recordSize);
+        Sorter sorter = new Sorter(new SorterConfig(), lower);
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();
@@ -68,7 +68,7 @@ class SorterTest {
         
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
-        Sorter sorter = new Sorter(new SorterConfig(), lower, recordSize);
+        Sorter sorter = new Sorter(new SorterConfig(), lower);
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();
@@ -94,7 +94,7 @@ class SorterTest {
         
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
-        Sorter sorter = new Sorter(new SorterConfig(), lower, recordSize);
+        Sorter sorter = new Sorter(new SorterConfig(), lower);
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();
@@ -123,7 +123,7 @@ class SorterTest {
         
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
-        Sorter sorter = new Sorter(cfg, lower, recordSize);
+        Sorter sorter = new Sorter(cfg, lower);
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();
@@ -152,7 +152,7 @@ class SorterTest {
         
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
-        Sorter sorter = new Sorter(cfg, lower, recordSize);
+        Sorter sorter = new Sorter(cfg, lower);
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();
@@ -181,7 +181,7 @@ class SorterTest {
 
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
-        Sorter sorter = new Sorter(cfg, lower, recordSize);
+        Sorter sorter = new Sorter(cfg, lower);
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();
@@ -210,7 +210,7 @@ class SorterTest {
         
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
-        Sorter sorter = new Sorter(cfg, lower, recordSize);
+        Sorter sorter = new Sorter(cfg, lower);
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();

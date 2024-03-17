@@ -21,7 +21,7 @@ class LotsOfHddRuns {
         
         Provider generator = new CrcRandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
-        Sorter sorter = new Sorter(cfg, lower, recordSize);
+        Sorter sorter = new Sorter(cfg, lower);
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();

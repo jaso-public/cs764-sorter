@@ -11,7 +11,7 @@ package sorter;
  * @param storageStartOffset   the location (offset) on the storage device where the first records is stored
  * @param staging              the IoDevice where we will stage one block of data from storage (probably an SSD)
  * @param stagingStartOffset   the location on the staging device where we will temporarily store the the block
- * @param stagingLength        the amount of storage that is reserve on the staging device to stage the block (256K-16K)
+ * @param stagingLength        the amount of storage that is reserve on the staging device to stage the block (256K-16K=240K)
  * @param buffer               the buffer where we can store the next records to return (part of our 100MB) 
  * @param bufferStartOffset    the offset into the buffer where we will stage the data in memory
  * @param bufferLength         the amount of space in the buffer that we can use to stage data
