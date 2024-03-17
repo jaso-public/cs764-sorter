@@ -1,0 +1,10 @@
+#ifndef CS764_SORTER_STORAGEPROVIDER_H
+#define CS764_SORTER_STORAGEPROVIDER_H
+
+
+class StorageProvider {
+
+};
+
+
+#endif //CS764_SORTER_STORAGEPROVIDER_H
