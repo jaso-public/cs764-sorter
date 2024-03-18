@@ -5,15 +5,16 @@
 
 class StagingConfig {
 public:
-    int recordSize;
+    uint64_t recordSize;
+    uint32_t keyOffset;
     long recordCount;
     long storageStartOffset;
     long stagingStartOffset;
     long stagingLength;
-    void *buffer;
+    char * buffer;
     int bufferStartOffset;
     int bufferLength;
-    void *transferBuffer;
+    char * transferBuffer;
     int transferStartOffset;
     int transferLength;
 };

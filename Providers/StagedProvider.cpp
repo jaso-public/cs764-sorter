@@ -1,6 +1,7 @@
 #include "StagedProvider.h"
 #include "../StagingConfig.h"
 #include <assert.h>
+#include <stdint.h>
 
 /**
   * Class constructor that takes in Staging Config class with the valuing values:
@@ -20,6 +21,7 @@
   */
 StagedProvider::StagedProvider(StagingConfig cfg):storage("test"), staging("test") {
     this->recordSize = cfg.recordSize;
+    this->keyOffset = cfg.keyOffset;
     this->recordCount = cfg.recordCount;
     this->storageStartOffset = cfg.storageStartOffset;
     this->stagingStartOffset = cfg.stagingStartOffset;
@@ -38,21 +40,78 @@ StagedProvider::StagedProvider(StagingConfig cfg):storage("test"), staging("test
 }
 
 /**
- *
+ *	arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
  * @return a pointer to the next record or a null pointer if all records have been generated
  */
 Record* StagedProvider::next() {
     if (nextRecord >= recordCount) return nullptr;
-    uint64_t *data = new uint64_t[recordSize];
     int recordRemaining = recordSize;
     int recordOffset = 0;
-    //TODO: ending here
-    while(true){
-        if(recordRemaining < 1) {
+    while (true) {
+        if (recordRemaining < 1) {
             nextRecord++;
-            Record r(data);
-
-            return ;
+            Record r(recordSize, keyOffset);
+            Record *ptr = &r;
+            return ptr;
         }
+        if (bufferRemaining < 1) {
+            if (stagingRemaining < 1) {
+                int sizeToRead = minSize(bufferLength + stagingLength, storageRemaining);
+                storage.read(storageStartOffset + storageOffset, transferBuffer, transferStartOffset, sizeToRead);
+                storageOffset += sizeToRead;
+                storageRemaining -= sizeToRead;
+
+                if (sizeToRead <= bufferLength) {
+                    // this must be the final chunk on the HDD.
+                    // It is small enough to fit in the buffer.
+                    const int arr_size = 10;
+
+                    // move pointers to point to correct destination in destination and source
+                    void *source = &transferBuffer + transferStartOffset;
+                    void *destination = &buffer + bufferStartOffset;
+                    std::memcpy(destination, source, sizeToRead);
+                    stagingOffset = 0;
+                    stagingRemaining = 0;
+                    bufferOffset = 0;
+                    bufferRemaining = sizeToRead;
+                } else {
+                    // we need to put the beginning of the transfer buffer into our buffer,
+                    // and the rest of the data needs to be written to the staging area
+                    // move pointers to point to correct destination in destination and source
+                    void *destination = &buffer + bufferStartOffset;
+                    void *source = &transferBuffer + transferStartOffset;
+                    std::memcpy(destination, source, bufferLength);
+                    staging.write(stagingStartOffset, transferBuffer, transferStartOffset + bufferLength,
+                                  sizeToRead - bufferLength);
+                    stagingOffset = 0;
+                    stagingRemaining = sizeToRead - bufferLength;
+                    bufferOffset = 0;
+                    bufferRemaining = bufferLength;
+                }
+            } else {
+                // there is data available in the staging area, lets read it.
+                int sizeToRead = minSize(bufferLength, stagingRemaining);
+                staging.read(stagingStartOffset + stagingOffset, buffer, bufferStartOffset, sizeToRead);
+                stagingOffset += sizeToRead;
+                stagingRemaining -= sizeToRead;
+                bufferOffset = 0;
+                bufferRemaining = sizeToRead;
+            }
+            }
+        int sizeToCopy = minSize(recordRemaining, bufferRemaining);
+        void* data = new char[recordSize];
+        void *destination = &data + recordOffset;
+        void *source = &buffer + bufferStartOffset + bufferOffset;
+        std::memcpy(destination, source, sizeToCopy);
+        recordOffset += sizeToCopy;
+        recordRemaining -= sizeToCopy;
+        bufferOffset += sizeToCopy;
+        bufferRemaining -= sizeToCopy;
     }
+}
+
+int StagedProvider::minSize(long size1, long size2){
+    //long result = Math.min(size1, size2);
+   // if(result>Integer.MAX_VALUE) throw new RuntimeException("sizes too big");
+    return 1;
 }

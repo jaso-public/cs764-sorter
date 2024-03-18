@@ -8,8 +8,9 @@
 
 class StagedProvider:Provider {
 private:
-    int recordSize;
     long recordCount;
+    uint64_t recordSize;
+    uint32_t keyOffset;
 
     IODevice storage;
     long storageStartOffset;
@@ -18,11 +19,11 @@ private:
     long stagingStartOffset;
     long stagingLength;
 
-    void *buffer;
+    char * buffer;
     int bufferStartOffset;
     int bufferLength;
 
-    void *transferBuffer;
+    char * transferBuffer;
     int transferStartOffset;
 
     long storageOffset = 0;
@@ -57,7 +58,7 @@ public:
 
     Record* next();
 
-    int minSize();
+    int minSize(long size1, long size2);
 };
 
 
