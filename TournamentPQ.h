@@ -12,7 +12,7 @@ using namespace std;
 class TournamentPQ:Provider {
 private:
     vector<Provider> providers;
-    vector<Record> record;
+    vector<Record> records;
     vector<int> losers;
     int numProviders;
     // key offset of record

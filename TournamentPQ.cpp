@@ -6,43 +6,34 @@
 
 /**
    * Initializes TournamentPQ constructor
-   * Determines which records are winners and losers in the given tournament
-   * @param givenProviders a pointer to an array of providers
    */
-TournamentPQ::TournamentPQ(Provider *givenProviders, uint32_t givenKeyOffset) {
-    // obtains the providers
-    providersPtr = givenProviders;
-
-    // calculates the total number of given providers
-    int size = *(&givenProviders + 1) - givenProviders;
-    Provider providers[size];
-
-    // sets givenKeyOffset to class offset variable
-    keyOffset = givenKeyOffset;
 
 
+TournamentPQ::TournamentPQ(vector<Provider> providers, uint32_t givenKeyOffset, int numProviders) {
+    this->providers = providers;
+    this->numProviders = numProviders;
+    this->keyOffset = keyOffset;
 
-    // creates fills the records array with the next value from every provider
-    this->records = new Record(size, keyOffset);
-    for (int i = 0; i< size; i++){
-        records[i] = providers[i].next();
+
+    // create and fill the records array
+    vector<Record> r(numProviders);
+    this->records = r;
+    for(int i=0 ; i<numProviders ; i++) {
+        Record* ptr = providers[i].next();
+        records[i] = *ptr;
     }
 
-    // creates losers array to be the size of the number of next records obtained/number of providers
-    loser = malloc(sizeof(size));
-    // creates a winners array of keys
-    uint64_t* winnersArray = malloc(sizeof(size));
-    uint64_t *winners = (uint64_t*) winnersArray;
-
-    for (int match=size-1; match > 0; match--){
+    vector<int> losers(numProviders);
+    vector<int> winners(numProviders);
+    for(int match=numProviders-1 ; match>0 ; match--) {
         int h1 = match * 2;
         int h2 = h1 + 1;
-        if (h1>=size) h1 = h1-size; else h1 = winners[h1];
-        if (h2>=size) h2 = h2-size; else h2 = winners[h2];
+        if(h1>=numProviders) h1 = h1-numProviders; else h1 = winners[h1];
+        if(h2>=numProviders) h2 = h2-numProviders; else h2 = winners[h2];
 
-        if (firstWin(h1,h2)){
+        if(isFirstWinner(h1, h2)) {
             winners[match] = h1;
-            loser[match] = h2;
+            losers[match] = h2;
         } else {
             winners[match] = h2;
             losers[match] = h1;
@@ -56,28 +47,29 @@ TournamentPQ::TournamentPQ(Provider *givenProviders, uint32_t givenKeyOffset) {
 /**
  * TournamentPQ constructor
  * Determines which records are winners and losers in the given tournament
- * @param givenProviders an array of providers that can generate records
- * @param keyOffset the key offset value of the record
  */
-Record TournamentPQ::next() {
+Record* TournamentPQ::next() {
     int provider = losers[0];
 
     Record result = records[provider];
-    if (!result) return nullptr;
+    if(result.record == nullptr) return nullptr;
 
+    //TODO: here
     records[provider] = providers[provider].next();
-    int match = (provider + size) /2;
+    int match = (provider + numProviders) / 2;
 
     int winner = provider;
-    while (match>0){
-        if (firstWin(losers[match], winner)){
-            int temp = winner;
+    while(match > 0) {
+        if(isFirstWinner(losers[match], winner)) {
+            int tmp = winner;
             winner = losers[match];
-            losers[match] = temp
+            losers[match] = tmp;
         }
-        match = match/2;
+        match = match / 2;
     }
     losers[0] = winner;
+
+    return result;
 }
 
 /**
