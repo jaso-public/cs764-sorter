@@ -26,8 +26,8 @@ add_executable(cs764_sorter
         Sort.cpp
         Sort.h
         Test.cpp
-        NotDone/TournamentPQ.cpp
-        NotDone/TournamentPQ.h
+        TournamentPQ.cpp
+        TournamentPQ.h
         Witness.cpp
         Witness.h
         IODevice.h
