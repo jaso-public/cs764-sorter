@@ -43,7 +43,6 @@ StagedProvider::StagedProvider(StagingConfig cfg):storage("test"), staging("test
 }
 
 /**
- *	arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
  * @return a pointer to the next record or a null pointer if all records have been generated
  */
 Record* StagedProvider::next() {
