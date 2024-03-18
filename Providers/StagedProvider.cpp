@@ -2,6 +2,9 @@
 #include "../StagingConfig.h"
 #include <assert.h>
 #include <stdint.h>
+#include <limits.h>
+#include <iostream>
+using namespace std;
 
 /**
   * Class constructor that takes in Staging Config class with the valuing values:
@@ -69,7 +72,7 @@ Record* StagedProvider::next() {
                     // move pointers to point to correct destination in destination and source
                     void *source = &transferBuffer + transferStartOffset;
                     void *destination = &buffer + bufferStartOffset;
-                    std::memcpy(destination, source, sizeToRead);
+                    memcpy(destination, source, sizeToRead);
                     stagingOffset = 0;
                     stagingRemaining = 0;
                     bufferOffset = 0;
@@ -80,7 +83,7 @@ Record* StagedProvider::next() {
                     // move pointers to point to correct destination in destination and source
                     void *destination = &buffer + bufferStartOffset;
                     void *source = &transferBuffer + transferStartOffset;
-                    std::memcpy(destination, source, bufferLength);
+                    memcpy(destination, source, bufferLength);
                     staging.write(stagingStartOffset, transferBuffer, transferStartOffset + bufferLength,
                                   sizeToRead - bufferLength);
                     stagingOffset = 0;
@@ -102,7 +105,7 @@ Record* StagedProvider::next() {
         void* data = new char[recordSize];
         void *destination = &data + recordOffset;
         void *source = &buffer + bufferStartOffset + bufferOffset;
-        std::memcpy(destination, source, sizeToCopy);
+        memcpy(destination, source, sizeToCopy);
         recordOffset += sizeToCopy;
         recordRemaining -= sizeToCopy;
         bufferOffset += sizeToCopy;
@@ -111,7 +114,11 @@ Record* StagedProvider::next() {
 }
 
 int StagedProvider::minSize(long size1, long size2){
-    //long result = Math.min(size1, size2);
-   // if(result>Integer.MAX_VALUE) throw new RuntimeException("sizes too big");
-    return 1;
+    long result = std::min(size1, size2);
+    try{
+            if(result>INT_MAX) throw (result);
+    } catch (long failedResult){
+        cout << "Conversion from long to int failed; long was too large\n";
+    }
+    return result;
 }
