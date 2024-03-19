@@ -117,7 +117,7 @@ int StagedProvider::minSize(long size1, long size2){
     try{
             if(result>INT_MAX) throw (result);
     } catch (long failedResult){
-        cout << "Conversion from long to int failed; long was too large\n";
+        cout << "Conversion from long to int failed; a long was too large\n";
     }
-    return result;
+    return  static_cast<int> (result);;
 }

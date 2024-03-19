@@ -60,4 +60,6 @@ add_executable(cs764_sorter
         Testing/NoopSorter.cpp
         Sorter.cpp
         Run.h
-        Run.cpp)
+        Run.cpp
+        MemoryProvider.h
+        MemoryProvider.cpp)
