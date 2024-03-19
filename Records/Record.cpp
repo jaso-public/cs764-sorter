@@ -93,6 +93,17 @@ long Record::getCompareCount() {
     return compareCount;
 }
 
+void Record::store(char *buffer, int offset) {
+    void *source = &data;
+    void *destination = &buffer + offset;
+    memcpy(destination, source, sizeof(buffer));
+}
+
+void Record::storePartial(char *buffer, int offset, int start, int length) {
+    void *source = &data + start;
+    void *destination = &buffer + offset;
+    memcpy(destination, source, length);
+}
 // Main method to see output
 /**
  int main(){

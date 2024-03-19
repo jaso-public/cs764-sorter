@@ -1,6 +1,6 @@
 #ifndef CS764_SORTER_TOURNAMENTPQ_H
 #define CS764_SORTER_TOURNAMENTPQ_H
-#include "Providers/Provider.h"
+#include "Providers/SingleProvider.h"
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -11,7 +11,7 @@ using namespace std;
  */
 class TournamentPQ:Provider {
 private:
-    vector<Provider> providers;
+    vector<SingleProvider> providers;
     vector<Record> records;
     vector<int> losers;
     int numProviders;
@@ -28,7 +28,7 @@ private:
     bool isFirstWinner(int first, int second);
 
 public:
-    TournamentPQ(vector<Provider> providers, uint32_t givenKeyOffset, int numProviders);
+    TournamentPQ(vector<SingleProvider> providers, uint32_t givenKeyOffset, int numProviders);
     Record* next();
 
 };

@@ -3,6 +3,7 @@
 #include "Providers/Provider.h"
 #include "SorterConfig.h"
 #include "Run.h"
+#include "Records/Record.h"
 #include <vector>
 
 class Sorter: Provider {
@@ -11,6 +12,8 @@ private:
     Provider source;
     int recordSize;
     Provider sortedProvider;
+    uint32_t keyOffset;
+    Record record;
 
      long ssdOffset = 0;
      long ssdRemaining = 0;
@@ -28,7 +31,7 @@ public:
     vector<Run> memoryRuns;
     vector<Run> ssdRuns;
     vector<Run> hddRuns;
-    Sorter(SorterConfig cfg, Provider source, int recordSize);
+    Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOffset);
     Record* next();
     void printStats();
 
