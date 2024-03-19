@@ -57,4 +57,7 @@ add_executable(cs764_sorter
         Testing/InOrderGenerator.cpp
         Testing/InOrderGenerator.h
         Testing/NoopSorter.h
-        Testing/NoopSorter.cpp)
+        Testing/NoopSorter.cpp
+        Sorter.cpp
+        Run.h
+        Run.cpp)
