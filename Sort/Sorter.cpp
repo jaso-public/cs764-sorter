@@ -142,7 +142,7 @@ long Sorter::roundUp(long value, long multiple) {
 }
 
 void Sorter::printStats(){
-    cout << "SSD usage:" << cfg.ssdDevice.stats() << "/";
-    cout << "HDD usage:" << cfg.hddDevice.stats() << "/";
-    cout << "total number of record comparisons: " <<  record.getCompareCount() << "/";
+    cout << "SSD usage:" << cfg.ssdDevice.stats() << "\n";
+    cout << "HDD usage:" << cfg.hddDevice.stats() << "\n";
+    cout << "total number of record comparisons: " <<  record.getCompareCount() << "\n";
 }

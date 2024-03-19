@@ -1,5 +1,5 @@
 #include "StagedProvider.h"
-#include "../StagingConfig.h"
+#include "Config/StagingConfig.h"
 #include <assert.h>
 #include <stdint.h>
 #include <limits.h>

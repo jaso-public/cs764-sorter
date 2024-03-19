@@ -23,8 +23,8 @@ add_executable(cs764_sorter
         Records/rng.h
         Scan.cpp
         Scan.h
-        Sort.cpp
-        Sort.h
+        Sort/Sort.cpp
+        Sort/Sort.h
         Test.cpp
         TournamentPQ.cpp
         TournamentPQ.h
@@ -41,15 +41,15 @@ add_executable(cs764_sorter
         Providers/EmptyProvider.h
         Providers/Printer.cpp
         Providers/Printer.h
-        Sorter.h
-        SorterConfig.cpp
-        SorterConfig.h
+        Sort/Sorter.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
         Providers/StagedProvider.h
         Providers/StagedProvider.cpp
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
-        StagingConfig.h
-        StagingConfig.cpp
+        Config/StagingConfig.h
+        Config/StagingConfig.cpp
         Testing/ArrayProvider.cpp
         Testing/ArrayProvider.h
         Testing/DropFirst.h
@@ -58,8 +58,8 @@ add_executable(cs764_sorter
         Testing/InOrderGenerator.h
         Testing/NoopSorter.h
         Testing/NoopSorter.cpp
-        Sorter.cpp
+        Sort/Sorter.cpp
         Run.h
         Run.cpp
-        MemoryProvider.h
-        MemoryProvider.cpp)
+        Providers/MemoryProvider.h
+        Providers/MemoryProvider.cpp)

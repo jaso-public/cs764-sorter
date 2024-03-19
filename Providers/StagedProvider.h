@@ -4,7 +4,7 @@
 
 #include "IODevice.h"
 #include "Provider.h"
-#include "StagingConfig.h"
+#include "Config/StagingConfig.h"
 
 class StagedProvider:Provider {
 private:
