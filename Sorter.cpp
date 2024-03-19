@@ -4,6 +4,9 @@
 #include "TournamentPQ.h"
 #include "./Records/Record.h"
 #include "./Records/Record.cpp"
+#include "stdint.h"
+#include <iostream>
+using namespace std;
 
 Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize,     uint32_t keyOffset) {
    //TODO: fix this
@@ -27,6 +30,7 @@ Record* Sorter::next() {
     return sortedProvider.next();
 }
 
+//TODO: finish start sort
 Provider Sorter::startSort() {
     Record r();
     r().resetCompareCount();
@@ -91,6 +95,54 @@ Provider Sorter::startSort() {
          //   providers[index++] = MemoryProvider m(buffer, run.offset, run.numRecords, recordSize);
         }
     }
+}
+
+void Sorter::makeFreeSpace() {
+    long sorted = ssdOffset + hddOffset;
+    sorted /= cfg.memoryBlockSize;
+    sorted += memoryRuns.size();
+    // at this point sorted contains the number of 1MB blocks we have.
+
+    int numToMove = (int)(sorted * cfg.fraction);
+    if(numToMove < 1) numToMove = 1;
+
+    releaseMemory(numToMove);
+}
 
 
+
+//TODO: this method
+void Sorter::storeRun(Provider provider, long recordCount) {
+    long spaceRequired = recordCount * recordSize;
+
+    IODevice device();
+    long deviceOffset = 0;
+
+    long ssdRequired = roundUp(spaceRequired, cfg.ssdReadSize);
+    if(ssdRequired <= ssdRemaining) {
+        device = cfg.ssdDevice;
+        deviceOffset = ssdOffset;
+        ssdRuns.add(new Run(recordCount, ssdOffset));
+        ssdOffset += ssdRequired;
+        ssdRemaining -= ssdRequired;
+    } else {
+        long hddRequired = roundUp(spaceRequired, cfg.hddReadSize);
+        device = cfg.hddDevice;
+        deviceOffset = hddOffset;
+        hddRuns.add(new Run(recordCount, hddOffset));
+        hddOffset += hddRequired;
+    }
+
+}
+
+long Sorter::roundUp(long value, long multiple) {
+    long quotient = value / multiple;
+    if(quotient * multiple == value) return value;
+    return (quotient + 1) * multiple;
+}
+
+void Sorter::printStats(){
+    cout << "SSD usage:" << cfg.ssdDevice.stats() << "/";
+    cout << "HDD usage:" << cfg.hddDevice.stats() << "/";
+    cout << "total number of record comparisons: " <<  record.getCompareCount() << "/";
 }
