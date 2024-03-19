@@ -1,8 +1,6 @@
 #include "TournamentPQ.h"
 #include "Providers/Provider.h"
 #include "Records/Record.h"
-#include<iostream>
-#include<array>
 
 /**
    * Initializes TournamentPQ constructor
@@ -54,8 +52,8 @@ Record* TournamentPQ::next() {
     Record result = records[provider];
     if(result.record == nullptr) return nullptr;
 
-    //TODO: here
-    records[provider] = providers[provider].next();
+    Record* ptr = providers[provider].next();
+    records[provider] = *ptr;
     int match = (provider + numProviders) / 2;
 
     int winner = provider;
@@ -69,7 +67,9 @@ Record* TournamentPQ::next() {
     }
     losers[0] = winner;
 
-    return result;
+    Record* ptrResult = &result;
+
+    return ptrResult;
 }
 
 /**
@@ -79,13 +79,16 @@ Record* TournamentPQ::next() {
  * @param second the second provider in the match.
  * @return true if the first provider wins the match, false otherwise.
  */
-bool TournamentPQ::firstWin(int first, int second) {
-    Record* r1Ptr = records[first];
-    Record* r2Ptr = records[second];
-    Record r1 = *r1Ptr;
-    Record r2 = *r2Ptr;
-    if (!r1Ptr) return false;
-    else if (!r2Ptr) return true;
-    else if (r1 > r2) return true;
-    else return false;
+bool TournamentPQ::isFirstWinner(int first, int second) {
+    Record r1 = records[first];
+    Record r2 = records[second];
+    if(r1.record == nullptr) {
+        return false;
+    } else if(r2.record == nullptr) {
+        return true;
+    } else if(r1.compareTo(r2) < 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
