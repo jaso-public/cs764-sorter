@@ -9,7 +9,7 @@ using namespace std;
 /**
  * This is the tournament tree priority queue that will be utilized for sorting record keys
  */
-class TournamentPQ:Provider {
+class TournamentPQ: public Provider {
 private:
     vector<SingleProvider> providers;
     vector<Record> records;

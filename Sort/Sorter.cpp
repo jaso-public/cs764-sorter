@@ -1,6 +1,8 @@
 #include "Sorter.h"
 #include "Providers/SingleProvider.h"
 #include "Providers/EmptyProvider.h"
+#include "Providers/MemoryProvider.h"
+#include "Providers/StorageProvider.h"
 #include "TournamentPQ.h"
 #include "./Records/Record.h"
 #include "./Records/Record.cpp"
@@ -30,17 +32,15 @@ Record* Sorter::next() {
     return sortedProvider.next();
 }
 
-//TODO: finish start sort
+
 Provider Sorter::startSort() {
-    Record r();
-    r().resetCompareCount();
+    Record r;
+    r.resetCompareCount();
 
     int maxRecordsPerRun = cfg.memoryBlockSize / recordSize;
 
-    SingleProvider s();
-    vector<SingleProvider> singles();
-    //TODO:
-   // singles(maxRecordsPerRun,s);
+    SingleProvider s;
+    vector<SingleProvider> singles(maxRecordsPerRun, s);
 
     bool endReached = false;
     while(!endReached) {
@@ -51,8 +51,8 @@ Provider Sorter::startSort() {
                 endReached = true;
                 break;
             }
-            //TODO:
-            //singles[recordCount++].reset(r);
+            Record* ptr = &r;
+            singles[recordCount++].reset(ptr);
         }
 
         if(recordCount > 0) {
@@ -61,7 +61,7 @@ Provider Sorter::startSort() {
 
             lastMemoryRun -= cfg.memoryBlockSize;
 
-            TournamentPQ pq(singles(), keyOffset, recordCount);
+            TournamentPQ pq(singles, keyOffset, recordCount);
             for(int i=0 ; i<recordCount ; i++) {
                 Record* ptr = pq.next();
                 Record r = *ptr;
@@ -74,8 +74,8 @@ Provider Sorter::startSort() {
     }
     // if there was nothing to sort then return an empty provider.
     if(memoryRuns.size() + ssdRuns.size() + hddRuns.size() == 0) {
-        EmptyProvider e();
-        return reinterpret_cast<Provider &&>(e);
+        EmptyProvider e;
+        return e;
     }
 
     // see if we can do the final merge with the memory we have.
@@ -91,10 +91,103 @@ Provider Sorter::startSort() {
         int index = 0;
 
         for(Run run : memoryRuns) {
-            //TODO: here
-         //   providers[index++] = MemoryProvider m(buffer, run.offset, run.numRecords, recordSize);
+            EmptyProvider e;
+            MemoryProvider m(buffer, run.offset, run.numRecords, recordSize, keyOffset);
+            providers[index++] = m;
         }
+        // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
+        int offset = 0;
+
+        for(Run run : hddRuns) {
+            StorageProvider s(recordSize, run.numRecords, cfg.hddDevice, run.offset, buffer, offset, cfg.hddReadSize, keyOffset);
+            offset += cfg.hddReadSize;
+        }
+
+        for (Run run : ssdRuns) {
+            StorageProvider s(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset, cfg.ssdReadSize, keyOffset);
+            offset += cfg.ssdReadSize;
+        }
+        //TODO: fix
+        TournamentPQ t(providers, keyOffset, index);
+        return t;
     }
+
+    // we did not have enough memory to do the final merge, so lets flush all of our memory
+    // runs and use all the memory to stage the final merge run.
+    releaseMemory(memoryRuns.size());
+
+
+    // there are two constraints that we have to worry about now:
+    // 1. do we have enough free space on the ssd to do the staging?
+    // 2. do we have too many runs to merge in the final pass?
+
+
+    // max number of merge runs that can be merged using cfg.ssdReadSize chunk sized memory for each run
+    // Note we reserve one cfg.hddReadSize block of memory to transfer data from the hdd back to the ssd
+    int maxMergeRuns = ((cfg.memoryBlockCount * cfg.memoryBlockSize) - cfg.hddReadSize) / cfg.ssdReadSize;
+    int runsToMergeForCount = ssdRuns.size() + hddRuns.size() - maxMergeRuns;
+
+    // figure out how much space we need for staging hdd data
+    long stagingRequired = (hddRuns.size() + 1) * (cfg.hddReadSize - cfg.ssdReadSize);
+    int runsToMergeForSpace = 0;
+    for(Run run : ssdRuns) {
+        if(run.offset > stagingRequired) break;
+        runsToMergeForSpace++;
+    }
+
+    int runsToMerge = Math.max(runsToMergeForSpace, runsToMergeForCount);
+
+    System.out.println("------------------");
+    System.out.println("memoryRuns.size():"+memoryRuns.size());
+    System.out.println("ssdRuns.size():"+ssdRuns.size());
+    System.out.println("hddRuns.size():"+hddRuns.size());
+    System.out.println("runsToMerge:"+runsToMerge);
+
+    Provider[] providers = new Provider[runsToMerge];
+
+    long recordCount = 0;
+    for(int i=0 ; i<runsToMerge ; i++) {
+        Run run = ssdRuns.remove(0);
+        recordCount += run.numRecords;
+        int offset = cfg.memoryBlockSize + i * cfg.ssdReadSize;
+        providers[i] = new StorageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset, cfg.ssdReadSize);
+    }
+
+    Provider provider = new TournamentPQ(providers, runsToMerge);
+    storeRun(provider, recordCount);
+
+    providers = new Provider[ssdRuns.size() + hddRuns.size()];
+    int index = 0;
+    int memoryOffset = cfg.memoryBlockSize;
+
+
+    for(int i=0 ; i<hddRuns.size(); i++) {
+        Run run = hddRuns.get(i);
+
+        StagedProvider.StagingConfig stagingCfg = new StagedProvider.StagingConfig();
+        stagingCfg.recordSize = recordSize;
+        stagingCfg.recordCount = run.numRecords;
+        stagingCfg.storage = cfg.hddDevice;
+        stagingCfg.storageStartOffset = run.offset;
+        stagingCfg.staging = cfg.ssdDevice;
+        stagingCfg.stagingStartOffset = i * (cfg.hddReadSize - cfg.ssdReadSize);
+        stagingCfg.stagingLength = cfg.hddReadSize - cfg.ssdReadSize;
+        stagingCfg.buffer = buffer;
+        stagingCfg.bufferStartOffset = memoryOffset;
+        stagingCfg.bufferLength = cfg.ssdReadSize;
+        stagingCfg.transferBuffer = buffer;
+        stagingCfg.transferStartOffset = 0;
+        stagingCfg.transferLength = cfg.hddReadSize;
+        providers[index++] = new StagedProvider(stagingCfg);
+        memoryOffset += cfg.ssdReadSize;
+    }
+
+    for(Run run : ssdRuns) {
+        providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, memoryOffset, cfg.ssdReadSize);
+        memoryOffset += cfg.ssdReadSize;
+    }
+
+    return new TournamentPQ(providers, index);
 }
 
 void Sorter::makeFreeSpace() {
@@ -107,6 +200,24 @@ void Sorter::makeFreeSpace() {
     if(numToMove < 1) numToMove = 1;
 
     releaseMemory(numToMove);
+}
+
+void Sorter::releaseMemory(int numberBuffersToRelease) {
+    Provider[] providers = new Provider[numberBuffersToRelease];
+
+    long recordCount = 0;
+    int index = 0;
+
+    while(memoryRuns.size() > 0 && index < numberBuffersToRelease) {
+        Run run = memoryRuns.remove(memoryRuns.size()-1);
+        providers[index++] = new MemoryProvider(buffer, run.offset, run.numRecords, recordSize);
+        recordCount += run.numRecords;
+    }
+
+    lastMemoryRun += numberBuffersToRelease * cfg.memoryBlockSize;
+
+    Provider provider = new TournamentPQ(providers, index);
+    storeRun(provider, recordCount);
 }
 
 
@@ -132,6 +243,29 @@ void Sorter::storeRun(Provider provider, long recordCount) {
         hddRuns.add(new Run(recordCount, hddOffset));
         hddOffset += hddRequired;
     }
+
+    int bufferOffset = 0;
+    int bufferRemaining = cfg.memoryBlockSize;
+    while(true) {
+        Record r = provider.next();
+        if(r==null) break;
+        if(bufferRemaining < recordSize) {
+            r.storePartial(buffer, bufferOffset, 0, bufferRemaining);
+            int leftOver = recordSize-bufferRemaining;
+            device.write(deviceOffset, buffer, 0, cfg.memoryBlockSize);
+            deviceOffset += cfg.memoryBlockSize;
+            r.storePartial(buffer, 0, bufferRemaining, leftOver);
+            bufferOffset = leftOver;
+            bufferRemaining = cfg.memoryBlockSize - leftOver;
+        } else {
+            r.store(buffer, bufferOffset);
+            bufferOffset += recordSize;
+            bufferRemaining -= recordSize;
+        }
+    }
+
+    // finally write out what ever is left in the buffer.
+    device.write(deviceOffset, buffer, 0, bufferOffset);
 
 }
 

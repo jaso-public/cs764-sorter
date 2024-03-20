@@ -1,10 +1,12 @@
 #ifndef CS764_SORTER_MEMORYPROVIDER_H
 #define CS764_SORTER_MEMORYPROVIDER_H
 #include "Records/Record.h"
+#include "Provider.h"
+
 /**
  * This class is used to create continuously create buffer space for a new record
  */
-class MemoryProvider {
+class MemoryProvider: public Provider {
 private:
     // buffer of memory
     char * buffer;
