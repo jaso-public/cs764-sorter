@@ -11,7 +11,7 @@
 #include <iostream>
 using namespace std;
 
-Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize,     uint32_t keyOffset) {
+Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOffset) {
    //TODO: fix this
     this->cfg = cfg;
     this->source = source;

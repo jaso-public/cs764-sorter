@@ -6,4 +6,6 @@
 SorterConfig::SorterConfig()
     : hddDevice("hddStaging.tmp"), ssdDevice("ssdStaging.tmp")
 {
+    this->hddDevice = hddDevice;
+    this->ssdDevice = ssdDevice;
 }
