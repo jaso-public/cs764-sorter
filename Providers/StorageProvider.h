@@ -1,11 +1,10 @@
 #ifndef CS764_SORTER_STORAGEPROVIDER_H
 #define CS764_SORTER_STORAGEPROVIDER_H
-
-
 #include "IODevice.h"
 #include "./Records/Record.h"
+#include "Provider.h"
 
-class StorageProvider {
+class StorageProvider: public Provider{
 private:
     int recordSize;
     long recordCount;
@@ -36,7 +35,7 @@ public:
             long storageStartOffset,
             char * buffer,
             int bufferStartOffset,
-            int bufferLength,     uint32_t keyOffset;);
+            int bufferLength,     uint32_t keyOffset);
 
     Record* next();
 
