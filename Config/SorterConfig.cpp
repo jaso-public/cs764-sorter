@@ -3,12 +3,7 @@
 /**
  * Class constructor that will initialize the IODevices with the right files
  */
-SorterConfig::SorterConfig(){
-    IODevice s("test");
-    this->ssdDevice = s;
-
+SorterConfig::SorterConfig(): ssdDevice("ssdStaging.tmp"), hddDevice("hddStaging.tmp")
+{
 }
 
-IODevice SorterConfig::ssdDevice() {
-    return IODevice();
-}

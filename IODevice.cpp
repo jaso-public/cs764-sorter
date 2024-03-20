@@ -8,13 +8,15 @@ using namespace std;
  * @param givenFile the string file path of the file
  * Source for exception handling code: https://cplusplus.com/reference/ios/ios/exceptions/
  */
-IODevice::IODevice(string filePath) {
+IODevice::IODevice(string filePath){
+    fstream f;
+    this->streamPtr = &f;
     // catches exception if file cannot be opened
-    stream.exceptions ( fstream::failbit);
+    (*streamPtr).exceptions ( fstream::failbit);
     try {
         this->file = filePath;
         // opens stream in read/write mode
-        stream.open(filePath, ios::out | ios::in );
+        (*streamPtr).open(filePath, ios::out | ios::in );
     }
     // catches exception when opening file
     catch (fstream ::failure e) {
@@ -31,13 +33,13 @@ IODevice::IODevice(string filePath) {
  */
 void IODevice::read(long offset, char * buffer, int off, int len) {
     // catches exception if file cannot be read
-    stream.exceptions ( fstream ::badbit );
+    (*streamPtr).exceptions ( fstream ::badbit );
     try {
         // sets file pointer to key location
-        stream.seekg(offset);
-        stream.seekg(off);
+        (*streamPtr).seekg(offset);
+        (*streamPtr).seekg(off);
         // reads bytes of length len and places them into the buffer
-        stream.read(buffer, len);
+        (*streamPtr).read(buffer, len);
         // increase read count and size
         readCount++;
         readSize+= len;
@@ -57,13 +59,13 @@ void IODevice::read(long offset, char * buffer, int off, int len) {
  */
 void IODevice::write(long offset, char *buffer, int off, int len) {
     // catches exception if file cannot be written to
-    stream.exceptions ( fstream ::badbit );
+    (*streamPtr).exceptions ( fstream ::badbit );
     try {
         // sets file pointer to key location
-        stream.seekp(offset);
-        stream.seekp(off);
+        (*streamPtr).seekp(offset);
+        (*streamPtr).seekp(off);
         // write bytes of length len and places them into the buffer
-        stream.write(buffer, len);
+        (*streamPtr).write(buffer, len);
         // increase write count and size
         writeCount++;
         writeSize += len;
@@ -96,10 +98,10 @@ long IODevice::getWriteSize() {
 // closes the stream reading the file
 void IODevice::close() {
     // catches exception if file cannot be close
-    stream.exceptions ( fstream::failbit);
+    (*streamPtr).exceptions ( fstream::failbit);
     try {
         // closes stream
-        stream.close();
+        (*streamPtr).close();
     }
     // catches exception when opening file
     catch (fstream ::failure e) {

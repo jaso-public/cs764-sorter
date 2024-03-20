@@ -22,9 +22,11 @@ using namespace std;
   * @param transferStartOffset  the offset into the buffer used for the temporary transfer
   * @param transferLength       the length of the transfer buffer (should equal stagingLength+bufferLength)
   */
-StagedProvider::StagedProvider(StagingConfig cfg):storage("test"), staging("test") {
+StagedProvider::StagedProvider(StagingConfig cfg): storage(""), staging("") {
     this->recordSize = cfg.recordSize;
     this->keyOffset = cfg.keyOffset;
+    this->storage = cfg.storage;
+    this->staging = cfg.staging;
     this->recordCount = cfg.recordCount;
     this->storageStartOffset = cfg.storageStartOffset;
     this->stagingStartOffset = cfg.stagingStartOffset;

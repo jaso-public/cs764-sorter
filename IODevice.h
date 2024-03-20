@@ -10,10 +10,10 @@ using namespace std;
  */
 class IODevice {
 private:
+    // stream to read/write to file
+    fstream* streamPtr;
     // the file to read and write to
     string file;
-    // stream to read/write to file
-    fstream stream;
     // keeps track of how many times the file has been read
     long readCount = 0;
     // keeps track of the number of bytes read
@@ -29,7 +29,6 @@ public:
     * @param givenFile the string file path of the file
     */
     IODevice(string filePath);
-    IODevice();
     /**
      * Reads a number of bytes from the file at a certain location
      * @param offset the file pointer offset where reading will begin

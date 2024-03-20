@@ -13,7 +13,6 @@
 using namespace std;
 
 Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOffset) {
-   //TODO: fix this
     this->cfg = cfg;
     this->source = source;
     this->recordSize = recordSize;
@@ -173,9 +172,9 @@ Provider Sorter::startSort() {
     for (int i = 0; i < hddRuns.size(); i++) {
         Run run = hddRuns[i];
 
-        StagedProvider stagedProvider;
+        StagedProvider stagedProvider();
         StagingConfig stagingCfg;
-        stagedProvider.cfg() = stagingCfg;
+        stagingCfg = stagedProvider().cfg;
         stagingCfg.recordSize = recordSize;
         stagingCfg.recordCount = run.numRecords;
         stagingCfg.storage = cfg.hddDevice;
@@ -196,7 +195,7 @@ Provider Sorter::startSort() {
 
     for (Run run: ssdRuns) {
         StorageProvider storageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer,
-                        memoryOffset, cfg.ssdReadSize);
+                        memoryOffset, cfg.ssdReadSize, keyOffset);
         providers[index++] = storageProvider;
         memoryOffset += cfg.ssdReadSize;
     }
@@ -227,22 +226,22 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 
         Run run = memoryRuns[memoryRuns.size()-1];
         ssdRuns.pop_back();
-        MemoryProvider memProv(buffer, run.offset, run.numRecords, recordSize);
+        MemoryProvider memProv(buffer, run.offset, run.numRecords, recordSize, keyOffset);
         providers[index++] = memProv;
         recordCount += run.numRecords;
     }
 
     lastMemoryRun += numberBuffersToRelease * cfg.memoryBlockSize;
 
-    Provider provider = new TournamentPQ(providers, index);
+    TournamentPQ t(providers, keyOffset, index);
+    Provider provider = t;
     storeRun(provider, recordCount);
 }
 
 void Sorter::storeRun(Provider provider, long recordCount) {
     long spaceRequired = recordCount * recordSize;
 
-    //TODO: insert tile here
-    IODevice device("file");
+    IODevice device("");
     long deviceOffset = 0;
 
     long ssdRequired = roundUp(spaceRequired, cfg.ssdReadSize);
