@@ -6,7 +6,7 @@
 #include "Provider.h"
 #include "Config/StagingConfig.h"
 
-class StagedProvider:Provider {
+class StagedProvider: public Provider {
 private:
     long recordCount;
     uint64_t recordSize;

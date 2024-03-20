@@ -11,7 +11,7 @@ using namespace std;
  * - the record's key (if it is not null)
  * - the record's checksum (if it is not null)
  */
-class Printer:Provider {
+class Printer: public Provider {
 public:
     // the source to get the next record pointer from
     Provider source;
