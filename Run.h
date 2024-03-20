@@ -8,6 +8,7 @@ public:
     long offset;
 
     Run(long numRecords, long offset);
+    Run();
 
 };
 

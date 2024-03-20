@@ -6,6 +6,7 @@
 
 class StorageProvider: public Provider{
 private:
+    string filepath;
     int recordSize;
     long recordCount;
     uint32_t keyOffset;
@@ -35,7 +36,8 @@ public:
             long storageStartOffset,
             char * buffer,
             int bufferStartOffset,
-            int bufferLength,     uint32_t keyOffset);
+            int bufferLength,
+            uint32_t keyOffset);
 
     Record* next();
 

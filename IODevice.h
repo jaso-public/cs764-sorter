@@ -29,6 +29,7 @@ public:
     * @param givenFile the string file path of the file
     */
     IODevice(string filePath);
+    IODevice();
     /**
      * Reads a number of bytes from the file at a certain location
      * @param offset the file pointer offset where reading will begin

@@ -17,6 +17,9 @@ public:
     char * transferBuffer;
     int transferStartOffset;
     int transferLength;
+    IODevice storage;
+    IODevice staging;
+    StagingConfig();
 };
 
 

@@ -29,7 +29,7 @@ public class StagedProvider implements Provider {
     
     private int bufferOffset = 0;
     private int bufferRemaining = 0;
-
+StagedProvider
     private long nextRecord = 0;
   
     

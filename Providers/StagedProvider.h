@@ -54,6 +54,8 @@ public:
      * @param transferStartOffset  the offset into the buffer used for the temporary transfer
      * @param transferLength       the length of the transfer buffer (should equal stagingLength+bufferLength)
      */
+    StagingConfig cfg();
+
     StagedProvider(StagingConfig cfg);
 
     Record* next();

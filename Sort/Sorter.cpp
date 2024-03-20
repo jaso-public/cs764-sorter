@@ -3,6 +3,7 @@
 #include "Providers/EmptyProvider.h"
 #include "Providers/MemoryProvider.h"
 #include "Providers/StorageProvider.h"
+#include "Providers/StagedProvider.h"
 #include "TournamentPQ.h"
 #include "./Records/Record.h"
 #include "./Records/Record.cpp"
@@ -149,7 +150,8 @@ Provider Sorter::startSort() {
 
     long recordCount = 0;
     for (int i = 0; i < runsToMerge; i++) {
-        Run run = ssdRuns.remove(0);
+        Run run = ssdRuns[0];
+        ssdRuns.erase(ssdRuns.begin());
         recordCount += run.numRecords;
         int offset = cfg.memoryBlockSize + i * cfg.ssdReadSize;
         StorageProvider s(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset,
@@ -162,16 +164,18 @@ Provider Sorter::startSort() {
     storeRun(provider, recordCount);
 
 
-    providers = new Provider[ssdRuns.size() + hddRuns.size()];
+    vector<Provider> newProvider(ssdRuns.size() + hddRuns.size());
+    providers = newProvider;
     int index = 0;
     int memoryOffset = cfg.memoryBlockSize;
 
 
     for (int i = 0; i < hddRuns.size(); i++) {
-        Run run = hddRuns.get(i);
+        Run run = hddRuns[i];
 
-        StagedProvider.StagingConfig
-        stagingCfg = new StagedProvider.StagingConfig();
+        StagedProvider stagedProvider;
+        StagingConfig stagingCfg;
+        stagedProvider.cfg() = stagingCfg;
         stagingCfg.recordSize = recordSize;
         stagingCfg.recordCount = run.numRecords;
         stagingCfg.storage = cfg.hddDevice;
@@ -185,13 +189,15 @@ Provider Sorter::startSort() {
         stagingCfg.transferBuffer = buffer;
         stagingCfg.transferStartOffset = 0;
         stagingCfg.transferLength = cfg.hddReadSize;
-        providers[index++] = new StagedProvider(stagingCfg);
+        StagedProvider sp(stagingCfg);
+        providers[index++] = sp;
         memoryOffset += cfg.ssdReadSize;
     }
 
     for (Run run: ssdRuns) {
-        providers[index++] = new StorageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer,
-                                                 memoryOffset, cfg.ssdReadSize);
+        StorageProvider storageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer,
+                        memoryOffset, cfg.ssdReadSize);
+        providers[index++] = storageProvider;
         memoryOffset += cfg.ssdReadSize;
     }
 
@@ -212,14 +218,17 @@ void Sorter::makeFreeSpace() {
 }
 
 void Sorter::releaseMemory(int numberBuffersToRelease) {
-    Provider[] providers = new Provider[numberBuffersToRelease];
+    vector<Provider> providers(numberBuffersToRelease);
 
     long recordCount = 0;
     int index = 0;
 
     while(memoryRuns.size() > 0 && index < numberBuffersToRelease) {
-        Run run = memoryRuns.remove(memoryRuns.size()-1);
-        providers[index++] = new MemoryProvider(buffer, run.offset, run.numRecords, recordSize);
+
+        Run run = memoryRuns[memoryRuns.size()-1];
+        ssdRuns.pop_back();
+        MemoryProvider memProv(buffer, run.offset, run.numRecords, recordSize);
+        providers[index++] = memProv;
         recordCount += run.numRecords;
     }
 
@@ -232,21 +241,24 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 void Sorter::storeRun(Provider provider, long recordCount) {
     long spaceRequired = recordCount * recordSize;
 
-    IODevice device();
+    //TODO: insert tile here
+    IODevice device("file");
     long deviceOffset = 0;
 
     long ssdRequired = roundUp(spaceRequired, cfg.ssdReadSize);
     if(ssdRequired <= ssdRemaining) {
         device = cfg.ssdDevice;
         deviceOffset = ssdOffset;
-        ssdRuns.add(new Run(recordCount, ssdOffset));
+        Run run(recordCount, ssdOffset);
+        ssdRuns.push_back(run);
         ssdOffset += ssdRequired;
         ssdRemaining -= ssdRequired;
     } else {
         long hddRequired = roundUp(spaceRequired, cfg.hddReadSize);
         device = cfg.hddDevice;
         deviceOffset = hddOffset;
-        hddRuns.add(new Run(recordCount, hddOffset));
+        Run run(recordCount, hddOffset);
+        hddRuns.push_back(run);
         hddOffset += hddRequired;
     }
 
