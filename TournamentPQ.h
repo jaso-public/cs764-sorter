@@ -28,7 +28,7 @@ private:
     bool isFirstWinner(int first, int second);
 
 public:
-    TournamentPQ(vector<Provider> providers, uint32_t givenKeyOffset, int numProviders);
+    template <typename T> TournamentPQ(vector<T> providers, uint32_t givenKeyOffset, int numProviders);
     Record* next();
 
 };
