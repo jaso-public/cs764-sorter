@@ -2,9 +2,10 @@
 #define CS764_SORTER_CRCRANDOMGENERATOR_H
 #include <stdlib.h>
 #include "../Records/Record.h"
+#include "../Providers//Provider.h"
 
 
-class CrcRandomGenerator {
+class CrcRandomGenerator: public Provider{
 public:
     long count;
     int size;

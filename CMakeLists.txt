@@ -80,4 +80,7 @@ add_executable(cs764_sorter
         Testing/SpillToHdd.cpp
         Testing/SpillOneBlockToSsd.cpp
         Testing/SpillOneBlockToSsd.h
+        Testing/Sorting/SorterTest.cpp
+        Testing/Sorting/SorterTest.h
+        Testing/SpillToHdd.h
 )
