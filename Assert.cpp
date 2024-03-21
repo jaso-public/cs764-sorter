@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #endif
 
-#include "defs.h"
+#include "OutlinedFiles/defs.h"
 
 /**
  * This class is a testing class

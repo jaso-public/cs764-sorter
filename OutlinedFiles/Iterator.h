@@ -1,6 +1,6 @@
 #pragma once
 
-#include "defs.h"
+#include "OutlinedFiles/defs.h"
 #include <stdint.h>
 
 typedef uint64_t RowCount;

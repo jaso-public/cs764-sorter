@@ -9,20 +9,20 @@ add_executable(cs764_sorter
         Assert.cpp
         Consumer.cpp
         Consumer.h
-        defs.cpp
-        defs.h
-        Filter.cpp
-        Filter.h
-        Iterator.cpp
-        Iterator.h
+        OutlinedFiles/defs.cpp
+        OutlinedFiles/defs.h
+        OutlinedFiles/Filter.cpp
+        OutlinedFiles/Filter.h
+        OutlinedFiles/Iterator.cpp
+        OutlinedFiles/Iterator.h
         Providers/Provider.cpp
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Scan.cpp
-        Scan.h
+        OutlinedFiles/Scan.cpp
+        OutlinedFiles/Scan.h
         Sort/Sort.cpp
         Sort/Sort.h
         Test.cpp

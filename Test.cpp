@@ -1,13 +1,13 @@
 
-#include "defs.h"
+#include "OutlinedFiles/defs.h"
 
 #include <unistd.h>
 
 #include <iostream>
 
-#include "Iterator.h"
-#include "Scan.h"
-#include "Filter.h"
+#include "OutlinedFiles/Iterator.h"
+#include "OutlinedFiles/Scan.h"
+#include "OutlinedFiles/Filter.h"
 #include "Sort/Sort.h"
 
 #include <charconv>
