@@ -77,4 +77,7 @@ add_executable(cs764_sorter
         Testing/Providers/StorageProviderTest.cpp
         Testing/Providers/StagedProviderTest.h
         Testing/Providers/StagedProviderTest.cpp
+        Testing/SpillToHdd.cpp
+        Testing/SpillOneBlockToSsd.cpp
+        Testing/SpillOneBlockToSsd.h
 )
