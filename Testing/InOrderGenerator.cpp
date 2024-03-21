@@ -1,10 +1,10 @@
 #include "InOrderGenerator.h"
 
 // class constructor
-InOrderGenerator::InOrderGenerator(long givenCount, int givenSize) {
+InOrderGenerator::InOrderGenerator(long count, int size) {
     // sets given variables to class variables
-    this->count = givenCount;
-    this->size = givenSize;
+    this->count = count;
+    this->size = size;
 }
 
 /**

@@ -6,7 +6,7 @@
 #include "Records/Record.h"
 #include <vector>
 
-class Sorter: Provider {
+class Sorter: public Provider {
 private:
     SorterConfig cfg;
     Provider source;

@@ -6,14 +6,14 @@
 /**
  * This class can be used to generate records of a certain size and amount
  */
-class InOrderGenerator:Provider {
+class InOrderGenerator:public Provider {
 public:
     // represents total number of records to generate
     long count;
     // represents the size of the records
     int size;
     // class constructor
-    InOrderGenerator(long givenCount, int givenSize);\
+    InOrderGenerator(long count, int size);\
     // returns a pointer to the next record or a null pointer if a next record does not exist
     Record* next();
 private:

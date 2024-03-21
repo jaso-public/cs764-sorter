@@ -6,7 +6,7 @@
  * This class will be utilized to verify the correctness of the records sorting algorithm
  * Implements the Provider class
  */
-class Witness:Provider{
+class Witness: public Provider{
 public:
     // the source that will generate records
     Provider source;

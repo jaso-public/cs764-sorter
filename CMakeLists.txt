@@ -62,4 +62,9 @@ add_executable(cs764_sorter
         Run.h
         Run.cpp
         Providers/MemoryProvider.h
-        Providers/MemoryProvider.cpp)
+        Providers/MemoryProvider.cpp
+        Testing/LotsOfHddRuns.cpp
+        Testing/LotsOfHddRuns.h
+        Testing/CrcRandomGenerator.h
+        Testing/CrcRandomGenerator.cpp
+)
