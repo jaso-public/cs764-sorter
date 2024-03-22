@@ -3,6 +3,7 @@
 #include<iterator>
 #include<vector>
 #include "./Records/Record.h"
+#include "./Providers/Provider.h"
 using namespace std;
 #ifndef CS764_SORTER_ARRAYPROVIDER_H
 #define CS764_SORTER_ARRAYPROVIDER_H
@@ -12,7 +13,7 @@ using namespace std;
 /**
  * This class will create an iterator of records to continously reutrn until no records are left
  */
-class ArrayProvider {
+class ArrayProvider: public Provider{
 private:
     // name to identify the record array
     string name;

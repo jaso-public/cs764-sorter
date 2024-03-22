@@ -1,11 +1,12 @@
 #include "TournamentPqTest.h"
 #include "Testing/TestProviders/InOrderGenerator.h"
+#include "Testing/TestProviders/ArrayProvider.h"
 #include "../TournamentPQ.h"
 #include "../Consumer.h"
 #include "Witness.h"
 #include <iostream>
-#include <algorithm>
 #include <vector>
+#include <list>
 #include <cassert>
 using namespace std;
 
@@ -18,26 +19,31 @@ void TournamentPqTest::doTest(int numProviders) {
     Witness before(p);
 
 
-    vector<vector<Record>> lists(numProviders);
+    list<vector<Record>> lists(numProviders);
+
 
     for(int i=0; i<numProviders ; i++) {
         vector<Record> l(numItemsPerList);
-        lists[i] = l;
+        lists.push_back(l);
     }
 
     for(int j=0 ; j<numItemsPerList ; j++) {
-        for(int i=numProviders-1 ; i>=0 ; i--) {
+        for (auto it = lists.begin(); it != lists.end(); ++it){
             Record* ptr = before.next();
             Record r = *ptr;
-            lists[i].push_back(r);
+            vector<Record> currentIndex = *it;
+            currentIndex.push_back(r);
         }
     }
 
     vector<Provider> providers(numProviders);
-    for(int i=0; i<numProviders ; i++) {
-        //TODO: fix iterator
-        ArrayProvider p("Provider-"+i, lists[i].iterator())
-        providers[i] = p;
+    int index = 0;
+    for (auto it = lists.begin(); it != lists.end(); ++it){
+            string name ="Provider-"+index;
+            vector<Record> currentIndex = *it;
+            ArrayProvider p(name, currentIndex);
+            providers[index] = p;
+            index++;
     }
 
 
