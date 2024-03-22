@@ -83,4 +83,8 @@ add_executable(cs764_sorter
         Testing/TestProviders/StagedProviderTest.cpp
         Testing/TestProviders/InOrderGenerator.cpp
         Testing/TestProviders/DropFirst.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/DropFirst.h
+        Testing/TestProviders/StagedProviderTest.h
+        Testing/TestProviders/ArrayProvider.h
 )

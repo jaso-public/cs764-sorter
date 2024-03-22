@@ -1,7 +1,7 @@
 #include "LotsOfHddRuns.h"
 #include <string>
 #include "../Config/SorterConfig.h"
-#include "../Sort//Sorter.h"
+#include "../Sort/Sorter.h"
 #include "../Witness.h"
 #include "../Consumer.h"
 #include <cassert>
@@ -10,6 +10,7 @@ using namespace std;
 void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     int recordSize = 1000;
     int recordCount = 190000;
+    int keyOffset = 0
 
     string test = "testSpillToLotsOfHddRuns: ";
 
@@ -17,9 +18,10 @@ void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     cfg.ssdStorageSize = 100*1024*1024;
     cfg.memoryBlockCount = 10;
     //TODO: change once I do CrcRandomGenerator
-    Provider generator = new CrcRandomGenerator(recordCount, recordSize);
+    CrcRandomGenerator crc(recordCount, recordSize);
+    Provider generator(crc);
     Witness lower(generator);
-    Sorter sorter(cfg, lower,recordSize);
+    Sorter sorter(cfg, lower, recordSize, keyOffset);
     Witness upper(sorter);
     Consumer consumer(upper);
     consumer.consume();
