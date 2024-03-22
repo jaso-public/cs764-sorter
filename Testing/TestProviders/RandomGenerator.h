@@ -1,6 +1,6 @@
 #ifndef CS764_SORTER_RANDOMGENERATOR_H
 #define CS764_SORTER_RANDOMGENERATOR_H
-#include "Provider.h"
+#include "Providers/Provider.h"
 #include <stdlib.h>
 
 class RandomGenerator: public Provider{

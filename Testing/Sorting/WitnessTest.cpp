@@ -9,6 +9,7 @@
 #include <cassert>
 #include <string>
 #include "../TestProviders/Printer.h"
+#include "../TestProviders/RandomGenerator.h"
 using namespace std;
 
 
@@ -47,7 +48,6 @@ void WitnessTest::testDropOne() {
 }
 
 void WitnessTest::testRandomOrder() {
-    //TODO: make random generator
     RandomGenerator r(10, 100);
     Provider generator = r;
     Witness lower(generator);
@@ -55,7 +55,6 @@ void WitnessTest::testRandomOrder() {
     Witness upper(sorter);
     Consumer consumer(upper);
     consumer.consume();
-
 
     assert(("The count of the lower witness should have been 10", 10 == lower.getCount()));
     assert(("The count of the upper witness should have been 10", 10 == upper.getCount()));
@@ -65,7 +64,6 @@ void WitnessTest::testRandomOrder() {
 }
 
 void WitnessTest::testTreeSorter() {
-    //TODO: make random generator
     RandomGenerator r(10, 100);
     Provider generator = r;
     Witness lower(generator);
@@ -81,9 +79,9 @@ void WitnessTest::testTreeSorter() {
     assert(("The count of the lower witness was not equal to the count of the upper but should have been", lower.getCount() == upper.getCount()));
     assert(("The checksum of the lower witness did not equal the checksum of the upper but should have",lower.getCrc() == upper.getCrc()));
 }
+
 void WitnessTest::testRandomOrderWithPrinting() {
     string test = "testRandomOrderWithPrinting: ";
-    //TODO: make random generator
     RandomGenerator r(10, 100);
     Provider generator = r;
     Printer printer1(generator, test+"from generator");
@@ -104,7 +102,6 @@ void WitnessTest::testRandomOrderWithPrinting() {
 
 void WitnessTest::testTreeSorterWithPrinting() {
     string test = "testTreeSorterWithPrinting: ";
-    //TODO: make random generator
     RandomGenerator r(10, 100);
     Provider generator = r;
     Printer printer1(generator, test+"from generator");

@@ -73,9 +73,9 @@ add_executable(cs764_sorter
         Testing/Sorting/SorterTest.cpp
         Testing/Sorting/SorterTest.h
         Testing/SpillToHdd.h
-        Providers/RandomGenerator.h
-        Providers/RandomGenerator.h
-        Providers/RandomGenerator.cpp
-        Providers/RandomGenerator.cpp
-        Providers/RandomGenerator.cpp
+        Testing/TestProviders/RandomGenerator.h
+        Testing/TestProviders/RandomGenerator.h
+        Testing/TestProviders/RandomGenerator.cpp
+        Testing/TestProviders/RandomGenerator.cpp
+        Testing/TestProviders/RandomGenerator.cpp
 )
