@@ -13,6 +13,7 @@ CrcRandomGenerator::CrcRandomGenerator(long count, int size) {
     this->size = size;
 }
 
+//TODO: this method is a template method
 Record* CrcRandomGenerator::next() {
     if(generated >= count) return nullptr;
     //places the generated random bytes into vector r
@@ -20,12 +21,11 @@ Record* CrcRandomGenerator::next() {
     vector<unsigned char> r(1000);
     generate(begin(r), end(r), std::ref(rbe));
 
+    Record* ptr = nullptr;
+    return nullptr;
+}
 
-
-
-
-
-
-
+//TODO: this method is a template method
+void CrcRandomGenerator::verifyCrc(Record rec) {
 
 }
