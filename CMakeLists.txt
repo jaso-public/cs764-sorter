@@ -79,4 +79,6 @@ add_executable(cs764_sorter
         Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/StorageProviderTest.h
+        Testing/TestProviders/StorageProviderTest.cpp
 )
