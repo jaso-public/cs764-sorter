@@ -50,12 +50,6 @@ add_executable(cs764_sorter
         Providers/StorageProvider.cpp
         Config/StagingConfig.h
         Config/StagingConfig.cpp
-        Testing/Providers/ArrayProvider.cpp
-        Testing/Providers/ArrayProvider.h
-        Testing/Providers/DropFirst.h
-        Testing/Providers/DropFirst.cpp
-        Testing/Providers/InOrderGenerator.cpp
-        Testing/Providers/InOrderGenerator.h
         Testing/Sorting/NoopSorter.h
         Testing/Sorting/NoopSorter.cpp
         Sort/Sorter.cpp
@@ -73,14 +67,15 @@ add_executable(cs764_sorter
         Testing/Sorting/TreeSorter.cpp
         Testing/TournamentPqTest.h
         Testing/TournamentPqTest.cpp
-        Testing/Providers/StorageProviderTest.h
-        Testing/Providers/StorageProviderTest.cpp
-        Testing/Providers/StagedProviderTest.h
-        Testing/Providers/StagedProviderTest.cpp
         Testing/SpillToHdd.cpp
         Testing/SpillOneBlockToSsd.cpp
         Testing/SpillOneBlockToSsd.h
         Testing/Sorting/SorterTest.cpp
         Testing/Sorting/SorterTest.h
         Testing/SpillToHdd.h
+        Providers/RandomGenerator.h
+        Providers/RandomGenerator.h
+        Providers/RandomGenerator.cpp
+        Providers/RandomGenerator.cpp
+        Providers/RandomGenerator.cpp
 )
