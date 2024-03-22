@@ -78,4 +78,5 @@ add_executable(cs764_sorter
         Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/RandomGenerator.cpp
+        Testing/TestProviders/ArrayProvider.cpp
 )
