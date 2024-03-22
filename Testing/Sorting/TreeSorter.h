@@ -14,7 +14,8 @@ public:
 
 private:
     // iterator to return the records
-    vector<Record>::iterator records;
+    vector<Record>::iterator iterator;
+    vector<Record> records;
 
 };
 
