@@ -1,48 +1,54 @@
 #include "StorageProviderTest.h"
 #include "RandomGenerator.h"
 #include "Witness.h"
+#include "Consumer.h"
+#include <cassert>
+#include <filesystem>
+#include "Providers/StorageProvider.h"
+using namespace std;
 
 void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength) {
 
     RandomGenerator rg(recordCount, recordSize);
     Witness before(rg);
 
-    //TODO: here
-    File storageFile = File.createTempFile("storage", ".tmp");
-    storageFile.deleteOnExit();
-    IoDevice storage = new IoDevice(storageFile);
+    IODevice storage("storage.tmp");
 
     long storageOffset = 0;
     while(true) {
-        Record rec = before.next();
-        if(rec==null) break;
-        storage.write(storageOffset, rec.data, 0, rec.data.length);
-        storageOffset += rec.data.length;
+        Record* recPtr = before.next();
+        if(!recPtr) break;
+        Record rec = *recPtr;
+        storage.write(storageOffset, rec.data, 0, sizeof(rec.data));
+        storageOffset += sizeof(rec.data);
     }
 
-    byte[] memory = new byte[10*1024*1024]; // 10MB
+    char * memory = new char [10*1024*1024]; // 10MB
 
 
     long storageStartOffset = 0; // we wrote the records at offset zero
 
-    byte[] buffer = memory;
+    char * buffer = memory;
     int bufferStartOffset = 20;
+    uint32_t keyOffset = 8;
 
 
-    StorageProvider sp = new StorageProvider(
+    StorageProvider sp(
             recordSize,
             recordCount,
             storage,
             storageStartOffset,
             buffer,
             bufferStartOffset,
-            bufferLength);
+            bufferLength, keyOffset);
 
 
-    Witness after = new Witness(sp);
-    Consumer c = new Consumer(after);
+    Witness after(sp);
+    Consumer c(after);
     c.consume();
 
-    assertEquals(before.getCount(), after.getCount());
-    assertEquals(before.getCrc(), after.getCrc());
+    assert(("The count of the before witness should have equaled the count of the after witness", before.getCount() == after.getCount()));
+    assert(("The checksum of the before witness should have equaled the checksum of the after witness", before.getCrc() == after.getCrc()));
+
+    remove("storage.tmp");
 }
