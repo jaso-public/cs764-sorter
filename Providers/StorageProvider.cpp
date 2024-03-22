@@ -1,15 +1,14 @@
 #include "StorageProvider.h"
 
-
-//TODO: replace out test
 StorageProvider::StorageProvider(int recordSize, long recordCount, IODevice storage, long storageStartOffset,
-                                 char *buffer, int bufferStartOffset, int bufferLength, uint32_t keyOffset):storage("test") {
+                                 char *buffer, int bufferStartOffset, int bufferLength, uint32_t keyOffset):storage("") {
     this->recordSize = recordSize;
     this->recordCount = recordCount;
     this->storageStartOffset = storageStartOffset;
     this->buffer = buffer;
     this->bufferStartOffset = bufferStartOffset;
     this->bufferLength = bufferLength;
+    this->storage=storage;
     this->keyOffset = keyOffset;
     storageRemaining = recordCount * (long)recordSize;
 }

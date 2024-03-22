@@ -32,7 +32,6 @@ add_executable(cs764_sorter
         Witness.h
         IODevice.h
         IODevice.cpp
-        Sim.h
         Sim.cpp
         Providers/SingleProvider.h
         Providers/SingleProvider.cpp
