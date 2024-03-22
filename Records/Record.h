@@ -10,7 +10,7 @@ public:
     // key offset of record
     uint32_t keyOffset;
     // created record
-    void* record;
+    void * record;
     // record constructor
     Record(uint64_t sizeFromUser,  uint32_t keyOffsetFromUser);
     // default constructor

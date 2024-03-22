@@ -57,7 +57,7 @@ void IODevice::read(long offset, char * buffer, int off, int len) {
  * @param off the location of the first write
  * @param len the number of byes to be written
  */
-void IODevice::write(long offset, char *buffer, int off, int len) {
+void IODevice::write(long offset, char * buffer, int off, int len) {
     // catches exception if file cannot be written to
     (*streamPtr).exceptions ( fstream ::badbit );
     try {
