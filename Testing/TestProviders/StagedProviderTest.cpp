@@ -36,9 +36,7 @@ void StagedProviderTest::doTest(int recordSize, long recordCount, int stagingLen
     int transferStartOffset = bufferStartOffset + bufferLength;
     int transferLength = stagingLength + bufferLength;
 
-    StagedProvider stagedProvider();
     StagingConfig stagingCfg;
-    stagingCfg = stagedProvider().cfg;
     stagingCfg.recordSize = recordSize;
     stagingCfg.recordCount = recordCount;
     stagingCfg.storage = storage;
