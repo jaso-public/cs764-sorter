@@ -3,6 +3,7 @@
 #include "../Providers/Provider.h"
 #include "../Witness.h"
 #include "../Sort/Sorter.h"
+#include "./CrcRandomGenerator.h"
 #include "TestProviders/Printer.h"
 #include <string>
 #include <cassert>
@@ -19,7 +20,6 @@ void SpillToHdd::testSpillToHdd() {
     cfg.ssdStorageSize = 2*1024*1024;
     cfg.memoryBlockCount = 10;
 
-    //TODO: create CrcRandomGenerator
     CrcRandomGenerator crc(recordCount, recordSize);
     Provider generator(crc);
     Witness lower(generator);

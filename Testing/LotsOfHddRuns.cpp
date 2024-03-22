@@ -1,23 +1,24 @@
 #include "LotsOfHddRuns.h"
-#include <string>
 #include "../Config/SorterConfig.h"
+#include "./CrcRandomGenerator.h"
 #include "../Sort/Sorter.h"
 #include "../Witness.h"
 #include "../Consumer.h"
 #include <cassert>
+#include <string>
 using namespace std;
 
 void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     int recordSize = 1000;
     int recordCount = 190000;
-    int keyOffset = 0
+    int keyOffset = 0;
 
     string test = "testSpillToLotsOfHddRuns: ";
 
     SorterConfig cfg;
     cfg.ssdStorageSize = 100*1024*1024;
     cfg.memoryBlockCount = 10;
-    //TODO: change once I do CrcRandomGenerator
+
     CrcRandomGenerator crc(recordCount, recordSize);
     Provider generator(crc);
     Witness lower(generator);
