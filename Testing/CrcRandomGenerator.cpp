@@ -1,4 +1,13 @@
 #include "CrcRandomGenerator.h"
+#include <vector>
+#include <random>
+#include <climits>
+#include <algorithm>
+using namespace std;
+
+using random_bytes_engine = std::independent_bits_engine<
+        std::default_random_engine, CHAR_BIT, unsigned char>;
+
 CrcRandomGenerator::CrcRandomGenerator(long count, int size) {
     this->count = count;
     this->size = size;
@@ -6,7 +15,17 @@ CrcRandomGenerator::CrcRandomGenerator(long count, int size) {
 
 Record* CrcRandomGenerator::next() {
     if(generated >= count) return nullptr;
-    char * record = new char[size];
+    //places the generated random bytes into vector r
+    random_bytes_engine rbe;
+    vector<unsigned char> r(1000);
+    generate(begin(r), end(r), std::ref(rbe));
+
+
+
+
+
+
+
 
 
 }

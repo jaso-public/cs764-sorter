@@ -12,7 +12,6 @@ public:
     CrcRandomGenerator(long count, int size);
     Record* next();
     void verifyCrc(Record rec);
-    //TODO: complete checksum value
 private:
     long generated = 0;
     int rng = rand();
