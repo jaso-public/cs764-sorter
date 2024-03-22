@@ -64,7 +64,7 @@ class SorterTest {
         int recordCount = 1024*100;
         
         @SuppressWarnings("unused")
-        String test = "testSpillToSsdFewBlocks: ";
+        String test =
         
         Provider generator = new RandomGenerator(recordCount, recordSize);
         Witness lower = new Witness(generator);
