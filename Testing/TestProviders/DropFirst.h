@@ -7,7 +7,7 @@
  * This class is utilized to automatically skip the first record and return all other records
  * The next() method can be called to generate the next record
  */
-class DropFirst {
+class DropFirst: public Provider{
 public:
     // the source used to get the records
     Provider source;

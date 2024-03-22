@@ -37,6 +37,8 @@ public:
    * @return true if records are sorted else false
    */
     bool checkSorted();
+    // bool value that indicates if records have been sorted
+    bool isSorted;
 
 private:
     // keeps track of all the records generated
@@ -45,8 +47,7 @@ private:
     long crc;
     // pointer to the key of the last record generated
     uint64_t* lastKeyPtr;
-    // bool value that indicates if records have been sorted
-    bool isSorted;
+
 };
 
 

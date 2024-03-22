@@ -5,7 +5,7 @@
 /**
  * A class that implements the provider to return the provider's next record
  */
-class NoopSorter {
+class NoopSorter: public Provider {
 private:
     // the provider that will generate the next record
     Provider source;

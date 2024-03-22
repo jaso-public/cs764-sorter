@@ -16,7 +16,7 @@ void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     SorterConfig cfg;
     cfg.ssdStorageSize = 100*1024*1024;
     cfg.memoryBlockCount = 10;
-
+    //TODO: change once I do CrcRandomGenerator
     Provider generator = new CrcRandomGenerator(recordCount, recordSize);
     Witness lower(generator);
     Sorter sorter(cfg, lower,recordSize);
