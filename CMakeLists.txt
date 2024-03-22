@@ -49,7 +49,6 @@ add_executable(cs764_sorter
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
         Config/StagingConfig.h
-        Config/StagingConfig.cpp
         Testing/Sorting/NoopSorter.h
         Testing/Sorting/NoopSorter.cpp
         Sort/Sorter.cpp
