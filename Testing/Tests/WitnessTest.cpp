@@ -12,6 +12,7 @@
 #include "Testing/TestProviders/RandomGenerator.h"
 using namespace std;
 
+WitnessTest::WitnessTest() {};
 
 void WitnessTest::testTenInorder() {
     InOrderGenerator I(10, 100);
@@ -114,3 +115,13 @@ void WitnessTest::testTreeSorterWithPrinting() {
     assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
     assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 }
+
+int main(){
+    WitnessTest w;
+    w.testTenInorder();
+    w.testTreeSorterWithPrinting();
+    w.testRandomOrderWithPrinting();
+    w.testTreeSorter();
+    w.testDropOne();
+    w.testRandomOrder();
+};

@@ -6,6 +6,7 @@ class TournamentPqTest {
 public:
     void doTest(int numProviders);
     void testVariousNumberOfProviders();
+    TournamentPqTest();
 };
 
 

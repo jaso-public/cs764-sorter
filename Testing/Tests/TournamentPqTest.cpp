@@ -10,6 +10,7 @@
 #include <cassert>
 using namespace std;
 
+TournamentPqTest::TournamentPqTest() {};
 
 void TournamentPqTest::doTest(int numProviders) {
     int numItemsPerList = 10;
@@ -61,3 +62,10 @@ void TournamentPqTest::testVariousNumberOfProviders() {
         doTest(i);
     }
 }
+
+
+int main(){
+    TournamentPqTest test;
+    test.testVariousNumberOfProviders();
+}
+

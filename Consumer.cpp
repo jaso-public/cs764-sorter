@@ -34,3 +34,5 @@ int main(){
     c.consume();
 }
  */
+
+int main(){};

@@ -92,3 +92,5 @@ bool TournamentPQ::isFirstWinner(int first, int second) {
         return false;
     }
 }
+
+int main(){};
