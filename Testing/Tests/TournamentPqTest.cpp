@@ -53,7 +53,7 @@ void TournamentPqTest::doTest(int numProviders) {
     c.consume();
 
     assert(w.isSorted);
-    assert(("The count of the before witness did have the same checksum as the w witness but should have", before.getCrc() == w.getCrc()));
+    assert(("The count of the before witness did have the same checksum as the w witness but should have" && before.getCrc() == w.getCrc()));
 }
 
 void TournamentPqTest::testVariousNumberOfProviders() {

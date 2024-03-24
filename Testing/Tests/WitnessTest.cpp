@@ -2,10 +2,10 @@
 #include "Providers/Provider.h"
 #include "Testing/TestProviders/InOrderGenerator.h"
 #include "Witness.h"
-#include "Testing/Sorting/NoopSorter.h"
+#include "Testing/SortingHelpers/NoopSorter.h"
 #include "Consumer.h"
 #include "Testing/TestProviders/DropFirst.h"
-#include "Testing/Sorting/TreeSorter.h"
+#include "./Testing/SortingHelpers/TreeSorter.h"
 #include <cassert>
 #include <string>
 #include "Testing/TestProviders/Printer.h"
@@ -22,10 +22,10 @@ void WitnessTest::testTenInorder() {
     Consumer consumer(upper);
     consumer.consume();
 
-    assert(("The count of the lower witness did not equal the count of the upper but should have", lower.getCount() == upper.getCount()));
+    assert(("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount()));
     assert(("The count of the upper witness should have been 10", 10 == upper.getCount()));
     assert(("The upper witness should have been sorted but was not", upper.isSorted));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have",lower.getCrc() == upper.getCrc()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 }
 
 void WitnessTest::testDropOne() {
@@ -38,11 +38,11 @@ void WitnessTest::testDropOne() {
     Consumer consumer(upper);
     consumer.consume();
 
-    assert(("The count of the lower witness should have been 10", 10 == lower.getCount()));
-    assert(("The count of the upper witness should have been 9", 9 == upper.getCount()));
-    assert(("The upper witness should have been sorted but was not", upper.isSorted));
-    assert(("The lower witness should have been sorted but was not", lower.isSorted));
-    assert(("The checksum of the lower witness was equal to the checksum of the upper but should not have been", lower.getCrc() != upper.getCrc()));
+    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
+    assert(("The count of the upper witness should have been 9" && 9 == upper.getCount()));
+    assert(("The upper witness should have been sorted but was not" && upper.isSorted));
+    assert(("The lower witness should have been sorted but was not" && lower.isSorted));
+    assert(("The checksum of the lower witness was equal to the checksum of the upper but should not have been" && lower.getCrc() != upper.getCrc()));
 }
 
 void WitnessTest::testRandomOrder() {
@@ -54,11 +54,11 @@ void WitnessTest::testRandomOrder() {
     Consumer consumer(upper);
     consumer.consume();
 
-    assert(("The count of the lower witness should have been 10", 10 == lower.getCount()));
-    assert(("The count of the upper witness should have been 10", 10 == upper.getCount()));
-    assert(("The upper witness should not have been sorted but was", !upper.isSorted));
-    assert(("The lower witness should not have been sorted but was", !lower.isSorted));
-    assert(("The checksum of the lower witness was not equal to the checksum of the upper but should have been", lower.getCrc() == upper.getCrc()));
+    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
+    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
+    assert(("The upper witness should not have been sorted but was" && !upper.isSorted));
+    assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
+    assert(("The checksum of the lower witness was not equal to the checksum of the upper but should have been" && lower.getCrc() == upper.getCrc()));
 }
 
 void WitnessTest::testTreeSorter() {
@@ -70,11 +70,11 @@ void WitnessTest::testTreeSorter() {
     Consumer consumer(upper);
     consumer.consume();
 
-    assert(("The count of the lower witness should have been 10", 10 == lower.getCount()));
-    assert(("The count of the upper witness should have been 10", 10 == upper.getCount()));
-    assert(("The upper witness should have been sorted but was not", upper.isSorted));
-    assert(("The lower witness should not have been sorted but was", !lower.isSorted));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have",lower.getCrc() == upper.getCrc()));
+    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
+    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
+    assert(("The upper witness should have been sorted but was not" && upper.isSorted));
+    assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 }
 
 void WitnessTest::testRandomOrderWithPrinting() {
@@ -89,11 +89,11 @@ void WitnessTest::testRandomOrderWithPrinting() {
     Consumer consumer(printer2);
     consumer.consume();
 
-    assert(("The count of the lower witness should have been 10", 10 == lower.getCount()));
-    assert(("The count of the upper witness should have been 10", 10 == upper.getCount()));
-    assert(("The upper witness should have not been sorted but was", !upper.isSorted));
-    assert(("The lower witness should not have been sorted but was", !lower.isSorted));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have",lower.getCrc() == upper.getCrc()));
+    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
+    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
+    assert(("The upper witness should have not been sorted but was" && !upper.isSorted));
+    assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 }
 
 void WitnessTest::testTreeSorterWithPrinting() {
@@ -108,9 +108,9 @@ void WitnessTest::testTreeSorterWithPrinting() {
     Consumer consumer(printer2);
     consumer.consume();
 
-    assert(("The count of the lower witness should have been 10", 10 == lower.getCount()));
-    assert(("The count of the upper witness should have been 10", 10 == upper.getCount()));
-    assert(("The upper witness should have not been sorted but was", !upper.isSorted));
-    assert(("The lower witness should not have been sorted but was", !lower.isSorted));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have",lower.getCrc() == upper.getCrc()));
+    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
+    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
+    assert(("The upper witness should have not been sorted but was" && !upper.isSorted));
+    assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 }

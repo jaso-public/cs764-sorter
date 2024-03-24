@@ -47,8 +47,8 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
     Consumer c(after);
     c.consume();
 
-    assert(("The count of the before witness should have equaled the count of the after witness", before.getCount() == after.getCount()));
-    assert(("The checksum of the before witness should have equaled the checksum of the after witness", before.getCrc() == after.getCrc()));
+    assert(("The count of the before witness should have equaled the count of the after witness" && before.getCount() == after.getCount()));
+    assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before.getCrc() == after.getCrc()));
 
     remove("storage.tmp");
 }
