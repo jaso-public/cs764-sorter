@@ -11,6 +11,7 @@ private:
     // a pointer to a record or a null pointer if the record does not exist
     Record* record;
 public:
+    SingleProvider();
     /**
      * Sets the class record's variable to the given record
      * @param r the new record variable of the class

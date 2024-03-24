@@ -18,8 +18,6 @@ private:
         uint64_t sizeOfRecords;
 
 public:
-    // default constructor
-    Provider();
     // Provider constructor
     Provider(uint64_t numOfRecordsFromUser, uint64_t sizeOfRecordsFromUser, uint32_t keyOffsetFromUser);
     /**
@@ -27,6 +25,7 @@ public:
      * @returns the a pointer to the next record or a null pointer record if the end of the list been reached
      */
     Record* next();
+    Provider();
 };
 
 

@@ -1,6 +1,7 @@
 #ifndef DB_RECORD_H
 #define DB_RECORD_H
 #include <stdint.h>
+#include "../Records/Record.h"
 
 class Record {
 public:
@@ -13,7 +14,6 @@ public:
     void * record;
     // record constructor
     Record(uint64_t sizeFromUser,  uint32_t keyOffsetFromUser);
-    // default constructor
     Record();
 
     /**

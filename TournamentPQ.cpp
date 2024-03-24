@@ -10,7 +10,7 @@
 template <typename T> TournamentPQ::TournamentPQ(vector<T> providers, uint32_t givenKeyOffset, int numProviders) {
     this->providers = providers;
     this->numProviders = numProviders;
-    this->keyOffset = keyOffset;
+    this->keyOffset = givenKeyOffset;
 
 
     // create and fill the records array
