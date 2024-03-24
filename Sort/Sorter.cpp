@@ -299,3 +299,5 @@ void Sorter::printStats(){
     cout << "HDD usage:" << cfg.hddDevice.stats() << "\n";
     cout << "total number of record comparisons: " <<  record.getCompareCount() << "\n";
 }
+
+

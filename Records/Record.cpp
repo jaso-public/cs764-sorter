@@ -108,11 +108,11 @@ void Record::storePartial(char *buffer, int offset, int start, int length) {
 }
 // Main method to see output
 
- int main(){
-    int size = 100;
-    uint32_t keyOffset = 8;
-    Record r(size,keyOffset);
-    cout << r.record ;
-    cout << "\n" << r.getRecordKey();
-    cout << "\n"<< r.completeChecksumCheck();
-}
+// int main(){
+//    int size = 100;
+//    uint32_t keyOffset = 8;
+//    Record r(size,keyOffset);
+//    cout << r.record ;
+//    cout << "\n" << r.getRecordKey();
+//    cout << "\n"<< r.completeChecksumCheck();
+//}

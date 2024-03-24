@@ -21,3 +21,5 @@ Record* InOrderGenerator::next() {
     Record* ptr = &r;
     return ptr;
 }
+
+int main(){};

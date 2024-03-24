@@ -22,3 +22,5 @@ bool CrcRandomGenerator::verifyCrc(Record* recordPtr) {
     Record r = *recordPtr;
     return r.completeChecksumCheck();
 }
+
+int main(){};

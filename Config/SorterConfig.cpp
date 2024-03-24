@@ -13,3 +13,5 @@ SorterConfig::SorterConfig(): ssdDevice("ssdStaging.tmp"), hddDevice("hddStaging
     this->hddReadSize = 256 * 1024;
 }
 
+int main(){};
+

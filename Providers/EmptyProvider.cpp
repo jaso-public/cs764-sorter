@@ -4,3 +4,6 @@
 Record* EmptyProvider::next() {
     return nullptr;
 }
+
+
+int main(){};

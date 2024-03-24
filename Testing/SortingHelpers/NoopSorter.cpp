@@ -11,3 +11,5 @@ NoopSorter::NoopSorter(Provider givenProvider) {
 Record* NoopSorter::next() {
     return source.next();
 }
+
+int main(){};

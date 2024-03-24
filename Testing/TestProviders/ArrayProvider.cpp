@@ -57,3 +57,6 @@ Record* ArrayProvider::next() {
 //        }
 //    }
 //}
+
+
+int main(){};

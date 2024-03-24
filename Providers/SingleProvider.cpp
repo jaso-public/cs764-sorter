@@ -15,3 +15,5 @@ Record* SingleProvider::next() {
     record = nullptr;
     return result;
 }
+
+int main(){};

@@ -17,3 +17,5 @@ int Key::compareTo(Key other) {
     if(index > other.index) return +1;
     return 0;
 }
+
+int main(){};
