@@ -1,9 +1,9 @@
 #include "SpillOneBlockToSsd.h"
-#include "./TestProviders/RandomGenerator.h"
-#include "../Witness.h"
-#include "../Config/SorterConfig.h"
-#include "../Sort/Sorter.h"
-#include "../Consumer.h"
+#include "Testing/TestProviders/RandomGenerator.h"
+#include "Witness.h"
+#include "Config/SorterConfig.h"
+#include "Sort/Sorter.h"
+#include "Consumer.h"
 #include <cassert>
 #include <string>
 using namespace std;

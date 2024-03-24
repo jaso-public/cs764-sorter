@@ -1,9 +1,9 @@
 #include "LotsOfHddRuns.h"
-#include "../Config/SorterConfig.h"
-#include "./CrcRandomGenerator.h"
-#include "../Sort/Sorter.h"
-#include "../Witness.h"
-#include "../Consumer.h"
+#include "Config/SorterConfig.h"
+#include "Testing/SortingHelpers/CrcRandomGenerator.h"
+#include "Sort/Sorter.h"
+#include "Witness.h"
+#include "Consumer.h"
 #include <cassert>
 #include <string>
 using namespace std;

@@ -1,6 +1,6 @@
 #include "SorterTest.h"
-#include "../TestProviders/RandomGenerator.h"
-#include "../TestProviders/Printer.h"
+#include "Testing/TestProviders/RandomGenerator.h"
+#include "Testing/TestProviders/Printer.h"
 #include "./Witness.h"
 #include "./Config/SorterConfig.h"
 #include "./Sort/Sorter.h"

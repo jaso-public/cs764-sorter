@@ -55,36 +55,36 @@ add_executable(cs764_sorter
         Run.cpp
         Providers/MemoryProvider.h
         Providers/MemoryProvider.cpp
-        Testing/LotsOfHddRuns.cpp
-        Testing/LotsOfHddRuns.h
-        Testing/CrcRandomGenerator.h
-        Testing/CrcRandomGenerator.cpp
-        Testing/Sorting/WitnessTest.h
-        Testing/Sorting/WitnessTest.cpp
+        Testing/Tests/LotsOfHddRuns.cpp
+        Testing/Tests/LotsOfHddRuns.h
+        Testing/SortingHelpers/CrcRandomGenerator.h
+        Testing/SortingHelpers/CrcRandomGenerator.cpp
+        Testing/Tests/WitnessTest.h
+        Testing/Tests/WitnessTest.cpp
         Testing/Sorting/TreeSorter.h
         Testing/Sorting/TreeSorter.cpp
-        Testing/TournamentPqTest.h
-        Testing/TournamentPqTest.cpp
-        Testing/SpillToHdd.cpp
-        Testing/SpillOneBlockToSsd.cpp
-        Testing/SpillOneBlockToSsd.h
-        Testing/Sorting/SorterTest.cpp
-        Testing/Sorting/SorterTest.h
-        Testing/SpillToHdd.h
+        Testing/Tests/TournamentPqTest.h
+        Testing/Tests/TournamentPqTest.cpp
+        Testing/Tests/SpillToHdd.cpp
+        Testing/Tests/SpillOneBlockToSsd.cpp
+        Testing/Tests/SpillOneBlockToSsd.h
+        Testing/Tests/SorterTest.cpp
+        Testing/Tests/SorterTest.h
+        Testing/Tests/SpillToHdd.h
         Testing/TestProviders/RandomGenerator.h
         Testing/TestProviders/RandomGenerator.h
         Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/StorageProviderTest.h
-        Testing/TestProviders/StorageProviderTest.cpp
-        Testing/TestProviders/StagedProviderTest.cpp
+        Testing/Tests/StorageProviderTest.h
+        Testing/Tests/StorageProviderTest.cpp
+        Testing/Tests/StagedProviderTest.cpp
         Testing/TestProviders/InOrderGenerator.cpp
         Testing/TestProviders/DropFirst.cpp
         Testing/TestProviders/InOrderGenerator.h
         Testing/TestProviders/DropFirst.h
-        Testing/TestProviders/StagedProviderTest.h
+        Testing/Tests/StagedProviderTest.h
         Testing/TestProviders/ArrayProvider.h
         Testing/Sorting/Key.h
         Testing/Sorting/Key.cpp

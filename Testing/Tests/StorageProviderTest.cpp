@@ -1,5 +1,5 @@
 #include "StorageProviderTest.h"
-#include "RandomGenerator.h"
+#include "Testing/TestProviders/RandomGenerator.h"
 #include "Witness.h"
 #include "Consumer.h"
 #include <cassert>

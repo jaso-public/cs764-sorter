@@ -1,8 +1,8 @@
 #include "TournamentPqTest.h"
 #include "Testing/TestProviders/InOrderGenerator.h"
 #include "Testing/TestProviders/ArrayProvider.h"
-#include "../TournamentPQ.h"
-#include "../Consumer.h"
+#include "TournamentPQ.h"
+#include "Consumer.h"
 #include "Witness.h"
 #include <iostream>
 #include <vector>

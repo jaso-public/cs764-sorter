@@ -1,7 +1,7 @@
 #include "StagedProviderTest.h"
-#include "../../Providers/StagedProvider.h"
-#include "../../Consumer.h"
-#include "RandomGenerator.h"
+#include "Providers/StagedProvider.h"
+#include "Consumer.h"
+#include "Testing/TestProviders/RandomGenerator.h"
 #include "Witness.h"
 #include <cassert>
 

@@ -1,15 +1,15 @@
 #include "WitnessTest.h"
 #include "Providers/Provider.h"
-#include "../TestProviders/InOrderGenerator.h"
+#include "Testing/TestProviders/InOrderGenerator.h"
 #include "Witness.h"
-#include "NoopSorter.h"
+#include "Testing/Sorting/NoopSorter.h"
 #include "Consumer.h"
 #include "Testing/TestProviders/DropFirst.h"
-#include "TreeSorter.h"
+#include "Testing/Sorting/TreeSorter.h"
 #include <cassert>
 #include <string>
-#include "../TestProviders/Printer.h"
-#include "../TestProviders/RandomGenerator.h"
+#include "Testing/TestProviders/Printer.h"
+#include "Testing/TestProviders/RandomGenerator.h"
 using namespace std;
 
 
