@@ -8,13 +8,13 @@
 class CrcRandomGenerator: public Provider{
 public:
     long count;
-    int size;
-    CrcRandomGenerator(long count, int size);
+    uint64_t size;
+    uint32_t keyOffset;
+    CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset);
     Record* next();
-    void verifyCrc(Record rec);
+    bool verifyCrc(Record* recPtr);
 private:
     long generated = 0;
-    int rng = rand();
 };
 
 

@@ -8,24 +8,22 @@ using namespace std;
 using random_bytes_engine = std::independent_bits_engine<
         std::default_random_engine, CHAR_BIT, unsigned char>;
 
-CrcRandomGenerator::CrcRandomGenerator(long count, int size) {
+CrcRandomGenerator::CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset) {
     this->count = count;
     this->size = size;
+    this->keyOffset = keyOffset;
 }
 
-//TODO: this method is a template method
 Record* CrcRandomGenerator::next() {
     if(generated >= count) return nullptr;
-    //places the generated random bytes into vector r
-    random_bytes_engine rbe;
-    vector<unsigned char> r(1000);
-    generate(begin(r), end(r), std::ref(rbe));
-
-    Record* ptr = nullptr;
-    return nullptr;
+    Record r(size, keyOffset);
+    generated++;
+    Record* ptr = &r;
+    return ptr;
 }
 
-//TODO: this method is a template method
-void CrcRandomGenerator::verifyCrc(Record rec) {
-
+bool CrcRandomGenerator::verifyCrc(Record* recordPtr) {
+    if (!recordPtr) return;
+    Record r = *recordPtr;
+    return r.completeChecksumCheck();
 }
