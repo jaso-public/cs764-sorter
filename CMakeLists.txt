@@ -48,8 +48,8 @@ add_executable(cs764_sorter
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
         Config/StagingConfig.h
-        Testing/Sorting/NoopSorter.h
-        Testing/Sorting/NoopSorter.cpp
+        Testing/SortingHelpers/NoopSorter.h
+        Testing/SortingHelpers/NoopSorter.cpp
         Sort/Sorter.cpp
         Run.h
         Run.cpp
@@ -61,8 +61,8 @@ add_executable(cs764_sorter
         Testing/SortingHelpers/CrcRandomGenerator.cpp
         Testing/Tests/WitnessTest.h
         Testing/Tests/WitnessTest.cpp
-        Testing/Sorting/TreeSorter.h
-        Testing/Sorting/TreeSorter.cpp
+        Testing/SortingHelpers/TreeSorter.h
+        Testing/SortingHelpers/TreeSorter.cpp
         Testing/Tests/TournamentPqTest.h
         Testing/Tests/TournamentPqTest.cpp
         Testing/Tests/SpillToHdd.cpp
@@ -86,7 +86,8 @@ add_executable(cs764_sorter
         Testing/TestProviders/DropFirst.h
         Testing/Tests/StagedProviderTest.h
         Testing/TestProviders/ArrayProvider.h
-        Testing/Sorting/Key.h
-        Testing/Sorting/Key.cpp
+        Testing/SortingHelpers/Key.h
+        Testing/SortingHelpers/Key.cpp
         Testing/Tests/LotsOfHddRuns.cpp
+        Testing/Tests/WitnessTest.cpp
 )
