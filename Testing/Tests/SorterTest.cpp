@@ -29,11 +29,11 @@ void SorterTest::testSmallSort() {
 
     sorter.printStats();
 
-    assert(("The count of the lower witness should have equaled the record count", recordCount == lower.getCount()));
-    assert(("The count of the upper witness should equaled the record count", recordCount == upper.getCount()));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have", lower.getCrc() == upper.getCrc()));
-    assert(("The lower was sorted but should not have been", !lower.isSorted));
-    assert(("The upper witness was not sorted but should have been", upper.isSorted));
+    assert(("The count of the lower witness should have equaled the record count" && recordCount == lower.getCount()));
+    assert(("The count of the upper witness should equaled the record count" && recordCount == upper.getCount()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
+    assert(("The lower was sorted but should not have been" && !lower.isSorted));
+    assert(("The upper witness was not sorted but should have been" && upper.isSorted));
 }
 
 void SorterTest::testAllMemory() {
@@ -54,11 +54,11 @@ void SorterTest::testAllMemory() {
 
     sorter.printStats();
 
-    assert(("The count of the lower witness should have equaled the record count", recordCount == lower.getCount()));
-    assert(("The count of the upper witness should equaled the record count", recordCount == upper.getCount()));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have", lower.getCrc() == upper.getCrc()));
-    assert(("The lower was sorted but should not have been", !lower.isSorted));
-    assert(("The upper witness was not sorted but should have been", upper.isSorted));
+    assert(("The count of the lower witness should have equaled the record count" && recordCount == lower.getCount()));
+    assert(("The count of the upper witness should equaled the record count" && recordCount == upper.getCount()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
+    assert(("The lower was sorted but should not have been" && !lower.isSorted));
+    assert(("The upper witness was not sorted but should have been" && upper.isSorted));
 }
 
 void SorterTest::testSpillToSsdFewBlocks() {
@@ -79,11 +79,11 @@ void SorterTest::testSpillToSsdFewBlocks() {
 
     sorter.printStats();
 
-    assert(("The count of the lower witness should have equaled the record count", recordCount == lower.getCount()));
-    assert(("The count of the upper witness should equaled the record count", recordCount == upper.getCount()));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have", lower.getCrc() == upper.getCrc()));
-    assert(("The lower was sorted but should not have been", !lower.isSorted));
-    assert(("The upper witness was not sorted but should have been", upper.isSorted));
+    assert(("The count of the lower witness should have equaled the record count" && recordCount == lower.getCount()));
+    assert(("The count of the upper witness should equaled the record count" && recordCount == upper.getCount()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
+    assert(("The lower was sorted but should not have been" && !lower.isSorted));
+    assert(("The upper witness was not sorted but should have been" && upper.isSorted));
 }
 
 void SorterTest::testSpillToSsd() {
@@ -104,11 +104,11 @@ void SorterTest::testSpillToSsd() {
 
     sorter.printStats();
 
-    assert(("The count of the lower witness should have equaled the record count", recordCount == lower.getCount()));
-    assert(("The count of the upper witness should equaled the record count", recordCount == upper.getCount()));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have", lower.getCrc() == upper.getCrc()));
-    assert(("The lower was sorted but should not have been", !lower.isSorted));
-    assert(("The upper witness was not sorted but should have been", upper.isSorted));
+    assert(("The count of the lower witness should have equaled the record count" && recordCount == lower.getCount()));
+    assert(("The count of the upper witness should equaled the record count" && recordCount == upper.getCount()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
+    assert(("The lower was sorted but should not have been" && !lower.isSorted));
+    assert(("The upper witness was not sorted but should have been" && upper.isSorted));
 }
 
 void SorterTest::testSpillToHdd() {
@@ -129,11 +129,11 @@ void SorterTest::testSpillToHdd() {
 
     sorter.printStats();
 
-    assert(("The count of the lower witness should have equaled the record count", recordCount == lower.getCount()));
-    assert(("The count of the upper witness should equaled the record count", recordCount == upper.getCount()));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have", lower.getCrc() == upper.getCrc()));
-    assert(("The lower was sorted but should not have been", !lower.isSorted));
-    assert(("The upper witness was not sorted but should have been", upper.isSorted));
+    assert(("The count of the lower witness should have equaled the record count" && recordCount == lower.getCount()));
+    assert(("The count of the upper witness should equaled the record count" && recordCount == upper.getCount()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
+    assert(("The lower was sorted but should not have been" && !lower.isSorted));
+    assert(("The upper witness was not sorted but should have been" && upper.isSorted));
 }
 
 void SorterTest::testZeroRecords() {
@@ -154,11 +154,11 @@ void SorterTest::testZeroRecords() {
 
     sorter.printStats();
 
-    assert(("The count of the lower witness should have equaled 0", 0 == lower.getCount()));
-    assert(("The count of the upper witness should equaled 0", 0 == upper.getCount()));
-    assert(("The count of the lower witness should have equaled the record count", recordCount == lower.getCount()));
-    assert(("The count of the upper witness should equaled the record count", recordCount == upper.getCount()));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have", lower.getCrc() == upper.getCrc()));
-    assert(("The lower was sorted but should not have been", !lower.isSorted));
-    assert(("The upper witness was not sorted but should have been", upper.isSorted));
+    assert(("The count of the lower witness should have equaled 0" && 0 == lower.getCount()));
+    assert(("The count of the upper witness should equaled 0" && 0 == upper.getCount()));
+    assert(("The count of the lower witness should have equaled the record count" && recordCount == lower.getCount()));
+    assert(("The count of the upper witness should equaled the record count" && recordCount == upper.getCount()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
+    assert(("The lower was sorted but should not have been" && !lower.isSorted));
+    assert(("The upper witness was not sorted but should have been" && upper.isSorted));
 }

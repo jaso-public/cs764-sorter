@@ -88,4 +88,5 @@ add_executable(cs764_sorter
         Testing/TestProviders/ArrayProvider.h
         Testing/Sorting/Key.h
         Testing/Sorting/Key.cpp
+        Testing/Tests/LotsOfHddRuns.cpp
 )

@@ -29,9 +29,9 @@ void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
 
     sorter.printStats();
 
-    assert(("The record count was not equal to the count of the lower witness", recordCount == lower.getCount()));
-    assert(("The record count was not equal to the count of the upper witness", recordCount ==  upper.getCount()));
-    assert(("The lower checksum was not equal to the upper checksum", lower.getCrc() == upper.getCrc()));
-    assert(("The lower witness should not have been sorted but was", !lower.checkSorted()));
-    assert(("The upper witness was not sorted but should have been", upper.checkSorted()));
+    assert(("The record count was not equal to the count of the lower witness" && recordCount == lower.getCount()));
+    assert(("The record count was not equal to the count of the upper witness" && recordCount ==  upper.getCount()));
+    assert(("The lower checksum was not equal to the upper checksum" && lower.getCrc() == upper.getCrc()));
+    assert(("The lower witness should not have been sorted but was" && !lower.checkSorted()));
+    assert(("The upper witness was not sorted but should have been" && upper.checkSorted()));
 }
