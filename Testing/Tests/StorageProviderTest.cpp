@@ -7,6 +7,8 @@
 #include "Providers/StorageProvider.h"
 using namespace std;
 
+StorageProviderTest::StorageProviderTest() {};
+
 void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength) {
 
     RandomGenerator rg(recordCount, recordSize);
@@ -51,4 +53,18 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
     assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before.getCrc() == after.getCrc()));
 
     remove("storage.tmp");
+}
+
+void StorageProviderTest::testSmall() {
+    doTest(123,50,564,2048);
+}
+
+void StorageProviderTest::testMedium() {
+    doTest(123,50,564,2048);
+}
+
+int main(){
+    StorageProviderTest test;
+    test.testSmall();
+    test.testMedium();
 }

@@ -5,6 +5,7 @@
 class SpillOneBlockToSsd {
 public:
     void testSpillToSsdFewBlocks();
+    SpillOneBlockToSsd();
 };
 
 

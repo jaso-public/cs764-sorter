@@ -3,9 +3,9 @@
 
 
 class LotsOfHddRuns {
-private:
+public:
+    LotsOfHddRuns();
     void testSpillToLotsOfHddRuns();
-
 };
 
 

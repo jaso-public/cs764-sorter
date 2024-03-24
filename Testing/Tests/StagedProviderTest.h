@@ -7,6 +7,7 @@ public:
     void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength);
     void testSmall();
     void testMedium();
+    StagedProviderTest();
 };
 
 

@@ -35,3 +35,8 @@ void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     assert(("The lower witness should not have been sorted but was" && !lower.checkSorted()));
     assert(("The upper witness was not sorted but should have been" && upper.checkSorted()));
 }
+
+int main(){
+    LotsOfHddRuns runs;
+    runs.testSpillToLotsOfHddRuns();
+}

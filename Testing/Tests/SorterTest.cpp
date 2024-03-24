@@ -162,3 +162,14 @@ void SorterTest::testZeroRecords() {
     assert(("The lower was sorted but should not have been" && !lower.isSorted));
     assert(("The upper witness was not sorted but should have been" && upper.isSorted));
 }
+
+int main(){
+    SorterTest test;
+    test.testSmallSort();
+    test.testAllMemory();
+    test.testSpillToSsdFewBlocks();
+    test.testSpillToSsd();
+    test.testSpillToHdd();
+    test.testSpillToLotsOfHddRuns();
+    test.testZeroRecords();
+}

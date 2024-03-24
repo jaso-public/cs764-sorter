@@ -20,7 +20,7 @@ void SpillToHdd::testSpillToHdd() {
     cfg.ssdStorageSize = 2*1024*1024;
     cfg.memoryBlockCount = 10;
 
-    CrcRandomGenerator crc(recordCount, recordSize);
+    CrcRandomGenerator crc(recordCount, recordSize, keyOffset);
     Provider generator(crc);
     Witness lower(generator);
     Sorter sorter(cfg, lower, recordSize, 8);
@@ -29,9 +29,8 @@ void SpillToHdd::testSpillToHdd() {
 
     while(true) {
         Record* recordPtr = p.next();
-        Record record = *recordPtr;
         if(recordPtr) break;
-        crc.verifyCrc(record);
+        crc.verifyCrc(recordPtr);
     }
 
     sorter.printStats();
@@ -41,4 +40,9 @@ void SpillToHdd::testSpillToHdd() {
     assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
     assert(("The lower was sorted but should not have been" && !lower.isSorted));
     assert(("The upper witness was not sorted but should have been" && upper.isSorted));
+}
+
+int main(){
+    SpillToHdd spill;
+    spill.testSpillToHdd();
 }

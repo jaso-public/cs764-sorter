@@ -8,6 +8,7 @@
 #include <string>
 using namespace std;
 
+SpillOneBlockToSsd::SpillOneBlockToSsd() {};
 
 void SpillOneBlockToSsd::testSpillToSsdFewBlocks() {
     int recordSize = 1024;
@@ -32,4 +33,9 @@ void SpillOneBlockToSsd::testSpillToSsdFewBlocks() {
     assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
     assert(("The lower was sorted but should not have been" && !lower.isSorted));
     assert(("The upper witness was not sorted but should have been" && upper.isSorted));
+}
+
+int main(){
+    SpillOneBlockToSsd spill;
+    spill.testSpillToSsdFewBlocks();
 }

@@ -5,6 +5,8 @@
 #include "Witness.h"
 #include <cassert>
 
+StagedProviderTest::StagedProviderTest() {};
+
 void StagedProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength) {
     RandomGenerator rg(recordCount, recordSize);
     Witness before(rg);
@@ -67,4 +69,10 @@ void StagedProviderTest::testSmall() {
 
 void StagedProviderTest::testMedium() {
     doTest(12003,50,1024,2048);
+}
+
+int main(){
+    StagedProviderTest test;
+    test.testSmall();
+    test.testMedium();
 }

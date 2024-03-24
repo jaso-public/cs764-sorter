@@ -4,9 +4,10 @@
 
 class StorageProviderTest {
 public:
-    void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength);
+    static void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength);
     void testSmall();
     void testMedium();
+    StorageProviderTest();
 };
 
 
