@@ -15,13 +15,13 @@ private:
     // the file to read and write to
     string file;
     // keeps track of how many times the file has been read
-    long readCount = 0;
+    long readCount;
     // keeps track of the number of bytes read
-    long readSize = 0;
+    long readSize;
     // keeps track of how many times the file has been written to
-    long writeCount = 0;
+    long writeCount;
     // keeps track of the number of bytes written
-    long writeSize = 0;
+    long writeSize;
 
 public:
     /**

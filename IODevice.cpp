@@ -11,6 +11,10 @@ using namespace std;
 IODevice::IODevice(string filePath){
     fstream f;
     this->streamPtr = &f;
+    this->readCount= 0;
+    this->readSize = 0;
+    this->writeSize = 0;
+    this->writeCount = 0;
     // catches exception if file cannot be opened
     (*streamPtr).exceptions ( fstream::failbit);
     try {

@@ -1,8 +1,8 @@
 #ifndef CS764_SORTER_CRCRANDOMGENERATOR_H
 #define CS764_SORTER_CRCRANDOMGENERATOR_H
 #include <stdlib.h>
-#include "Records/Record.h"
-#include "Providers/Provider.h"
+#include "../../Records/Record.h"
+#include "../../Providers/Provider.h"
 
 
 class CrcRandomGenerator: public Provider{

@@ -1,9 +1,9 @@
 #ifndef CS764_SORTER_SORTER_H
 #define CS764_SORTER_SORTER_H
-#include "Providers/Provider.h"
-#include "./Config/SorterConfig.h"
-#include "Run.h"
-#include "Records/Record.h"
+#include "../Providers/Provider.h"
+#include "../Config/SorterConfig.h"
+#include "../Run.h"
+#include "../Records/Record.h"
 #include <vector>
 
 class Sorter: public Provider {

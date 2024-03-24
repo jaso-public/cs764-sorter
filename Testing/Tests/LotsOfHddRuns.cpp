@@ -1,9 +1,9 @@
 #include "LotsOfHddRuns.h"
-#include "Config/SorterConfig.h"
-#include "Testing/SortingHelpers/CrcRandomGenerator.h"
-#include "Sort/Sorter.h"
-#include "Witness.h"
-#include "Consumer.h"
+#include "../../Config/SorterConfig.h"
+#include "../SortingHelpers/CrcRandomGenerator.h"
+#include "../../Sort/Sorter.h"
+#include "../../Witness.h"
+#include "../../Consumer.h"
 #include <cassert>
 #include <string>
 using namespace std;
@@ -11,7 +11,7 @@ using namespace std;
 void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     int recordSize = 1000;
     int recordCount = 190000;
-    int keyOffset = 0;
+    int keyOffset = 8;
 
     string test = "testSpillToLotsOfHddRuns: ";
 
@@ -19,7 +19,7 @@ void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     cfg.ssdStorageSize = 100*1024*1024;
     cfg.memoryBlockCount = 10;
 
-    CrcRandomGenerator crc(recordCount, recordSize);
+    CrcRandomGenerator crc(recordCount, recordSize, keyOffset);
     Provider generator(crc);
     Witness lower(generator);
     Sorter sorter(cfg, lower, recordSize, keyOffset);
