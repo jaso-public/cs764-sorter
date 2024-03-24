@@ -25,7 +25,6 @@ public:
      * @returns the a pointer to the next record or a null pointer record if the end of the list been reached
      */
     Record* next();
-    Provider();
 };
 
 

@@ -1,7 +1,7 @@
 #include "Provider.h"
+#include <iostream>
 using namespace std;
 
-Provider::Provider() {}
 /**
  * Initializes provider constructor
  * @param numOfRecordsFromUser number of records needing to be generated
@@ -25,7 +25,7 @@ Record* Provider::next(){
         numGenerated++;
         Record r(sizeOfRecords, keyOffset);
         Record* ptr = &r;
-        return nullptr;
+        return ptr;
     }
     return nullptr;
 }
@@ -33,14 +33,14 @@ Record* Provider::next(){
  int main(){
     // create a provider to generate 10 records
     Provider p(10,10,8);
-    // checks that all 10 records are generated then null pointer is reached
+   //  checks that all 10 records are generated then null pointer is reached
     for (int i = 0; i < 11; i++){
         Record* ptr = p.next();
         if (!ptr){
-           // cout << "Null pointer was reached";
+            cout << "Null pointer was reached";
         } else{
             Record r = *ptr;
-           // cout << r.record << "\n";
+            cout << r.record << "\n";
         }
     }
 }

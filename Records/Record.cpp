@@ -2,6 +2,7 @@
 #include "Record.h"
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 using namespace std;
 
 /**
@@ -104,13 +105,14 @@ void Record::storePartial(char *buffer, int offset, int start, int length) {
     void *destination = &buffer + offset;
     memcpy(destination, source, length);
 }
-// Main method to see output
+ //Main method to see output
 
- int main1(){
-    int size = 100;
-    uint32_t keyOffset = 8;
-    Record r(size,keyOffset);
- //   cout << r.record ;
+//int x(){
+//    int size = 100;
+//    uint32_t keyOffset = 8;
+//    Record r(size,keyOffset);
+//    cout << r.record ;
 //    cout << "\n" << r.getRecordKey();
- //   cout << "\n"<< r.completeChecksumCheck();
-}
+//    cout << "\n"<< r.completeChecksumCheck();
+//    return 0;
+//}
