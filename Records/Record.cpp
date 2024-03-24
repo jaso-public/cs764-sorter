@@ -1,5 +1,7 @@
 #include "rng.cpp"
 #include "Record.h"
+#include <stdio.h>
+#include <iostream>
 using namespace std;
 
 Record::Record() {};
@@ -105,7 +107,7 @@ void Record::storePartial(char *buffer, int offset, int start, int length) {
     memcpy(destination, source, length);
 }
 // Main method to see output
-/**
+
  int main(){
     int size = 100;
     uint32_t keyOffset = 8;
@@ -114,4 +116,3 @@ void Record::storePartial(char *buffer, int offset, int start, int length) {
     cout << "\n" << r.getRecordKey();
     cout << "\n"<< r.completeChecksumCheck();
 }
- */

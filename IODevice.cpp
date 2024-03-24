@@ -1,6 +1,8 @@
 #include "IODevice.h"
 #include <fstream>
 #include <iostream>
+#include <string>
+#include <sstream>
 using namespace std;
 
 /**
@@ -115,16 +117,16 @@ void IODevice::close() {
 
 // returns a string of read/write statistics
 string IODevice::stats() {
-    string readCount  = "read (count="+readCount;
-    string readSize = " size="+readSize;
-    string writeCount = ") write(count="+writeCount;
-    string writeSize = " size="+writeSize;
-    return readCount + readSize + writeCount + writeSize + ")";
+    ostringstream oss;
+    oss << "read (count=" << readCount <<  " size=" << readSize << ") write(count=" <<  writeCount << ") write(count=" << writeSize << ")";
+    return oss.str();
 }
 
 // returns the file path and class identification string
 string IODevice::toString() {
-    return  "IoDevice [file=" + file + "]";
+    ostringstream oss;
+    oss << "IoDevice [file=" << file <<  "]";
+    return oss.str();
 }
 
-
+int main(){};

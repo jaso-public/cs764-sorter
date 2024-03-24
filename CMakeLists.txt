@@ -90,4 +90,5 @@ add_executable(cs764_sorter
         Testing/SortingHelpers/Key.cpp
         Testing/Tests/LotsOfHddRuns.cpp
         Testing/Tests/WitnessTest.cpp
+        Testing/Tests/WitnessTest.cpp
 )
