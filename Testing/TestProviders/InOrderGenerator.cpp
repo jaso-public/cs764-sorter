@@ -5,6 +5,7 @@ InOrderGenerator::InOrderGenerator(long count, int size) {
     // sets given variables to class variables
     this->count = count;
     this->size = size;
+    this->generated = 0;
 }
 
 /**

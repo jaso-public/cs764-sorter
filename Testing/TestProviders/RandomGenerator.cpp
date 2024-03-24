@@ -3,6 +3,7 @@
 RandomGenerator::RandomGenerator(long count, int size) {
     this->count = count;
     this->size = size;
+    this->generated = 0;
 }
 
 Record* RandomGenerator::next() {

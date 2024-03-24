@@ -10,7 +10,12 @@ StorageProvider::StorageProvider(int recordSize, long recordCount, IODevice stor
     this->bufferLength = bufferLength;
     this->storage=storage;
     this->keyOffset = keyOffset;
-    storageRemaining = recordCount * (long)recordSize;
+    this->storageRemaining = recordCount * (long)recordSize;
+    this->bufferOffset = 0;
+    this->bufferRemaining = 0;
+    this->storageOffset = 0;
+    this->storageRemaining = 0;
+    this->nextRecord = 0;
 }
 
 Record* StorageProvider::next() {

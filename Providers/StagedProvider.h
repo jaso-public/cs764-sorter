@@ -26,16 +26,16 @@ private:
     char * transferBuffer;
     int transferStartOffset;
 
-    long storageOffset = 0;
-    long storageRemaining = 0;
+    long storageOffset;
+    long storageRemaining;
 
-    long stagingOffset = 0;
+    long stagingOffset;
     long stagingRemaining;
 
-    int bufferOffset = 0;
-    int bufferRemaining = 0;
+    int bufferOffset;
+    int bufferRemaining;
 
-    long nextRecord = 0;
+    long nextRecord;
 
 public:
     /**

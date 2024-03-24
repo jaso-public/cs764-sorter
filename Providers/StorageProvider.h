@@ -20,13 +20,13 @@ private:
 
 
 
-    int bufferOffset = 0;
-    int bufferRemaining = 0;
+    int bufferOffset;
+    int bufferRemaining;
 
-    long storageOffset = 0;
-    long storageRemaining = 0;
+    long storageOffset;
+    long storageRemaining;
 
-    long nextRecord = 0;
+    long nextRecord;
 
 public:
     StorageProvider(

@@ -1,7 +1,5 @@
 #include "StagedProvider.h"
-#include "Config/StagingConfig.h"
 #include <assert.h>
-#include <stdint.h>
 #include <limits.h>
 #include <iostream>
 using namespace std;
@@ -36,6 +34,12 @@ StagedProvider::StagedProvider(StagingConfig cfg): storage(""), staging("") {
     this->bufferLength = cfg.bufferLength;
     this->transferBuffer = cfg.transferBuffer;
     this->transferStartOffset = cfg.transferStartOffset;
+    this->storageOffset = 0;
+    this->storageRemaining = 0;
+    this->stagingOffset = 0;
+    this->bufferOffset = 0;
+    this->bufferRemaining = 0;
+    this->nextRecord = 0;
 
     assert(cfg.transferLength >= bufferLength + stagingLength);
 

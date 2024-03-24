@@ -50,7 +50,7 @@ public:
 
 private:
     // the total times the record has been compared to another record
-    long compareCount = 0;
+    long compareCount;
     /**
     * This method will create a record in memory and fill it with random 64 bit integers
      * It is used to create the record during the initialization of the Record constructor

@@ -17,6 +17,9 @@ Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOf
     this->keyOffset = keyOffset;
     Record r();
     this->record = r();
+    this->ssdOffset = 0;
+    this->ssdRemaining = 0;
+    this->hddOffset = 0;
 
 
     ssdRemaining = cfg.ssdStorageSize;

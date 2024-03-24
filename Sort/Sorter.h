@@ -15,9 +15,9 @@ private:
     uint32_t keyOffset;
     Record record;
 
-     long ssdOffset = 0;
-     long ssdRemaining = 0;
-     long hddOffset = 0;
+     long ssdOffset;
+     long ssdRemaining;
+     long hddOffset;
 
      char * buffer;
      int lastMemoryRun;

@@ -10,7 +10,7 @@ public:
     RandomGenerator(long count, int size);
     Record* next();
 private:
-    long generated = 0;
+    long generated;
     int rng = rand();
 };
 

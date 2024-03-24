@@ -1,7 +1,6 @@
 #include "rng.cpp"
 #include "Record.h"
 using namespace std;
-#include <iostream>
 
 Record::Record() {};
 
@@ -15,6 +14,7 @@ Record::Record(uint64_t sizeFromUser, uint32_t keyOffsetFromUser) {
     this->keyOffset = keyOffsetFromUser;
     // created record
     this->record = createRecord();
+    this->compareCount = 0;
 }
 
 

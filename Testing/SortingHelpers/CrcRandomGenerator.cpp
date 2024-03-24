@@ -5,6 +5,7 @@ CrcRandomGenerator::CrcRandomGenerator(long count, uint64_t size, uint32_t keyOf
     this->count = count;
     this->size = size;
     this->keyOffset = keyOffset;
+    this->generated = 0;
 }
 
 Record* CrcRandomGenerator::next() {
@@ -15,6 +16,7 @@ Record* CrcRandomGenerator::next() {
     return ptr;
 }
 
+//TODO: this may be wrong
 bool CrcRandomGenerator::verifyCrc(Record* recordPtr) {
     if (!recordPtr) return true;
     Record r = *recordPtr;

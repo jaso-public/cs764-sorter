@@ -18,9 +18,7 @@ public:
     Record* next();
 private:
     // stores actual number of records currently generated
-    long generated = 0;
-    // random number
-    int rng = rand();
+    long generated;
 };
 
 

@@ -14,7 +14,7 @@ public:
     Record* next();
     bool verifyCrc(Record* recPtr);
 private:
-    long generated = 0;
+    long generated;
 };
 
 
