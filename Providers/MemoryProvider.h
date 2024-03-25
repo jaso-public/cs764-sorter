@@ -41,7 +41,7 @@ public:
      * Creates another buffer of memory for the new record and assigns a record to it
      * @return pointer to the next created record or a null pointer if recordCount has been reached
      */
-    Record* next();
+    Record* next() override;
 };
 
 

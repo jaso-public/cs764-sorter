@@ -58,7 +58,7 @@ public:
 
     StagedProvider(StagingConfig cfg);
 
-    Record* next();
+    Record* next() override;
 
     int minSize(long size1, long size2);
 };

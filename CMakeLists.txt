@@ -15,7 +15,6 @@ add_executable(cs764_sorter
         OutlinedFiles/Filter.h
         OutlinedFiles/Iterator.cpp
         OutlinedFiles/Iterator.h
-        Providers/Provider.cpp
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h

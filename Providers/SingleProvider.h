@@ -18,7 +18,7 @@ public:
      */
     void reset(Record* r);
     // returns the class record's variable and then turns it to null
-    Record* next();
+    Record* next() override;
 };
 
 

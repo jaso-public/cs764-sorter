@@ -39,7 +39,7 @@ public:
             int bufferLength,
             uint32_t keyOffset);
 
-    Record* next();
+    Record* next() override;
 
 };
 

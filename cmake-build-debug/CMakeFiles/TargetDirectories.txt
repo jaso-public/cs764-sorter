@@ -1,3 +1,4 @@
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/cs764_sorter.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testing.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/edit_cache.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/rebuild_cache.dir
