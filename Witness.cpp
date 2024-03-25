@@ -67,31 +67,31 @@ bool Witness::checkSorted() {
     return isSorted;
 }
 
-// main method to check that witness is working
-int main(){
-    //create a provider to generate 10 records
-    Provider p(10,10,8);
-    // test witness methods
-    Witness w(p);
-    bool sorted = w.checkSorted();
-    long crc = w.getCrc();
-    long count = w.getCount();
-    cout << "Should be false: " << sorted << "\n";
-    cout << "Should be 0: " << crc << "\n";
-    cout << "Should be 0: "<< count << "\n";
-    for (int i = 0; i < 11; i++){
-        Record* ptr = w.next();
-        if (!ptr){
-            cout << "Null pointer was reached" << "\n";
-        } else{
-            Record r = *ptr;
-            cout << r.record << "\n";
-        }
-    }
-    sorted = w.checkSorted();
-    // TODO: how to check if this is the right value?
-    crc = w.getCrc();
-    count = w.getCount();
-    cout << "Should be false: " << sorted << "\n";
-    cout << "Should be 10: "<< count << "\n";
-}
+//// main method to check that witness is working
+//int main(){
+//    //create a provider to generate 10 records
+//    Provider p(10,10,8);
+//    // test witness methods
+//    Witness w(p);
+//    bool sorted = w.checkSorted();
+//    long crc = w.getCrc();
+//    long count = w.getCount();
+//    cout << "Should be false: " << sorted << "\n";
+//    cout << "Should be 0: " << crc << "\n";
+//    cout << "Should be 0: "<< count << "\n";
+//    for (int i = 0; i < 11; i++){
+//        Record* ptr = w.next();
+//        if (!ptr){
+//            cout << "Null pointer was reached" << "\n";
+//        } else{
+//            Record r = *ptr;
+//            cout << r.record << "\n";
+//        }
+//    }
+//    sorted = w.checkSorted();
+//    // TODO: how to check if this is the right value?
+//    crc = w.getCrc();
+//    count = w.getCount();
+//    cout << "Should be false: " << sorted << "\n";
+//    cout << "Should be 10: "<< count << "\n";
+//}

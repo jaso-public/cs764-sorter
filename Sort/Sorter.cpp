@@ -15,8 +15,7 @@ Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOf
     this->source = source;
     this->recordSize = recordSize;
     this->keyOffset = keyOffset;
-    Record r();
-    this->record = r();
+
     this->ssdOffset = 0;
     this->ssdRemaining = 0;
     this->hddOffset = 0;
@@ -36,8 +35,8 @@ Record* Sorter::next() {
 
 
 Provider Sorter::startSort() {
-    Record r;
-    r.resetCompareCount();
+    Record otherClass;
+    otherClass.resetCompareCount();
 
     int maxRecordsPerRun = cfg.memoryBlockSize / recordSize;
 
@@ -53,8 +52,7 @@ Provider Sorter::startSort() {
                 endReached = true;
                 break;
             }
-            Record *ptr = &r;
-            singles[recordCount++].reset(ptr);
+            singles[recordCount++].reset(recordPtr);
         }
 
         if (recordCount > 0) {

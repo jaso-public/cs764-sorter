@@ -43,12 +43,12 @@ Record* Printer::next() {
     return recordPtr;
 }
 
-int main(){
-    // create a printer to generate 10 records
-    Provider provider(10,10,8);
-    Printer printer(provider, "this is a test message");
-    // checks that all 10 records are generated then null pointer is reached
-    for (int i = 0; i < 11; i++) {
-        Record *ptr = printer.next();
-    }
-}
+//int main(){
+//    // create a printer to generate 10 records
+//    Provider provider(10,10,8);
+//    Printer printer(provider, "this is a test message");
+//    // checks that all 10 records are generated then null pointer is reached
+//    for (int i = 0; i < 11; i++) {
+//        Record *ptr = printer.next();
+//    }
+//}
