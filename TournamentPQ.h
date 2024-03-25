@@ -29,7 +29,7 @@ private:
     bool isFirstWinner(int first, int second);
 
 public:
-    TournamentPQ(vector<T> providers, uint32_t givenKeyOffset, int numProviders);
+    TournamentPQ(vector<T>& providers, uint32_t givenKeyOffset, int numProviders);
     Record* next() override;
 };
 

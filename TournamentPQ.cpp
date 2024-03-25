@@ -1,12 +1,11 @@
 #include "TournamentPQ.h"
-#include "Providers/Provider.h"
 #include "Records/Record.h"
 
 /**
    * Initializes TournamentPQ constructor
    */
 template<typename T>
-TournamentPQ<T>::TournamentPQ(vector<T> providers, uint32_t givenKeyOffset, int numProviders): providers(providers) {
+TournamentPQ<T>::TournamentPQ(vector<T>& providers, uint32_t givenKeyOffset, int numProviders): providers(providers) {
     this->numProviders = numProviders;
     this->keyOffset = givenKeyOffset;
 
@@ -39,6 +38,7 @@ TournamentPQ<T>::TournamentPQ(vector<T> providers, uint32_t givenKeyOffset, int 
         losers[0] = winners[1];
     }
 }
+
 
 /**
  * TournamentPQ constructor

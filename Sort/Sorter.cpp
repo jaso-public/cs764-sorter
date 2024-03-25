@@ -20,7 +20,6 @@ Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOf
     this->ssdRemaining = 0;
     this->hddOffset = 0;
 
-
     ssdRemaining = cfg.ssdStorageSize;
 
     this->buffer = new char[cfg.memoryBlockSize * cfg.memoryBlockCount];
@@ -91,7 +90,6 @@ Provider Sorter::startSort() {
         int index = 0;
 
         for (Run run: memoryRuns) {
-            EmptyProvider e;
             MemoryProvider m(buffer, run.offset, run.numRecords, recordSize, keyOffset);
             providers[index++] = m;
         }

@@ -5,6 +5,7 @@
 #include "../Run.h"
 #include "../Records/Record.h"
 #include <vector>
+#include "../TournamentPQ.h"
 
 class Sorter: public Provider, public Record{
 private:
@@ -14,6 +15,7 @@ private:
 
     Provider sortedProvider;
     Record record;
+
 
      long ssdOffset;
      long ssdRemaining;
