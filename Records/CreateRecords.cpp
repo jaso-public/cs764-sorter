@@ -24,17 +24,15 @@ void CreateRecords::write() {
 
 
 // this will be the method that each provider can use to return next()
-void CreateRecords::read(istream& is) {
-    string data;
+void* CreateRecords::next(istream& is) {
+    void* record;
     // checks that next line exists
-    if (is >> data) {
-        cout << data << std::endl;
+    if (is >> record) {
         // goes to next record
         is.seekg(1, std::ios_base::cur);
-    } else {
-        // all records have been returned file
-        cout << "done";
+        return record;
     }
+    return nullptr;
 }
 
 
@@ -46,7 +44,7 @@ int main() {
         cerr << "Failed to open file for reading!" << std::endl;
     }
     for (int i = 0; i < 5; i++){
-        test.read(inFile);
+      cout <<  test.next(inFile) << "\n";
     }
     // Close file stream
     inFile.close();

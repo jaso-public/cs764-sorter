@@ -20,7 +20,7 @@ public:
 
     void write();
 
-    void read(istream& is);
+    void* next(istream& is);
 };
 
 
