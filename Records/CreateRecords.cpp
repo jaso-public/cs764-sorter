@@ -8,9 +8,9 @@ CreateRecords::CreateRecords(int recordSize, int numberOfRecords) {
 
 // will write desired amount of records to input1.txt file
 void CreateRecords::write() {
-    ofstream outFile("input1.txt", ios::binary);
+    ofstream outFile("input.txt", ios::binary);
     if (!outFile) {
-        std::cerr << "Failed to open file for writing!" << std::endl;
+        std::cerr << "Failed to open file for writing." << std::endl;
     }
     while (generated < numberOfRecords){
         //TODO: record should be able to have alpha chars
@@ -39,9 +39,9 @@ void* CreateRecords::next(istream& is) {
 int main() {
     CreateRecords test(8, 4);
     test.write();
-    ifstream inFile("input1.txt", ios::binary);
+    ifstream inFile("input.txt", ios::binary);
     if (!inFile) {
-        cerr << "Failed to open file for reading!" << std::endl;
+        cerr << "Failed to open file for reading." << std::endl;
     }
     for (int i = 0; i < 5; i++){
       cout <<  test.next(inFile) << "\n";
