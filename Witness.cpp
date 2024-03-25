@@ -1,5 +1,5 @@
 #include "Witness.h"
-
+#include "Providers/Provider.h"
 /**
  * Initializes witness constructor and sets all values to their defaults
  * @param givenSource the source to get records from
@@ -16,7 +16,8 @@ Witness::Witness(Provider givenSource) {
 * Returns a pointer to the next record in the list and checks that each record key is sorted
 * @return pointer to next record or a null pointer if no more records exists
 */
-Record *Witness::next() {
+
+Record* Witness::next() {
     // gets the next record pointer and returns the pointer if it is null
     Record* recordPtr = source.next();
     if (!recordPtr) return recordPtr;

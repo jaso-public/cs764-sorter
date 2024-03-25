@@ -2,6 +2,8 @@
 #define DB_PROVIDER_H
 #include <stdint.h>
 #include "../Records/Record.h"
+using namespace std;
+
 
 /**
  * This is the provider class that will generate all the desired records

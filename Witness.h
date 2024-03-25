@@ -1,10 +1,10 @@
 #ifndef DB_WITNESS_H
 #define DB_WITNESS_H
 #include "Providers/Provider.h"
-#include "Providers/Provider.h"
 #include "Records/Record.h"
-using namespace std;
 #include <iostream>
+using namespace std;
+
 
 /**
  * This class will be utilized to verify the correctness of the records sorting algorithm

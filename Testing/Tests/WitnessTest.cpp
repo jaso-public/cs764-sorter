@@ -6,7 +6,7 @@ void WitnessTest::testTenInorder() {
     InOrderGenerator I(10, 100);
     Provider generator = I;
     Witness lower(generator);
-    NoopSorter sorter(lower);
+    NoopSorter sorter(&lower);
     Witness upper(sorter);
     Consumer consumer(upper);
     consumer.consume();
@@ -22,7 +22,7 @@ void WitnessTest::testDropOne() {
     Provider generator = I;
     Witness lower(generator);
     DropFirst dropper(lower);
-    NoopSorter sorter(dropper);
+    NoopSorter sorter(&dropper);
     Witness upper(sorter);
     Consumer consumer(upper);
     consumer.consume();
@@ -38,7 +38,7 @@ void WitnessTest::testRandomOrder() {
     RandomGenerator r(10, 100);
     Provider generator = r;
     Witness lower(generator);
-    NoopSorter sorter(lower);
+    NoopSorter sorter(&lower);
     Witness upper(sorter);
     Consumer consumer(upper);
     consumer.consume();
@@ -72,7 +72,7 @@ void WitnessTest::testRandomOrderWithPrinting() {
     Provider generator = r;
     Printer printer1(generator, test+"from generator");
     Witness lower(printer1);
-    NoopSorter sorter(lower);
+    NoopSorter sorter(&lower);
     Witness upper(sorter);
     Printer printer2(upper, test+"from sorter");
     Consumer consumer(printer2);
