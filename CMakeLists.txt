@@ -54,9 +54,17 @@ add_executable(cs764_sorter
         Run.cpp
         Providers/MemoryProvider.h
         Providers/MemoryProvider.cpp
+        Records/CreateRecords.h
 )
 
 add_executable(testing
     Testing/Tests/Practice.cpp
         Testing/Tests/Practice.h
+)
+
+add_executable(createRecords
+        Records/Record.cpp
+        Records/Record.h
+        Records/CreateRecords.h
+        Records/CreateRecords.cpp
 )
