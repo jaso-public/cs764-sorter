@@ -7,8 +7,8 @@ RemoveDuplicates::RemoveDuplicates(std::string inputFile, std::string outputFile
 }
 
 void RemoveDuplicates::removeDuplicates() {
-    ifstream readOutput(inputFile);
-    if (!readOutput) {
+    ifstream readInput(inputFile);
+    if (!readInput) {
         cerr << "The input file could not be opened" << endl;
         return;
     }
@@ -16,13 +16,13 @@ void RemoveDuplicates::removeDuplicates() {
     ofstream writeNewOutput(outputFile);
     if (!writeNewOutput) {
         cerr << "The output file could not be opened" << std::endl;
-        readOutput.close();
+        readInput.close();
         return;
     }
 
     string record;
     string previousRecord = "";
-    while (getline(readOutput, record)) {
+    while (getline(readInput, record)) {
         if (previousRecord == record){
             previousRecord = record;
             continue;
@@ -32,6 +32,6 @@ void RemoveDuplicates::removeDuplicates() {
         }
     }
 
-    readOutput.close();
+    readInput.close();
     writeNewOutput.close();
 }
