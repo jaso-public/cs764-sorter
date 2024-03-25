@@ -171,9 +171,8 @@ Provider Sorter::startSort() {
     for (int i = 0; i < hddRuns.size(); i++) {
         Run run = hddRuns[i];
 
-        StagedProvider stagedProvider();
+
         StagingConfig stagingCfg;
-        stagingCfg = stagedProvider().cfg;
         stagingCfg.recordSize = recordSize;
         stagingCfg.recordCount = run.numRecords;
         stagingCfg.storage = cfg.hddDevice;
