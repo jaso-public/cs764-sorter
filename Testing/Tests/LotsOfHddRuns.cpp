@@ -8,6 +8,9 @@
 #include <string>
 using namespace std;
 
+//TODO: build a class that runs all the test cases
+//Camke file can see different executables
+
 void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     int recordSize = 1000;
     int recordCount = 190000;

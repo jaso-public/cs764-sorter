@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.27)
 project(cs764_sorter)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(.)
 
@@ -55,40 +55,9 @@ add_executable(cs764_sorter
         Run.cpp
         Providers/MemoryProvider.h
         Providers/MemoryProvider.cpp
-        Testing/Tests/LotsOfHddRuns.cpp
-        Testing/Tests/LotsOfHddRuns.h
-        Testing/SortingHelpers/CrcRandomGenerator.h
-        Testing/SortingHelpers/CrcRandomGenerator.cpp
-        Testing/Tests/WitnessTest.h
-        Testing/Tests/WitnessTest.cpp
-        Testing/SortingHelpers/TreeSorter.h
-        Testing/SortingHelpers/TreeSorter.cpp
-        Testing/Tests/TournamentPqTest.h
-        Testing/Tests/TournamentPqTest.cpp
-        Testing/Tests/SpillToHdd.cpp
-        Testing/Tests/SpillOneBlockToSsd.cpp
-        Testing/Tests/SpillOneBlockToSsd.h
-        Testing/Tests/SorterTest.cpp
-        Testing/Tests/SorterTest.h
-        Testing/Tests/SpillToHdd.h
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
-        Testing/TestProviders/RandomGenerator.cpp
-        Testing/TestProviders/RandomGenerator.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/Tests/StorageProviderTest.h
-        Testing/Tests/StorageProviderTest.cpp
-        Testing/Tests/StagedProviderTest.cpp
-        Testing/TestProviders/InOrderGenerator.cpp
-        Testing/TestProviders/DropFirst.cpp
-        Testing/TestProviders/InOrderGenerator.h
-        Testing/TestProviders/DropFirst.h
-        Testing/Tests/StagedProviderTest.h
-        Testing/TestProviders/ArrayProvider.h
-        Testing/SortingHelpers/Key.h
-        Testing/SortingHelpers/Key.cpp
-        Testing/Tests/LotsOfHddRuns.cpp
-        Testing/Tests/WitnessTest.cpp
-        Testing/Tests/WitnessTest.cpp
+)
+
+add_executable(testing
+    Testing/Tests/Practice.cpp
+        Testing/Tests/Practice.h
 )

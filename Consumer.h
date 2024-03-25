@@ -12,7 +12,7 @@ public:
     Provider source;
 
     // the consumer constructor
-    Consumer(Provider givenSource);
+    Consumer(Provider &givenSource);
 
     // continues to get new records until a null record has been reached
     void consume();

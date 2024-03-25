@@ -2,6 +2,8 @@
 #include <iostream>
 using namespace std;
 
+//TODO: provider should be virtual
+//TODO: make base class all within header file with one virtual next method that returns record
 /**
  * Initializes provider constructor
  * @param numOfRecordsFromUser number of records needing to be generated
