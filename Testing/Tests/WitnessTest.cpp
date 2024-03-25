@@ -5,10 +5,10 @@ WitnessTest::WitnessTest() {};
 void WitnessTest::testTenInorder() {
     InOrderGenerator I(10, 100);
     Provider generator = I;
-    Witness lower(generator);
+    Witness lower(&generator);
     NoopSorter sorter(&lower);
-    Witness upper(sorter);
-    Consumer consumer(upper);
+    Witness upper(&sorter);
+    Consumer consumer(&upper);
     consumer.consume();
 
     assert(("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount()));
@@ -20,11 +20,11 @@ void WitnessTest::testTenInorder() {
 void WitnessTest::testDropOne() {
     InOrderGenerator I(10, 100);
     Provider generator = I;
-    Witness lower(generator);
-    DropFirst dropper(lower);
+    Witness lower(&generator);
+    DropFirst dropper(&lower);
     NoopSorter sorter(&dropper);
-    Witness upper(sorter);
-    Consumer consumer(upper);
+    Witness upper(&sorter);
+    Consumer consumer(&upper);
     consumer.consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
@@ -37,10 +37,10 @@ void WitnessTest::testDropOne() {
 void WitnessTest::testRandomOrder() {
     RandomGenerator r(10, 100);
     Provider generator = r;
-    Witness lower(generator);
+    Witness lower(&generator);
     NoopSorter sorter(&lower);
-    Witness upper(sorter);
-    Consumer consumer(upper);
+    Witness upper(&sorter);
+    Consumer consumer(&upper);
     consumer.consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
@@ -53,10 +53,10 @@ void WitnessTest::testRandomOrder() {
 void WitnessTest::testTreeSorter() {
     RandomGenerator r(10, 100);
     Provider generator = r;
-    Witness lower(generator);
+    Witness lower(&generator);
     TreeSorter sorter(lower);
-    Witness upper(sorter);
-    Consumer consumer(upper);
+    Witness upper(&sorter);
+    Consumer consumer(&upper);
     consumer.consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
@@ -71,11 +71,11 @@ void WitnessTest::testRandomOrderWithPrinting() {
     RandomGenerator r(10, 100);
     Provider generator = r;
     Printer printer1(generator, test+"from generator");
-    Witness lower(printer1);
+    Witness lower(&printer1);
     NoopSorter sorter(&lower);
-    Witness upper(sorter);
+    Witness upper(&sorter);
     Printer printer2(upper, test+"from sorter");
-    Consumer consumer(printer2);
+    Consumer consumer(&printer2);
     consumer.consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
@@ -90,11 +90,11 @@ void WitnessTest::testTreeSorterWithPrinting() {
     RandomGenerator r(10, 100);
     Provider generator = r;
     Printer printer1(generator, test+"from generator");
-    Witness lower(printer1);
+    Witness lower(&printer1);
     TreeSorter sorter(lower);
-    Witness upper(sorter);
+    Witness upper(&sorter);
     Printer printer2(upper, test+"from sorter");
-    Consumer consumer(printer2);
+    Consumer consumer(&printer2);
     consumer.consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));

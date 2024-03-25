@@ -13,10 +13,10 @@ using namespace std;
 class Witness: public Provider{
 public:
     // the source that will generate records
-    Provider source;
+    Provider* source;
 
     // the witness constructor that takes in a provider
-    Witness(Provider givenSource);
+    Witness(Provider* givenSource);
 
     /**
    * Returns a pointer to the next record in the list and checks that each record key is sorted

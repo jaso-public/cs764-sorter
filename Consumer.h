@@ -12,10 +12,10 @@ using namespace std;
 class Consumer {
 public:
     // the source that will generate records
-    Provider source;
+    Provider* source;
 
     // the consumer constructor
-    Consumer(Provider &givenSource);
+    Consumer(Provider* givenSource);
 
     // continues to get new records until a null record has been reached
     void consume();

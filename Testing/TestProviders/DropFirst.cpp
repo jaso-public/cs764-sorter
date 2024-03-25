@@ -4,10 +4,10 @@
  * Class constructor that automatically drops the first record
  * @param givenSource the provider to obtain records from
  */
-DropFirst::DropFirst(Provider givenSource) {
+DropFirst::DropFirst(Provider* givenSource) {
     // sets the given provider to class provider variable and skips first record
     this->source = givenSource;
-    source.next();
+    source->next();
 }
 
 /**
@@ -15,7 +15,7 @@ DropFirst::DropFirst(Provider givenSource) {
  * @return a pointer to the next record or a null pointer if a next record does not exist
  */
 Record* DropFirst::next() {
-    return source.next();
+    return source->next();
 }
 
 //// main method to make sure drop first is working

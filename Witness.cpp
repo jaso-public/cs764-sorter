@@ -4,7 +4,7 @@
  * Initializes witness constructor and sets all values to their defaults
  * @param givenSource the source to get records from
  */
-Witness::Witness(Provider givenSource) {
+Witness::Witness(Provider* givenSource) {
     this->count = 0;
     this->crc = 0;
     this->lastKeyPtr = nullptr;
@@ -19,7 +19,7 @@ Witness::Witness(Provider givenSource) {
 
 Record* Witness::next() {
     // gets the next record pointer and returns the pointer if it is null
-    Record* recordPtr = source.next();
+    Record* recordPtr = source->next();
     if (!recordPtr) return recordPtr;
     // else obtains the record and checks if it is sorted
     Record record = *recordPtr;
