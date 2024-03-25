@@ -63,8 +63,10 @@ add_executable(testing
 )
 
 add_executable(createRecords
-        Records/Record.cpp
-        Records/Record.h
         Records/CreateRecords.h
         Records/CreateRecords.cpp
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
 )
