@@ -61,7 +61,7 @@ Provider Sorter::startSort() {
 
             lastMemoryRun -= cfg.memoryBlockSize;
 
-            TournamentPQ pq(singles, keyOffset, recordCount);
+            TournamentPQ<SingleProvider> pq(singles, keyOffset, recordCount);
             for (int i = 0; i < recordCount; i++) {
                 Record *ptr = pq.next();
                 Record r = *ptr;
@@ -109,7 +109,7 @@ Provider Sorter::startSort() {
                               keyOffset);
             offset += cfg.ssdReadSize;
         }
-        TournamentPQ t(providers, keyOffset, index);
+        TournamentPQ<Provider> t(providers, keyOffset, index);
         return t;
     }
 
@@ -157,7 +157,8 @@ Provider Sorter::startSort() {
         providers[i] = s;
     }
 
-    TournamentPQ tPQ(providers, keyOffset, runsToMerge);
+
+    TournamentPQ<Provider> tPQ(providers, keyOffset, runsToMerge);
     Provider provider = tPQ;
     storeRun(provider, recordCount);
 
@@ -198,7 +199,7 @@ Provider Sorter::startSort() {
         memoryOffset += cfg.ssdReadSize;
     }
 
-    TournamentPQ t(providers, keyOffset, index);
+    TournamentPQ<Provider> t(providers, keyOffset, index);
     return t;
 }
 
@@ -231,7 +232,7 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 
     lastMemoryRun += numberBuffersToRelease * cfg.memoryBlockSize;
 
-    TournamentPQ t(providers, keyOffset, index);
+    TournamentPQ<Provider> t(providers, keyOffset, index);
     Provider provider = t;
     storeRun(provider, recordCount);
 }

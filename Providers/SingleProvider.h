@@ -6,7 +6,7 @@
 /**
  * This class enables defining and returning a given record
  */
-class SingleProvider: Provider {
+class SingleProvider: public Provider {
 private:
     // a pointer to a record or a null pointer if the record does not exist
     Record* record;

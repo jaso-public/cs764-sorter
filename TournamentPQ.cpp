@@ -5,10 +5,8 @@
 /**
    * Initializes TournamentPQ constructor
    */
-
-
-template <typename T> TournamentPQ::TournamentPQ(vector<T> providers, uint32_t givenKeyOffset, int numProviders) {
-    this->providers = providers;
+template<typename T>
+TournamentPQ<T>::TournamentPQ(vector<T> providers, uint32_t givenKeyOffset, int numProviders): providers(providers) {
     this->numProviders = numProviders;
     this->keyOffset = givenKeyOffset;
 
@@ -46,7 +44,8 @@ template <typename T> TournamentPQ::TournamentPQ(vector<T> providers, uint32_t g
  * TournamentPQ constructor
  * Determines which records are winners and losers in the given tournament
  */
-Record* TournamentPQ::next() {
+template<typename T>
+Record* TournamentPQ<T>::next() {
     int provider = losers[0];
 
     Record result = records[provider];
@@ -79,7 +78,8 @@ Record* TournamentPQ::next() {
  * @param second the second provider in the match.
  * @return true if the first provider wins the match, false otherwise.
  */
-bool TournamentPQ::isFirstWinner(int first, int second) {
+template<typename T>
+bool TournamentPQ<T>::isFirstWinner(int first, int second) {
     Record r1 = records[first];
     Record r2 = records[second];
     if(r1.record == nullptr) {
