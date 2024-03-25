@@ -1,4 +1,4 @@
-#include "rng.cpp"
+#include "rng.h"
 #include "Record.h"
 #include <stdlib.h>
 #include <string.h>

@@ -29,7 +29,7 @@ uint64_t shift() {
 void seed(uint64_t seed) {
     x = seed;
     for(int i=0 ; i<8; i++) shift();
-    for(int i=0 ; i<4; i++) shuffle_table[i] = shift();  
+    for(int i=0 ; i<4; i++) shuffle_table[i] = shift();
 }
 
 /**
@@ -42,7 +42,7 @@ uint64_t rotl(const uint64_t &value, uint8_t bits) {
 /**
  * get the next pseudo random number from the Xoshiro256plus generator
  */
-uint64_t next() {
+uint64_t nextRandom() {
     const uint64_t result_plus = shuffle_table[0] + shuffle_table[3];
 
     const uint64_t t = shuffle_table[1] << 17;
@@ -66,13 +66,13 @@ void fill(int size, void* array) {
     int extra = size & 7;
     int num = size >> 3;
 
-    uint64_t *a = (uint64_t*) array;
-    for(int i=0; i<num ; i++) a[i] = next(); 
+    uint64_t *a = (uint64_t *) array;
+    for (int i = 0; i < num; i++) a[i] = nextRandom();
 
-    if(extra) {
-        uint64_t tmp = next();
-        void* ending = a + num; 
-        memcpy(ending, &tmp, extra);   
+    if (extra) {
+        uint64_t tmp = nextRandom();
+        void *ending = a + num;
+        memcpy(ending, &tmp, extra);
     }
 }
 
@@ -145,5 +145,3 @@ int main() {
     return 0;
 }
 */
-
-int main(){};

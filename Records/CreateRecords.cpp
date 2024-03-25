@@ -4,18 +4,17 @@ CreateRecords::CreateRecords(int recordSize, int numberOfRecords) {
     this->recordSize = recordSize;
     this->numberOfRecords = numberOfRecords;
     this->generated = 0;
-    this->data = 10;
-    write();
 }
 
+// will write desired amount of records to input.txt file
 void CreateRecords::write() {
-    // Open file stream for writing
-    ofstream outFile("input.txt", std::ios::binary);
+    ofstream outFile("input.txt", ios::binary);
     if (!outFile) {
         std::cerr << "Failed to open file for writing!" << std::endl;
     }
-    while (generated < this->numberOfRecords){
-        Record r(10, 8);
+    while (generated < numberOfRecords){
+        //TODO" these records need to be alpha numerical
+        Record r(recordSize, 1);
         outFile << r.record << std::endl;
         generated++;
     }
@@ -23,25 +22,32 @@ void CreateRecords::write() {
     outFile.close();
 }
 
-void CreateRecords::read() {
-    std::ifstream inFile("input.txt", std::ios::binary);
-    if (!inFile) {
-        cerr << "Failed to open file for reading!" << std::endl;
+
+// this will be the method that each provider can use to return next()
+void CreateRecords::read(istream& is) {
+    string data;
+    // checks that next line exists
+    if (is >> data) {
+        cout << data << std::endl;
+        // goes to next record
+        is.seekg(1, std::ios_base::cur);
+    } else {
+        // all records have been returned file
+        cout << "done";
     }
-    // Read and output every piece of data in the file
-    std::string data;
-    while (inFile >> data) { // Read data until end of file
-        cout << data << std::endl; // Output data
-    }
-    // Close file stream
-    inFile.close();
 }
 
 
 int main() {
-    // Read object from file
-    CreateRecords newObj(10, 10);
-    newObj.read();
-
-    return 0;
+    CreateRecords test(8, 4);
+    test.write();
+    ifstream inFile("input.txt", ios::binary);
+    if (!inFile) {
+        cerr << "Failed to open file for reading!" << std::endl;
+    }
+    for (int i = 0; i < 5; i++){
+        test.read(inFile);
+    }
+    // Close file stream
+    inFile.close();
 }
