@@ -70,3 +70,10 @@ add_executable(createRecords
         Records/rng.cpp
         Records/rng.h
 )
+
+add_executable(testDuplicateRemoval
+        Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp
+        Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.h
+        DuplicateRemoval/RemoveDuplicates.cpp
+        DuplicateRemoval/RemoveDuplicates.h
+)

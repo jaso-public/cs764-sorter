@@ -3,7 +3,13 @@
 #include <iostream>
 #include <fstream>
 #include "Record.h"
+#include <vector>
+#include <random>
+#include <climits>
+#include <algorithm>
+#include <functional>
 using namespace std;
+
 
 /**
  * This is the provider class that will generate all the desired records
