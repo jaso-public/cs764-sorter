@@ -1,9 +1,3 @@
-
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <time.h>
 #include "rng.h"
 
 // from: https://github.com/thompsonsed/RandomNumberGeneration/blob/main/Xoshiro256plus.h

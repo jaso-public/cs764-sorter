@@ -3,6 +3,7 @@
 #include "Providers/SingleProvider.h"
 #include <iostream>
 #include <vector>
+#include "Records/Record.h"
 using namespace std;
 
 

@@ -1,13 +1,4 @@
 #include "SorterTest.h"
-#include "Testing/TestProviders/RandomGenerator.h"
-#include "Testing/TestProviders/Printer.h"
-#include "./Witness.h"
-#include "./Config/SorterConfig.h"
-#include "./Sort/Sorter.h"
-#include "./Consumer.h"
-#include <cassert>
-#include <string>
-using namespace std;
 
 void SorterTest::testSmallSort() {
     int recordSize = 100;

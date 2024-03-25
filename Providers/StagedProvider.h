@@ -1,5 +1,9 @@
 #ifndef CS764_SORTER_STAGEDPROVIDER_H
 #define CS764_SORTER_STAGEDPROVIDER_H
+#include <assert.h>
+#include <limits.h>
+#include <iostream>
+using namespace std;
 
 
 #include "IODevice.h"

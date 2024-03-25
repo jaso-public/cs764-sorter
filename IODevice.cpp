@@ -1,9 +1,5 @@
 #include "IODevice.h"
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <sstream>
-using namespace std;
+
 
 /**
  * Class constructor; Opens the given file in read/write mode

@@ -77,3 +77,31 @@ add_executable(testDuplicateRemoval
         DuplicateRemoval/RemoveDuplicates.cpp
         DuplicateRemoval/RemoveDuplicates.h
 )
+
+add_executable(testWitness
+        Testing/Tests/WitnessTest.cpp
+        Testing/Tests/WitnessTest.h
+        Providers/Provider.h
+        Witness.h
+        Witness.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/SortingHelpers/NoopSorter.h
+        Testing/SortingHelpers/NoopSorter.cpp
+        Consumer.h
+        Consumer.cpp
+        Testing/TestProviders/DropFirst.h
+        Testing/TestProviders/DropFirst.cpp
+        Testing/SortingHelpers/TreeSorter.h
+        Testing/SortingHelpers/TreeSorter.cpp
+        Testing/SortingHelpers/Key.h
+        Testing/SortingHelpers/Key.cpp
+        Testing/TestProviders/Printer.h
+        Testing/TestProviders/Printer.cpp
+        Testing/TestProviders/RandomGenerator.h
+        Testing/TestProviders/RandomGenerator.cpp
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+)

@@ -4,6 +4,9 @@
 #include<vector>
 #include "./Records/Record.h"
 #include "./Providers/Provider.h"
+#include <string>
+#include<iterator>
+#include<vector>
 using namespace std;
 #ifndef CS764_SORTER_ARRAYPROVIDER_H
 #define CS764_SORTER_ARRAYPROVIDER_H
@@ -25,7 +28,7 @@ public:
     // class constructor
     ArrayProvider(string givenName,  vector<Record> givenRecords);
     // returns a record pointer to the next record or a null pointer if no more records exist
-    Record* next();
+    Record* next() override;
 };
 
 

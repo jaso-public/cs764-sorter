@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "../../Records/Record.h"
 #include "../../Providers/Provider.h"
-
+using namespace std;
 
 class CrcRandomGenerator: public Provider{
 public:
@@ -11,7 +11,7 @@ public:
     uint64_t size;
     uint32_t keyOffset;
     CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset);
-    Record* next();
+    Record* next() override;
     bool verifyCrc(Record* recPtr);
 private:
     long generated;

@@ -1,14 +1,4 @@
 #include "Sorter.h"
-#include "Providers/SingleProvider.h"
-#include "Providers/EmptyProvider.h"
-#include "Providers/MemoryProvider.h"
-#include "Providers/StorageProvider.h"
-#include "Providers/StagedProvider.h"
-#include "TournamentPQ.h"
-#include "./Records/Record.cpp"
-#include <algorithm>
-#include <iostream>
-using namespace std;
 
 Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOffset) {
     this->cfg = cfg;

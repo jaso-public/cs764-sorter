@@ -1,8 +1,5 @@
 #include "StagedProvider.h"
-#include <assert.h>
-#include <limits.h>
-#include <iostream>
-using namespace std;
+
 
 /**
   * Class constructor that takes in Staging Config class with the valuing values:

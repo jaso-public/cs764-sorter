@@ -1,7 +1,5 @@
 #include "MemoryProvider.h"
-#include <limits.h>
-#include <iostream>
-using namespace std;
+
 /**
  * Class constructor that assigns given variables to class variables
  * @param givenBuffer buffer of memory

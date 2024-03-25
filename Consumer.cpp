@@ -1,8 +1,5 @@
 #include "Consumer.h"
-#include "Providers/Provider.h"
-#include "Records/Record.h"
-using namespace std;
-#include <iostream>
+
 
 /**
  * Initializes consumer constructor

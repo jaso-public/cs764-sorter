@@ -1,5 +1,5 @@
 #include "CrcRandomGenerator.h"
-using namespace std;
+
 
 CrcRandomGenerator::CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset) {
     this->count = count;

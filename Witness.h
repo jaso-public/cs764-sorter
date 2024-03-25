@@ -1,6 +1,10 @@
 #ifndef DB_WITNESS_H
 #define DB_WITNESS_H
 #include "Providers/Provider.h"
+#include "Providers/Provider.h"
+#include "Records/Record.h"
+using namespace std;
+#include <iostream>
 
 /**
  * This class will be utilized to verify the correctness of the records sorting algorithm
@@ -18,7 +22,7 @@ public:
    * Returns a pointer to the next record in the list and checks that each record key is sorted
    * @return pointer to next record or null if no more records exists
    */
-    Record* next();
+    Record* next() override;
 
     /**
      * Gets total number of generated records

@@ -1,7 +1,11 @@
 #ifndef DB_RECORD_H
 #define DB_RECORD_H
 #include <stdint.h>
-#include "../Records/Record.h"
+#include <stdlib.h>
+#include <string.h>
+#include "rng.h"
+
+using namespace std;
 
 class Record {
 public:

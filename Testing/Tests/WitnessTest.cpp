@@ -1,16 +1,4 @@
 #include "WitnessTest.h"
-#include "Providers/Provider.h"
-#include "Testing/TestProviders/InOrderGenerator.h"
-#include "Witness.h"
-#include "Testing/SortingHelpers/NoopSorter.h"
-#include "Consumer.h"
-#include "Testing/TestProviders/DropFirst.h"
-#include "./Testing/SortingHelpers/TreeSorter.h"
-#include <cassert>
-#include <string>
-#include "Testing/TestProviders/Printer.h"
-#include "Testing/TestProviders/RandomGenerator.h"
-using namespace std;
 
 WitnessTest::WitnessTest() {};
 
@@ -24,8 +12,8 @@ void WitnessTest::testTenInorder() {
     consumer.consume();
 
     assert(("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount()));
-    assert(("The count of the upper witness should have been 10", 10 == upper.getCount()));
-    assert(("The upper witness should have been sorted but was not", upper.isSorted));
+    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
+    assert(("The upper witness should have been sorted but was not" && upper.isSorted));
     assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 }
 

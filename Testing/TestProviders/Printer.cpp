@@ -1,7 +1,5 @@
 #include "Printer.h"
-#include <iostream>
-#include <sys/time.h>
-using namespace std;
+
 /**
    * Class constructor of the printer that sets the given variables to the class variables
    * @param givenSource given provider to get records from

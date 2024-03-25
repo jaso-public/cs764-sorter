@@ -1,4 +1,5 @@
 #include "Key.h"
+
 Key::Key(long key, long index) {
   this->key = key;
   this->index = index;

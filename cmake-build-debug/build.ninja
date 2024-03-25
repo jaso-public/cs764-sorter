@@ -265,6 +265,91 @@ build testing: CXX_EXECUTABLE_LINKER__testing_Debug CMakeFiles/testing.dir/Testi
   TARGET_FILE = testing
   TARGET_PDB = testing.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target createRecords
+
+
+#############################################
+# Order-only phony target for createRecords
+
+build cmake_object_order_depends_target_createRecords: phony || CMakeFiles/createRecords.dir
+
+build CMakeFiles/createRecords.dir/Records/CreateRecords.cpp.o: CXX_COMPILER__createRecords_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/CreateRecords.cpp || cmake_object_order_depends_target_createRecords
+  DEP_FILE = CMakeFiles/createRecords.dir/Records/CreateRecords.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/createRecords.dir
+  OBJECT_FILE_DIR = CMakeFiles/createRecords.dir/Records
+
+build CMakeFiles/createRecords.dir/Records/Record.cpp.o: CXX_COMPILER__createRecords_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_createRecords
+  DEP_FILE = CMakeFiles/createRecords.dir/Records/Record.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/createRecords.dir
+  OBJECT_FILE_DIR = CMakeFiles/createRecords.dir/Records
+
+build CMakeFiles/createRecords.dir/Records/rng.cpp.o: CXX_COMPILER__createRecords_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_createRecords
+  DEP_FILE = CMakeFiles/createRecords.dir/Records/rng.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/createRecords.dir
+  OBJECT_FILE_DIR = CMakeFiles/createRecords.dir/Records
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target createRecords
+
+
+#############################################
+# Link the executable createRecords
+
+build createRecords: CXX_EXECUTABLE_LINKER__createRecords_Debug CMakeFiles/createRecords.dir/Records/CreateRecords.cpp.o CMakeFiles/createRecords.dir/Records/Record.cpp.o CMakeFiles/createRecords.dir/Records/rng.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+  OBJECT_DIR = CMakeFiles/createRecords.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = createRecords
+  TARGET_PDB = createRecords.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target testDuplicateRemoval
+
+
+#############################################
+# Order-only phony target for testDuplicateRemoval
+
+build cmake_object_order_depends_target_testDuplicateRemoval: phony || CMakeFiles/testDuplicateRemoval.dir
+
+build CMakeFiles/testDuplicateRemoval.dir/Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp.o: CXX_COMPILER__testDuplicateRemoval_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp || cmake_object_order_depends_target_testDuplicateRemoval
+  DEP_FILE = CMakeFiles/testDuplicateRemoval.dir/Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testDuplicateRemoval.dir
+  OBJECT_FILE_DIR = CMakeFiles/testDuplicateRemoval.dir/Testing/Tests/DuplicateRemoval
+
+build CMakeFiles/testDuplicateRemoval.dir/DuplicateRemoval/RemoveDuplicates.cpp.o: CXX_COMPILER__testDuplicateRemoval_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/DuplicateRemoval/RemoveDuplicates.cpp || cmake_object_order_depends_target_testDuplicateRemoval
+  DEP_FILE = CMakeFiles/testDuplicateRemoval.dir/DuplicateRemoval/RemoveDuplicates.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testDuplicateRemoval.dir
+  OBJECT_FILE_DIR = CMakeFiles/testDuplicateRemoval.dir/DuplicateRemoval
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target testDuplicateRemoval
+
+
+#############################################
+# Link the executable testDuplicateRemoval
+
+build testDuplicateRemoval: CXX_EXECUTABLE_LINKER__testDuplicateRemoval_Debug CMakeFiles/testDuplicateRemoval.dir/Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp.o CMakeFiles/testDuplicateRemoval.dir/DuplicateRemoval/RemoveDuplicates.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+  OBJECT_DIR = CMakeFiles/testDuplicateRemoval.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = testDuplicateRemoval
+  TARGET_PDB = testDuplicateRemoval.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -299,7 +384,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug
 
-build all: phony cs764_sorter testing
+build all: phony cs764_sorter testing createRecords testDuplicateRemoval
 
 # =============================================================================
 # Built-in targets

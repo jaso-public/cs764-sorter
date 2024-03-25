@@ -1,5 +1,4 @@
 #include "RemoveDuplicates.h"
-#include <iostream>
 
 RemoveDuplicates::RemoveDuplicates(std::string inputFile, std::string outputFile) {
     this->inputFile = inputFile;

@@ -1,5 +1,4 @@
 #include "TournamentPQ.h"
-#include "Records/Record.h"
 
 /**
    * Initializes TournamentPQ constructor

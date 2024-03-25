@@ -1,8 +1,4 @@
 #include "Witness.h"
-#include "Providers/Provider.h"
-#include "Records/Record.h"
-using namespace std;
-#include <iostream>
 
 /**
  * Initializes witness constructor and sets all values to their defaults

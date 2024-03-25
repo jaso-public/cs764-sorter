@@ -2,6 +2,9 @@
 #define CS764_SORTER_MEMORYPROVIDER_H
 #include "Records/Record.h"
 #include "Provider.h"
+#include <limits.h>
+#include <iostream>
+using namespace std;
 
 /**
  * This class is used to create continuously create buffer space for a new record

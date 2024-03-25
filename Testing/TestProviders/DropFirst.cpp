@@ -1,6 +1,4 @@
 #include "DropFirst.h"
-using namespace std;
-#include <iostream>
 
 /**
  * Class constructor that automatically drops the first record

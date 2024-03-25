@@ -1,12 +1,4 @@
 #include "LotsOfHddRuns.h"
-#include "../../Config/SorterConfig.h"
-#include "../SortingHelpers/CrcRandomGenerator.h"
-#include "../../Sort/Sorter.h"
-#include "../../Witness.h"
-#include "../../Consumer.h"
-#include <cassert>
-#include <string>
-using namespace std;
 
 //TODO: build a class that runs all the test cases
 //Camke file can see different executables

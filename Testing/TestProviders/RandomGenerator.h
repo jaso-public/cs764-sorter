@@ -8,7 +8,7 @@ public:
     long count;
     int size;
     RandomGenerator(long count, int size);
-    Record* next();
+    Record* next() override;
 private:
     long generated;
     int rng = rand();

@@ -2,6 +2,8 @@
 #define CS764_SORTER_PRINTER_H
 #include "Providers/Provider.h"
 #include <string>
+#include <iostream>
+#include <sys/time.h>
 using namespace std;
 
 /**
@@ -29,7 +31,7 @@ public:
      * If the record is not null, it will print out the current time, message, record's key, and checksum to console
      * @returns a pointer to the record or a null pointer
      */
-    Record* next();
+    Record* next() override;
 };
 
 

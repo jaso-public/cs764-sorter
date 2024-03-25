@@ -1,4 +1,5 @@
 #include "RandomGenerator.h"
+
 //TODO: needs to sum class Provider class
 RandomGenerator::RandomGenerator(long count, int size) {
     this->count = count;

@@ -1,6 +1,6 @@
 #ifndef CS764_SORTER_INORDERGENERATOR_H
 #define CS764_SORTER_INORDERGENERATOR_H
-#include "./Providers/Provider.h";
+#include "./Providers/Provider.h"
 #include <stdlib.h>
 
 /**
@@ -15,7 +15,7 @@ public:
     // class constructor
     InOrderGenerator(long count, int size);\
     // returns a pointer to the next record or a null pointer if a next record does not exist
-    Record* next();
+    Record* next() override;
 private:
     // stores actual number of records currently generated
     long generated;

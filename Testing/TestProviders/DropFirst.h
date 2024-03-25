@@ -2,6 +2,9 @@
 #define CS764_SORTER_DROPFIRST_H
 #include "./Providers/Provider.h"
 #include "Records/Record.h"
+#include <iostream>
+using namespace std;
+
 
 /**
  * This class is utilized to automatically skip the first record and return all other records
@@ -17,7 +20,7 @@ public:
      * Gets the next record from the provider or a null record
      * @return a pointer to the next record or a null pointer if a next record does not exist
      */
-    Record* next();
+    Record* next()override;
 };
 
 

@@ -1,6 +1,4 @@
 #include "TreeSorter.h"
-#include <map>
-using namespace std;
 
 
 TreeSorter::TreeSorter(Provider source) {

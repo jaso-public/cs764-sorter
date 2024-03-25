@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <fstream>
 #include <string>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <sstream>
 using namespace std;
 
 /**

@@ -2,14 +2,16 @@
 #define CS764_SORTER_TREESORTER_H
 #include "../../Providers/Provider.h"
 #include "../../Records/Record.h"
-#include "./Key.h"
+#include "Key.h"
 #include <vector>
+#include "Key.h"
+#include <map>
 using namespace std;
 
 
 class TreeSorter: public Provider{
 public:
-    Record* next();
+    Record* next() override;
     TreeSorter(Provider source);
 
 private:

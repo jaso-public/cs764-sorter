@@ -1,8 +1,5 @@
 #include "ArrayProvider.h"
-#include <string>
-#include<iterator>
-#include<vector>
-using namespace std;
+
 
 /**
  * Array provider constructor
