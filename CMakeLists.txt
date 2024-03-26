@@ -57,11 +57,6 @@ add_executable(cs764_sorter
         Records/CreateRecords.h
 )
 
-add_executable(testing
-    Testing/Tests/Practice.cpp
-        Testing/Tests/Practice.h
-)
-
 add_executable(createRecords
         Records/CreateRecords.h
         Records/CreateRecords.cpp
