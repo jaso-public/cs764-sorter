@@ -79,8 +79,6 @@ add_executable(testDuplicateRemoval
 )
 
 add_executable(testWitness
-        Testing/Tests/WitnessTest.cpp
-        Testing/Tests/WitnessTest.h
         Providers/Provider.h
         Witness.h
         Witness.cpp
@@ -104,4 +102,6 @@ add_executable(testWitness
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
+        Testing/Tests/WitnessTest.cpp
+        Testing/Tests/WitnessTest.h
 )

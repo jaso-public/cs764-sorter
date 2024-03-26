@@ -2,5 +2,6 @@
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testing.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/createRecords.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testDuplicateRemoval.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testWitness.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/edit_cache.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/rebuild_cache.dir
