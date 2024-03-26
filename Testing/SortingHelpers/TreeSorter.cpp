@@ -38,5 +38,3 @@ Record* TreeSorter::next() {
     }
     return nullptr;
 }
-
-int main(){};

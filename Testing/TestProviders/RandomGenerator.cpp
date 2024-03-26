@@ -14,5 +14,3 @@ Record* RandomGenerator::next() {
     Record* ptr = &r;
     return ptr;
 }
-
-int main(){};

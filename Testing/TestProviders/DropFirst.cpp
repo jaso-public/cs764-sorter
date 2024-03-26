@@ -47,5 +47,3 @@ Record* DropFirst::next() {
 //        }
 //    }
 //}
-
-int main(){};
