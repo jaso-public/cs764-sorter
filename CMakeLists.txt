@@ -105,3 +105,24 @@ add_executable(testWitness
         Testing/Tests/WitnessTest.cpp
         Testing/Tests/WitnessTest.h
 )
+
+add_executable(testPQ
+        Providers/Provider.h
+        Witness.h
+        Witness.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/Tests/TournamentPqTest.cpp
+        Testing/Tests/TournamentPqTest.h
+        Testing/TestProviders/InOrderGenerator.cpp
+        Consumer.h
+        Consumer.cpp
+        TournamentPQ.cpp
+        TournamentPQ.h
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+)

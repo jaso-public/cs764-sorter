@@ -20,10 +20,10 @@ using namespace std;
 class Sorter: public Provider, public Record{
 private:
     SorterConfig cfg;
-    Provider source;
+    Provider* source;
     int recordSize;
 
-    Provider sortedProvider;
+    Provider* sortedProvider;
     Record record;
 
 
@@ -34,18 +34,18 @@ private:
      char * buffer;
      int lastMemoryRun;
 
-     Provider startSort();
+     Provider* startSort();
 
      void makeFreeSpace();
      void releaseMemory(int numberBuffersToRelease);
-     void storeRun(Provider provider, long recordCount);
+     void storeRun(Provider* provider, long recordCount);
      long roundUp(long value, long multiple);
 
 public:
     vector<Run> memoryRuns;
     vector<Run> ssdRuns;
     vector<Run> hddRuns;
-    Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOffset);
+    Sorter(SorterConfig cfg, Provider* source, int recordSize, uint32_t keyOffset);
     Record* next() override;
     void printStats();
 

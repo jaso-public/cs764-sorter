@@ -1,6 +1,6 @@
 #include "Sorter.h"
 
-Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOffset) {
+Sorter::Sorter(SorterConfig cfg, Provider* source, int recordSize, uint32_t keyOffset) {
     this->cfg = cfg;
     this->source = source;
     this->recordSize = recordSize;
@@ -19,11 +19,11 @@ Sorter::Sorter(SorterConfig cfg, Provider source, int recordSize, uint32_t keyOf
 }
 
 Record* Sorter::next() {
-    return sortedProvider.next();
+    return sortedProvider->next();
 }
 
 
-Provider Sorter::startSort() {
+Provider* Sorter::startSort() {
     Record otherClass;
     otherClass.resetCompareCount();
 
@@ -36,7 +36,7 @@ Provider Sorter::startSort() {
     while (!endReached) {
         int recordCount = 0;
         while (recordCount < maxRecordsPerRun) {
-            Record *recordPtr = source.next();
+            Record *recordPtr = source->next();
             if (!recordPtr) {
                 endReached = true;
                 break;
@@ -63,8 +63,7 @@ Provider Sorter::startSort() {
     }
     // if there was nothing to sort then return an empty provider.
     if (memoryRuns.size() + ssdRuns.size() + hddRuns.size() == 0) {
-        EmptyProvider e;
-        return e;
+        return new EmptyProvider();
     }
 
     // see if we can do the final merge with the memory we have.
@@ -81,7 +80,7 @@ Provider Sorter::startSort() {
 
         for (Run run: memoryRuns) {
             MemoryProvider m(buffer, run.offset, run.numRecords, recordSize, keyOffset);
-            providers[index++] = m;
+            providers[index++] = &m;
         }
         // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
         int offset = 0;
@@ -98,7 +97,7 @@ Provider Sorter::startSort() {
             offset += cfg.ssdReadSize;
         }
         TournamentPQ<Provider> t(providers, keyOffset, index);
-        return t;
+        return &t;
     }
 
     // we did not have enough memory to do the final merge, so lets flush all of our memory
