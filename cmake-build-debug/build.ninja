@@ -350,6 +350,115 @@ build testDuplicateRemoval: CXX_EXECUTABLE_LINKER__testDuplicateRemoval_Debug CM
   TARGET_FILE = testDuplicateRemoval
   TARGET_PDB = testDuplicateRemoval.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target testWitness
+
+
+#############################################
+# Order-only phony target for testWitness
+
+build cmake_object_order_depends_target_testWitness: phony || CMakeFiles/testWitness.dir
+
+build CMakeFiles/testWitness.dir/Testing/Tests/WitnessTest.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/WitnessTest.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Testing/Tests/WitnessTest.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Testing/Tests
+
+build CMakeFiles/testWitness.dir/Witness.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Witness.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Witness.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir
+
+build CMakeFiles/testWitness.dir/Testing/TestProviders/InOrderGenerator.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/InOrderGenerator.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Testing/TestProviders/InOrderGenerator.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Testing/TestProviders
+
+build CMakeFiles/testWitness.dir/Testing/SortingHelpers/NoopSorter.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/NoopSorter.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Testing/SortingHelpers/NoopSorter.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Testing/SortingHelpers
+
+build CMakeFiles/testWitness.dir/Consumer.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Consumer.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Consumer.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir
+
+build CMakeFiles/testWitness.dir/Testing/TestProviders/DropFirst.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/DropFirst.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Testing/TestProviders/DropFirst.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Testing/TestProviders
+
+build CMakeFiles/testWitness.dir/Testing/SortingHelpers/TreeSorter.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/TreeSorter.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Testing/SortingHelpers/TreeSorter.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Testing/SortingHelpers
+
+build CMakeFiles/testWitness.dir/Testing/SortingHelpers/Key.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/Key.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Testing/SortingHelpers/Key.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Testing/SortingHelpers
+
+build CMakeFiles/testWitness.dir/Testing/TestProviders/Printer.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/Printer.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Testing/TestProviders/Printer.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Testing/TestProviders
+
+build CMakeFiles/testWitness.dir/Testing/TestProviders/RandomGenerator.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/RandomGenerator.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Testing/TestProviders/RandomGenerator.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Testing/TestProviders
+
+build CMakeFiles/testWitness.dir/Records/Record.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Records/Record.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Records
+
+build CMakeFiles/testWitness.dir/Records/rng.cpp.o: CXX_COMPILER__testWitness_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testWitness
+  DEP_FILE = CMakeFiles/testWitness.dir/Records/rng.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  OBJECT_FILE_DIR = CMakeFiles/testWitness.dir/Records
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target testWitness
+
+
+#############################################
+# Link the executable testWitness
+
+build testWitness: CXX_EXECUTABLE_LINKER__testWitness_Debug CMakeFiles/testWitness.dir/Testing/Tests/WitnessTest.cpp.o CMakeFiles/testWitness.dir/Witness.cpp.o CMakeFiles/testWitness.dir/Testing/TestProviders/InOrderGenerator.cpp.o CMakeFiles/testWitness.dir/Testing/SortingHelpers/NoopSorter.cpp.o CMakeFiles/testWitness.dir/Consumer.cpp.o CMakeFiles/testWitness.dir/Testing/TestProviders/DropFirst.cpp.o CMakeFiles/testWitness.dir/Testing/SortingHelpers/TreeSorter.cpp.o CMakeFiles/testWitness.dir/Testing/SortingHelpers/Key.cpp.o CMakeFiles/testWitness.dir/Testing/TestProviders/Printer.cpp.o CMakeFiles/testWitness.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testWitness.dir/Records/Record.cpp.o CMakeFiles/testWitness.dir/Records/rng.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+  OBJECT_DIR = CMakeFiles/testWitness.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = testWitness
+  TARGET_PDB = testWitness.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -384,7 +493,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug
 
-build all: phony cs764_sorter testing createRecords testDuplicateRemoval
+build all: phony cs764_sorter testing createRecords testDuplicateRemoval testWitness
 
 # =============================================================================
 # Built-in targets

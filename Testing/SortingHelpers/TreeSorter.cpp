@@ -1,13 +1,13 @@
 #include "TreeSorter.h"
 
 
-TreeSorter::TreeSorter(Provider source) {
+TreeSorter::TreeSorter(Provider* source) {
     int index = 0;
     map<Key*,Record*> sorted;
     map<Key*, Record*>::iterator it = sorted.begin();
     // adds all record to TreeMap until count has been reached
     while(true) {
-        Record* recordPtr = source.next();
+        Record* recordPtr = source->next();
         if(!recordPtr) break;
         Record record = *recordPtr;
         Key key(record.getRecordKey(), index++);

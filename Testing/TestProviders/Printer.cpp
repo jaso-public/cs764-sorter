@@ -5,7 +5,7 @@
    * @param givenSource given provider to get records from
    * @param givenMessage message to print out with each record
    */
-Printer::Printer(Provider givenSource, string givenMessage) {
+Printer::Printer(Provider* givenSource, string givenMessage) {
     this->source = givenSource;
     this->message = givenMessage;
 }
@@ -30,7 +30,7 @@ Record* Printer::next() {
     cout << localTime->tm_min << ":";
     cout << localTime->tm_sec << ":";
     cout << milliSeconds;
-    Record* recordPtr = source.next();
+    Record* recordPtr = source->next();
     // if record pointer is null
     if (!recordPtr){
         cout << " " << message << ": record is null!"<< "\n";

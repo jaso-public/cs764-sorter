@@ -3,9 +3,8 @@
 WitnessTest::WitnessTest() {};
 
 void WitnessTest::testTenInorder() {
-    InOrderGenerator I(10, 100);
-    Provider generator = I;
-    Witness lower(&generator);
+    InOrderGenerator i(10, 100);
+    Witness lower(&i);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);
@@ -18,9 +17,8 @@ void WitnessTest::testTenInorder() {
 }
 
 void WitnessTest::testDropOne() {
-    InOrderGenerator I(10, 100);
-    Provider generator = I;
-    Witness lower(&generator);
+    InOrderGenerator i(10, 100);
+    Witness lower(&i);
     DropFirst dropper(&lower);
     NoopSorter sorter(&dropper);
     Witness upper(&sorter);
@@ -36,8 +34,7 @@ void WitnessTest::testDropOne() {
 
 void WitnessTest::testRandomOrder() {
     RandomGenerator r(10, 100);
-    Provider generator = r;
-    Witness lower(&generator);
+    Witness lower(&r);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);
@@ -52,9 +49,8 @@ void WitnessTest::testRandomOrder() {
 
 void WitnessTest::testTreeSorter() {
     RandomGenerator r(10, 100);
-    Provider generator = r;
-    Witness lower(&generator);
-    TreeSorter sorter(lower);
+    Witness lower(&r);
+    TreeSorter sorter(&lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -69,12 +65,11 @@ void WitnessTest::testTreeSorter() {
 void WitnessTest::testRandomOrderWithPrinting() {
     string test = "testRandomOrderWithPrinting: ";
     RandomGenerator r(10, 100);
-    Provider generator = r;
-    Printer printer1(generator, test+"from generator");
+    Printer printer1(&r, test+"from generator");
     Witness lower(&printer1);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
-    Printer printer2(upper, test+"from sorter");
+    Printer printer2(&upper, test+"from sorter");
     Consumer consumer(&printer2);
     consumer.consume();
 
@@ -88,12 +83,11 @@ void WitnessTest::testRandomOrderWithPrinting() {
 void WitnessTest::testTreeSorterWithPrinting() {
     string test = "testTreeSorterWithPrinting: ";
     RandomGenerator r(10, 100);
-    Provider generator = r;
-    Printer printer1(generator, test+"from generator");
+    Printer printer1(&r, test+"from generator");
     Witness lower(&printer1);
-    TreeSorter sorter(lower);
+    TreeSorter sorter(&lower);
     Witness upper(&sorter);
-    Printer printer2(upper, test+"from sorter");
+    Printer printer2(&upper, test+"from sorter");
     Consumer consumer(&printer2);
     consumer.consume();
 

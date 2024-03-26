@@ -4,7 +4,6 @@
 #include "../../Records/Record.h"
 #include "Key.h"
 #include <vector>
-#include "Key.h"
 #include <map>
 using namespace std;
 
@@ -12,7 +11,7 @@ using namespace std;
 class TreeSorter: public Provider{
 public:
     Record* next() override;
-    TreeSorter(Provider source);
+    TreeSorter(Provider* source);
 
 private:
     // iterator to return the records
