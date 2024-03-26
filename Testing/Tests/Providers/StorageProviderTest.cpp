@@ -6,7 +6,7 @@ StorageProviderTest::StorageProviderTest() {};
 void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength) {
 
     RandomGenerator rg(recordCount, recordSize);
-    Witness before(rg);
+    Witness before(&rg);
 
     IODevice storage("storage.tmp");
 
@@ -39,8 +39,8 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
             bufferLength, keyOffset);
 
 
-    Witness after(sp);
-    Consumer c(after);
+    Witness after(&sp);
+    Consumer c(&after);
     c.consume();
 
     assert(("The count of the before witness should have equaled the count of the after witness" && before.getCount() == after.getCount()));

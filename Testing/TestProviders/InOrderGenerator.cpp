@@ -16,7 +16,7 @@ Record* InOrderGenerator::next() {
     // returns a null pointer when no more records are to be generated
     if (generated >= count) return nullptr;
     // returns a newly created record in memory
-    Record r(size, 8);
+    Record r(size, 1);
     generated++;
     Record* ptr = &r;
     return ptr;

@@ -1,8 +1,5 @@
 #include "LotsOfHddRuns.h"
 
-//TODO: build a class that runs all the test cases
-//Camke file can see different executables
-
 void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     int recordSize = 1000;
     int recordCount = 190000;
@@ -15,11 +12,10 @@ void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     cfg.memoryBlockCount = 10;
 
     CrcRandomGenerator crc(recordCount, recordSize, keyOffset);
-    Provider generator(crc);
-    Witness lower(generator);
-    Sorter sorter(cfg, lower, recordSize, keyOffset);
-    Witness upper(sorter);
-    Consumer consumer(upper);
+    Witness lower(&crc);
+    Sorter sorter(cfg, &lower, recordSize, keyOffset);
+    Witness upper(&sorter);
+    Consumer consumer(&upper);
     consumer.consume();
 
     sorter.printStats();

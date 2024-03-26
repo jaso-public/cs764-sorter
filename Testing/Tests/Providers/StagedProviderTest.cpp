@@ -5,7 +5,7 @@ StagedProviderTest::StagedProviderTest() {};
 
 void StagedProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength) {
     RandomGenerator rg(recordCount, recordSize);
-    Witness before(rg);
+    Witness before(&rg);
 
     IODevice storage("storage.tmp");
 
@@ -50,8 +50,8 @@ void StagedProviderTest::doTest(int recordSize, long recordCount, int stagingLen
     stagingCfg.transferLength = transferLength;
 
     StagedProvider sp(stagingCfg);
-    Witness after(sp);
-    Consumer c(after);
+    Witness after(&sp);
+    Consumer c(&after);
     c.consume();
 
     assert(("The count of the before witness should have equaled the count of the after witness" && before.getCount() == after.getCount()));

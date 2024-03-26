@@ -27,13 +27,13 @@ void TournamentPqTest::doTest(int numProviders) {
         }
     }
 
-    vector<Provider> providers(numProviders);
+    vector<Provider*> providers(numProviders);
     int index = 0;
     for (auto it = lists.begin(); it != lists.end(); ++it){
             string name ="Provider-"+ to_string(index);
             vector<Record> currentIndex = *it;
             ArrayProvider p(name, currentIndex);
-            providers[index] = p;
+            providers[index] = &p;
             index++;
     }
 

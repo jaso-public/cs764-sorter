@@ -17,8 +17,3 @@ Record* SingleProvider::next() {
     this->record = nullptr;
     return result;
 }
-
-int main(){
-    SingleProvider test;
-    test.next();
-}

@@ -13,11 +13,10 @@ void SpillToHdd::testSpillToHdd() {
     cfg.memoryBlockCount = 10;
 
     CrcRandomGenerator crc(recordCount, recordSize, keyOffset);
-    Provider generator(crc);
-    Witness lower(generator);
-    Sorter sorter(cfg, lower, recordSize, 8);
-    Witness upper(sorter);
-    Printer p(upper, test);
+    Witness lower(&crc);
+    Sorter sorter(cfg, &lower, recordSize, 8);
+    Witness upper(&sorter);
+    Printer p(&upper, test);
 
     while(true) {
         Record* recordPtr = p.next();

@@ -36,5 +36,3 @@ int MemoryProvider::safeIntCast(long value) {
     }
     return  static_cast<int> (value);
 }
-
-int main(){};

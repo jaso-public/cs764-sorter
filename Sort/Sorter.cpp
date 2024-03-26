@@ -75,7 +75,7 @@ Provider* Sorter::startSort() {
             releaseMemory(toRelease);
         }
 
-        vector<Provider> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
+        vector<Provider*> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
         int index = 0;
 
         for (Run run: memoryRuns) {
@@ -96,7 +96,7 @@ Provider* Sorter::startSort() {
                               keyOffset);
             offset += cfg.ssdReadSize;
         }
-        TournamentPQ<Provider> t(providers, keyOffset, index);
+        TournamentPQ<Provider*> t(providers, keyOffset, index);
         return &t;
     }
 
@@ -131,7 +131,7 @@ Provider* Sorter::startSort() {
     cout << "hddRuns.size():" << hddRuns.size() << "\n";
     cout << "runsToMerge:" << runsToMerge << "\n";
 
-    vector<Provider> providers(runsToMerge);
+    vector<Provider*> providers(runsToMerge);
 
     long recordCount = 0;
     for (int i = 0; i < runsToMerge; i++) {
@@ -141,16 +141,16 @@ Provider* Sorter::startSort() {
         int offset = cfg.memoryBlockSize + i * cfg.ssdReadSize;
         StorageProvider s(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset,
                           cfg.ssdReadSize, keyOffset);
-        providers[i] = s;
+        providers[i] = &s;
     }
 
 
-    TournamentPQ<Provider> tPQ(providers, keyOffset, runsToMerge);
-    Provider provider = tPQ;
+    TournamentPQ<Provider*> tPQ(providers, keyOffset, runsToMerge);
+    Provider* provider = &tPQ;
     storeRun(provider, recordCount);
 
 
-    vector<Provider> newProvider(ssdRuns.size() + hddRuns.size());
+    vector<Provider*> newProvider(ssdRuns.size() + hddRuns.size());
     providers = newProvider;
     int index = 0;
     int memoryOffset = cfg.memoryBlockSize;
@@ -175,19 +175,19 @@ Provider* Sorter::startSort() {
         stagingCfg.transferStartOffset = 0;
         stagingCfg.transferLength = cfg.hddReadSize;
         StagedProvider sp(stagingCfg);
-        providers[index++] = sp;
+        providers[index++] = &sp;
         memoryOffset += cfg.ssdReadSize;
     }
 
     for (Run run: ssdRuns) {
         StorageProvider storageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer,
                         memoryOffset, cfg.ssdReadSize, keyOffset);
-        providers[index++] = storageProvider;
+        providers[index++] = &storageProvider;
         memoryOffset += cfg.ssdReadSize;
     }
 
-    TournamentPQ<Provider> t(providers, keyOffset, index);
-    return t;
+    TournamentPQ<Provider*> t(providers, keyOffset, index);
+    return &t;
 }
 
 void Sorter::makeFreeSpace() {
@@ -203,7 +203,7 @@ void Sorter::makeFreeSpace() {
 }
 
 void Sorter::releaseMemory(int numberBuffersToRelease) {
-    vector<Provider> providers(numberBuffersToRelease);
+    vector<Provider*> providers(numberBuffersToRelease);
 
     long recordCount = 0;
     int index = 0;
@@ -213,18 +213,18 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
         Run run = memoryRuns[memoryRuns.size()-1];
         ssdRuns.pop_back();
         MemoryProvider memProv(buffer, run.offset, run.numRecords, recordSize, keyOffset);
-        providers[index++] = memProv;
+        providers[index++] = &memProv;
         recordCount += run.numRecords;
     }
 
     lastMemoryRun += numberBuffersToRelease * cfg.memoryBlockSize;
 
-    TournamentPQ<Provider> t(providers, keyOffset, index);
-    Provider provider = t;
+    TournamentPQ<Provider*> t(providers, keyOffset, index);
+    Provider* provider = &t;
     storeRun(provider, recordCount);
 }
 
-void Sorter::storeRun(Provider provider, long recordCount) {
+void Sorter::storeRun(Provider* provider, long recordCount) {
     long spaceRequired = recordCount * recordSize;
 
     IODevice device("");
@@ -250,7 +250,7 @@ void Sorter::storeRun(Provider provider, long recordCount) {
     int bufferOffset = 0;
     int bufferRemaining = cfg.memoryBlockSize;
     while(true) {
-        Record* rPtr = provider.next();
+        Record* rPtr = provider->next();
         if(!rPtr) break;
         Record r = *rPtr;
         if(bufferRemaining < recordSize) {

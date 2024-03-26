@@ -11,12 +11,11 @@ void SpillOneBlockToSsd::testSpillToSsdFewBlocks() {
     string test = "testSpillToSsdFewBlocks: ";
 
     RandomGenerator rng(recordCount, recordSize);
-    Provider generator(rng);
-    Witness lower(generator);
+    Witness lower(&rng);
     SorterConfig cgf;
-    Sorter sorter(cgf, lower, recordSize, keyOffset);
-    Witness upper(sorter);
-    Consumer consumer(upper);
+    Sorter sorter(cgf, &lower, recordSize, keyOffset);
+    Witness upper(&sorter);
+    Consumer consumer(&upper);
     consumer.consume();
 
     sorter.printStats();
