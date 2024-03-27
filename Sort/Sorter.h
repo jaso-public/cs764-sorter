@@ -4,17 +4,15 @@
 #include "../Config/SorterConfig.h"
 #include "../Run.h"
 #include "../Records/Record.h"
-#include <vector>
 #include "Providers/SingleProvider.h"
 #include "Providers/EmptyProvider.h"
 #include "Providers/MemoryProvider.h"
 #include "Providers/StorageProvider.h"
 #include "Providers/StagedProvider.h"
 #include "TournamentPQ.h"
-#include "./Records/Record.cpp"
+#include <vector>
 #include <algorithm>
 #include <iostream>
-#include "../TournamentPQ.h"
 using namespace std;
 
 class Sorter: public Provider, public Record{

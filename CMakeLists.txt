@@ -121,3 +121,29 @@ add_executable(testPQ
         Records/rng.cpp
         Records/rng.h
 )
+
+add_executable(testSorting
+        Providers/Provider.h
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Config/SorterConfig.h
+        Config/SorterConfig.cpp
+        Config/StagingConfig.h
+        Config/StagingConfig.cpp
+        Run.cpp
+        Run.h
+        Providers/SingleProvider.cpp
+        Providers/SingleProvider.h
+        Providers/EmptyProvider.cpp
+        Providers/EmptyProvider.h
+        Providers/MemoryProvider.cpp
+        Providers/MemoryProvider.h
+        Providers/StorageProvider.h
+        Providers/StorageProvider.cpp
+        Providers/StagedProvider.cpp
+        Providers/StagedProvider.h
+        TournamentPQ.cpp
+        TournamentPQ.h
+)
