@@ -16,6 +16,14 @@ add_executable(cs764_sorter
         OutlinedFiles/Iterator.cpp
         OutlinedFiles/Iterator.h
         Providers/Provider.h
+        Providers/SingleProvider.h
+        Providers/SingleProvider.cpp
+        Providers/EmptyProvider.h
+        Providers/EmptyProvider.cpp
+        Providers/StagedProvider.h
+        Providers/StagedProvider.cpp
+        Providers/StorageProvider.h
+        Providers/StorageProvider.cpp
         Records/Record.cpp
         Records/Record.h
         Records/rng.cpp
@@ -24,7 +32,6 @@ add_executable(cs764_sorter
         OutlinedFiles/Scan.h
         Sort/Sort.cpp
         Sort/Sort.h
-        Test.cpp
         TournamentPQ.cpp
         TournamentPQ.h
         Witness.cpp
@@ -32,21 +39,13 @@ add_executable(cs764_sorter
         IODevice.h
         IODevice.cpp
         Sim.cpp
-        Providers/SingleProvider.h
-        Providers/SingleProvider.cpp
-        Providers/EmptyProvider.h
-        Providers/EmptyProvider.cpp
-        Providers/EmptyProvider.h
         Testing/TestProviders/Printer.cpp
         Testing/TestProviders/Printer.h
         Sort/Sorter.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        Providers/StagedProvider.h
-        Providers/StagedProvider.cpp
-        Providers/StorageProvider.h
-        Providers/StorageProvider.cpp
         Config/StagingConfig.h
+        Config/StagingConfig.cpp
         Testing/SortingHelpers/NoopSorter.h
         Testing/SortingHelpers/NoopSorter.cpp
         Sort/Sorter.cpp
