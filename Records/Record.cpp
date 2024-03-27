@@ -15,6 +15,8 @@ Record::Record(uint64_t sizeFromUser, uint32_t keyOffsetFromUser) {
     this->compareCount = 0;
 }
 
+Record::Record() {}
+
 
 /**
  * This method will create a record in memory and fill it with random 64 bit integers

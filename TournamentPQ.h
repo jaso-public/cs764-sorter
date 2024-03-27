@@ -10,10 +10,9 @@ using namespace std;
 /**
  * This is the tournament tree priority queue that will be utilized for sorting record keys
  */
-template<typename T>
 class TournamentPQ: public Provider {
 private:
-    vector<T> providers;
+    vector<Provider*> providers;
     vector<Record> records;
     vector<int> losers;
     int numProviders;
@@ -30,7 +29,7 @@ private:
     bool isFirstWinner(int first, int second);
 
 public:
-    TournamentPQ(vector<T>& providers, uint32_t givenKeyOffset, int numProviders);
+    TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset, int numProviders);
     Record* next() override;
 };
 
