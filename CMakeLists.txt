@@ -293,6 +293,90 @@ add_executable(testRecordTest
         Testing/Tests/Record/RecordTest.h
 )
 
+add_executable(testStorageProviderTest
+        Providers/Provider.h
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Config/SorterConfig.h
+        Config/SorterConfig.cpp
+        Config/StagingConfig.h
+        Config/StagingConfig.cpp
+        Run.cpp
+        Run.h
+        Providers/SingleProvider.cpp
+        Providers/SingleProvider.h
+        Providers/EmptyProvider.cpp
+        Providers/EmptyProvider.h
+        Providers/MemoryProvider.cpp
+        Providers/MemoryProvider.h
+        Providers/StorageProvider.h
+        Providers/StorageProvider.cpp
+        Providers/StagedProvider.cpp
+        Providers/StagedProvider.h
+        TournamentPQ.cpp
+        TournamentPQ.h
+        IODevice.h
+        IODevice.cpp
+        Testing/Tests/Providers/StorageProviderTest.h
+        Testing/Tests/Providers/StorageProviderTest.cpp
+        Sort/Sorter.cpp
+        Sort/Sorter.h
+        Consumer.cpp
+        Consumer.h
+        Witness.cpp
+        Witness.h
+        Testing/TestProviders/RandomGenerator.h
+        Testing/TestProviders/RandomGenerator.cpp
+        Testing/TestProviders/Printer.h
+        Testing/TestProviders/Printer.cpp
+        Testing/SortingHelpers/CrcRandomGenerator.cpp
+        Testing/SortingHelpers/CrcRandomGenerator.h
+)
+
+add_executable(testStagedProviderTest
+        Providers/Provider.h
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Config/SorterConfig.h
+        Config/SorterConfig.cpp
+        Config/StagingConfig.h
+        Config/StagingConfig.cpp
+        Run.cpp
+        Run.h
+        Providers/SingleProvider.cpp
+        Providers/SingleProvider.h
+        Providers/EmptyProvider.cpp
+        Providers/EmptyProvider.h
+        Providers/MemoryProvider.cpp
+        Providers/MemoryProvider.h
+        Providers/StorageProvider.h
+        Providers/StorageProvider.cpp
+        Providers/StagedProvider.cpp
+        Providers/StagedProvider.h
+        TournamentPQ.cpp
+        TournamentPQ.h
+        IODevice.h
+        IODevice.cpp
+        Testing/Tests/Providers/StagedProviderTest.cpp
+        Testing/Tests/Providers/StagedProviderTest.h
+        Sort/Sorter.cpp
+        Sort/Sorter.h
+        Consumer.cpp
+        Consumer.h
+        Witness.cpp
+        Witness.h
+        Testing/TestProviders/RandomGenerator.h
+        Testing/TestProviders/RandomGenerator.cpp
+        Testing/TestProviders/Printer.h
+        Testing/TestProviders/Printer.cpp
+        Testing/SortingHelpers/CrcRandomGenerator.cpp
+        Testing/SortingHelpers/CrcRandomGenerator.h
+)
+
 add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testDuplicateRemoval>
         COMMAND $<TARGET_FILE:testWitness>
@@ -300,4 +384,7 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testSorting>
         COMMAND $<TARGET_FILE:testLotsOfHddRuns>
         COMMAND $<TARGET_FILE:testSpillToHdd>
+        COMMAND $<TARGET_FILE:testRecordTest>
+        COMMAND $<TARGET_FILE:testStorageProviderTest>
+        COMMAND $<TARGET_FILE:testStagedProviderTest>
 )
