@@ -13,7 +13,7 @@ public:
     // represents the size of the records
     int size;
     // class constructor
-    InOrderGenerator(long count, int size);\
+    InOrderGenerator(long count, int size);
     // returns a pointer to the next record or a null pointer if a next record does not exist
     Record* next() override;
 private:
