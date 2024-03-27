@@ -56,5 +56,3 @@ Record* StorageProvider::next() {
         bufferRemaining -= sizeToCopy;
     }
 }
-
-int main(){};

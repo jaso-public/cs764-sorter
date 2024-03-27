@@ -122,6 +122,33 @@ void SorterTest::testSpillToHdd() {
     assert(("The upper witness was not sorted but should have been" && upper.isSorted));
 }
 
+void SorterTest::testSpillToLotsOfHddRuns() {
+    int recordSize = 1000;
+    int recordCount = 190000;
+    int keyOffset = 8;
+
+    string test = "testSpillToLotsOfHddRuns: ";
+
+    SorterConfig cfg;
+    cfg.ssdStorageSize = 100*1024*1024;
+    cfg.memoryBlockCount = 10;
+
+    RandomGenerator r(recordCount, recordSize);
+    Witness lower(&r);
+    Sorter sorter(cfg, &lower, recordSize, keyOffset);
+    Witness upper(&sorter);
+    Consumer consumer(&upper);
+    consumer.consume();
+
+    sorter.printStats();
+
+    assert(("The count of the lower witness should have equaled the record count" && recordCount == lower.getCount()));
+    assert(("The count of the upper witness should equaled the record count" && recordCount == upper.getCount()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
+    assert(("The lower was sorted but should not have been" && !lower.isSorted));
+    assert(("The upper witness was not sorted but should have been" && upper.isSorted));
+}
+
 void SorterTest::testZeroRecords() {
     int recordSize = 1000;
     int recordCount = 0;

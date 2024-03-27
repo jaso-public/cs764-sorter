@@ -30,7 +30,7 @@ Provider* Sorter::startSort() {
     int maxRecordsPerRun = cfg.memoryBlockSize / recordSize;
 
     SingleProvider s;
-    vector<SingleProvider> singles(maxRecordsPerRun, s);
+    vector<SingleProvider*> singles(maxRecordsPerRun, &s);
 
     bool endReached = false;
     while (!endReached) {
@@ -41,7 +41,7 @@ Provider* Sorter::startSort() {
                 endReached = true;
                 break;
             }
-            singles[recordCount++].reset(recordPtr);
+            singles[recordCount++]->reset(recordPtr);
         }
 
         if (recordCount > 0) {
@@ -50,7 +50,8 @@ Provider* Sorter::startSort() {
 
             lastMemoryRun -= cfg.memoryBlockSize;
 
-            TournamentPQ<SingleProvider> pq(singles, keyOffset, recordCount);
+            vector<Provider*> providerFromSingles(singles.begin(), singles.end());
+            TournamentPQ pq(providerFromSingles, keyOffset, recordCount);
             for (int i = 0; i < recordCount; i++) {
                 Record *ptr = pq.next();
                 Record r = *ptr;
@@ -63,7 +64,9 @@ Provider* Sorter::startSort() {
     }
     // if there was nothing to sort then return an empty provider.
     if (memoryRuns.size() + ssdRuns.size() + hddRuns.size() == 0) {
-        return new EmptyProvider();
+        EmptyProvider e;
+        Provider* providerPtr = reinterpret_cast<Provider *>(&e);
+        return providerPtr;
     }
 
     // see if we can do the final merge with the memory we have.
@@ -96,8 +99,9 @@ Provider* Sorter::startSort() {
                               keyOffset);
             offset += cfg.ssdReadSize;
         }
-        TournamentPQ<Provider*> t(providers, keyOffset, index);
-        return &t;
+        TournamentPQ t(providers, keyOffset, index);
+        Provider* providerPointer = &t;
+        return providerPointer;
     }
 
     // we did not have enough memory to do the final merge, so lets flush all of our memory
@@ -145,7 +149,7 @@ Provider* Sorter::startSort() {
     }
 
 
-    TournamentPQ<Provider*> tPQ(providers, keyOffset, runsToMerge);
+    TournamentPQ tPQ(providers, keyOffset, runsToMerge);
     Provider* provider = &tPQ;
     storeRun(provider, recordCount);
 
@@ -186,8 +190,9 @@ Provider* Sorter::startSort() {
         memoryOffset += cfg.ssdReadSize;
     }
 
-    TournamentPQ<Provider*> t(providers, keyOffset, index);
-    return &t;
+    TournamentPQ t(providers, keyOffset, index);
+    Provider* providerPointer = &t;
+    return providerPointer;
 }
 
 void Sorter::makeFreeSpace() {
@@ -219,7 +224,7 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 
     lastMemoryRun += numberBuffersToRelease * cfg.memoryBlockSize;
 
-    TournamentPQ<Provider*> t(providers, keyOffset, index);
+    TournamentPQ t(providers, keyOffset, index);
     Provider* provider = &t;
     storeRun(provider, recordCount);
 }

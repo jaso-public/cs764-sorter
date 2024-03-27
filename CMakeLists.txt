@@ -146,4 +146,25 @@ add_executable(testSorting
         Providers/StagedProvider.h
         TournamentPQ.cpp
         TournamentPQ.h
+        IODevice.h
+        IODevice.cpp
+        Testing/Tests/SorterTest.cpp
+        Testing/Tests/SorterTest.h
+        Sort/Sorter.cpp
+        Sort/Sorter.h
+        Consumer.cpp
+        Consumer.h
+        Witness.cpp
+        Witness.h
+        Testing/TestProviders/RandomGenerator.h
+        Testing/TestProviders/RandomGenerator.cpp
+        Testing/TestProviders/Printer.h
+        Testing/TestProviders/Printer.cpp
+)
+
+add_custom_target(runAllTests
+        COMMAND $<TARGET_FILE:testDuplicateRemoval>
+        COMMAND $<TARGET_FILE:testWitness>
+        COMMAND $<TARGET_FILE:testPQ>
+        COMMAND $<TARGET_FILE:testSorting>
 )

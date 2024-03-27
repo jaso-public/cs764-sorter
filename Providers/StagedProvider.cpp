@@ -126,5 +126,3 @@ int StagedProvider::minSize(long size1, long size2){
     }
     return  static_cast<int> (result);;
 }
-
-int main(){};

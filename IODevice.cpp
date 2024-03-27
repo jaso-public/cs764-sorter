@@ -124,5 +124,3 @@ string IODevice::toString() {
     oss << "IoDevice [file=" << file <<  "]";
     return oss.str();
 }
-
-int main(){};

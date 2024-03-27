@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <limits.h>
 #include <iostream>
+#include "../IODevice.h"
 #include "../Config/StagingConfig.h"
 using namespace std;
 
