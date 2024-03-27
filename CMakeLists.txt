@@ -288,6 +288,11 @@ add_executable(testSpillToOneBlockToSdd
         Testing/SortingHelpers/CrcRandomGenerator.h
 )
 
+add_executable(testRecordTest
+    Testing/Tests/Record/RecordTest.cpp
+        Testing/Tests/Record/RecordTest.h
+)
+
 add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testDuplicateRemoval>
         COMMAND $<TARGET_FILE:testWitness>

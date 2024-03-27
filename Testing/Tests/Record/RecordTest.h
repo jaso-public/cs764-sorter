@@ -1,5 +1,7 @@
 #ifndef CS764_SORTER_RECORDTEST_H
 #define CS764_SORTER_RECORDTEST_H
+#include <iostream>
+using namespace std;
 
 
 class RecordTest {
