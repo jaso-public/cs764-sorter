@@ -12,7 +12,6 @@ using namespace std;
 
 class LotsOfHddRuns {
 public:
-    LotsOfHddRuns();
     void testSpillToLotsOfHddRuns();
 };
 
