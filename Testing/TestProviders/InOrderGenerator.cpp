@@ -1,10 +1,11 @@
 #include "InOrderGenerator.h"
 
 // class constructor
-InOrderGenerator::InOrderGenerator(long count, int size) {
+InOrderGenerator::InOrderGenerator(long count, uint64_t size, uint32_t keyOffset) {
     // sets given variables to class variables
     this->count = count;
     this->size = size;
+    this->keyOffset = keyOffset;
     this->generated = 0;
 }
 
@@ -16,7 +17,7 @@ Record* InOrderGenerator::next() {
     // returns a null pointer when no more records are to be generated
     if (generated >= count) return nullptr;
     // returns a newly created record in memory
-    Record r(size, 1);
+    Record r(size, keyOffset);
     generated++;
     Record* ptr = &r;
     return ptr;

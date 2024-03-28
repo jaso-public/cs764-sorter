@@ -3,7 +3,7 @@
 WitnessTest::WitnessTest() {};
 
 void WitnessTest::testTenInorder() {
-    InOrderGenerator i(10, 100);
+    InOrderGenerator i(10, 100, 8);
     Witness lower(&i);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
@@ -17,7 +17,7 @@ void WitnessTest::testTenInorder() {
 }
 
 void WitnessTest::testDropOne() {
-    InOrderGenerator i(10, 100);
+    InOrderGenerator i(10, 100, 8);
     Witness lower(&i);
     DropFirst dropper(&lower);
     NoopSorter sorter(&dropper);
