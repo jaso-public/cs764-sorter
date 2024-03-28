@@ -5,11 +5,13 @@
 #include "Key.h"
 #include <vector>
 #include <map>
+#include <iostream>
 using namespace std;
 
 
 class TreeSorter: public Provider{
 public:
+    Provider* source;
     Record* next() override;
     TreeSorter(Provider* source);
 

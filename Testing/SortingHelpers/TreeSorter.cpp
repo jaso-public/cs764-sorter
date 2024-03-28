@@ -1,6 +1,7 @@
 #include "TreeSorter.h"
 
 TreeSorter::TreeSorter(Provider* source) {
+    this->source = source;
     int index = 0;
     map<Key*,Record*> sorted;
     map<Key*, Record*>::iterator it = sorted.begin();

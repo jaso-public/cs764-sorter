@@ -133,7 +133,7 @@ void SorterTest::testSpillToLotsOfHddRuns() {
     cfg.ssdStorageSize = 100*1024*1024;
     cfg.memoryBlockCount = 10;
 
-    RandomGenerator r(recordCount, recordSize);
+    RandomGenerator r(keyOffset, recordCount, recordSize);
     Witness lower(&r);
     Sorter sorter(cfg, &lower, recordSize, keyOffset);
     Witness upper(&sorter);
