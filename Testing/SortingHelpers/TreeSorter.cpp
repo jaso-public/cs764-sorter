@@ -1,6 +1,5 @@
 #include "TreeSorter.h"
 
-
 TreeSorter::TreeSorter(Provider* source) {
     int index = 0;
     map<Key*,Record*> sorted;

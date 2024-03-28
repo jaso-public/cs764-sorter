@@ -100,7 +100,23 @@ add_executable(testDropFirst
         Testing/Tests/Providers/DropFirstTest.cpp
         Witness.h
         Witness.cpp
+)
 
+add_executable(testTreeSorter
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Testing/TestProviders/RandomGenerator.h
+        Testing/TestProviders/RandomGenerator.cpp
+        Testing/SortingHelpers/TreeSorter.cpp
+        Testing/SortingHelpers/TreeSorter.h
+        Testing/Tests/Sorters/TreeSorterTest.cpp
+        Testing/Tests/Sorters/TreeSorterTest.h
+        Witness.h
+        Witness.cpp
+        Testing/SortingHelpers/Key.h
+        Testing/SortingHelpers/Key.cpp
 )
 
 add_executable(testConsumer
@@ -198,8 +214,8 @@ add_executable(testSorting
         TournamentPQ.h
         IODevice.h
         IODevice.cpp
-        Testing/Tests/SorterTest.cpp
-        Testing/Tests/SorterTest.h
+        Testing/Tests/Sorters/SorterTest.cpp
+        Testing/Tests/Sorters/SorterTest.h
         Sort/Sorter.cpp
         Sort/Sorter.h
         Consumer.cpp
