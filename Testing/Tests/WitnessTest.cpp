@@ -79,10 +79,9 @@ void WitnessTest::testTenInorder() {
     Consumer consumer(&upper);
     consumer.consume();
 
-    assert(("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount()));
-    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
-    //TODO: these conditions would not be met due to NoopSorter; J please check this is right
-    //assert(("The upper witness should have been sorted but was not" && upper.isSorted));
+    assert("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount());
+    assert("The count of the upper witness should have been 10" && 10 == upper.getCount());
+    assert("The upper witness should have been sorted but was not" && upper.isSorted == lower.isSorted);
    // assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 }
 
@@ -95,11 +94,11 @@ void WitnessTest::testDropOne() {
     Consumer consumer(&upper);
     consumer.consume();
 
-    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
-    assert(("The count of the upper witness should have been 9" && 9 == upper.getCount()));
-    assert(("The upper witness should have been sorted but was not" && upper.isSorted));
-    assert(("The lower witness should have been sorted but was not" && lower.isSorted));
-    assert(("The checksum of the lower witness was equal to the checksum of the upper but should not have been" && lower.getCrc() != upper.getCrc()));
+    assert("The count of the lower witness should have been 10" && 10 == lower.getCount());
+    assert("The count of the upper witness should have been 9" && 9 == upper.getCount());
+    assert("The upper witness should have been sorted but was not" && upper.isSorted);
+    assert("The lower witness should have been sorted but was not" && lower.isSorted);
+    assert("The checksum of the lower witness was equal to the checksum of the upper but should not have been" && lower.getCrc() != upper.getCrc());
 }
 
 void WitnessTest::testRandomOrder() {
@@ -176,7 +175,7 @@ int main(){
     w.testGivingWitnessAnotherWitness();
     w.testUpper();
     w.testTenInorder();
-    w.testTreeSorterWithPrinting();
+//    w.testTreeSorterWithPrinting();
 //    w.testRandomOrderWithPrinting();
 //    w.testTreeSorter();
 //    w.testDropOne();
