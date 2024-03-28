@@ -3,8 +3,8 @@
 
 StagedProviderTest::StagedProviderTest() {};
 
-void StagedProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength) {
-    RandomGenerator rg(recordCount, recordSize);
+void StagedProviderTest::doTest(uint64_t size,  uint32_t keyOffset, long recordCount, int stagingLength, int bufferLength) {
+    RandomGenerator rg(recordCount, size, keyOffset);
     Witness before(&rg);
 
     IODevice storage("storage.tmp");
@@ -35,7 +35,7 @@ void StagedProviderTest::doTest(int recordSize, long recordCount, int stagingLen
     int transferLength = stagingLength + bufferLength;
 
     StagingConfig stagingCfg;
-    stagingCfg.recordSize = recordSize;
+    stagingCfg.recordSize = size;
     stagingCfg.recordCount = recordCount;
     stagingCfg.storage = storage;
     stagingCfg.storageStartOffset = storageStartOffset;
@@ -60,11 +60,11 @@ void StagedProviderTest::doTest(int recordSize, long recordCount, int stagingLen
 }
 
 void StagedProviderTest::testSmall() {
-    doTest(123,50,564,2048);
+    doTest(123, 8, 50,564,2048);
 }
 
 void StagedProviderTest::testMedium() {
-    doTest(12003,50,1024,2048);
+    doTest(12003, 8, 50,1024,2048);
 }
 
 int main(){

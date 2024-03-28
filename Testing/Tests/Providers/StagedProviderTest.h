@@ -9,7 +9,7 @@
 
 class StagedProviderTest {
 public:
-    void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength);
+    void doTest(uint64_t size,  uint32_t keyOffset, long recordCount, int stagingLength, int bufferLength);
     void testSmall();
     void testMedium();
     StagedProviderTest();

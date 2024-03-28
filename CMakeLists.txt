@@ -65,6 +65,11 @@ add_executable(createRecords
         Records/rng.h
 )
 
+add_custom_command(TARGET createRecords
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/createRecords
+)
+
 add_executable(testInOrderGenerator
         Records/Record.cpp
         Records/Record.h
@@ -76,6 +81,11 @@ add_executable(testInOrderGenerator
         Testing/Tests/Providers/InOrderGeneratorTest.h
 )
 
+add_custom_command(TARGET testInOrderGenerator
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testInOrderGenerator
+)
+
 add_executable(testRandomGenerator
         Records/Record.cpp
         Records/Record.h
@@ -85,6 +95,11 @@ add_executable(testRandomGenerator
         Testing/TestProviders/RandomGenerator.h
         Testing/Tests/Providers/RandomGeneratorTest.cpp
         Testing/Tests/Providers/RandomGeneratorTest.h
+)
+
+add_custom_command(TARGET testRandomGenerator
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRandomGenerator
 )
 
 add_executable(testDropFirst
@@ -100,6 +115,11 @@ add_executable(testDropFirst
         Testing/Tests/Providers/DropFirstTest.cpp
         Witness.h
         Witness.cpp
+)
+
+add_custom_command(TARGET testDropFirst
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDropFirst
 )
 
 add_executable(testTreeSorter
@@ -119,6 +139,11 @@ add_executable(testTreeSorter
         Testing/SortingHelpers/Key.cpp
 )
 
+add_custom_command(TARGET testTreeSorter
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testTreeSorter
+)
+
 add_executable(testConsumer
         Records/Record.cpp
         Records/Record.h
@@ -132,11 +157,21 @@ add_executable(testConsumer
         Consumer
 )
 
+add_custom_command(TARGET testConsumer
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testConsumer
+)
+
 add_executable(testDuplicateRemoval
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.h
         DuplicateRemoval/RemoveDuplicates.cpp
         DuplicateRemoval/RemoveDuplicates.h
+)
+
+add_custom_command(TARGET testDuplicateRemoval
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDuplicateRemoval
 )
 
 add_executable(testWitness
@@ -167,6 +202,11 @@ add_executable(testWitness
         Testing/Tests/WitnessTest.h
 )
 
+add_custom_command(TARGET testWitness
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testWitness
+)
+
 add_executable(testPQ
         Providers/Provider.h
         Witness.h
@@ -186,6 +226,11 @@ add_executable(testPQ
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
+)
+
+add_custom_command(TARGET testPQ
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testPQ
 )
 
 add_executable(testSorting
@@ -226,6 +271,11 @@ add_executable(testSorting
         Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
+)
+
+add_custom_command(TARGET testSorting
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSorting
 )
 
 add_executable(testLotsOfHddRuns
@@ -270,6 +320,11 @@ add_executable(testLotsOfHddRuns
         Testing/SortingHelpers/CrcRandomGenerator.h
 )
 
+add_custom_command(TARGET testLotsOfHddRuns
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testLotsOfHddRuns
+)
+
 add_executable(testSpillToHdd
         Providers/Provider.h
         Records/Record.cpp
@@ -310,6 +365,11 @@ add_executable(testSpillToHdd
         Testing/TestProviders/Printer.cpp
         Testing/SortingHelpers/CrcRandomGenerator.cpp
         Testing/SortingHelpers/CrcRandomGenerator.h
+)
+
+add_custom_command(TARGET testSpillToHdd
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSpillToHdd
 )
 
 add_executable(testSpillToOneBlockToSdd
@@ -354,9 +414,19 @@ add_executable(testSpillToOneBlockToSdd
         Testing/SortingHelpers/CrcRandomGenerator.h
 )
 
+add_custom_command(TARGET testSpillToOneBlockToSdd
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSpillToOneBlockToSdd
+)
+
 add_executable(testRecord
     Testing/Tests/Record/RecordTest.cpp
         Testing/Tests/Record/RecordTest.h
+)
+
+add_custom_command(TARGET testRecord
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRecord
 )
 
 add_executable(testStorageProvider
@@ -401,6 +471,12 @@ add_executable(testStorageProvider
         Testing/SortingHelpers/CrcRandomGenerator.h
 )
 
+
+add_custom_command(TARGET testStorageProvider
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testStorageProvider
+)
+
 add_executable(testStagedProvider
         Providers/Provider.h
         Records/Record.cpp
@@ -443,6 +519,11 @@ add_executable(testStagedProvider
         Testing/SortingHelpers/CrcRandomGenerator.h
 )
 
+add_custom_command(TARGET testStagedProvider
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testStagedProvider
+)
+
 add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testDuplicateRemoval>
         COMMAND $<TARGET_FILE:testWitness>
@@ -457,4 +538,10 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
+        COMMAND $<TARGET_FILE:testTreeSorter>
+)
+
+add_custom_command(TARGET runAllTests
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/runAllTests
 )
