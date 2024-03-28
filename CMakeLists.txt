@@ -65,6 +65,17 @@ add_executable(createRecords
         Records/rng.h
 )
 
+add_executable(testInOrderGenerator
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/Tests/Providers/InOrderGeneratorTest.cpp
+        Testing/Tests/Providers/InOrderGeneratorTest.h
+)
+
 add_executable(testDuplicateRemoval
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.h
