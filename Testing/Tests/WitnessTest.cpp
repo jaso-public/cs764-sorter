@@ -109,7 +109,7 @@ void WitnessTest::testDropOne() {
 }
 
 void WitnessTest::testRandomOrder() {
-    RandomGenerator r(10, 100);
+    RandomGenerator r(10, 100, 8);
     Witness lower(&r);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
@@ -124,7 +124,7 @@ void WitnessTest::testRandomOrder() {
 }
 
 void WitnessTest::testTreeSorter() {
-    RandomGenerator r(10, 100);
+    RandomGenerator r(10, 100, 8);
     Witness lower(&r);
     TreeSorter sorter(&lower);
     Witness upper(&sorter);
@@ -140,7 +140,7 @@ void WitnessTest::testTreeSorter() {
 
 void WitnessTest::testRandomOrderWithPrinting() {
     string test = "testRandomOrderWithPrinting: ";
-    RandomGenerator r(10, 100);
+    RandomGenerator r(10, 100, 8);
     Printer printer1(&r, test+"from generator");
     Witness lower(&printer1);
     NoopSorter sorter(&lower);
@@ -158,7 +158,7 @@ void WitnessTest::testRandomOrderWithPrinting() {
 
 void WitnessTest::testTreeSorterWithPrinting() {
     string test = "testTreeSorterWithPrinting: ";
-    RandomGenerator r(10, 100);
+    RandomGenerator r(10, 100, 8);
     Printer printer1(&r, test+"from generator");
     Witness lower(&printer1);
     TreeSorter sorter(&lower);

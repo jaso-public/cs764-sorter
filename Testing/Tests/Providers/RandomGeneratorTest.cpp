@@ -1,14 +1,14 @@
-#include "InOrderGeneratorTest.h"
+#include "RandomGeneratorTest.h"
 
-void InOrderGeneratorTest::testInitializationValues() {
-    InOrderGenerator i(10, 100, 8);
-    assert("Key offset should be 8" && i.keyOffset == 8 );
-    assert("Count should be 10" && i.count == 10 );
-    assert("Size should be 100" && i.size == 100 );
+void RandomGeneratorTest::testInitializationValues() {
+    RandomGenerator r(10, 100, 8);
+    assert("Key offset should be 8" && r.keyOffset == 8 );
+    assert("Count should be 10" && r.count == 10 );
+    assert("Size should be 100" && r.size == 100 );
 }
 
-void InOrderGeneratorTest::testCount10() {
-    InOrderGenerator generator(10, 100, 8);
+void RandomGeneratorTest::testCount10() {
+    RandomGenerator generator(10, 100, 8);
     for (int i = 0; i < 10; i++){
         Record* ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );
@@ -17,8 +17,8 @@ void InOrderGeneratorTest::testCount10() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void InOrderGeneratorTest::testCount50() {
-    InOrderGenerator generator(50, 100, 8);
+void RandomGeneratorTest::testCount50() {
+    RandomGenerator generator(50, 100, 8);
     for (int i = 0; i < 50; i++){
         Record* ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );
@@ -29,7 +29,7 @@ void InOrderGeneratorTest::testCount50() {
 
 
 int main(){
-    InOrderGeneratorTest test;
+    RandomGeneratorTest test;
     test.testInitializationValues();
     test.testCount10();
     test.testCount50();

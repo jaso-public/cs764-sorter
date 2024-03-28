@@ -7,7 +7,8 @@
 class InOrderGeneratorTest {
 public:
     void testInitializationValues();
-    void testNextMethod();
+    void testCount10();
+    void testCount50();
 };
 
 
