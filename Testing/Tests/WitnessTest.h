@@ -11,6 +11,7 @@
 #include <string>
 #include "Testing/TestProviders/Printer.h"
 #include "Testing/TestProviders/RandomGenerator.h"
+#include "Providers/Dedooper.h"
 #include <iostream>
 using namespace std;
 

@@ -106,7 +106,8 @@ void WitnessTest::testRandomOrder() {
     Witness lower(&r);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
-    Consumer consumer(&upper);
+    Dedooper dooper(&upper);
+    Consumer consumer(&dooper);
     consumer.consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
