@@ -9,7 +9,7 @@ TreeSorter::TreeSorter(Provider* source) {
         Record* recordPtr = source->next();
         if(!recordPtr) break;
         Record record = *recordPtr;
-        sorted[Key(record.getRecordKey(), index++)] = record;
+        sorted[Key(record.key, index++)] = record;
     }
 
     map<Key, Record>::iterator it = sorted.begin();

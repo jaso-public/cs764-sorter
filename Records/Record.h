@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "rng.h"
+#include <iostream>
+using namespace std;
 
 using namespace std;
 
@@ -11,6 +13,7 @@ class Record {
 public:
     // size of the record
     uint64_t size;
+    uint64_t key;
     // key offset of record
     uint32_t keyOffset;
     // created record
@@ -18,12 +21,6 @@ public:
     // record constructor
     Record(uint64_t sizeFromUser,  uint32_t keyOffsetFromUser);
     Record();
-
-    /**
-     * This method obtains the key from a given record
-     * @return record's key
-     */
-    uint64_t getRecordKey();
 
     /**
     * This method will compute the checksum value of the record
@@ -61,6 +58,14 @@ private:
     * @return void* array as the created record
     */
     void* createRecord();
+
+
+    /**
+     * This method obtains the key from a given record
+     * @return record's key
+     */
+    uint64_t getRecordKey();
+
 };
 
 

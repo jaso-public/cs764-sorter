@@ -25,6 +25,7 @@ Record::Record() {}
 void* Record::createRecord(){
     void* record = malloc(size);
     fill(size, record);
+    this->key = getRecordKey();
     return record;
 }
 

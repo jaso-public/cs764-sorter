@@ -11,7 +11,7 @@ void TreeSorterTest::testCount10() {
         Record currentRecord = *ptr;
         assert("Next should have existed" && ptr != nullptr );
         if (prevRecordPtr != nullptr){
-            assert("The keys should have been sorted but were not" && prevRecord.getRecordKey() < currentRecord.getRecordKey() );
+            assert("The keys should have been sorted but were not" && prevRecord.key < currentRecord.key );
         }
         prevRecordPtr = ptr;
         prevRecord = currentRecord;
@@ -32,7 +32,7 @@ void TreeSorterTest::testCount50() {
         Record currentRecord = *ptr;
         assert("Next should have existed" && ptr != nullptr );
         if (prevRecordPtr != nullptr){
-            assert("The keys should have been sorted but were not" && prevRecord.getRecordKey() < currentRecord.getRecordKey() );
+            assert("The keys should have been sorted but were not" && prevRecord.key < currentRecord.key );
         }
         prevRecordPtr = ptr;
         prevRecord = currentRecord;

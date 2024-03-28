@@ -37,7 +37,7 @@ Record* Printer::next() {
         return recordPtr;
     }
     Record record = *recordPtr;
-    cout << " " << message << ": " << "Key: " << record.getRecordKey() << " Checksum: " << record.completeChecksumCheck() << "\n";
+    cout << " " << message << ": " << "Key: " << record.key << " Checksum: " << record.completeChecksumCheck() << "\n";
     return recordPtr;
 }
 
