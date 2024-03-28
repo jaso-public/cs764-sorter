@@ -14,7 +14,7 @@ private:
     IODevice storage;
     long storageStartOffset;
 
-    char * buffer;
+    uint8_t *buffer;
     int bufferStartOffset;
     int bufferLength;
 
@@ -34,7 +34,7 @@ public:
             long recordCount,
             IODevice storage,
             long storageStartOffset,
-            char * buffer,
+            uint8_t *buffer,
             int bufferStartOffset,
             int bufferLength,
             uint32_t keyOffset);

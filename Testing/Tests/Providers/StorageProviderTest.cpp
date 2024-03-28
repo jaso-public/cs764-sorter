@@ -3,9 +3,9 @@
 
 StorageProviderTest::StorageProviderTest() {};
 
-void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength) {
+void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength, uint32_t keyOffset) {
 
-    RandomGenerator rg(recordCount, recordSize);
+    RandomGenerator rg(recordCount, recordSize, keyOffset);
     Witness before(&rg);
 
     IODevice storage("storage.tmp");
@@ -19,14 +19,13 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
         storageOffset += sizeof(rec.data);
     }
 
-    char * memory = new char [10*1024*1024]; // 10MB
+    uint8_t* buffer = new char [10*1024*1024]; // 10MB
 
 
     long storageStartOffset = 0; // we wrote the records at offset zero
 
-    char * buffer = memory;
+    uint8_t* buffer = memory;
     int bufferStartOffset = 20;
-    uint32_t keyOffset = 8;
 
 
     StorageProvider sp(
@@ -50,11 +49,11 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
 }
 
 void StorageProviderTest::testSmall() {
-    doTest(123,50,564,2048);
+    doTest(123,50,564,2048, 8);
 }
 
 void StorageProviderTest::testMedium() {
-    doTest(123,50,564,2048);
+    doTest(123,50,564,2048, 8);
 }
 
 int main(){

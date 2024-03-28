@@ -11,10 +11,10 @@ public:
     long storageStartOffset;
     long stagingStartOffset;
     long stagingLength;
-    char * buffer;
+    uint8_t *buffer;
     int bufferStartOffset;
     int bufferLength;
-    char * transferBuffer;
+    uint8_t *transferBuffer;
     int transferStartOffset;
     int transferLength;
     IODevice storage;

@@ -1,5 +1,6 @@
 #ifndef CS764_SORTER_DEDOOPER_H
 #define CS764_SORTER_DEDOOPER_H
+
 #include "Provider.h"
 
 
@@ -11,3 +12,4 @@ public:
 };
 
 
+#endif //CS764_SORTER_DEDOOPER_H

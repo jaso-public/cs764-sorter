@@ -43,10 +43,11 @@ public:
     uint64_t checksum();
 
     uint64_t getCompareCount();
+    static uint32_t keyOffset;    // key offset inside the record
+    void resetCompareCount();
 
 private:
     static uint32_t recordSize;   // size of the record
-    static uint32_t keyOffset;    // key offset inside the record
     static uint32_t keySize;      // the size of the key
     static uint64_t compareCount; // the number of compares that
 

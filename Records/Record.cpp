@@ -81,3 +81,7 @@ uint64_t Record::checksum() {
 uint64_t Record::getCompareCount() {
     return compareCount;
 }
+
+void Record::resetCompareCount() {
+    this->compareCount = 0;
+}

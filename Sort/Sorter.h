@@ -29,7 +29,7 @@ private:
      long ssdRemaining;
      long hddOffset;
 
-     char * buffer;
+     uint8_t *buffer;
      int lastMemoryRun;
 
      Provider* startSort();

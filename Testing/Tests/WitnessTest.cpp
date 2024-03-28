@@ -6,8 +6,6 @@ void WitnessTest::testLower() {
     for (int i = 0; i < 10; i++){
         Record* ptr = lower.next();
         assert("Next should have existed" && ptr != nullptr );
-        Record r = *ptr;
-        assert("Record key should not be 0" && r.key != 0 );
     }
     Record* ptr = lower.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
@@ -21,8 +19,6 @@ void WitnessTest::testWithSorter() {
     for (int i = 0; i < 10; i++){
         Record* ptr = sorter.next();
         assert("Next should have existed" && ptr != nullptr );
-        Record r = *ptr;
-        assert("Record key should not be 0" && r.key != 0 );
     }
     Record* ptr = sorter.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
@@ -35,8 +31,6 @@ void WitnessTest::testGivingWitnessNoopSorter() {
     for (int i = 0; i < 10; i++){
         Record* ptr = upper.next();
         assert("Next should have existed" && ptr != nullptr );
-        Record r = *ptr;
-        assert("Record key should not be 0" && r.key != 0 );
     }
     Record* ptr = upper.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
@@ -49,8 +43,6 @@ void WitnessTest::testGivingWitnessAnotherWitness() {
     for (int i = 0; i < 10; i++){
         Record* ptr = upper.next();
         assert("Next should have existed" && ptr != nullptr );
-        Record r = *ptr;
-        assert("Record key should not be 0" && r.key != 0 );
     }
     Record* ptr2 = upper.next();
     assert("Next should have given a null pointer" && ptr2 == nullptr );
@@ -64,8 +56,6 @@ void WitnessTest::testUpper() {
     for (int i = 0; i < 10; i++){
         Record* ptr = upper.next();
         assert("Next should have existed" && ptr != nullptr );
-        Record r = *ptr;
-        assert("Record key should not be 0" && r.key!= 0 );
     }
     Record* ptr = upper.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
@@ -82,7 +72,6 @@ void WitnessTest::testTenInorder() {
     assert("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount());
     assert("The count of the upper witness should have been 10" && 10 == upper.getCount());
     assert("The upper witness should have been sorted but was not" && upper.isSorted == lower.isSorted);
-   // assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 }
 
 void WitnessTest::testDropOne() {

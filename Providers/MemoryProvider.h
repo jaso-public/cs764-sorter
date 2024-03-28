@@ -12,7 +12,7 @@ using namespace std;
 class MemoryProvider: public Provider {
 private:
     // buffer of memory
-    char * buffer;
+    uint8_t buffer;
     // offset record
     int offset;
     //  total number of records (memory spaces) to be returned/created
@@ -38,7 +38,7 @@ public:
      * @param givenRecordCount total number of records to create
      * @param givenRecordSize number of records already created
      */
-    MemoryProvider(char * buffer, long offset, long recordCount, int recordSize, uint32_t keyOffset);
+    MemoryProvider(uint8_t *buffer, long offset, long recordCount, int recordSize, uint32_t keyOffset);
 
     /**
      * Creates another buffer of memory for the new record and assigns a record to it

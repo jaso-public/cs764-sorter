@@ -10,7 +10,7 @@ void SpillOneBlockToSsd::testSpillToSsdFewBlocks() {
 
     string test = "testSpillToSsdFewBlocks: ";
 
-    RandomGenerator rng(recordCount, recordSize);
+    RandomGenerator rng(recordCount, recordSize, keyOffset);
     Witness lower(&rng);
     SorterConfig cgf;
     Sorter sorter(cgf, &lower, recordSize, keyOffset);

@@ -54,6 +54,7 @@ add_executable(cs764_sorter
         Providers/MemoryProvider.h
         Providers/MemoryProvider.cpp
         Records/CreateRecords.h
+        Providers/Dedooper.cpp
 )
 
 add_executable(createRecords
@@ -63,6 +64,7 @@ add_executable(createRecords
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
+        Providers/Dedooper.h
 )
 
 add_custom_command(TARGET createRecords

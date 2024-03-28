@@ -12,7 +12,7 @@ Sorter::Sorter(SorterConfig cfg, Provider* source, int recordSize, uint32_t keyO
 
     ssdRemaining = cfg.ssdStorageSize;
 
-    this->buffer = new char[cfg.memoryBlockSize * cfg.memoryBlockCount];
+    this->buffer = new uint8_t[cfg.memoryBlockSize * cfg.memoryBlockCount];
     lastMemoryRun = sizeof(buffer);
 
     this->sortedProvider = startSort();
@@ -55,7 +55,7 @@ Provider* Sorter::startSort() {
             for (int i = 0; i < recordCount; i++) {
                 Record *ptr = pq.next();
                 Record r = *ptr;
-                r.store(buffer, lastMemoryRun + i * recordSize);
+                r.store(buffer, lastMemoryRun + i * recordSize, 1);
             }
             Run run(recordCount, lastMemoryRun);
             memoryRuns.push_back(run);
@@ -232,6 +232,7 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 void Sorter::storeRun(Provider* provider, long recordCount) {
     long spaceRequired = recordCount * recordSize;
 
+    //TODO: this needs to be a file path
     IODevice device("");
     long deviceOffset = 0;
 
@@ -259,15 +260,15 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
         if(!rPtr) break;
         Record r = *rPtr;
         if(bufferRemaining < recordSize) {
-            r.storePartial(buffer, bufferOffset, 0, bufferRemaining);
+            r.store(buffer, bufferOffset, bufferRemaining);
             int leftOver = recordSize-bufferRemaining;
             device.write(deviceOffset, buffer, 0, cfg.memoryBlockSize);
             deviceOffset += cfg.memoryBlockSize;
-            r.storePartial(buffer, 0, bufferRemaining, leftOver);
+            r.store(buffer, bufferOffset, leftOver);
             bufferOffset = leftOver;
             bufferRemaining = cfg.memoryBlockSize - leftOver;
         } else {
-            r.store(buffer, bufferOffset);
+            r.store(buffer, bufferOffset, 1);
             bufferOffset += recordSize;
             bufferRemaining -= recordSize;
         }

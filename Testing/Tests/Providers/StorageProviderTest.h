@@ -11,7 +11,7 @@ using namespace std;
 
 class StorageProviderTest {
 public:
-    static void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength);
+    static void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength, uint32_t keyOffset);
     void testSmall();
     void testMedium();
     StorageProviderTest();
