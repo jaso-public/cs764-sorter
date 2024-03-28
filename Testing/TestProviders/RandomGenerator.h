@@ -6,12 +6,12 @@
 class RandomGenerator: public Provider{
 public:
     long count;
-    int size;
-    RandomGenerator(long count, int size);
+    uint64_t size;
+    uint32_t keyOffset;
+    RandomGenerator(long count, uint64_t size, uint32_t keyOffset);
     Record* next() override;
 private:
     long generated;
-    int rng = rand();
 };
 
 
