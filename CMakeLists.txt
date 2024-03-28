@@ -76,7 +76,7 @@ add_executable(testInOrderGenerator
         Testing/Tests/Providers/InOrderGeneratorTest.h
 )
 
-add_executable(testConsumerTest
+add_executable(testConsumer
         Records/Record.cpp
         Records/Record.h
         Records/rng.cpp
@@ -86,7 +86,7 @@ add_executable(testConsumerTest
         Testing/Tests/ConsumerTest.cpp
         Testing/Tests/ConsumerTest.h
         Consumer.cpp
-        Consumer.h
+        Consumer
 )
 
 add_executable(testDuplicateRemoval
@@ -311,12 +311,12 @@ add_executable(testSpillToOneBlockToSdd
         Testing/SortingHelpers/CrcRandomGenerator.h
 )
 
-add_executable(testRecordTest
+add_executable(testRecord
     Testing/Tests/Record/RecordTest.cpp
         Testing/Tests/Record/RecordTest.h
 )
 
-add_executable(testStorageProviderTest
+add_executable(testStorageProvider
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h
@@ -358,7 +358,7 @@ add_executable(testStorageProviderTest
         Testing/SortingHelpers/CrcRandomGenerator.h
 )
 
-add_executable(testStagedProviderTest
+add_executable(testStagedProvider
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h
@@ -407,9 +407,9 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testSorting>
         COMMAND $<TARGET_FILE:testLotsOfHddRuns>
         COMMAND $<TARGET_FILE:testSpillToHdd>
-        COMMAND $<TARGET_FILE:testRecordTest>
-        COMMAND $<TARGET_FILE:testStorageProviderTest>
-        COMMAND $<TARGET_FILE:testStagedProviderTest>
+        COMMAND $<TARGET_FILE:testRecord>
+        COMMAND $<TARGET_FILE:testStorageProvider>
+        COMMAND $<TARGET_FILE:testStagedProvider>
         COMMAND $<TARGET_FILE:testInOrderGenerator>
-        COMMAND $<TARGET_FILE:testConsumerTest>
+        COMMAND $<TARGET_FILE:testConsumer>
 )
