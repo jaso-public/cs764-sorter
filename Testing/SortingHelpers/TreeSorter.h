@@ -6,6 +6,8 @@
 #include <vector>
 #include <map>
 #include <iostream>
+#include <memory>
+#include <string>
 using namespace std;
 
 
@@ -19,7 +21,6 @@ private:
     // iterator to return the records
     vector<Record>::iterator iterator;
     vector<Record> records;
-
 };
 
 

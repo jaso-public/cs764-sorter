@@ -274,7 +274,7 @@ build CMakeFiles/createRecords.dir/Records/rng.cpp.o: CXX_COMPILER__createRecord
 build createRecords: CXX_EXECUTABLE_LINKER__createRecords_Debug CMakeFiles/createRecords.dir/Records/CreateRecords.cpp.o CMakeFiles/createRecords.dir/Records/Record.cpp.o CMakeFiles/createRecords.dir/Records/rng.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/createRecords.dir
-  POST_BUILD = :
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/createRecords
   PRE_LINK = :
   TARGET_FILE = createRecords
   TARGET_PDB = createRecords.dbg
@@ -327,70 +327,303 @@ build CMakeFiles/testInOrderGenerator.dir/Testing/Tests/Providers/InOrderGenerat
 build testInOrderGenerator: CXX_EXECUTABLE_LINKER__testInOrderGenerator_Debug CMakeFiles/testInOrderGenerator.dir/Records/Record.cpp.o CMakeFiles/testInOrderGenerator.dir/Records/rng.cpp.o CMakeFiles/testInOrderGenerator.dir/Testing/TestProviders/InOrderGenerator.cpp.o CMakeFiles/testInOrderGenerator.dir/Testing/Tests/Providers/InOrderGeneratorTest.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testInOrderGenerator.dir
-  POST_BUILD = :
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testInOrderGenerator
   PRE_LINK = :
   TARGET_FILE = testInOrderGenerator
   TARGET_PDB = testInOrderGenerator.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target testConsumerTest
+# Object build statements for EXECUTABLE target testRandomGenerator
 
 
 #############################################
-# Order-only phony target for testConsumerTest
+# Order-only phony target for testRandomGenerator
 
-build cmake_object_order_depends_target_testConsumerTest: phony || CMakeFiles/testConsumerTest.dir
+build cmake_object_order_depends_target_testRandomGenerator: phony || CMakeFiles/testRandomGenerator.dir
 
-build CMakeFiles/testConsumerTest.dir/Records/Record.cpp.o: CXX_COMPILER__testConsumerTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testConsumerTest
-  DEP_FILE = CMakeFiles/testConsumerTest.dir/Records/Record.cpp.o.d
+build CMakeFiles/testRandomGenerator.dir/Records/Record.cpp.o: CXX_COMPILER__testRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testRandomGenerator
+  DEP_FILE = CMakeFiles/testRandomGenerator.dir/Records/Record.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testConsumerTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testConsumerTest.dir/Records
+  OBJECT_DIR = CMakeFiles/testRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testRandomGenerator.dir/Records
 
-build CMakeFiles/testConsumerTest.dir/Records/rng.cpp.o: CXX_COMPILER__testConsumerTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testConsumerTest
-  DEP_FILE = CMakeFiles/testConsumerTest.dir/Records/rng.cpp.o.d
+build CMakeFiles/testRandomGenerator.dir/Records/rng.cpp.o: CXX_COMPILER__testRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testRandomGenerator
+  DEP_FILE = CMakeFiles/testRandomGenerator.dir/Records/rng.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testConsumerTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testConsumerTest.dir/Records
+  OBJECT_DIR = CMakeFiles/testRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testRandomGenerator.dir/Records
 
-build CMakeFiles/testConsumerTest.dir/Testing/TestProviders/InOrderGenerator.cpp.o: CXX_COMPILER__testConsumerTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/InOrderGenerator.cpp || cmake_object_order_depends_target_testConsumerTest
-  DEP_FILE = CMakeFiles/testConsumerTest.dir/Testing/TestProviders/InOrderGenerator.cpp.o.d
+build CMakeFiles/testRandomGenerator.dir/Testing/TestProviders/RandomGenerator.cpp.o: CXX_COMPILER__testRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/RandomGenerator.cpp || cmake_object_order_depends_target_testRandomGenerator
+  DEP_FILE = CMakeFiles/testRandomGenerator.dir/Testing/TestProviders/RandomGenerator.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testConsumerTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testConsumerTest.dir/Testing/TestProviders
+  OBJECT_DIR = CMakeFiles/testRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testRandomGenerator.dir/Testing/TestProviders
 
-build CMakeFiles/testConsumerTest.dir/Testing/Tests/ConsumerTest.cpp.o: CXX_COMPILER__testConsumerTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/ConsumerTest.cpp || cmake_object_order_depends_target_testConsumerTest
-  DEP_FILE = CMakeFiles/testConsumerTest.dir/Testing/Tests/ConsumerTest.cpp.o.d
+build CMakeFiles/testRandomGenerator.dir/Testing/Tests/Providers/RandomGeneratorTest.cpp.o: CXX_COMPILER__testRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Providers/RandomGeneratorTest.cpp || cmake_object_order_depends_target_testRandomGenerator
+  DEP_FILE = CMakeFiles/testRandomGenerator.dir/Testing/Tests/Providers/RandomGeneratorTest.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testConsumerTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testConsumerTest.dir/Testing/Tests
-
-build CMakeFiles/testConsumerTest.dir/Consumer.cpp.o: CXX_COMPILER__testConsumerTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Consumer.cpp || cmake_object_order_depends_target_testConsumerTest
-  DEP_FILE = CMakeFiles/testConsumerTest.dir/Consumer.cpp.o.d
-  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
-  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testConsumerTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testConsumerTest.dir
+  OBJECT_DIR = CMakeFiles/testRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testRandomGenerator.dir/Testing/Tests/Providers
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target testConsumerTest
+# Link build statements for EXECUTABLE target testRandomGenerator
 
 
 #############################################
-# Link the executable testConsumerTest
+# Link the executable testRandomGenerator
 
-build testConsumerTest: CXX_EXECUTABLE_LINKER__testConsumerTest_Debug CMakeFiles/testConsumerTest.dir/Records/Record.cpp.o CMakeFiles/testConsumerTest.dir/Records/rng.cpp.o CMakeFiles/testConsumerTest.dir/Testing/TestProviders/InOrderGenerator.cpp.o CMakeFiles/testConsumerTest.dir/Testing/Tests/ConsumerTest.cpp.o CMakeFiles/testConsumerTest.dir/Consumer.cpp.o
+build testRandomGenerator: CXX_EXECUTABLE_LINKER__testRandomGenerator_Debug CMakeFiles/testRandomGenerator.dir/Records/Record.cpp.o CMakeFiles/testRandomGenerator.dir/Records/rng.cpp.o CMakeFiles/testRandomGenerator.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testRandomGenerator.dir/Testing/Tests/Providers/RandomGeneratorTest.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
-  OBJECT_DIR = CMakeFiles/testConsumerTest.dir
-  POST_BUILD = :
+  OBJECT_DIR = CMakeFiles/testRandomGenerator.dir
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRandomGenerator
   PRE_LINK = :
-  TARGET_FILE = testConsumerTest
-  TARGET_PDB = testConsumerTest.dbg
+  TARGET_FILE = testRandomGenerator
+  TARGET_PDB = testRandomGenerator.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target testKey
+
+
+#############################################
+# Order-only phony target for testKey
+
+build cmake_object_order_depends_target_testKey: phony || CMakeFiles/testKey.dir
+
+build CMakeFiles/testKey.dir/Testing/SortingHelpers/Key.cpp.o: CXX_COMPILER__testKey_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/Key.cpp || cmake_object_order_depends_target_testKey
+  DEP_FILE = CMakeFiles/testKey.dir/Testing/SortingHelpers/Key.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testKey.dir
+  OBJECT_FILE_DIR = CMakeFiles/testKey.dir/Testing/SortingHelpers
+
+build CMakeFiles/testKey.dir/Testing/Tests/Sorters/KeyTest.cpp.o: CXX_COMPILER__testKey_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Sorters/KeyTest.cpp || cmake_object_order_depends_target_testKey
+  DEP_FILE = CMakeFiles/testKey.dir/Testing/Tests/Sorters/KeyTest.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testKey.dir
+  OBJECT_FILE_DIR = CMakeFiles/testKey.dir/Testing/Tests/Sorters
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target testKey
+
+
+#############################################
+# Link the executable testKey
+
+build testKey: CXX_EXECUTABLE_LINKER__testKey_Debug CMakeFiles/testKey.dir/Testing/SortingHelpers/Key.cpp.o CMakeFiles/testKey.dir/Testing/Tests/Sorters/KeyTest.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+  OBJECT_DIR = CMakeFiles/testKey.dir
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testKey
+  PRE_LINK = :
+  TARGET_FILE = testKey
+  TARGET_PDB = testKey.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target testDropFirst
+
+
+#############################################
+# Order-only phony target for testDropFirst
+
+build cmake_object_order_depends_target_testDropFirst: phony || CMakeFiles/testDropFirst.dir
+
+build CMakeFiles/testDropFirst.dir/Records/Record.cpp.o: CXX_COMPILER__testDropFirst_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testDropFirst
+  DEP_FILE = CMakeFiles/testDropFirst.dir/Records/Record.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testDropFirst.dir
+  OBJECT_FILE_DIR = CMakeFiles/testDropFirst.dir/Records
+
+build CMakeFiles/testDropFirst.dir/Records/rng.cpp.o: CXX_COMPILER__testDropFirst_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testDropFirst
+  DEP_FILE = CMakeFiles/testDropFirst.dir/Records/rng.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testDropFirst.dir
+  OBJECT_FILE_DIR = CMakeFiles/testDropFirst.dir/Records
+
+build CMakeFiles/testDropFirst.dir/Testing/TestProviders/InOrderGenerator.cpp.o: CXX_COMPILER__testDropFirst_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/InOrderGenerator.cpp || cmake_object_order_depends_target_testDropFirst
+  DEP_FILE = CMakeFiles/testDropFirst.dir/Testing/TestProviders/InOrderGenerator.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testDropFirst.dir
+  OBJECT_FILE_DIR = CMakeFiles/testDropFirst.dir/Testing/TestProviders
+
+build CMakeFiles/testDropFirst.dir/Testing/TestProviders/DropFirst.cpp.o: CXX_COMPILER__testDropFirst_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/DropFirst.cpp || cmake_object_order_depends_target_testDropFirst
+  DEP_FILE = CMakeFiles/testDropFirst.dir/Testing/TestProviders/DropFirst.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testDropFirst.dir
+  OBJECT_FILE_DIR = CMakeFiles/testDropFirst.dir/Testing/TestProviders
+
+build CMakeFiles/testDropFirst.dir/Testing/Tests/Providers/DropFirstTest.cpp.o: CXX_COMPILER__testDropFirst_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Providers/DropFirstTest.cpp || cmake_object_order_depends_target_testDropFirst
+  DEP_FILE = CMakeFiles/testDropFirst.dir/Testing/Tests/Providers/DropFirstTest.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testDropFirst.dir
+  OBJECT_FILE_DIR = CMakeFiles/testDropFirst.dir/Testing/Tests/Providers
+
+build CMakeFiles/testDropFirst.dir/Witness.cpp.o: CXX_COMPILER__testDropFirst_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Witness.cpp || cmake_object_order_depends_target_testDropFirst
+  DEP_FILE = CMakeFiles/testDropFirst.dir/Witness.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testDropFirst.dir
+  OBJECT_FILE_DIR = CMakeFiles/testDropFirst.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target testDropFirst
+
+
+#############################################
+# Link the executable testDropFirst
+
+build testDropFirst: CXX_EXECUTABLE_LINKER__testDropFirst_Debug CMakeFiles/testDropFirst.dir/Records/Record.cpp.o CMakeFiles/testDropFirst.dir/Records/rng.cpp.o CMakeFiles/testDropFirst.dir/Testing/TestProviders/InOrderGenerator.cpp.o CMakeFiles/testDropFirst.dir/Testing/TestProviders/DropFirst.cpp.o CMakeFiles/testDropFirst.dir/Testing/Tests/Providers/DropFirstTest.cpp.o CMakeFiles/testDropFirst.dir/Witness.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+  OBJECT_DIR = CMakeFiles/testDropFirst.dir
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDropFirst
+  PRE_LINK = :
+  TARGET_FILE = testDropFirst
+  TARGET_PDB = testDropFirst.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target testTreeSorter
+
+
+#############################################
+# Order-only phony target for testTreeSorter
+
+build cmake_object_order_depends_target_testTreeSorter: phony || CMakeFiles/testTreeSorter.dir
+
+build CMakeFiles/testTreeSorter.dir/Records/Record.cpp.o: CXX_COMPILER__testTreeSorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testTreeSorter
+  DEP_FILE = CMakeFiles/testTreeSorter.dir/Records/Record.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testTreeSorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/testTreeSorter.dir/Records
+
+build CMakeFiles/testTreeSorter.dir/Records/rng.cpp.o: CXX_COMPILER__testTreeSorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testTreeSorter
+  DEP_FILE = CMakeFiles/testTreeSorter.dir/Records/rng.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testTreeSorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/testTreeSorter.dir/Records
+
+build CMakeFiles/testTreeSorter.dir/Testing/TestProviders/RandomGenerator.cpp.o: CXX_COMPILER__testTreeSorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/RandomGenerator.cpp || cmake_object_order_depends_target_testTreeSorter
+  DEP_FILE = CMakeFiles/testTreeSorter.dir/Testing/TestProviders/RandomGenerator.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testTreeSorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/testTreeSorter.dir/Testing/TestProviders
+
+build CMakeFiles/testTreeSorter.dir/Testing/SortingHelpers/TreeSorter.cpp.o: CXX_COMPILER__testTreeSorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/TreeSorter.cpp || cmake_object_order_depends_target_testTreeSorter
+  DEP_FILE = CMakeFiles/testTreeSorter.dir/Testing/SortingHelpers/TreeSorter.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testTreeSorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/testTreeSorter.dir/Testing/SortingHelpers
+
+build CMakeFiles/testTreeSorter.dir/Testing/Tests/Sorters/TreeSorterTest.cpp.o: CXX_COMPILER__testTreeSorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Sorters/TreeSorterTest.cpp || cmake_object_order_depends_target_testTreeSorter
+  DEP_FILE = CMakeFiles/testTreeSorter.dir/Testing/Tests/Sorters/TreeSorterTest.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testTreeSorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/testTreeSorter.dir/Testing/Tests/Sorters
+
+build CMakeFiles/testTreeSorter.dir/Witness.cpp.o: CXX_COMPILER__testTreeSorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Witness.cpp || cmake_object_order_depends_target_testTreeSorter
+  DEP_FILE = CMakeFiles/testTreeSorter.dir/Witness.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testTreeSorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/testTreeSorter.dir
+
+build CMakeFiles/testTreeSorter.dir/Testing/SortingHelpers/Key.cpp.o: CXX_COMPILER__testTreeSorter_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/Key.cpp || cmake_object_order_depends_target_testTreeSorter
+  DEP_FILE = CMakeFiles/testTreeSorter.dir/Testing/SortingHelpers/Key.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testTreeSorter.dir
+  OBJECT_FILE_DIR = CMakeFiles/testTreeSorter.dir/Testing/SortingHelpers
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target testTreeSorter
+
+
+#############################################
+# Link the executable testTreeSorter
+
+build testTreeSorter: CXX_EXECUTABLE_LINKER__testTreeSorter_Debug CMakeFiles/testTreeSorter.dir/Records/Record.cpp.o CMakeFiles/testTreeSorter.dir/Records/rng.cpp.o CMakeFiles/testTreeSorter.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testTreeSorter.dir/Testing/SortingHelpers/TreeSorter.cpp.o CMakeFiles/testTreeSorter.dir/Testing/Tests/Sorters/TreeSorterTest.cpp.o CMakeFiles/testTreeSorter.dir/Witness.cpp.o CMakeFiles/testTreeSorter.dir/Testing/SortingHelpers/Key.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+  OBJECT_DIR = CMakeFiles/testTreeSorter.dir
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testTreeSorter
+  PRE_LINK = :
+  TARGET_FILE = testTreeSorter
+  TARGET_PDB = testTreeSorter.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target testConsumer
+
+
+#############################################
+# Order-only phony target for testConsumer
+
+build cmake_object_order_depends_target_testConsumer: phony || CMakeFiles/testConsumer.dir
+
+build CMakeFiles/testConsumer.dir/Records/Record.cpp.o: CXX_COMPILER__testConsumer_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testConsumer
+  DEP_FILE = CMakeFiles/testConsumer.dir/Records/Record.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testConsumer.dir
+  OBJECT_FILE_DIR = CMakeFiles/testConsumer.dir/Records
+
+build CMakeFiles/testConsumer.dir/Records/rng.cpp.o: CXX_COMPILER__testConsumer_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testConsumer
+  DEP_FILE = CMakeFiles/testConsumer.dir/Records/rng.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testConsumer.dir
+  OBJECT_FILE_DIR = CMakeFiles/testConsumer.dir/Records
+
+build CMakeFiles/testConsumer.dir/Testing/TestProviders/InOrderGenerator.cpp.o: CXX_COMPILER__testConsumer_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/InOrderGenerator.cpp || cmake_object_order_depends_target_testConsumer
+  DEP_FILE = CMakeFiles/testConsumer.dir/Testing/TestProviders/InOrderGenerator.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testConsumer.dir
+  OBJECT_FILE_DIR = CMakeFiles/testConsumer.dir/Testing/TestProviders
+
+build CMakeFiles/testConsumer.dir/Testing/Tests/ConsumerTest.cpp.o: CXX_COMPILER__testConsumer_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/ConsumerTest.cpp || cmake_object_order_depends_target_testConsumer
+  DEP_FILE = CMakeFiles/testConsumer.dir/Testing/Tests/ConsumerTest.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testConsumer.dir
+  OBJECT_FILE_DIR = CMakeFiles/testConsumer.dir/Testing/Tests
+
+build CMakeFiles/testConsumer.dir/Consumer.cpp.o: CXX_COMPILER__testConsumer_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Consumer.cpp || cmake_object_order_depends_target_testConsumer
+  DEP_FILE = CMakeFiles/testConsumer.dir/Consumer.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testConsumer.dir
+  OBJECT_FILE_DIR = CMakeFiles/testConsumer.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target testConsumer
+
+
+#############################################
+# Link the executable testConsumer
+
+build testConsumer: CXX_EXECUTABLE_LINKER__testConsumer_Debug CMakeFiles/testConsumer.dir/Records/Record.cpp.o CMakeFiles/testConsumer.dir/Records/rng.cpp.o CMakeFiles/testConsumer.dir/Testing/TestProviders/InOrderGenerator.cpp.o CMakeFiles/testConsumer.dir/Testing/Tests/ConsumerTest.cpp.o CMakeFiles/testConsumer.dir/Consumer.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+  OBJECT_DIR = CMakeFiles/testConsumer.dir
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testConsumer
+  PRE_LINK = :
+  TARGET_FILE = testConsumer
+  TARGET_PDB = testConsumer.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target testDuplicateRemoval
@@ -426,7 +659,7 @@ build CMakeFiles/testDuplicateRemoval.dir/DuplicateRemoval/RemoveDuplicates.cpp.
 build testDuplicateRemoval: CXX_EXECUTABLE_LINKER__testDuplicateRemoval_Debug CMakeFiles/testDuplicateRemoval.dir/Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp.o CMakeFiles/testDuplicateRemoval.dir/DuplicateRemoval/RemoveDuplicates.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testDuplicateRemoval.dir
-  POST_BUILD = :
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDuplicateRemoval
   PRE_LINK = :
   TARGET_FILE = testDuplicateRemoval
   TARGET_PDB = testDuplicateRemoval.dbg
@@ -535,7 +768,7 @@ build CMakeFiles/testWitness.dir/Testing/Tests/WitnessTest.cpp.o: CXX_COMPILER__
 build testWitness: CXX_EXECUTABLE_LINKER__testWitness_Debug CMakeFiles/testWitness.dir/Witness.cpp.o CMakeFiles/testWitness.dir/Testing/TestProviders/InOrderGenerator.cpp.o CMakeFiles/testWitness.dir/Testing/SortingHelpers/NoopSorter.cpp.o CMakeFiles/testWitness.dir/Consumer.cpp.o CMakeFiles/testWitness.dir/Testing/TestProviders/DropFirst.cpp.o CMakeFiles/testWitness.dir/Testing/SortingHelpers/TreeSorter.cpp.o CMakeFiles/testWitness.dir/Testing/SortingHelpers/Key.cpp.o CMakeFiles/testWitness.dir/Testing/TestProviders/Printer.cpp.o CMakeFiles/testWitness.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testWitness.dir/Records/Record.cpp.o CMakeFiles/testWitness.dir/Records/rng.cpp.o CMakeFiles/testWitness.dir/Testing/Tests/WitnessTest.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testWitness.dir
-  POST_BUILD = :
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testWitness
   PRE_LINK = :
   TARGET_FILE = testWitness
   TARGET_PDB = testWitness.dbg
@@ -616,7 +849,7 @@ build CMakeFiles/testPQ.dir/Records/rng.cpp.o: CXX_COMPILER__testPQ_unscanned_De
 build testPQ: CXX_EXECUTABLE_LINKER__testPQ_Debug CMakeFiles/testPQ.dir/Witness.cpp.o CMakeFiles/testPQ.dir/Testing/TestProviders/InOrderGenerator.cpp.o CMakeFiles/testPQ.dir/Testing/Tests/TournamentPqTest.cpp.o CMakeFiles/testPQ.dir/Consumer.cpp.o CMakeFiles/testPQ.dir/TournamentPQ.cpp.o CMakeFiles/testPQ.dir/Testing/TestProviders/ArrayProvider.cpp.o CMakeFiles/testPQ.dir/Records/Record.cpp.o CMakeFiles/testPQ.dir/Records/rng.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testPQ.dir
-  POST_BUILD = :
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPQ
   PRE_LINK = :
   TARGET_FILE = testPQ
   TARGET_PDB = testPQ.dbg
@@ -714,12 +947,12 @@ build CMakeFiles/testSorting.dir/IODevice.cpp.o: CXX_COMPILER__testSorting_unsca
   OBJECT_DIR = CMakeFiles/testSorting.dir
   OBJECT_FILE_DIR = CMakeFiles/testSorting.dir
 
-build CMakeFiles/testSorting.dir/Testing/Tests/SorterTest.cpp.o: CXX_COMPILER__testSorting_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/SorterTest.cpp || cmake_object_order_depends_target_testSorting
-  DEP_FILE = CMakeFiles/testSorting.dir/Testing/Tests/SorterTest.cpp.o.d
+build CMakeFiles/testSorting.dir/Testing/Tests/Sorters/SorterTest.cpp.o: CXX_COMPILER__testSorting_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Sorters/SorterTest.cpp || cmake_object_order_depends_target_testSorting
+  DEP_FILE = CMakeFiles/testSorting.dir/Testing/Tests/Sorters/SorterTest.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
   OBJECT_DIR = CMakeFiles/testSorting.dir
-  OBJECT_FILE_DIR = CMakeFiles/testSorting.dir/Testing/Tests
+  OBJECT_FILE_DIR = CMakeFiles/testSorting.dir/Testing/Tests/Sorters
 
 build CMakeFiles/testSorting.dir/Sort/Sorter.cpp.o: CXX_COMPILER__testSorting_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Sort/Sorter.cpp || cmake_object_order_depends_target_testSorting
   DEP_FILE = CMakeFiles/testSorting.dir/Sort/Sorter.cpp.o.d
@@ -764,10 +997,10 @@ build CMakeFiles/testSorting.dir/Testing/TestProviders/Printer.cpp.o: CXX_COMPIL
 #############################################
 # Link the executable testSorting
 
-build testSorting: CXX_EXECUTABLE_LINKER__testSorting_Debug CMakeFiles/testSorting.dir/Records/Record.cpp.o CMakeFiles/testSorting.dir/Records/rng.cpp.o CMakeFiles/testSorting.dir/Config/SorterConfig.cpp.o CMakeFiles/testSorting.dir/Config/StagingConfig.cpp.o CMakeFiles/testSorting.dir/Run.cpp.o CMakeFiles/testSorting.dir/Providers/SingleProvider.cpp.o CMakeFiles/testSorting.dir/Providers/EmptyProvider.cpp.o CMakeFiles/testSorting.dir/Providers/MemoryProvider.cpp.o CMakeFiles/testSorting.dir/Providers/StorageProvider.cpp.o CMakeFiles/testSorting.dir/Providers/StagedProvider.cpp.o CMakeFiles/testSorting.dir/TournamentPQ.cpp.o CMakeFiles/testSorting.dir/IODevice.cpp.o CMakeFiles/testSorting.dir/Testing/Tests/SorterTest.cpp.o CMakeFiles/testSorting.dir/Sort/Sorter.cpp.o CMakeFiles/testSorting.dir/Consumer.cpp.o CMakeFiles/testSorting.dir/Witness.cpp.o CMakeFiles/testSorting.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testSorting.dir/Testing/TestProviders/Printer.cpp.o
+build testSorting: CXX_EXECUTABLE_LINKER__testSorting_Debug CMakeFiles/testSorting.dir/Records/Record.cpp.o CMakeFiles/testSorting.dir/Records/rng.cpp.o CMakeFiles/testSorting.dir/Config/SorterConfig.cpp.o CMakeFiles/testSorting.dir/Config/StagingConfig.cpp.o CMakeFiles/testSorting.dir/Run.cpp.o CMakeFiles/testSorting.dir/Providers/SingleProvider.cpp.o CMakeFiles/testSorting.dir/Providers/EmptyProvider.cpp.o CMakeFiles/testSorting.dir/Providers/MemoryProvider.cpp.o CMakeFiles/testSorting.dir/Providers/StorageProvider.cpp.o CMakeFiles/testSorting.dir/Providers/StagedProvider.cpp.o CMakeFiles/testSorting.dir/TournamentPQ.cpp.o CMakeFiles/testSorting.dir/IODevice.cpp.o CMakeFiles/testSorting.dir/Testing/Tests/Sorters/SorterTest.cpp.o CMakeFiles/testSorting.dir/Sort/Sorter.cpp.o CMakeFiles/testSorting.dir/Consumer.cpp.o CMakeFiles/testSorting.dir/Witness.cpp.o CMakeFiles/testSorting.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testSorting.dir/Testing/TestProviders/Printer.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testSorting.dir
-  POST_BUILD = :
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorting
   PRE_LINK = :
   TARGET_FILE = testSorting
   TARGET_PDB = testSorting.dbg
@@ -925,7 +1158,7 @@ build CMakeFiles/testLotsOfHddRuns.dir/Testing/SortingHelpers/CrcRandomGenerator
 build testLotsOfHddRuns: CXX_EXECUTABLE_LINKER__testLotsOfHddRuns_Debug CMakeFiles/testLotsOfHddRuns.dir/Records/Record.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Records/rng.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Config/SorterConfig.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Config/StagingConfig.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Run.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Providers/SingleProvider.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Providers/EmptyProvider.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Providers/MemoryProvider.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Providers/StorageProvider.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Providers/StagedProvider.cpp.o CMakeFiles/testLotsOfHddRuns.dir/TournamentPQ.cpp.o CMakeFiles/testLotsOfHddRuns.dir/IODevice.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Testing/Tests/LotsOfHddRuns.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Sort/Sorter.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Consumer.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Witness.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Testing/TestProviders/Printer.cpp.o CMakeFiles/testLotsOfHddRuns.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testLotsOfHddRuns.dir
-  POST_BUILD = :
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testLotsOfHddRuns
   PRE_LINK = :
   TARGET_FILE = testLotsOfHddRuns
   TARGET_PDB = testLotsOfHddRuns.dbg
@@ -1083,7 +1316,7 @@ build CMakeFiles/testSpillToHdd.dir/Testing/SortingHelpers/CrcRandomGenerator.cp
 build testSpillToHdd: CXX_EXECUTABLE_LINKER__testSpillToHdd_Debug CMakeFiles/testSpillToHdd.dir/Records/Record.cpp.o CMakeFiles/testSpillToHdd.dir/Records/rng.cpp.o CMakeFiles/testSpillToHdd.dir/Config/SorterConfig.cpp.o CMakeFiles/testSpillToHdd.dir/Config/StagingConfig.cpp.o CMakeFiles/testSpillToHdd.dir/Run.cpp.o CMakeFiles/testSpillToHdd.dir/Providers/SingleProvider.cpp.o CMakeFiles/testSpillToHdd.dir/Providers/EmptyProvider.cpp.o CMakeFiles/testSpillToHdd.dir/Providers/MemoryProvider.cpp.o CMakeFiles/testSpillToHdd.dir/Providers/StorageProvider.cpp.o CMakeFiles/testSpillToHdd.dir/Providers/StagedProvider.cpp.o CMakeFiles/testSpillToHdd.dir/TournamentPQ.cpp.o CMakeFiles/testSpillToHdd.dir/IODevice.cpp.o CMakeFiles/testSpillToHdd.dir/Testing/Tests/Spilling/SpillToHdd.cpp.o CMakeFiles/testSpillToHdd.dir/Sort/Sorter.cpp.o CMakeFiles/testSpillToHdd.dir/Consumer.cpp.o CMakeFiles/testSpillToHdd.dir/Witness.cpp.o CMakeFiles/testSpillToHdd.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testSpillToHdd.dir/Testing/TestProviders/Printer.cpp.o CMakeFiles/testSpillToHdd.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testSpillToHdd.dir
-  POST_BUILD = :
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToHdd
   PRE_LINK = :
   TARGET_FILE = testSpillToHdd
   TARGET_PDB = testSpillToHdd.dbg
@@ -1241,364 +1474,369 @@ build CMakeFiles/testSpillToOneBlockToSdd.dir/Testing/SortingHelpers/CrcRandomGe
 build testSpillToOneBlockToSdd: CXX_EXECUTABLE_LINKER__testSpillToOneBlockToSdd_Debug CMakeFiles/testSpillToOneBlockToSdd.dir/Records/Record.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Records/rng.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Config/SorterConfig.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Config/StagingConfig.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Run.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Providers/SingleProvider.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Providers/EmptyProvider.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Providers/MemoryProvider.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Providers/StorageProvider.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Providers/StagedProvider.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/TournamentPQ.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/IODevice.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Testing/Tests/Spilling/SpillOneBlockToSsd.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Sort/Sorter.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Consumer.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Witness.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Testing/TestProviders/Printer.cpp.o CMakeFiles/testSpillToOneBlockToSdd.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testSpillToOneBlockToSdd.dir
-  POST_BUILD = :
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToOneBlockToSdd
   PRE_LINK = :
   TARGET_FILE = testSpillToOneBlockToSdd
   TARGET_PDB = testSpillToOneBlockToSdd.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target testRecordTest
+# Object build statements for EXECUTABLE target testRecord
 
 
 #############################################
-# Order-only phony target for testRecordTest
+# Order-only phony target for testRecord
 
-build cmake_object_order_depends_target_testRecordTest: phony || CMakeFiles/testRecordTest.dir
+build cmake_object_order_depends_target_testRecord: phony || CMakeFiles/testRecord.dir
 
-build CMakeFiles/testRecordTest.dir/Testing/Tests/Record/RecordTest.cpp.o: CXX_COMPILER__testRecordTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Record/RecordTest.cpp || cmake_object_order_depends_target_testRecordTest
-  DEP_FILE = CMakeFiles/testRecordTest.dir/Testing/Tests/Record/RecordTest.cpp.o.d
+build CMakeFiles/testRecord.dir/Testing/Tests/Record/RecordTest.cpp.o: CXX_COMPILER__testRecord_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Record/RecordTest.cpp || cmake_object_order_depends_target_testRecord
+  DEP_FILE = CMakeFiles/testRecord.dir/Testing/Tests/Record/RecordTest.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testRecordTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testRecordTest.dir/Testing/Tests/Record
+  OBJECT_DIR = CMakeFiles/testRecord.dir
+  OBJECT_FILE_DIR = CMakeFiles/testRecord.dir/Testing/Tests/Record
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target testRecordTest
+# Link build statements for EXECUTABLE target testRecord
 
 
 #############################################
-# Link the executable testRecordTest
+# Link the executable testRecord
 
-build testRecordTest: CXX_EXECUTABLE_LINKER__testRecordTest_Debug CMakeFiles/testRecordTest.dir/Testing/Tests/Record/RecordTest.cpp.o
+build testRecord: CXX_EXECUTABLE_LINKER__testRecord_Debug CMakeFiles/testRecord.dir/Testing/Tests/Record/RecordTest.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
-  OBJECT_DIR = CMakeFiles/testRecordTest.dir
-  POST_BUILD = :
+  OBJECT_DIR = CMakeFiles/testRecord.dir
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecord
   PRE_LINK = :
-  TARGET_FILE = testRecordTest
-  TARGET_PDB = testRecordTest.dbg
+  TARGET_FILE = testRecord
+  TARGET_PDB = testRecord.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target testStorageProviderTest
+# Object build statements for EXECUTABLE target testStorageProvider
 
 
 #############################################
-# Order-only phony target for testStorageProviderTest
+# Order-only phony target for testStorageProvider
 
-build cmake_object_order_depends_target_testStorageProviderTest: phony || CMakeFiles/testStorageProviderTest.dir
+build cmake_object_order_depends_target_testStorageProvider: phony || CMakeFiles/testStorageProvider.dir
 
-build CMakeFiles/testStorageProviderTest.dir/Records/Record.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Records/Record.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Records/Record.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Records/Record.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Records
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Records
 
-build CMakeFiles/testStorageProviderTest.dir/Records/rng.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Records/rng.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Records/rng.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Records/rng.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Records
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Records
 
-build CMakeFiles/testStorageProviderTest.dir/Config/SorterConfig.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/SorterConfig.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Config/SorterConfig.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Config/SorterConfig.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/SorterConfig.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Config/SorterConfig.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Config
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Config
 
-build CMakeFiles/testStorageProviderTest.dir/Config/StagingConfig.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/StagingConfig.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Config/StagingConfig.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Config/StagingConfig.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/StagingConfig.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Config/StagingConfig.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Config
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Config
 
-build CMakeFiles/testStorageProviderTest.dir/Run.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Run.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Run.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Run.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Run.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Run.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir
 
-build CMakeFiles/testStorageProviderTest.dir/Providers/SingleProvider.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/SingleProvider.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Providers/SingleProvider.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Providers/SingleProvider.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/SingleProvider.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Providers/SingleProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Providers
 
-build CMakeFiles/testStorageProviderTest.dir/Providers/EmptyProvider.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/EmptyProvider.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Providers/EmptyProvider.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Providers/EmptyProvider.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/EmptyProvider.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Providers/EmptyProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Providers
 
-build CMakeFiles/testStorageProviderTest.dir/Providers/MemoryProvider.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/MemoryProvider.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Providers/MemoryProvider.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Providers/MemoryProvider.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/MemoryProvider.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Providers/MemoryProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Providers
 
-build CMakeFiles/testStorageProviderTest.dir/Providers/StorageProvider.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/StorageProvider.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Providers/StorageProvider.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Providers/StorageProvider.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/StorageProvider.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Providers/StorageProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Providers
 
-build CMakeFiles/testStorageProviderTest.dir/Providers/StagedProvider.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/StagedProvider.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Providers/StagedProvider.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Providers/StagedProvider.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/StagedProvider.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Providers/StagedProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Providers
 
-build CMakeFiles/testStorageProviderTest.dir/TournamentPQ.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/TournamentPQ.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/TournamentPQ.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/TournamentPQ.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/TournamentPQ.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/TournamentPQ.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir
 
-build CMakeFiles/testStorageProviderTest.dir/IODevice.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/IODevice.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/IODevice.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/IODevice.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/IODevice.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/IODevice.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir
 
-build CMakeFiles/testStorageProviderTest.dir/Testing/Tests/Providers/StorageProviderTest.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Providers/StorageProviderTest.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Testing/Tests/Providers/StorageProviderTest.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Testing/Tests/Providers/StorageProviderTest.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Providers/StorageProviderTest.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Testing/Tests/Providers/StorageProviderTest.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Testing/Tests/Providers
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Testing/Tests/Providers
 
-build CMakeFiles/testStorageProviderTest.dir/Sort/Sorter.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Sort/Sorter.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Sort/Sorter.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Sort/Sorter.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Sort/Sorter.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Sort/Sorter.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Sort
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Sort
 
-build CMakeFiles/testStorageProviderTest.dir/Consumer.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Consumer.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Consumer.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Consumer.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Consumer.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Consumer.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir
 
-build CMakeFiles/testStorageProviderTest.dir/Witness.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Witness.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Witness.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Witness.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Witness.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Witness.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir
 
-build CMakeFiles/testStorageProviderTest.dir/Testing/TestProviders/RandomGenerator.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/RandomGenerator.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Testing/TestProviders/RandomGenerator.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Testing/TestProviders/RandomGenerator.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/RandomGenerator.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Testing/TestProviders/RandomGenerator.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Testing/TestProviders
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Testing/TestProviders
 
-build CMakeFiles/testStorageProviderTest.dir/Testing/TestProviders/Printer.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/Printer.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Testing/TestProviders/Printer.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Testing/TestProviders/Printer.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/Printer.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Testing/TestProviders/Printer.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Testing/TestProviders
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Testing/TestProviders
 
-build CMakeFiles/testStorageProviderTest.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o: CXX_COMPILER__testStorageProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/CrcRandomGenerator.cpp || cmake_object_order_depends_target_testStorageProviderTest
-  DEP_FILE = CMakeFiles/testStorageProviderTest.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o.d
+build CMakeFiles/testStorageProvider.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o: CXX_COMPILER__testStorageProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/CrcRandomGenerator.cpp || cmake_object_order_depends_target_testStorageProvider
+  DEP_FILE = CMakeFiles/testStorageProvider.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStorageProviderTest.dir/Testing/SortingHelpers
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStorageProvider.dir/Testing/SortingHelpers
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target testStorageProviderTest
+# Link build statements for EXECUTABLE target testStorageProvider
 
 
 #############################################
-# Link the executable testStorageProviderTest
+# Link the executable testStorageProvider
 
-build testStorageProviderTest: CXX_EXECUTABLE_LINKER__testStorageProviderTest_Debug CMakeFiles/testStorageProviderTest.dir/Records/Record.cpp.o CMakeFiles/testStorageProviderTest.dir/Records/rng.cpp.o CMakeFiles/testStorageProviderTest.dir/Config/SorterConfig.cpp.o CMakeFiles/testStorageProviderTest.dir/Config/StagingConfig.cpp.o CMakeFiles/testStorageProviderTest.dir/Run.cpp.o CMakeFiles/testStorageProviderTest.dir/Providers/SingleProvider.cpp.o CMakeFiles/testStorageProviderTest.dir/Providers/EmptyProvider.cpp.o CMakeFiles/testStorageProviderTest.dir/Providers/MemoryProvider.cpp.o CMakeFiles/testStorageProviderTest.dir/Providers/StorageProvider.cpp.o CMakeFiles/testStorageProviderTest.dir/Providers/StagedProvider.cpp.o CMakeFiles/testStorageProviderTest.dir/TournamentPQ.cpp.o CMakeFiles/testStorageProviderTest.dir/IODevice.cpp.o CMakeFiles/testStorageProviderTest.dir/Testing/Tests/Providers/StorageProviderTest.cpp.o CMakeFiles/testStorageProviderTest.dir/Sort/Sorter.cpp.o CMakeFiles/testStorageProviderTest.dir/Consumer.cpp.o CMakeFiles/testStorageProviderTest.dir/Witness.cpp.o CMakeFiles/testStorageProviderTest.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testStorageProviderTest.dir/Testing/TestProviders/Printer.cpp.o CMakeFiles/testStorageProviderTest.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o
+build testStorageProvider: CXX_EXECUTABLE_LINKER__testStorageProvider_Debug CMakeFiles/testStorageProvider.dir/Records/Record.cpp.o CMakeFiles/testStorageProvider.dir/Records/rng.cpp.o CMakeFiles/testStorageProvider.dir/Config/SorterConfig.cpp.o CMakeFiles/testStorageProvider.dir/Config/StagingConfig.cpp.o CMakeFiles/testStorageProvider.dir/Run.cpp.o CMakeFiles/testStorageProvider.dir/Providers/SingleProvider.cpp.o CMakeFiles/testStorageProvider.dir/Providers/EmptyProvider.cpp.o CMakeFiles/testStorageProvider.dir/Providers/MemoryProvider.cpp.o CMakeFiles/testStorageProvider.dir/Providers/StorageProvider.cpp.o CMakeFiles/testStorageProvider.dir/Providers/StagedProvider.cpp.o CMakeFiles/testStorageProvider.dir/TournamentPQ.cpp.o CMakeFiles/testStorageProvider.dir/IODevice.cpp.o CMakeFiles/testStorageProvider.dir/Testing/Tests/Providers/StorageProviderTest.cpp.o CMakeFiles/testStorageProvider.dir/Sort/Sorter.cpp.o CMakeFiles/testStorageProvider.dir/Consumer.cpp.o CMakeFiles/testStorageProvider.dir/Witness.cpp.o CMakeFiles/testStorageProvider.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testStorageProvider.dir/Testing/TestProviders/Printer.cpp.o CMakeFiles/testStorageProvider.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
-  OBJECT_DIR = CMakeFiles/testStorageProviderTest.dir
-  POST_BUILD = :
+  OBJECT_DIR = CMakeFiles/testStorageProvider.dir
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStorageProvider
   PRE_LINK = :
-  TARGET_FILE = testStorageProviderTest
-  TARGET_PDB = testStorageProviderTest.dbg
+  TARGET_FILE = testStorageProvider
+  TARGET_PDB = testStorageProvider.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target testStagedProviderTest
+# Object build statements for EXECUTABLE target testStagedProvider
 
 
 #############################################
-# Order-only phony target for testStagedProviderTest
+# Order-only phony target for testStagedProvider
 
-build cmake_object_order_depends_target_testStagedProviderTest: phony || CMakeFiles/testStagedProviderTest.dir
+build cmake_object_order_depends_target_testStagedProvider: phony || CMakeFiles/testStagedProvider.dir
 
-build CMakeFiles/testStagedProviderTest.dir/Records/Record.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Records/Record.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Records/Record.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Records/Record.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Records
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Records
 
-build CMakeFiles/testStagedProviderTest.dir/Records/rng.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Records/rng.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Records/rng.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Records/rng.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Records
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Records
 
-build CMakeFiles/testStagedProviderTest.dir/Config/SorterConfig.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/SorterConfig.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Config/SorterConfig.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Config/SorterConfig.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/SorterConfig.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Config/SorterConfig.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Config
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Config
 
-build CMakeFiles/testStagedProviderTest.dir/Config/StagingConfig.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/StagingConfig.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Config/StagingConfig.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Config/StagingConfig.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/StagingConfig.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Config/StagingConfig.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Config
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Config
 
-build CMakeFiles/testStagedProviderTest.dir/Run.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Run.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Run.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Run.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Run.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Run.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir
 
-build CMakeFiles/testStagedProviderTest.dir/Providers/SingleProvider.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/SingleProvider.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Providers/SingleProvider.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Providers/SingleProvider.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/SingleProvider.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Providers/SingleProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Providers
 
-build CMakeFiles/testStagedProviderTest.dir/Providers/EmptyProvider.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/EmptyProvider.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Providers/EmptyProvider.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Providers/EmptyProvider.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/EmptyProvider.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Providers/EmptyProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Providers
 
-build CMakeFiles/testStagedProviderTest.dir/Providers/MemoryProvider.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/MemoryProvider.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Providers/MemoryProvider.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Providers/MemoryProvider.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/MemoryProvider.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Providers/MemoryProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Providers
 
-build CMakeFiles/testStagedProviderTest.dir/Providers/StorageProvider.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/StorageProvider.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Providers/StorageProvider.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Providers/StorageProvider.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/StorageProvider.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Providers/StorageProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Providers
 
-build CMakeFiles/testStagedProviderTest.dir/Providers/StagedProvider.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/StagedProvider.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Providers/StagedProvider.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Providers/StagedProvider.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/StagedProvider.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Providers/StagedProvider.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Providers
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Providers
 
-build CMakeFiles/testStagedProviderTest.dir/TournamentPQ.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/TournamentPQ.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/TournamentPQ.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/TournamentPQ.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/TournamentPQ.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/TournamentPQ.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir
 
-build CMakeFiles/testStagedProviderTest.dir/IODevice.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/IODevice.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/IODevice.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/IODevice.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/IODevice.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/IODevice.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir
 
-build CMakeFiles/testStagedProviderTest.dir/Testing/Tests/Providers/StagedProviderTest.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Providers/StagedProviderTest.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Testing/Tests/Providers/StagedProviderTest.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Testing/Tests/Providers/StagedProviderTest.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Providers/StagedProviderTest.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Testing/Tests/Providers/StagedProviderTest.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Testing/Tests/Providers
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Testing/Tests/Providers
 
-build CMakeFiles/testStagedProviderTest.dir/Sort/Sorter.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Sort/Sorter.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Sort/Sorter.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Sort/Sorter.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Sort/Sorter.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Sort/Sorter.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Sort
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Sort
 
-build CMakeFiles/testStagedProviderTest.dir/Consumer.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Consumer.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Consumer.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Consumer.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Consumer.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Consumer.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir
 
-build CMakeFiles/testStagedProviderTest.dir/Witness.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Witness.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Witness.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Witness.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Witness.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Witness.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir
 
-build CMakeFiles/testStagedProviderTest.dir/Testing/TestProviders/RandomGenerator.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/RandomGenerator.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Testing/TestProviders/RandomGenerator.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Testing/TestProviders/RandomGenerator.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/RandomGenerator.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Testing/TestProviders/RandomGenerator.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Testing/TestProviders
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Testing/TestProviders
 
-build CMakeFiles/testStagedProviderTest.dir/Testing/TestProviders/Printer.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/Printer.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Testing/TestProviders/Printer.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Testing/TestProviders/Printer.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/TestProviders/Printer.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Testing/TestProviders/Printer.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Testing/TestProviders
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Testing/TestProviders
 
-build CMakeFiles/testStagedProviderTest.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o: CXX_COMPILER__testStagedProviderTest_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/CrcRandomGenerator.cpp || cmake_object_order_depends_target_testStagedProviderTest
-  DEP_FILE = CMakeFiles/testStagedProviderTest.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o.d
+build CMakeFiles/testStagedProvider.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o: CXX_COMPILER__testStagedProvider_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/CrcRandomGenerator.cpp || cmake_object_order_depends_target_testStagedProvider
+  DEP_FILE = CMakeFiles/testStagedProvider.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  OBJECT_FILE_DIR = CMakeFiles/testStagedProviderTest.dir/Testing/SortingHelpers
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  OBJECT_FILE_DIR = CMakeFiles/testStagedProvider.dir/Testing/SortingHelpers
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target testStagedProviderTest
+# Link build statements for EXECUTABLE target testStagedProvider
 
 
 #############################################
-# Link the executable testStagedProviderTest
+# Link the executable testStagedProvider
 
-build testStagedProviderTest: CXX_EXECUTABLE_LINKER__testStagedProviderTest_Debug CMakeFiles/testStagedProviderTest.dir/Records/Record.cpp.o CMakeFiles/testStagedProviderTest.dir/Records/rng.cpp.o CMakeFiles/testStagedProviderTest.dir/Config/SorterConfig.cpp.o CMakeFiles/testStagedProviderTest.dir/Config/StagingConfig.cpp.o CMakeFiles/testStagedProviderTest.dir/Run.cpp.o CMakeFiles/testStagedProviderTest.dir/Providers/SingleProvider.cpp.o CMakeFiles/testStagedProviderTest.dir/Providers/EmptyProvider.cpp.o CMakeFiles/testStagedProviderTest.dir/Providers/MemoryProvider.cpp.o CMakeFiles/testStagedProviderTest.dir/Providers/StorageProvider.cpp.o CMakeFiles/testStagedProviderTest.dir/Providers/StagedProvider.cpp.o CMakeFiles/testStagedProviderTest.dir/TournamentPQ.cpp.o CMakeFiles/testStagedProviderTest.dir/IODevice.cpp.o CMakeFiles/testStagedProviderTest.dir/Testing/Tests/Providers/StagedProviderTest.cpp.o CMakeFiles/testStagedProviderTest.dir/Sort/Sorter.cpp.o CMakeFiles/testStagedProviderTest.dir/Consumer.cpp.o CMakeFiles/testStagedProviderTest.dir/Witness.cpp.o CMakeFiles/testStagedProviderTest.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testStagedProviderTest.dir/Testing/TestProviders/Printer.cpp.o CMakeFiles/testStagedProviderTest.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o
+build testStagedProvider: CXX_EXECUTABLE_LINKER__testStagedProvider_Debug CMakeFiles/testStagedProvider.dir/Records/Record.cpp.o CMakeFiles/testStagedProvider.dir/Records/rng.cpp.o CMakeFiles/testStagedProvider.dir/Config/SorterConfig.cpp.o CMakeFiles/testStagedProvider.dir/Config/StagingConfig.cpp.o CMakeFiles/testStagedProvider.dir/Run.cpp.o CMakeFiles/testStagedProvider.dir/Providers/SingleProvider.cpp.o CMakeFiles/testStagedProvider.dir/Providers/EmptyProvider.cpp.o CMakeFiles/testStagedProvider.dir/Providers/MemoryProvider.cpp.o CMakeFiles/testStagedProvider.dir/Providers/StorageProvider.cpp.o CMakeFiles/testStagedProvider.dir/Providers/StagedProvider.cpp.o CMakeFiles/testStagedProvider.dir/TournamentPQ.cpp.o CMakeFiles/testStagedProvider.dir/IODevice.cpp.o CMakeFiles/testStagedProvider.dir/Testing/Tests/Providers/StagedProviderTest.cpp.o CMakeFiles/testStagedProvider.dir/Sort/Sorter.cpp.o CMakeFiles/testStagedProvider.dir/Consumer.cpp.o CMakeFiles/testStagedProvider.dir/Witness.cpp.o CMakeFiles/testStagedProvider.dir/Testing/TestProviders/RandomGenerator.cpp.o CMakeFiles/testStagedProvider.dir/Testing/TestProviders/Printer.cpp.o CMakeFiles/testStagedProvider.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
-  OBJECT_DIR = CMakeFiles/testStagedProviderTest.dir
-  POST_BUILD = :
+  OBJECT_DIR = CMakeFiles/testStagedProvider.dir
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagedProvider
   PRE_LINK = :
-  TARGET_FILE = testStagedProviderTest
-  TARGET_PDB = testStagedProviderTest.dbg
+  TARGET_FILE = testStagedProvider
+  TARGET_PDB = testStagedProvider.dbg
 
 
 #############################################
 # Utility command for runAllTests
 
-build runAllTests: phony CMakeFiles/runAllTests testConsumerTest testDuplicateRemoval testInOrderGenerator testLotsOfHddRuns testPQ testRecordTest testSorting testSpillToHdd testStagedProviderTest testStorageProviderTest testWitness
+build CMakeFiles/runAllTests.util: CUSTOM_COMMAND CMakeFiles/runAllTests testConsumer testDropFirst testDuplicateRemoval testInOrderGenerator testLotsOfHddRuns testPQ testRandomGenerator testRecord testSorting testSpillToHdd testStagedProvider testStorageProvider testTreeSorter testWitness
+  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/runAllTests
+  DESC = Running utility command for runAllTests
+  restat = 1
+
+build runAllTests: phony CMakeFiles/runAllTests.util
 
 
 #############################################
@@ -1627,8 +1865,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Custom command for CMakeFiles/runAllTests
 
-build CMakeFiles/runAllTests | ${cmake_ninja_workdir}CMakeFiles/runAllTests: CUSTOM_COMMAND || testConsumerTest testDuplicateRemoval testInOrderGenerator testLotsOfHddRuns testPQ testRecordTest testSorting testSpillToHdd testStagedProviderTest testStorageProviderTest testWitness
-  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDuplicateRemoval && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testWitness && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPQ && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorting && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testLotsOfHddRuns && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToHdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecordTest && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStorageProviderTest && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagedProviderTest && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testInOrderGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testConsumerTest
+build CMakeFiles/runAllTests | ${cmake_ninja_workdir}CMakeFiles/runAllTests: CUSTOM_COMMAND || testConsumer testDropFirst testDuplicateRemoval testInOrderGenerator testLotsOfHddRuns testPQ testRandomGenerator testRecord testSorting testSpillToHdd testStagedProvider testStorageProvider testTreeSorter testWitness
+  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDuplicateRemoval && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testWitness && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPQ && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorting && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testLotsOfHddRuns && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToHdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecord && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStorageProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagedProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testInOrderGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testConsumer && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDropFirst && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRandomGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testTreeSorter
 
 # =============================================================================
 # Target aliases.
@@ -1641,7 +1879,7 @@ build CMakeFiles/runAllTests | ${cmake_ninja_workdir}CMakeFiles/runAllTests: CUS
 #############################################
 # Folder: /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug
 
-build all: phony cs764_sorter createRecords testInOrderGenerator testConsumerTest testDuplicateRemoval testWitness testPQ testSorting testLotsOfHddRuns testSpillToHdd testSpillToOneBlockToSdd testRecordTest testStorageProviderTest testStagedProviderTest
+build all: phony cs764_sorter createRecords testInOrderGenerator testRandomGenerator testKey testDropFirst testTreeSorter testConsumer testDuplicateRemoval testWitness testPQ testSorting testLotsOfHddRuns testSpillToHdd testSpillToOneBlockToSdd testRecord testStorageProvider testStagedProvider
 
 # =============================================================================
 # Built-in targets

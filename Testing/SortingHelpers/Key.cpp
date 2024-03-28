@@ -5,6 +5,7 @@ Key::Key(uint64_t key, long index) {
   this->index = index;
 }
 
+
 /**
       * This method is utilized to compare a record to another record based on its key or index
       * @param other the other Key to compare to the current Key
