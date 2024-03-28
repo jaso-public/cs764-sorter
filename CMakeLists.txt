@@ -412,6 +412,4 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testStagedProviderTest>
         COMMAND $<TARGET_FILE:testInOrderGenerator>
         COMMAND $<TARGET_FILE:testConsumerTest>
-
-
 )

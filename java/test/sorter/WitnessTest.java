@@ -19,7 +19,7 @@ class WitnessTest {
         Witness lower = new Witness(generator);
         NoopSorter sorter = new NoopSorter(lower);
         Witness upper = new Witness(sorter);
-        Consumer consumer = new Consumer(upper);
+        Consumer consumer = new Consumer(,);
         consumer.consume();
         
        

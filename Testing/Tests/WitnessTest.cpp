@@ -30,8 +30,8 @@ void WitnessTest::testWithSorter() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-//TODO: here is the issue, the upper does not like getting the key or checksum in the next method
-// this fails when the witness is given the noopsort as shown in this test
+//TODO: here is the issue, the upper does not like getting the getRecordKey() or completeChecksumCheck() in the next method in Witness.cpp
+// this fails when the witness is given the noopsorter as shown in this test
 void WitnessTest::testGivingWitnessNoopSorter() {
     InOrderGenerator i(10, 100, 8);
     NoopSorter sorter(&i);
@@ -46,7 +46,7 @@ void WitnessTest::testGivingWitnessNoopSorter() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-//TODO: here is the issue, the upper does not like getting the key or checksum in the next method
+//TODO: here is the issue, the upper does not like getting the getRecordKey() or completeChecksumCheck() in the next method in Witness.cpp
 // this also fails when the witness is given another witness
 void WitnessTest::testGivingWitnessAnotherWitness() {
     InOrderGenerator i(10, 100, 8);
@@ -62,7 +62,7 @@ void WitnessTest::testGivingWitnessAnotherWitness() {
     assert("Next should have given a null pointer" && ptr2 == nullptr );
 }
 
-//TODO: this fails because of the top two tests
+//TODO: this fails because of the two tests above
 void WitnessTest::testUpper() {
     InOrderGenerator i(10, 100, 8);
     Witness lower(&i);
@@ -176,11 +176,12 @@ void WitnessTest::testTreeSorterWithPrinting() {
 
 int main(){
     WitnessTest w;
- //   w.testGivingWitnessNoopSorter();
-    w.testGivingWitnessAnotherWitness();
-//    w.testLower();
-//    w.testWithSorter();
-//    w.testUpper();
+    //w.testLower();
+    //w.testWithSorter();
+//TODO: stuck on these lower 3 tests
+      w.testGivingWitnessNoopSorter();
+      w.testGivingWitnessAnotherWitness();
+      w.testUpper();
 //    w.testTenInorder();
 //    w.testTreeSorterWithPrinting();
 //    w.testRandomOrderWithPrinting();
