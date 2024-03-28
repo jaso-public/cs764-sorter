@@ -10,24 +10,15 @@
 Record::Record(uint64_t sizeFromUser, uint32_t keyOffsetFromUser) {
     this->size = sizeFromUser;
     this->keyOffset = keyOffsetFromUser;
-    // created record
-    this->record = createRecord();
+    // creating/setting record and its key
+    void* record = malloc(size);
+    fill(size, record);
+    this->record = record;
+    this->key = getRecordKey();
     this->compareCount = 0;
 }
 
 Record::Record() {}
-
-
-/**
- * This method will create a record in memory and fill it with random 64 bit integers
- * @return void* array as the created record
- */
-void* Record::createRecord(){
-    void* record = malloc(size);
-    fill(size, record);
-    this->key = getRecordKey();
-    return record;
-}
 
 /**
  * This method obtains the key from a given record
