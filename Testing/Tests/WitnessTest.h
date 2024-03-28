@@ -22,7 +22,6 @@ public:
     void testTreeSorter();
     void testRandomOrderWithPrinting();
     void testTreeSorterWithPrinting();
-    WitnessTest();
 };
 
 

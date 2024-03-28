@@ -1,6 +1,5 @@
 #include "WitnessTest.h"
 
-WitnessTest::WitnessTest() {};
 
 void WitnessTest::testTenInorder() {
     InOrderGenerator i(10, 100, 8);

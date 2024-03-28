@@ -76,6 +76,19 @@ add_executable(testInOrderGenerator
         Testing/Tests/Providers/InOrderGeneratorTest.h
 )
 
+add_executable(testConsumerTest
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/Tests/ConsumerTest.cpp
+        Testing/Tests/ConsumerTest.h
+        Consumer.cpp
+        Consumer.h
+)
+
 add_executable(testDuplicateRemoval
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.h
@@ -397,4 +410,8 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testRecordTest>
         COMMAND $<TARGET_FILE:testStorageProviderTest>
         COMMAND $<TARGET_FILE:testStagedProviderTest>
+        COMMAND $<TARGET_FILE:testInOrderGenerator>
+        COMMAND $<TARGET_FILE:testConsumerTest>
+
+
 )
