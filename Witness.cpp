@@ -23,7 +23,6 @@ Record* Witness::next() {
     if (recordPtr == nullptr) return nullptr;
     // else obtains the record and checks if it is sorted
     Record record = *recordPtr;
-    record.getRecordKey();
     if (isSorted){
         uint64_t key = record.getRecordKey();
         if (lastKeyPtr != nullptr){

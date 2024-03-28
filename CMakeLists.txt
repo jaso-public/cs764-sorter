@@ -76,6 +76,22 @@ add_executable(testInOrderGenerator
         Testing/Tests/Providers/InOrderGeneratorTest.h
 )
 
+add_executable(testDropFirst
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/DropFirst.cpp
+        Testing/TestProviders/DropFirst.h
+        Testing/Tests/Providers/DropFirstTest.cpp
+        Testing/Tests/Providers/DropFirstTest.cpp
+        Witness.h
+        Witness.cpp
+
+)
+
 add_executable(testConsumer
         Records/Record.cpp
         Records/Record.h
@@ -412,4 +428,5 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testStagedProvider>
         COMMAND $<TARGET_FILE:testInOrderGenerator>
         COMMAND $<TARGET_FILE:testConsumer>
+        COMMAND $<TARGET_FILE:testDropFirst>
 )
