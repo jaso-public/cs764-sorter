@@ -7,7 +7,7 @@ void SorterTest::testSmallSort() {
 
     string test = "testSmallSort: ";
 
-    RandomGenerator rng(recordCount, recordSize);
+    RandomGenerator rng(keyOffset, recordCount, recordSize);
     Printer printer1(&rng, test+"from generator");
     Witness lower(&printer1);
     SorterConfig cgf;
@@ -33,7 +33,7 @@ void SorterTest::testAllMemory() {
 
     string test = "testAllMemory: ";
 
-    RandomGenerator rng(recordCount, recordSize);
+    RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
     Sorter sorter(cgf, &lower, recordSize, keyOffset);
@@ -57,7 +57,7 @@ void SorterTest::testSpillToSsdFewBlocks() {
 
     string test = "testSpillToSsdFewBlocks: ";
 
-    RandomGenerator rng(recordCount, recordSize);
+    RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
     Sorter sorter(cgf, &lower, recordSize, keyOffset);
@@ -81,7 +81,7 @@ void SorterTest::testSpillToSsd() {
 
     string test = "testSpillToSsd: ";
 
-    RandomGenerator rng(recordCount, recordSize);
+    RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
     Sorter sorter(cgf, &lower, recordSize, keyOffset);
@@ -105,7 +105,7 @@ void SorterTest::testSpillToHdd() {
 
     string test = "testSpillToLotsOfHddRuns: ";
 
-    RandomGenerator rng(recordCount, recordSize);
+    RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
     Sorter sorter(cgf, &lower, recordSize, keyOffset);
@@ -156,7 +156,7 @@ void SorterTest::testZeroRecords() {
 
     string test = "testZeroRecords: ";
 
-    RandomGenerator rng(recordCount, recordSize);
+    RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
     Sorter sorter(cgf, &lower, recordSize, keyOffset);
