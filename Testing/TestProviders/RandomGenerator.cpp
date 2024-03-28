@@ -10,7 +10,7 @@ RandomGenerator::RandomGenerator(long count, uint64_t size, uint32_t keyOffset) 
 Record* RandomGenerator::next() {
     if(generated >= count) return nullptr;
     generated++;
-    Record r(size,keyOffset);
+    Record r;
     Record* ptr = &r;
     return ptr;
 }

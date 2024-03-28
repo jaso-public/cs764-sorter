@@ -1,4 +1,5 @@
 #include "Dedooper.h"
+
 Dedooper::Dedooper(Provider *source): source(source) {
 }
 

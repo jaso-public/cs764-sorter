@@ -46,6 +46,15 @@ public:
     static uint32_t keyOffset;    // key offset inside the record
     void resetCompareCount();
 
+    // these are required to have the mapping in tree sorter work
+    bool operator<(const Record& other) const{
+        return data < other.data;
+    }
+
+    bool operator==(const Record& other) const{
+        return data < other.data;
+    }
+
 private:
     static uint32_t recordSize;   // size of the record
     static uint32_t keySize;      // the size of the key

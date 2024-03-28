@@ -4,16 +4,16 @@
 TreeSorter::TreeSorter(Provider* source) {
     this->source = source;
     int index = 0;
-    map<Key,Record> sorted;
+    map<Record,Record> sorted;
     // adds all record to TreeMap until count has been reached
     while(true) {
         Record* recordPtr = source->next();
         if(!recordPtr) break;
         Record record = *recordPtr;
-        sorted[Key(record.key, index++)] = record;
+        sorted[record] = record;
     }
 
-    map<Key, Record>::iterator it = sorted.begin();
+    map<Record, Record>::iterator it = sorted.begin();
     vector<Record> currentRecords;
     // getting all records from sorted list
     while (it != sorted.end()) {
