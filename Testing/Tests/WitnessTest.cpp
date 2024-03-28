@@ -1,5 +1,82 @@
 #include "WitnessTest.h"
 
+void WitnessTest::testLower() {
+    InOrderGenerator i(10, 100, 8);
+    Witness lower(&i);
+    for (int i = 0; i < 10; i++){
+        Record* ptr = lower.next();
+        assert("Next should have existed" && ptr != nullptr );
+        Record r = *ptr;
+        r.getRecordKey();
+        assert("Record key should not be 0" && r.getRecordKey() != 0 );
+    }
+    Record* ptr = lower.next();
+    assert("Next should have given a null pointer" && ptr == nullptr );
+    assert("Count should be 10" && lower.getCount() == 10 );
+}
+
+void WitnessTest::testWithSorter() {
+    InOrderGenerator i(10, 100, 8);
+    Witness lower(&i);
+    NoopSorter sorter(&lower);
+    for (int i = 0; i < 10; i++){
+        Record* ptr = sorter.next();
+        assert("Next should have existed" && ptr != nullptr );
+        Record r = *ptr;
+        r.getRecordKey();
+        assert("Record key should not be 0" && r.getRecordKey() != 0 );
+    }
+    Record* ptr = sorter.next();
+    assert("Next should have given a null pointer" && ptr == nullptr );
+}
+
+//TODO: here is the issue, the upper does not like getting the key or checksum in the next method
+// this fails when the witness is given the noopsort as shown in this test
+void WitnessTest::testGivingWitnessNoopSorter() {
+    InOrderGenerator i(10, 100, 8);
+    NoopSorter sorter(&i);
+    Witness upper(&sorter);
+    for (int i = 0; i < 10; i++){
+        Record* ptr = upper.next();
+        assert("Next should have existed" && ptr != nullptr );
+        Record r = *ptr;
+        assert("Record key should not be 0" && r.getRecordKey() != 0 );
+    }
+    Record* ptr = upper.next();
+    assert("Next should have given a null pointer" && ptr == nullptr );
+}
+
+//TODO: here is the issue, the upper does not like getting the key or checksum in the next method
+// this also fails when the witness is given another witness
+void WitnessTest::testGivingWitnessAnotherWitness() {
+    InOrderGenerator i(10, 100, 8);
+    Witness lower(&i);
+    Witness upper(&lower);
+    for (int i = 0; i < 10; i++){
+        Record* ptr = upper.next();
+        assert("Next should have existed" && ptr != nullptr );
+        Record r = *ptr;
+        assert("Record key should not be 0" && r.getRecordKey() != 0 );
+    }
+    Record* ptr2 = upper.next();
+    assert("Next should have given a null pointer" && ptr2 == nullptr );
+}
+
+//TODO: this fails because of the top two tests
+void WitnessTest::testUpper() {
+    InOrderGenerator i(10, 100, 8);
+    Witness lower(&i);
+    NoopSorter sorter(&lower);
+    Witness upper(&sorter);
+    for (int i = 0; i < 10; i++){
+        Record* ptr = upper.next();
+        assert("Next should have existed" && ptr != nullptr );
+        Record r = *ptr;
+        assert("Record key should not be 0" && r.getRecordKey() != 0 );
+    }
+    Record* ptr = upper.next();
+    assert("Next should have given a null pointer" && ptr == nullptr );
+}
 
 void WitnessTest::testTenInorder() {
     InOrderGenerator i(10, 100, 8);
@@ -99,7 +176,12 @@ void WitnessTest::testTreeSorterWithPrinting() {
 
 int main(){
     WitnessTest w;
-    w.testTenInorder();
+ //   w.testGivingWitnessNoopSorter();
+    w.testGivingWitnessAnotherWitness();
+//    w.testLower();
+//    w.testWithSorter();
+//    w.testUpper();
+//    w.testTenInorder();
 //    w.testTreeSorterWithPrinting();
 //    w.testRandomOrderWithPrinting();
 //    w.testTreeSorter();

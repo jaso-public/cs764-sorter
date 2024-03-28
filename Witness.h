@@ -34,7 +34,7 @@ public:
      * Returns the checksum value of all the records
      * @return checksum value
      */
-    long getCrc();
+    uint64_t getCrc();
 
     /**
    * Returns a true or false value indicating whether the records are sorted or not
@@ -48,7 +48,7 @@ private:
     // keeps track of all the records generated
     long count;
     // keeps track of checksum value
-    long crc;
+    uint64_t crc;
     // pointer to the key of the last record generated
     uint64_t* lastKeyPtr;
 

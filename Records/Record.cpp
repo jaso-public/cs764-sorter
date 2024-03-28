@@ -43,7 +43,7 @@ uint64_t Record::getRecordKey(){
  * This method will compute the checksum value of a given record
  * @returns the checksum value of the record
  */
-bool Record::completeChecksumCheck(){
+uint64_t Record::completeChecksumCheck(){
     int extra = size & 7;
     int num = size >> 3;
 
@@ -104,14 +104,3 @@ void Record::storePartial(char *buffer, int offset, int start, int length) {
     void *destination = &buffer + offset;
     memcpy(destination, source, length);
 }
- //Main method to see output
-
-//int x(){
-//    int size = 100;
-//    uint32_t keyOffset = 8;
-//    Record r(size,keyOffset);
-//    cout << r.record ;
-//    cout << "\n" << r.getRecordKey();
-//    cout << "\n"<< r.completeChecksumCheck();
-//    return 0;
-//}

@@ -30,7 +30,7 @@ public:
     * This method will compute the checksum value of the record
     * @returns the checksum value of the record
     */
-    bool completeChecksumCheck();
+    uint64_t completeChecksumCheck();
 
     /**
      * Compares two records' keys together

@@ -11,11 +11,17 @@
 #include <string>
 #include "Testing/TestProviders/Printer.h"
 #include "Testing/TestProviders/RandomGenerator.h"
+#include <iostream>
 using namespace std;
 
 
 class WitnessTest {
 public:
+    void testLower();
+    void testWithSorter();
+    void testUpper();
+    void testGivingWitnessNoopSorter();
+    void testGivingWitnessAnotherWitness();
     void testTenInorder();
     void testDropOne();
     void testRandomOrder();

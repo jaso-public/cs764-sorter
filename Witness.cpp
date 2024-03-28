@@ -20,23 +20,25 @@ Witness::Witness(Provider* givenSource) {
 Record* Witness::next() {
     // gets the next record pointer and returns the pointer if it is null
     Record* recordPtr = source->next();
-    if (!recordPtr) return nullptr;
+    if (recordPtr == nullptr) return nullptr;
     // else obtains the record and checks if it is sorted
     Record record = *recordPtr;
+    record.getRecordKey();
     if (isSorted){
         uint64_t key = record.getRecordKey();
-        if (lastKeyPtr){
+        if (lastKeyPtr != nullptr){
             // gets the last key value
             uint64_t lastKey = *lastKeyPtr;
             // sorting in ascending order
             if (lastKey>key) isSorted = false;
         }
         // sets pointer to point to recently obtained key
-        lastKeyPtr = &key;
+       lastKeyPtr = &key;
     }
     // increases count and computes the sequential check sum value
     count++;
-    crc ^= record.completeChecksumCheck();
+    uint64_t checkSum = record.completeChecksumCheck();
+    crc ^= checkSum;
     return recordPtr;
 }
 
@@ -52,7 +54,7 @@ long Witness::getCount() {
   * Returns the checksum value of all the records
   * @return checksum value
   */
-long Witness::getCrc() {
+uint64_t Witness::getCrc() {
     return crc;
 }
 
