@@ -9,7 +9,6 @@ using namespace std;
 
 class Record {
 public:
-    char * data;
     // size of the record
     uint64_t size;
     // key offset of record
@@ -50,6 +49,7 @@ public:
      long getCompareCount();
 
      void store(char * buffer, int offset);
+
      void storePartial(char * buffer, int offset, int start, int length);
 
 private:

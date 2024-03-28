@@ -94,13 +94,13 @@ long Record::getCompareCount() {
 }
 
 void Record::store(char *buffer, int offset) {
-    void *source = &data;
+    void *source = &record;
     void *destination = &buffer + offset;
     memcpy(destination, source, sizeof(buffer));
 }
 
 void Record::storePartial(char *buffer, int offset, int start, int length) {
-    void *source = &data + start;
+    void *source = &record + start;
     void *destination = &buffer + offset;
     memcpy(destination, source, length);
 }
