@@ -105,6 +105,19 @@ add_custom_command(TARGET testRandomGenerator
         COMMENT "Running testRandomGenerator..."
 )
 
+add_executable(testKey
+        Testing/SortingHelpers/Key.cpp
+        Testing/SortingHelpers/Key.h
+        Testing/Tests/Sorters/KeyTest.cpp
+        Testing/Tests/Sorters/KeyTest.h
+)
+
+add_custom_command(TARGET testKey
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testKey
+        COMMENT "Running testKey..."
+)
+
 add_executable(testDropFirst
         Records/Record.cpp
         Records/Record.h

@@ -2,12 +2,14 @@
 #define CS764_SORTER_KEY_H
 
 
+#include <cstdint>
+
 class Key {
 public:
-    long key;
+    uint64_t key;
     long index;
-    Key(long key, long index);
-    int compareTo(Key other);
+    Key(uint64_t key, long index);
+    uint64_t compareTo(Key other);
 };
 
 

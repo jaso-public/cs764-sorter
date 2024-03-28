@@ -1,6 +1,6 @@
 #include "Key.h"
 
-Key::Key(long key, long index) {
+Key::Key(uint64_t key, long index) {
   this->key = key;
   this->index = index;
 }
@@ -10,7 +10,7 @@ Key::Key(long key, long index) {
       * @param other the other Key to compare to the current Key
       * @return -1 if current key/index is less than other key/index or 1 if current key/index is greater than other key/index
      */
-int Key::compareTo(Key other) {
+uint64_t Key::compareTo(Key other) {
     if(key < other.key) return -1;
     if(key > other.key) return +1;
     // if keys are the same, then compares indexes
