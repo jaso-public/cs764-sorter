@@ -9,11 +9,11 @@ TournamentPQ::TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset,
 
 
     // create and fill the records array
-    vector<Record> r(numProviders);
+    vector<Record*> r(numProviders);
     this->records = r;
     for(int i=0 ; i<numProviders ; i++) {
         Record* ptr = providers[i]->next();
-        records[i] = *ptr;
+        records[i] = ptr;
     }
 
     vector<int> losers(numProviders);
@@ -45,11 +45,11 @@ TournamentPQ::TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset,
 Record* TournamentPQ::next() {
     int provider = losers[0];
 
-    Record result = records[provider];
-    if(result.record == nullptr) return nullptr;
+    Record* result = records[provider];
+    if(!result) return nullptr;
 
     Record* ptr = providers[provider]->next();
-    records[provider] = *ptr;
+    records[provider] = ptr;
     int match = (provider + numProviders) / 2;
 
     int winner = provider;
@@ -63,7 +63,7 @@ Record* TournamentPQ::next() {
     }
     losers[0] = winner;
 
-    Record* ptrResult = &result;
+    Record* ptrResult = result;
 
     return ptrResult;
 }
@@ -76,13 +76,14 @@ Record* TournamentPQ::next() {
  * @return true if the first provider wins the match, false otherwise.
  */
 bool TournamentPQ::isFirstWinner(int first, int second) {
-    Record r1 = records[first];
-    Record r2 = records[second];
-    if(r1.record == nullptr) {
+    Record* r1Ptr = records[first];
+    Record* r2Ptr = records[second];
+    Record r1 = *r1Ptr;
+    if(!r1Ptr) {
         return false;
-    } else if(r2.record == nullptr) {
+    } else if(!r2Ptr) {
         return true;
-    } else if(r1.compareTo(r2) < 0) {
+    } else if(r1.compareTo(r2Ptr) < 0) {
         return true;
     } else {
         return false;

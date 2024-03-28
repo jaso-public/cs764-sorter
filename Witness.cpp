@@ -9,7 +9,7 @@ Witness::Witness(Provider* givenSource) {
     this->crc = 0;
     this->isSorted = true;
     this->source = givenSource;
-    this->lastKey = 0;
+    this->lastRecord = nullptr;
 }
 
 /**
@@ -24,15 +24,15 @@ Record* Witness::next() {
     // else obtains the record and checks if it is sorted
     Record record = *recordPtr;
     if (isSorted){
-        uint64_t key = record.key;
-        if (lastKey != 0){
-            if (lastKey>key) isSorted = false;
+        if (!lastRecord){
+            //TODO: ensure compare to returns less than 0 if record is < lastRecord
+            if (record.compareTo(lastRecord) < 0)  isSorted = false;
         }
-        this->lastKey = key;
+        this->lastRecord = &record;
     }
     // increases count and computes the sequential check sum value
     count++;
-    uint64_t checkSum = record.completeChecksumCheck();
+    uint64_t checkSum = record.checksum();
     crc ^= checkSum;
     return recordPtr;
 }
