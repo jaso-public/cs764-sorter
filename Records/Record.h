@@ -1,65 +1,55 @@
 #ifndef DB_RECORD_H
 #define DB_RECORD_H
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include "rng.h"
+
 #include <iostream>
-using namespace std;
+#include <cstring>
 
 using namespace std;
 
 class Record {
 public:
-    // size of the record
-    uint64_t size;
-    uint64_t key;
-    // key offset of record
-    uint32_t keyOffset;
-    // created record
-    void * record;
-    // record constructor
-    Record(uint64_t sizeFromUser,  uint32_t keyOffsetFromUser);
+    static void staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_t _keySize);
+
     Record();
 
-    /**
-    * This method will compute the checksum value of the record
-    * @returns the checksum value of the record
-    */
-    uint64_t completeChecksumCheck();
+    Record(uint8_t *_data);
+
+    // Copy constructor
+    Record(const Record &other);
+
+    // Copy assignment operator
+    Record &operator=(const Record &other);
+
+    // Destructor
+    ~Record();
 
     /**
      * Compares two records' keys together
-     * @param other is the other record to compare keys to the class' record
-     * @return 1 if the class key is greater; -1 if the other key is greater
+     * @param other is the other record to compare this record
+     * @return 1 if this record is greater
+     *         0 if the two keys are equal
+     *        -1 if the other key is greater
      */
-     int compareTo(Record other);
+    int compareTo(Record *other);
 
-     /**
-      * Sets the compareCount variable back to 0
-      */
-     void resetCompareCount();
+    void store(uint8_t *dst);
 
-     /**
-      * @return the compare count variable
-      */
-     long getCompareCount();
+    void store(uint8_t *dst, int offset, int numToCopy);
 
-     void store(char * buffer, int offset);
+    void set(uint8_t *src);
 
-     void storePartial(char * buffer, int offset, int start, int length);
+    void set(uint8_t *src, int offset, int numToCopy);
+
+    uint64_t checksum();
+
+    uint64_t getCompareCount();
 
 private:
-    // the total times the record has been compared to another record
-    long compareCount;
+    static uint32_t recordSize;   // size of the record
+    static uint32_t keyOffset;    // key offset inside the record
+    static uint32_t keySize;      // the size of the key
+    static uint64_t compareCount; // the number of compares that
 
-    /**
-     * This method obtains the key from a given record
-     * @return record's key
-     */
-    uint64_t getRecordKey();
-
+    uint8_t *data;                // the actual bytes of the record
 };
-
-
 #endif //DB_RECORD_H

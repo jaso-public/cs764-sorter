@@ -1,53 +1,76 @@
-
 #include "Record.h"
 
-
-/**
- * Initializes record constructor
- * @param sizeFromUser size of record
- * @param keyOffsetFromUser key offset of record
- */
-Record::Record(uint64_t sizeFromUser, uint32_t keyOffsetFromUser) {
-    this->size = sizeFromUser;
-    this->keyOffset = keyOffsetFromUser;
-    // creating/setting record and its key
-    void* record = malloc(size);
-    fill(size, record);
-    this->record = record;
-    this->key = getRecordKey();
-    this->compareCount = 0;
+void Record::staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_t _keySize) {
+    recordSize = _recordSize;
+    keyOffset = _keyOffset;
+    keySize = _keySize;
+    compareCount = 0;
 }
 
-Record::Record() {}
-
-/**
- * This method obtains the key from a given record
- * @return record's key
- */
-uint64_t Record::getRecordKey(){
-    uint64_t* p = (uint64_t*) record;
-    uint64_t* keyLocation = p + keyOffset;
-    uint64_t key = *keyLocation;
-    return key;
+Record::Record() {
+    data = new uint8_t[recordSize];
 }
 
-/**
- * This method will compute the checksum value of a given record
- * @returns the checksum value of the record
- */
-uint64_t Record::completeChecksumCheck(){
-    int extra = size & 7;
-    int num = size >> 3;
+Record::Record(uint8_t *_data) {
+    data = new uint8_t[recordSize];
+    set(_data);
+}
+
+// Copy constructor
+Record::Record(const Record &other) {
+    cout << "copy constructor (you don't wanna see this)" << endl;
+    data = new uint8_t[recordSize];
+    set(other.data);
+}
+
+// Copy assignment operator
+Record &Record::operator=(const Record &other) {
+    cout << "assignment operator (you don't wanna see this)" << endl;
+    if (this != &other) {
+        delete[] data;
+        data = new uint8_t[recordSize];
+        set(other.data);
+    }
+    return *this;
+}
+
+Record::~Record() {
+    delete[] data;
+}
+
+int Record::compareTo(Record *other) {
+    return memcmp(data + keyOffset, other->data + keyOffset, keySize);
+}
+
+void Record::store(uint8_t *dst) {
+    memcpy(dst, data, recordSize);
+}
+
+void Record::store(uint8_t *dst, int offset, int numToCopy) {
+    memcpy(dst, data + offset, numToCopy);
+}
+
+void Record::set(uint8_t *src) {
+    memcpy(data, src, recordSize);
+}
+
+void Record::set(uint8_t *src, int offset, int numToCopy) {
+    memcpy(data + offset, src, numToCopy);
+}
+
+uint64_t Record::checksum() {
+    int extra = recordSize & 7;
+    int num = recordSize >> 3;
 
     uint64_t result = 0;
-    uint64_t *a = (uint64_t*) record;
-    for(int i=0; i<num ; i++){
+    uint64_t *a = (uint64_t *) data;
+    for (int i = 0; i < num; i++) {
         result = result ^ a[i];
     }
 
-    if(extra) {
+    if (extra) {
         uint64_t tmp = 0;
-        void* ending = a + num;
+        void *ending = a + num;
         memcpy(&tmp, ending, extra);
         result ^= tmp;
     }
@@ -55,44 +78,6 @@ uint64_t Record::completeChecksumCheck(){
     return result;
 }
 
-/**
-   * Compares two records' keys together
-   * @param other is the other record to compare keys to the class' record
-   * @return 1 if the class key is greater; -1 if the other key is greater
-   */
-int Record::compareTo(Record other) {
-    compareCount++;
-    uint64_t classKey = getRecordKey();
-    uint64_t otherKey =     other.getRecordKey();
-    if (classKey > otherKey){
-        return 1;
-    } else {
-        return -1;
-    }
-}
-
-/**
- * Sets the compareCount variable back to 0
- */
-void Record::resetCompareCount() {
-    compareCount = 0;
-}
-
-/**
- * @return the compare count variable
- */
-long Record::getCompareCount() {
+uint64_t Record::getCompareCount() {
     return compareCount;
-}
-
-void Record::store(char *buffer, int offset) {
-    void *source = &record;
-    void *destination = &buffer + offset;
-    memcpy(destination, source, sizeof(buffer));
-}
-
-void Record::storePartial(char *buffer, int offset, int start, int length) {
-    void *source = &record + start;
-    void *destination = &buffer + offset;
-    memcpy(destination, source, length);
 }
