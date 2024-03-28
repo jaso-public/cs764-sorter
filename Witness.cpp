@@ -23,8 +23,6 @@ Record* Witness::next() {
     if (recordPtr == nullptr) return nullptr;
     // else obtains the record and checks if it is sorted
     Record record = *recordPtr;
-    cout << "Record" << record.record << "\n";
-    cout << "Key" << record.key << "\n";
     if (isSorted){
         uint64_t key = record.key;
         if (lastKey != 0){
