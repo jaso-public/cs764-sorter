@@ -7,9 +7,9 @@
 Witness::Witness(Provider* givenSource) {
     this->count = 0;
     this->crc = 0;
-    this->lastKeyPtr = nullptr;
     this->isSorted = true;
     this->source = givenSource;
+    this->lastKey = 0;
 }
 
 /**
@@ -25,14 +25,10 @@ Record* Witness::next() {
     Record record = *recordPtr;
     if (isSorted){
         uint64_t key = record.getRecordKey();
-        if (lastKeyPtr != nullptr){
-            // gets the last key value
-            uint64_t lastKey = *lastKeyPtr;
-            // sorting in ascending order
+        if (lastKey != 0){
             if (lastKey>key) isSorted = false;
         }
-        // sets pointer to point to recently obtained key
-       lastKeyPtr = &key;
+        this->lastKey = key;
     }
     // increases count and computes the sequential check sum value
     count++;

@@ -49,8 +49,7 @@ private:
     long count;
     // keeps track of checksum value
     uint64_t crc;
-    // pointer to the key of the last record generated
-    uint64_t* lastKeyPtr;
+    uint64_t lastKey;
 
 };
 
