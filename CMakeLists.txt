@@ -68,6 +68,7 @@ add_executable(createRecords
 add_custom_command(TARGET createRecords
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/createRecords
+        COMMENT "Running createRecords..."
 )
 
 add_executable(testInOrderGenerator
@@ -84,6 +85,7 @@ add_executable(testInOrderGenerator
 add_custom_command(TARGET testInOrderGenerator
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testInOrderGenerator
+        COMMENT "Running testInOrderGenerator..."
 )
 
 add_executable(testRandomGenerator
@@ -100,6 +102,7 @@ add_executable(testRandomGenerator
 add_custom_command(TARGET testRandomGenerator
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRandomGenerator
+        COMMENT "Running testRandomGenerator..."
 )
 
 add_executable(testDropFirst
@@ -120,6 +123,7 @@ add_executable(testDropFirst
 add_custom_command(TARGET testDropFirst
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDropFirst
+        COMMENT "Running testDropFirst..."
 )
 
 add_executable(testTreeSorter
@@ -142,6 +146,7 @@ add_executable(testTreeSorter
 add_custom_command(TARGET testTreeSorter
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testTreeSorter
+        COMMENT "Running testTreeSorter..."
 )
 
 add_executable(testConsumer
@@ -160,6 +165,7 @@ add_executable(testConsumer
 add_custom_command(TARGET testConsumer
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testConsumer
+        COMMENT "Running testConsumer..."
 )
 
 add_executable(testDuplicateRemoval
@@ -172,6 +178,7 @@ add_executable(testDuplicateRemoval
 add_custom_command(TARGET testDuplicateRemoval
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDuplicateRemoval
+        COMMENT "Running testDuplicateRemoval..."
 )
 
 add_executable(testWitness
@@ -205,6 +212,7 @@ add_executable(testWitness
 add_custom_command(TARGET testWitness
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testWitness
+        COMMENT "Running testWitness..."
 )
 
 add_executable(testPQ
@@ -231,6 +239,7 @@ add_executable(testPQ
 add_custom_command(TARGET testPQ
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testPQ
+        COMMENT "Running testPQ..."
 )
 
 add_executable(testSorting
@@ -276,6 +285,7 @@ add_executable(testSorting
 add_custom_command(TARGET testSorting
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSorting
+        COMMENT "Running testSorting..."
 )
 
 add_executable(testLotsOfHddRuns
@@ -323,6 +333,7 @@ add_executable(testLotsOfHddRuns
 add_custom_command(TARGET testLotsOfHddRuns
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testLotsOfHddRuns
+        COMMENT "Running testLotsOfHddRuns..."
 )
 
 add_executable(testSpillToHdd
@@ -370,6 +381,7 @@ add_executable(testSpillToHdd
 add_custom_command(TARGET testSpillToHdd
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSpillToHdd
+        COMMENT "Running testSpillToHdd..."
 )
 
 add_executable(testSpillToOneBlockToSdd
@@ -417,6 +429,7 @@ add_executable(testSpillToOneBlockToSdd
 add_custom_command(TARGET testSpillToOneBlockToSdd
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSpillToOneBlockToSdd
+        COMMENT "Running testSpillToOneBlockToSdd..."
 )
 
 add_executable(testRecord
@@ -427,6 +440,7 @@ add_executable(testRecord
 add_custom_command(TARGET testRecord
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRecord
+        COMMENT "Running testRecord..."
 )
 
 add_executable(testStorageProvider
@@ -475,6 +489,7 @@ add_executable(testStorageProvider
 add_custom_command(TARGET testStorageProvider
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testStorageProvider
+        COMMENT "Running testStorageProvider..."
 )
 
 add_executable(testStagedProvider
@@ -522,6 +537,7 @@ add_executable(testStagedProvider
 add_custom_command(TARGET testStagedProvider
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testStagedProvider
+        COMMENT "Running testStagedProvider..."
 )
 
 add_custom_target(runAllTests
@@ -544,4 +560,5 @@ add_custom_target(runAllTests
 add_custom_command(TARGET runAllTests
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/runAllTests
+        COMMENT "Running runAllTests..."
 )
