@@ -90,6 +90,25 @@ add_custom_command(TARGET testInOrderGenerator
         COMMENT "Running testInOrderGenerator..."
 )
 
+add_executable(testDedooper
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/Tests/DedooperTest.cpp
+        Testing/Tests/DedooperTest.h
+        Providers/Dedooper.cpp
+        Providers/Dedooper.h
+)
+
+add_custom_command(TARGET testDedooper
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDedooper
+        COMMENT "Running testDedooper..."
+)
+
 add_executable(testRandomGenerator
         Records/Record.cpp
         Records/Record.h
@@ -570,6 +589,7 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testTreeSorter>
+        COMMAND $<TARGET_FILE:testDedooper>
 )
 
 add_custom_command(TARGET runAllTests

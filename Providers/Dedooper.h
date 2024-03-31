@@ -9,6 +9,8 @@ public:
     Provider* source;
     Dedooper(Provider* source);
     Record* next();
+private:
+    Record* previousRecord;
 };
 
 
