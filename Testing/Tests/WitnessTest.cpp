@@ -66,7 +66,8 @@ void WitnessTest::testTenInorder() {
     Witness lower(&i);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
-    Consumer consumer(&upper);
+    Dedooper dooper(&upper);
+    Consumer consumer(&dooper);
     consumer.consume();
 
     assert("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount());
@@ -80,7 +81,8 @@ void WitnessTest::testDropOne() {
     DropFirst dropper(&lower);
     NoopSorter sorter(&dropper);
     Witness upper(&sorter);
-    Consumer consumer(&upper);
+    Dedooper dooper(&upper);
+    Consumer consumer(&dooper);
     consumer.consume();
 
     assert("The count of the lower witness should have been 10" && 10 == lower.getCount());
@@ -111,9 +113,9 @@ void WitnessTest::testTreeSorter() {
     Witness lower(&r);
     TreeSorter sorter(&lower);
     Witness upper(&sorter);
-    Consumer consumer(&upper);
+    Dedooper dooper(&upper);
+    Consumer consumer(&dooper);
     consumer.consume();
-
     assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
     assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
     assert(("The upper witness should have been sorted but was not" && upper.isSorted));
@@ -128,7 +130,8 @@ void WitnessTest::testRandomOrderWithPrinting() {
     Witness lower(&printer1);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
-    Printer printer2(&upper, test+"from sorter");
+    Dedooper dooper(&upper);
+    Printer printer2(&dooper, test+"from sorter");
     Consumer consumer(&printer2);
     consumer.consume();
 
@@ -146,7 +149,8 @@ void WitnessTest::testTreeSorterWithPrinting() {
     Witness lower(&printer1);
     TreeSorter sorter(&lower);
     Witness upper(&sorter);
-    Printer printer2(&upper, test+"from sorter");
+    Dedooper dooper(&upper);
+    Printer printer2(&dooper, test+"from sorter");
     Consumer consumer(&printer2);
     consumer.consume();
 
@@ -165,9 +169,9 @@ int main(){
     w.testGivingWitnessAnotherWitness();
     w.testUpper();
     w.testTenInorder();
-//    w.testTreeSorterWithPrinting();
-//    w.testRandomOrderWithPrinting();
-//    w.testTreeSorter();
-//    w.testDropOne();
-//    w.testRandomOrder();
+    w.testTreeSorterWithPrinting();
+    w.testRandomOrderWithPrinting();
+    w.testTreeSorter();
+    w.testDropOne();
+    w.testRandomOrder();
 };

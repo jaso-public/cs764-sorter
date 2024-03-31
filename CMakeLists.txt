@@ -55,6 +55,7 @@ add_executable(cs764_sorter
         Providers/MemoryProvider.cpp
         Records/CreateRecords.h
         Providers/Dedooper.cpp
+        Providers/Dedooper.h
 )
 
 add_executable(createRecords
@@ -241,6 +242,8 @@ add_executable(testWitness
         Records/rng.h
         Testing/Tests/WitnessTest.cpp
         Testing/Tests/WitnessTest.h
+        Providers/Dedooper.cpp
+        Providers/Dedooper.h
 )
 
 add_custom_command(TARGET testWitness
