@@ -18,7 +18,7 @@ Record* InOrderGenerator::next() {
     if (generated >= count) return nullptr;
     // returns a newly created record in memory
     Record r;
-    r.staticInitialize(c)
+    r.staticInitialize(size, keyOffset, 8);
     generated++;
     Record* ptr = &r;
     return ptr;

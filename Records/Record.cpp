@@ -1,5 +1,10 @@
 #include "Record.h"
 
+uint32_t Record::recordSize = 0;
+uint32_t Record::keySize = 0;
+uint64_t Record::compareCount = 0;
+uint32_t Record::keyOffset = 0;
+
 void Record::staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_t _keySize) {
     recordSize = _recordSize;
     keyOffset = _keyOffset;
