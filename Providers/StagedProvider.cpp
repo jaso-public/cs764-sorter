@@ -57,8 +57,10 @@ Record* StagedProvider::next() {
     while (true) {
         if (recordRemaining < 1) {
             nextRecord++;
-            Record r(recordSize, keyOffset);
-            Record *ptr = &r;
+            //TODO: cannot take in 8 as real variable
+            Record::staticInitialize(recordSize, keyOffset, 8);
+            Record r;
+            Record* ptr = &r;
             return ptr;
         }
         if (bufferRemaining < 1) {
@@ -106,7 +108,7 @@ Record* StagedProvider::next() {
             }
             }
         int sizeToCopy = minSize(recordRemaining, bufferRemaining);
-        void* data = new char[recordSize];
+        void* data = new uint8_t[recordSize];
         void *destination = &data + recordOffset;
         void *source = &buffer + bufferStartOffset + bufferOffset;
         memcpy(destination, source, sizeToCopy);

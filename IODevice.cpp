@@ -67,7 +67,7 @@ void IODevice::write(long offset, uint8_t *buffer, int off, int len) {
         (*streamPtr).seekp(offset);
         (*streamPtr).seekp(off);
         // write bytes of length len and places them into the buffer
-        (*streamPtr).write(buffer, len);
+        (*streamPtr).write(reinterpret_cast<const char *>(buffer), len);
         // increase write count and size
         writeCount++;
         writeSize += len;
