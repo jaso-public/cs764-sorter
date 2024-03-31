@@ -7,8 +7,8 @@
  * @param givenRecordCount total number of records to create
  * @param givenRecordSize number of records already created
  */
-MemoryProvider::MemoryProvider(char * buffer, long offset, long recordCount, int recordSize, uint32_t keyOffset) {
-    this->buffer = buffer;
+MemoryProvider::MemoryProvider(uint8_t *buffer, long offset, long recordCount, int recordSize, uint32_t keyOffset) {
+    this->buffer = *buffer;
     this->offset = safeIntCast(offset);
     this->recordCount = safeIntCast(recordCount);
     this->recordSize = recordSize;
@@ -23,7 +23,9 @@ Record* MemoryProvider::next() {
     // if all records and memory spaces have been created
     if(nextRecord >= recordCount) return nullptr;
     nextRecord++;
-    Record r(recordSize, keyOffset);
+    //TODO: cannot take in 8 as real variable
+    Record::staticInitialize(recordSize, keyOffset, 8);
+    Record r;
     Record* ptr = &r;
     return ptr;
 }
