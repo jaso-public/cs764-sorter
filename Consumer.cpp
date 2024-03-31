@@ -19,13 +19,3 @@ void Consumer::consume() {
         }
     }
 }
-
-// main method to show it consumes 10 records then stops
-/**
-int main(){
-    //create a provider to generate 10 records
-    Provider p(10,10,8);
-    Consumer c(p);
-    c.consume();
-}
- */

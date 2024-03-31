@@ -1,11 +1,22 @@
 #include "Dedooper.h"
 
 Dedooper::Dedooper(Provider *source): source(source) {
+    this->previousRecord = nullptr;
 }
 
-//TODO: only return unique records
+/**
+ * Only returns unique records
+ */
 Record* Dedooper::next() {
-    return source->next();
+    Record* currentRecord = source->next();
+    if (!previousRecord){
+        // continues to get next record until a unique record is reached
+        while(previousRecord->compareTo(currentRecord) == 0){
+            previousRecord = currentRecord;
+            currentRecord = source->next();
+        }
+    }
+    return currentRecord;
 }
 
 

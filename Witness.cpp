@@ -25,7 +25,6 @@ Record* Witness::next() {
     Record record = *recordPtr;
     if (isSorted){
         if (!lastRecord){
-            //TODO: ensure compare to returns less than 0 if record is < lastRecord
             if (record.compareTo(lastRecord) < 0)  isSorted = false;
         }
         this->lastRecord = &record;
