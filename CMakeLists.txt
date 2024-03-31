@@ -74,6 +74,19 @@ add_custom_command(TARGET createRecords
         COMMENT "Running createRecords..."
 )
 
+add_executable(testIODevice
+        IODevice.cpp
+        IODevice.h
+        Testing/Tests/IoDeviceTest.cpp
+        Testing/Tests/IoDeviceTest.h
+)
+
+add_custom_command(TARGET testIODevice
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testIODevice
+        COMMENT "Running testIODevice..."
+)
+
 add_executable(testInOrderGenerator
         Records/Record.cpp
         Records/Record.h
@@ -593,7 +606,9 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testTreeSorter>
         COMMAND $<TARGET_FILE:testDedooper>
+        COMMAND $<TARGET_FILE:testIODevice>
 )
+
 
 add_custom_command(TARGET runAllTests
         POST_BUILD
