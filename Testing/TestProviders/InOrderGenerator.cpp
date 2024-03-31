@@ -17,8 +17,9 @@ Record* InOrderGenerator::next() {
     // returns a null pointer when no more records are to be generated
     if (generated >= count) return nullptr;
     // returns a newly created record in memory
+    //TODO: cannot take in 8 as real variable
+    Record::staticInitialize(size, keyOffset, 8);
     Record r;
-    r.staticInitialize(size, keyOffset, 8);
     generated++;
     Record* ptr = &r;
     return ptr;

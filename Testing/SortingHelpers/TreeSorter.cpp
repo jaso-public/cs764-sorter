@@ -1,9 +1,7 @@
 #include "TreeSorter.h"
 
-//TODO: data: data
 TreeSorter::TreeSorter(Provider* source) {
     this->source = source;
-    int index = 0;
     map<Record,Record> sorted;
     // adds all record to TreeMap until count has been reached
     while(true) {
