@@ -103,6 +103,19 @@ add_custom_command(TARGET testIODevice
         COMMENT "Running testIODevice..."
 )
 
+add_executable(testSingleProvider
+        Providers/SingleProvider.cpp
+        Providers/SingleProvider.h
+        Testing/Tests/Providers/SingleProviderTest.cpp
+        Testing/Tests/Providers/SingleProviderTest.h
+)
+
+add_custom_command(TARGET testSingleProvider
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSingleProvider
+        COMMENT "Running testSingleProvider..."
+)
+
 add_executable(testInOrderGenerator
         Records/Record.cpp
         Records/Record.h
@@ -638,6 +651,7 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
+        COMMAND $<TARGET_FILE:testSingleProvider>
 )
 
 
