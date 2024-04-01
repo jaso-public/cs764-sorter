@@ -81,8 +81,6 @@ public StagingProvider(StagingConfig cfg) {
                     bufferRemaining = sizeToRead;
                 }
             }
-
-            
             int sizeToCopy = minSize(recordRemaining, bufferRemaining);
             System.arraycopy(cfg.buffer, cfg.bufferStartOffset + bufferOffset, data, recordOffset, sizeToCopy);
             recordOffset += sizeToCopy;

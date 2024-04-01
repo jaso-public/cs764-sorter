@@ -3,14 +3,12 @@
 #include "../IODevice.h"
 #include "./Records/Record.h"
 #include "Provider.h"
+#include "Config/SorterConfig.h"
 
 class StorageProvider: public Provider{
 private:
+    SorterConfig cfg;
     string filepath;
-    int recordSize;
-    long recordCount;
-    uint32_t keySize;
-    uint32_t keyOffset;
 
     IODevice storage;
     long storageStartOffset;
@@ -31,15 +29,11 @@ private:
 
 public:
     StorageProvider(
-            int recordSize,
-            long recordCount,
             IODevice storage,
             long storageStartOffset,
             uint8_t *buffer,
             int bufferStartOffset,
-            int bufferLength,
-            uint32_t keyOffset,
-            uint32_t keySize);
+            int bufferLength, SorterConfig cfg);
 
     shared_ptr<Record> next() override;
 

@@ -4,15 +4,18 @@
 StorageProviderTest::StorageProviderTest() {};
 
 void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength, uint32_t keyOffset) {
-
-    RandomGenerator rg(recordCount, recordSize, keyOffset);
+    SorterConfig cfg;
+    cfg.recordSize = recordSize;
+    cfg.recordCount = recordCount;
+    cfg.keyOffset = keyOffset;
+    RandomGenerator rg(cfg);
     Witness before(&rg);
 
     IODevice storage("storage.tmp");
 
     long storageOffset = 0;
     while(true) {
-        Record* recPtr = before.next();
+        shared_ptr<Record> recPtr = before.next();
         if(!recPtr) break;
         Record rec = *recPtr;
         storage.write(storageOffset, rec.data, 0, sizeof(rec.data));

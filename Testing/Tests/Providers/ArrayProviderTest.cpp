@@ -1,7 +1,9 @@
 #include "ArrayProviderTest.h"
 
 void ArrayProviderTest::testGenerating10Records() {
-    InOrderGenerator generator(10, 100, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    InOrderGenerator generator(cfg);
     vector<Record> records(10);
     for (int i=0; i<10; i++){
         shared_ptr<Record> r = generator.next();
@@ -17,7 +19,9 @@ void ArrayProviderTest::testGenerating10Records() {
 }
 
 void ArrayProviderTest::testGenerating50Records() {
-    InOrderGenerator generator(50, 100, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 50;
+    InOrderGenerator generator(cfg);
     vector<Record> records(50);
     for (int i=0; i<50; i++){
         shared_ptr<Record>  r = generator.next();

@@ -2,16 +2,15 @@
 #define CS764_SORTER_RANDOMGENERATOR_H
 #include "Providers/Provider.h"
 #include <stdlib.h>
+#include "Config/SorterConfig.h"
 
 class RandomGenerator: public Provider{
 public:
-    long count;
-    uint64_t size;
-    uint32_t keyOffset;
-    RandomGenerator(long count, uint64_t size, uint32_t keyOffset);
+    RandomGenerator(SorterConfig cfg);
     shared_ptr<Record> next() override;
 private:
     long generated;
+    SorterConfig cfg;
 };
 
 

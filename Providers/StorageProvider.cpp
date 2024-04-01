@@ -1,17 +1,13 @@
 #include "StorageProvider.h"
 
-StorageProvider::StorageProvider(int recordSize, long recordCount, IODevice storage, long storageStartOffset,
-                                 uint8_t *buffer, int bufferStartOffset, int bufferLength, uint32_t keyOffset, uint32_t keySize):storage("") {
-    this->recordSize = recordSize;
-    this->recordCount = recordCount;
-    this->keySize = keySize;
+StorageProvider::StorageProvider(IODevice storage, long storageStartOffset,
+                                 uint8_t *buffer, int bufferStartOffset, int bufferLength, SorterConfig cfg):storage("") {
     this->storageStartOffset = storageStartOffset;
     this->buffer = buffer;
     this->bufferStartOffset = bufferStartOffset;
     this->bufferLength = bufferLength;
     this->storage=storage;
-    this->keyOffset = keyOffset;
-    this->storageRemaining = recordCount * (long)recordSize;
+    this->storageRemaining = cfg.recordCount * (long)cfg.recordSize;
     this->bufferOffset = 0;
     this->bufferRemaining = 0;
     this->storageOffset = 0;
@@ -20,16 +16,16 @@ StorageProvider::StorageProvider(int recordSize, long recordCount, IODevice stor
 }
 
 shared_ptr<Record> StorageProvider::next() {
-    if(nextRecord >= recordCount) return nullptr;
-    void* data = new char[recordSize];
-    int recordRemaining = recordSize;
+    if(nextRecord >= cfg.recordCount) return nullptr;
+    void* data = new char[cfg.recordSize];
+    int recordRemaining = cfg.recordSize;
     int recordOffset = 0;
 
     while(true) {
         if(recordRemaining < 1) {
             nextRecord++;
             nextRecord++;
-            Record::staticInitialize(recordSize, keyOffset, keySize);
+            Record::staticInitialize(cfg.recordSize, cfg.keyOffset, cfg.keySize);
             shared_ptr<Record> ptr(new Record);
             return ptr;
         }

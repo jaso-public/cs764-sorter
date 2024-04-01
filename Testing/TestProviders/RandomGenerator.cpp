@@ -1,14 +1,12 @@
 #include "RandomGenerator.h"
 
-RandomGenerator::RandomGenerator(long count, uint64_t size, uint32_t keyOffset) {
-    this->count = count;
-    this->size = size;
-    this->keyOffset = keyOffset;
+RandomGenerator::RandomGenerator(SorterConfig cfg) {
+    this->cfg = cfg;
     this->generated = 0;
 }
 
 shared_ptr<Record> RandomGenerator::next() {
-    if(generated >= count) return nullptr;
+    if(generated >= cfg.recordCount) return nullptr;
     generated++;
     shared_ptr<Record> ptr(new Record);
     return ptr;

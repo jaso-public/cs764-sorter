@@ -53,13 +53,14 @@ StagedProvider::StagedProvider(StagingConfig cfg): storage(""), staging("") {
  */
 shared_ptr<Record> StagedProvider::next() {
     if (nextRecord >= recordCount) return nullptr;
+    uint8_t* data = new  uint8_t[recordSize];
     int recordRemaining = recordSize;
     int recordOffset = 0;
     while (true) {
         if (recordRemaining < 1) {
             nextRecord++;
             Record::staticInitialize(recordSize, keyOffset, keySize);
-            shared_ptr<Record> ptr(new Record);
+            shared_ptr<Record> ptr(new Record(data));
             return ptr;
         }
         if (bufferRemaining < 1) {

@@ -1,13 +1,10 @@
 #include "InOrderGenerator.h"
 
 // class constructor
-InOrderGenerator::InOrderGenerator(long count, uint64_t size, uint32_t keyOffset, uint32_t keySize) {
+InOrderGenerator::InOrderGenerator(SorterConfig cfg) {
     // sets given variables to class variables
-    this->count = count;
-    this->size = size;
-    this->keyOffset = keyOffset;
+    this->cfg = cfg;
     this->generated = 0;
-    this->keySize = keySize;
 }
 
 /**
@@ -16,9 +13,9 @@ InOrderGenerator::InOrderGenerator(long count, uint64_t size, uint32_t keyOffset
     */
 shared_ptr<Record> InOrderGenerator::next() {
     // returns a null pointer when no more records are to be generated
-    if (generated >= count) return nullptr;
+    if (generated >= cfg.recordCount) return nullptr;
     // returns a newly created record in memory
-    Record::staticInitialize(size, keyOffset, keySize);
+    Record::staticInitialize(cfg.recordSize, cfg.keyOffset, cfg.keySize);
     generated++;
     shared_ptr<Record> ptr(new Record);
     return ptr;
