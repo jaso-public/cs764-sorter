@@ -122,6 +122,25 @@ add_custom_command(TARGET testIODevice
         COMMENT "Running testIODevice..."
 )
 
+add_executable(testArrayProvider
+        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/ArrayProvider.h
+        Testing/TestProviders/ArrayProvider.cpp
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Testing/Tests/Providers/ArrayProviderTest.cpp
+        Testing/Tests/Providers/ArrayProviderTest.h
+)
+
+add_custom_command(TARGET testArrayProvider
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testArrayProvider
+        COMMENT "Running testArrayProvider..."
+)
+
 add_executable(testSingleProvider
         Providers/SingleProvider.cpp
         Providers/SingleProvider.h
@@ -690,10 +709,14 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
         COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testPrinter>
+        COMMAND $<TARGET_FILE:testArrayProvider>
 )
+
+
 
 add_custom_command(TARGET runAllTests
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/runAllTests
         COMMENT "Running runAllTests..."
 )
+
