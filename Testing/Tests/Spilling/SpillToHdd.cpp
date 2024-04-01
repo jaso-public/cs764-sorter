@@ -13,9 +13,9 @@ void SpillToHdd::testSpillToHdd() {
     cfg.ssdStorageSize = 2*1024*1024;
     cfg.memoryBlockCount = 10;
 
-    CrcRandomGenerator crc(recordCount, recordSize, keyOffset, keySize);
+    CrcRandomGenerator crc(cfg);
     Witness lower(&crc);
-    Sorter sorter(cfg, &lower, recordSize, keyOffset, keySize);
+    Sorter sorter(cfg, &lower);
     Witness upper(&sorter);
     Printer p(&upper, test);
 

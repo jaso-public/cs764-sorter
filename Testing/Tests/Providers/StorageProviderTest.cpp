@@ -11,7 +11,7 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
     RandomGenerator rg(cfg);
     Witness before(&rg);
 
-    IODevice storage("storage.tmp");
+    IODevice storage("../Files/storage.tmp");
 
     long storageOffset = 0;
     while(true) {
