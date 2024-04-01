@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(.)
 
 add_executable(cs764_sorter
-        Assert.cpp
+        OutlinedFiles/Assert.cpp
         Consumer.cpp
         Consumer.h
         OutlinedFiles/defs.cpp
@@ -243,6 +243,21 @@ add_custom_command(TARGET testConsumer
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testConsumer
         COMMENT "Running testConsumer..."
+)
+
+add_executable(testStagingConfig
+        Config/StagingConfig.h
+        Config/StagingConfig.cpp
+        Testing/Tests/Config/StagingConfigTest.cpp
+        Testing/Tests/Config/StagingConfigTest.h
+        IODevice.cpp
+        IODevice.h
+)
+
+add_custom_command(TARGET testStagingConfig
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testStagingConfig
+        COMMENT "Running testStagingConfig..."
 )
 
 add_executable(testEmptyProvider
@@ -654,7 +669,9 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testSingleProvider>
         COMMAND $<TARGET_FILE:testKey>
         COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
+        COMMAND $<TARGET_FILE:testStagingConfig>
 )
+
 
 
 
