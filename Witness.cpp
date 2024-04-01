@@ -27,7 +27,7 @@ shared_ptr<Record> Witness::next() {
         if (!lastRecord){
             if (record.compareTo(lastRecord) < 0)  isSorted = false;
         }
-        this->lastRecord = &record;
+        this->lastRecord = recordPtr;
     }
     // increases count and computes the sequential check sum value
     count++;

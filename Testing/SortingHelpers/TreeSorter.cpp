@@ -28,7 +28,7 @@ shared_ptr<Record> TreeSorter::next() {
     if (iterator < records.end()){
         // create a pointer to the returned record
         Record result = *iterator;
-        shared_ptr<Record> recordPtr =  &result;
+        shared_ptr<Record> recordPtr(&result);
         iterator++;
         return recordPtr;
     }
