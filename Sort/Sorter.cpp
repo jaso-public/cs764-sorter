@@ -27,7 +27,7 @@ Provider* Sorter::startSort() {
 
     int maxRecordsPerRun = cfg.memoryBlockSize / cfg.recordSize;
 
-    SingleProvider s;
+    SingleProvider s(cfg);
     vector<SingleProvider*> singles(maxRecordsPerRun, &s);
 
     bool endReached = false;

@@ -1,8 +1,9 @@
 #include "SingleProviderTest.h"
 
 void SingleProviderTest::testNext() {
-    SingleProvider single;
-    shared_ptr<Record>  record = single.next();
+    SorterConfig cfg;
+    SingleProvider single(cfg);
+    shared_ptr<Record> record = single.next();
     assert("Next should not have given a null pointer" && record != nullptr );
     assert("Next should have given a null pointer" && single.next() == nullptr );
     single.reset(record);

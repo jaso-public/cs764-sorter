@@ -6,7 +6,9 @@ TournamentPqTest::TournamentPqTest() {};
 void TournamentPqTest::doTest(int numProviders) {
     int numItemsPerList = 10;
 
-    InOrderGenerator i(numProviders * numItemsPerList, 16, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    InOrderGenerator i(cfg);
     Witness before(&i);
 
 
@@ -20,7 +22,7 @@ void TournamentPqTest::doTest(int numProviders) {
 
     for(int j=0 ; j<numItemsPerList ; j++) {
         for (auto it = lists.begin(); it != lists.end(); ++it){
-            Record* ptr = before.next();
+            shared_ptr<Record> ptr = before.next();
             Record r = *ptr;
             vector<Record> currentIndex = *it;
             currentIndex.push_back(r);

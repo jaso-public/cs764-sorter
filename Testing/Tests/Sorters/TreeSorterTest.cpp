@@ -1,7 +1,9 @@
 #include "TreeSorterTest.h"
 
 void TreeSorterTest::testCount10() {
-    RandomGenerator r(10, 100, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    RandomGenerator r(cfg);
     Witness lower(&r);
     TreeSorter sorter(&r);
     shared_ptr<Record> prevRecordPtr = nullptr;
@@ -20,7 +22,9 @@ void TreeSorterTest::testCount10() {
 }
 
 void TreeSorterTest::testCount50() {
-    RandomGenerator r(50, 100, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 50;
+    RandomGenerator r(cfg);
     Witness lower(&r);
     TreeSorter sorter(&r);
     shared_ptr<Record> prevRecordPtr = nullptr;

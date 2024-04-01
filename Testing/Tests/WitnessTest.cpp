@@ -1,7 +1,9 @@
 #include "WitnessTest.h"
 
 void WitnessTest::testLower() {
-    InOrderGenerator i(10, 100, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    InOrderGenerator i(cfg);
     Witness lower(&i);
     for (int i = 0; i < 10; i++){
         shared_ptr<Record> ptr = lower.next();
@@ -13,7 +15,9 @@ void WitnessTest::testLower() {
 }
 
 void WitnessTest::testWithSorter() {
-    InOrderGenerator i(10, 100, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    InOrderGenerator i(cfg);
     Witness lower(&i);
     NoopSorter sorter(&lower);
     for (int i = 0; i < 10; i++){
@@ -25,7 +29,9 @@ void WitnessTest::testWithSorter() {
 }
 
 void WitnessTest::testGivingWitnessNoopSorter() {
-    InOrderGenerator i(10, 100, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    InOrderGenerator i(cfg);
     NoopSorter sorter(&i);
     Witness upper(&sorter);
     for (int i = 0; i < 10; i++){
@@ -37,7 +43,9 @@ void WitnessTest::testGivingWitnessNoopSorter() {
 }
 
 void WitnessTest::testGivingWitnessAnotherWitness() {
-    InOrderGenerator i(10, 100, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    InOrderGenerator i(cfg);
     Witness lower(&i);
     Witness upper(&lower);
     for (int i = 0; i < 10; i++){
@@ -49,7 +57,9 @@ void WitnessTest::testGivingWitnessAnotherWitness() {
 }
 
 void WitnessTest::testUpper() {
-    InOrderGenerator i(10, 100, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    InOrderGenerator i(cfg);
     Witness lower(&i);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
@@ -62,7 +72,9 @@ void WitnessTest::testUpper() {
 }
 
 void WitnessTest::testTenInorder() {
-    InOrderGenerator i(10, 100, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    InOrderGenerator i(cfg);
     Witness lower(&i);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
@@ -76,7 +88,9 @@ void WitnessTest::testTenInorder() {
 }
 
 void WitnessTest::testDropOne() {
-    InOrderGenerator i(10, 100, 8, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    InOrderGenerator i(cfg);
     Witness lower(&i);
     DropFirst dropper(&lower);
     NoopSorter sorter(&dropper);
@@ -93,7 +107,9 @@ void WitnessTest::testDropOne() {
 }
 
 void WitnessTest::testRandomOrder() {
-    RandomGenerator r(10, 100, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    RandomGenerator r(cfg);
     Witness lower(&r);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
@@ -109,7 +125,9 @@ void WitnessTest::testRandomOrder() {
 }
 
 void WitnessTest::testTreeSorter() {
-    RandomGenerator r(10, 100, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    RandomGenerator r(cfg);
     Witness lower(&r);
     TreeSorter sorter(&lower);
     Witness upper(&sorter);
@@ -125,7 +143,9 @@ void WitnessTest::testTreeSorter() {
 
 void WitnessTest::testRandomOrderWithPrinting() {
     string test = "testRandomOrderWithPrinting: ";
-    RandomGenerator r(10, 100, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    RandomGenerator r(cfg);
     Printer printer1(&r, test+"from generator");
     Witness lower(&printer1);
     NoopSorter sorter(&lower);
@@ -144,7 +164,9 @@ void WitnessTest::testRandomOrderWithPrinting() {
 
 void WitnessTest::testTreeSorterWithPrinting() {
     string test = "testTreeSorterWithPrinting: ";
-    RandomGenerator r(10, 100, 8);
+    SorterConfig cfg;
+    cfg.recordCount = 10;
+    RandomGenerator r(cfg);
     Printer printer1(&r, test+"from generator");
     Witness lower(&printer1);
     TreeSorter sorter(&lower);

@@ -1,16 +1,13 @@
 #include "CrcRandomGenerator.h"
 
 
-CrcRandomGenerator::CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset, uint32_t keySize) {
-    this->keySize = keySize;
-    this->count = count;
-    this->size = size;
-    this->keyOffset = keyOffset;
+CrcRandomGenerator::CrcRandomGenerator(SorterConfig cfg) {
+    this->cfg = cfg;
     this->generated = 0;
 }
 
 shared_ptr<Record> CrcRandomGenerator::next() {
-    if(generated >= count) return nullptr;
+    if(generated >= cfg.recordCount) return nullptr;
     generated++;
     shared_ptr<Record> ptr(new Record);
     return ptr;

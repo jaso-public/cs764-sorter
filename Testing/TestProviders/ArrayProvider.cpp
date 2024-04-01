@@ -25,7 +25,7 @@ shared_ptr<Record> ArrayProvider::next() {
         // create a pointer to the returned record
         Record result = *ptr;
         ptr++;
-        shared_ptr<Record> recordPtr =  &result;
+        shared_ptr<Record> recordPtr =  make_shared<Record>(result);
         return recordPtr;
     }
     return nullptr;

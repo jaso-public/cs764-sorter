@@ -65,8 +65,6 @@ add_executable(createRecords
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Providers/Dedooper.h
-        Testing/Tests/IODevice/IoDeviceTest.cpp
 )
 
 add_custom_command(TARGET createRecords
@@ -101,6 +99,10 @@ add_executable(testPrinter
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testPrinter
@@ -133,6 +135,10 @@ add_executable(testArrayProvider
         Records/rng.h
         Testing/Tests/Providers/ArrayProviderTest.cpp
         Testing/Tests/Providers/ArrayProviderTest.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testArrayProvider
@@ -146,6 +152,14 @@ add_executable(testSingleProvider
         Providers/SingleProvider.h
         Testing/Tests/Providers/SingleProviderTest.cpp
         Testing/Tests/Providers/SingleProviderTest.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
 )
 
 add_custom_command(TARGET testSingleProvider
@@ -163,6 +177,10 @@ add_executable(testInOrderGenerator
         Testing/TestProviders/InOrderGenerator.h
         Testing/Tests/Providers/InOrderGeneratorTest.cpp
         Testing/Tests/Providers/InOrderGeneratorTest.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testInOrderGenerator
@@ -182,6 +200,10 @@ add_executable(testDedooper
         Testing/Tests/DedooperTest.h
         Providers/Dedooper.cpp
         Providers/Dedooper.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testDedooper
@@ -199,6 +221,10 @@ add_executable(testRandomGenerator
         Testing/TestProviders/RandomGenerator.h
         Testing/Tests/Providers/RandomGeneratorTest.cpp
         Testing/Tests/Providers/RandomGeneratorTest.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testRandomGenerator
@@ -233,6 +259,10 @@ add_executable(testDropFirst
         Testing/Tests/Providers/DropFirstTest.cpp
         Witness.h
         Witness.cpp
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testDropFirst
@@ -256,6 +286,10 @@ add_executable(testTreeSorter
         Witness.cpp
         Testing/SortingHelpers/Key.h
         Testing/SortingHelpers/Key.cpp
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testTreeSorter
@@ -274,7 +308,11 @@ add_executable(testConsumer
         Testing/Tests/ConsumerTest.cpp
         Testing/Tests/ConsumerTest.h
         Consumer.cpp
-        Consumer
+        Consumer.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testConsumer
@@ -352,6 +390,10 @@ add_executable(testWitness
         Testing/Tests/WitnessTest.h
         Providers/Dedooper.cpp
         Providers/Dedooper.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testWitness
@@ -379,6 +421,10 @@ add_executable(testPQ
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testPQ

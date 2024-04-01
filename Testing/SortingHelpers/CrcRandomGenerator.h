@@ -3,18 +3,16 @@
 #include <stdlib.h>
 #include "../../Records/Record.h"
 #include "../../Providers/Provider.h"
+#include "Config/SorterConfig.h"
 using namespace std;
 
 class CrcRandomGenerator: public Provider{
 public:
-    long count;
-    uint64_t size;
-    uint32_t keyOffset;
-    uint32_t keySize;
-    CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset, uint32_t keySize);
+    CrcRandomGenerator(SorterConfig cfg);
     shared_ptr<Record> next() override;
     bool verifyCrc(shared_ptr<Record> recordPtr);
 private:
+    SorterConfig cfg;
     long generated;
 };
 
