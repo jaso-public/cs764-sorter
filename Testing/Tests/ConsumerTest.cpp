@@ -1,10 +1,10 @@
 #include "ConsumerTest.h"
 
 void ConsumerTest::testConsume() {
-    InOrderGenerator generator(10, 100, 8);
+    InOrderGenerator generator(10, 100, 8, 8);
     Consumer consume(&generator);
     consume.consume();
-    Record* ptr = generator.next();
+    shared_ptr<Record> ptr = generator.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 

@@ -6,7 +6,7 @@ TournamentPqTest::TournamentPqTest() {};
 void TournamentPqTest::doTest(int numProviders) {
     int numItemsPerList = 10;
 
-    InOrderGenerator i(numProviders * numItemsPerList, 16, 8);
+    InOrderGenerator i(numProviders * numItemsPerList, 16, 8, 8);
     Witness before(&i);
 
 

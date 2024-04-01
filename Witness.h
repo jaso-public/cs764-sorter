@@ -22,7 +22,7 @@ public:
    * Returns a pointer to the next record in the list and checks that each record key is sorted
    * @return pointer to next record or null if no more records exists
    */
-    Record* next() override;
+    shared_ptr<Record> next() override;
 
     /**
      * Gets total number of generated records
@@ -49,7 +49,7 @@ private:
     long count;
     // keeps track of checksum value
     uint64_t crc;
-    Record* lastRecord;
+    shared_ptr<Record> lastRecord;
 
 };
 

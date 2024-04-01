@@ -17,9 +17,9 @@ Witness::Witness(Provider* givenSource) {
 * @return pointer to next record or a null pointer if no more records exists
 */
 
-Record* Witness::next() {
+shared_ptr<Record> Witness::next() {
     // gets the next record pointer and returns the pointer if it is null
-    Record* recordPtr = source->next();
+    shared_ptr<Record> recordPtr = source->next();
     if (recordPtr == nullptr) return nullptr;
     // else obtains the record and checks if it is sorted
     Record record = *recordPtr;

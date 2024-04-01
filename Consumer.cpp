@@ -12,7 +12,7 @@ Consumer::Consumer(Provider* givenSource): source(givenSource)  {}
  */
 void Consumer::consume() {
     while (true){
-        Record* ptr = source->next();
+        shared_ptr<Record> ptr = source->next();
         // if null ptr then end consuming
         if (!ptr){
             return;

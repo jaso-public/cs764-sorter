@@ -9,10 +9,10 @@ TournamentPQ::TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset,
 
 
     // create and fill the records array
-    vector<Record*> r(numProviders);
+    vector<shared_ptr<Record>> r(numProviders);
     this->records = r;
     for(int i=0 ; i<numProviders ; i++) {
-        Record* ptr = providers[i]->next();
+        shared_ptr<Record> ptr = providers[i]->next();
         records[i] = ptr;
     }
 
@@ -42,13 +42,13 @@ TournamentPQ::TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset,
  * TournamentPQ constructor
  * Determines which records are winners and losers in the given tournament
  */
-Record* TournamentPQ::next() {
+shared_ptr<Record> TournamentPQ::next() {
     int provider = losers[0];
 
-    Record* result = records[provider];
+    shared_ptr<Record> result = records[provider];
     if(!result) return nullptr;
 
-    Record* ptr = providers[provider]->next();
+    shared_ptr<Record> ptr = providers[provider]->next();
     records[provider] = ptr;
     int match = (provider + numProviders) / 2;
 
@@ -63,7 +63,7 @@ Record* TournamentPQ::next() {
     }
     losers[0] = winner;
 
-    Record* ptrResult = result;
+    shared_ptr<Record> ptrResult = result;
 
     return ptrResult;
 }
@@ -76,8 +76,8 @@ Record* TournamentPQ::next() {
  * @return true if the first provider wins the match, false otherwise.
  */
 bool TournamentPQ::isFirstWinner(int first, int second) {
-    Record* r1Ptr = records[first];
-    Record* r2Ptr = records[second];
+    shared_ptr<Record> r1Ptr = records[first];
+    shared_ptr<Record> r2Ptr = records[second];
     Record r1 = *r1Ptr;
     if(!r1Ptr) {
         return false;

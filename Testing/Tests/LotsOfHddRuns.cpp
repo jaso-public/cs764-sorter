@@ -5,6 +5,7 @@ void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     int recordSize = 1000;
     int recordCount = 190000;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testSpillToLotsOfHddRuns: ";
 
@@ -12,9 +13,9 @@ void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     cfg.ssdStorageSize = 100*1024*1024;
     cfg.memoryBlockCount = 10;
 
-    CrcRandomGenerator crc(recordCount, recordSize, keyOffset);
+    CrcRandomGenerator crc(recordCount, recordSize, keyOffset, keySize);
     Witness lower(&crc);
-    Sorter sorter(cfg, &lower, recordSize, keyOffset);
+    Sorter sorter(cfg, &lower, recordSize, keyOffset, keySize);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();

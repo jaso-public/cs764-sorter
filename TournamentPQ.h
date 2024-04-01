@@ -13,7 +13,7 @@ using namespace std;
 class TournamentPQ: public Provider {
 private:
     vector<Provider*> providers;
-    vector<Record*> records;
+    vector<shared_ptr<Record>> records;
     vector<int> losers;
     int numProviders;
     // key offset of record
@@ -30,7 +30,7 @@ private:
 
 public:
     TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset, int numProviders);
-    Record* next() override;
+    shared_ptr<Record> next() override;
 };
 
 

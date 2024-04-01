@@ -1,68 +1,68 @@
 #include "WitnessTest.h"
 
 void WitnessTest::testLower() {
-    InOrderGenerator i(10, 100, 8);
+    InOrderGenerator i(10, 100, 8, 8);
     Witness lower(&i);
     for (int i = 0; i < 10; i++){
-        Record* ptr = lower.next();
+        shared_ptr<Record> ptr = lower.next();
         assert("Next should have existed" && ptr != nullptr );
     }
-    Record* ptr = lower.next();
+    shared_ptr<Record> ptr = lower.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
     assert("Count should be 10" && lower.getCount() == 10 );
 }
 
 void WitnessTest::testWithSorter() {
-    InOrderGenerator i(10, 100, 8);
+    InOrderGenerator i(10, 100, 8, 8);
     Witness lower(&i);
     NoopSorter sorter(&lower);
     for (int i = 0; i < 10; i++){
-        Record* ptr = sorter.next();
+        shared_ptr<Record> ptr = sorter.next();
         assert("Next should have existed" && ptr != nullptr );
     }
-    Record* ptr = sorter.next();
+    shared_ptr<Record> ptr = sorter.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
 void WitnessTest::testGivingWitnessNoopSorter() {
-    InOrderGenerator i(10, 100, 8);
+    InOrderGenerator i(10, 100, 8, 8);
     NoopSorter sorter(&i);
     Witness upper(&sorter);
     for (int i = 0; i < 10; i++){
-        Record* ptr = upper.next();
+        shared_ptr<Record> ptr = upper.next();
         assert("Next should have existed" && ptr != nullptr );
     }
-    Record* ptr = upper.next();
+    shared_ptr<Record> ptr = upper.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
 void WitnessTest::testGivingWitnessAnotherWitness() {
-    InOrderGenerator i(10, 100, 8);
+    InOrderGenerator i(10, 100, 8, 8);
     Witness lower(&i);
     Witness upper(&lower);
     for (int i = 0; i < 10; i++){
-        Record* ptr = upper.next();
+        shared_ptr<Record> ptr = upper.next();
         assert("Next should have existed" && ptr != nullptr );
     }
-    Record* ptr2 = upper.next();
+    shared_ptr<Record> ptr2 = upper.next();
     assert("Next should have given a null pointer" && ptr2 == nullptr );
 }
 
 void WitnessTest::testUpper() {
-    InOrderGenerator i(10, 100, 8);
+    InOrderGenerator i(10, 100, 8, 8);
     Witness lower(&i);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
     for (int i = 0; i < 10; i++){
-        Record* ptr = upper.next();
+        shared_ptr<Record> ptr = upper.next();
         assert("Next should have existed" && ptr != nullptr );
     }
-    Record* ptr = upper.next();
+    shared_ptr<Record> ptr = upper.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
 void WitnessTest::testTenInorder() {
-    InOrderGenerator i(10, 100, 8);
+    InOrderGenerator i(10, 100, 8, 8);
     Witness lower(&i);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
@@ -76,7 +76,7 @@ void WitnessTest::testTenInorder() {
 }
 
 void WitnessTest::testDropOne() {
-    InOrderGenerator i(10, 100, 8);
+    InOrderGenerator i(10, 100, 8, 8);
     Witness lower(&i);
     DropFirst dropper(&lower);
     NoopSorter sorter(&dropper);
