@@ -66,6 +66,7 @@ add_executable(createRecords
         Records/rng.cpp
         Records/rng.h
         Providers/Dedooper.h
+        Testing/Tests/IODevice/IoDeviceTest.cpp
 )
 
 add_custom_command(TARGET createRecords
@@ -77,8 +78,8 @@ add_custom_command(TARGET createRecords
 add_executable(testIODevice
         IODevice.cpp
         IODevice.h
-        Testing/Tests/IoDeviceTest.cpp
-        Testing/Tests/IoDeviceTest.h
+        Testing/Tests/IODevice/IoDeviceTest.cpp
+        Testing/Tests/IODevice/IoDeviceTest.h
 )
 
 add_custom_command(TARGET testIODevice

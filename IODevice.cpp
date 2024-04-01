@@ -33,16 +33,12 @@ IODevice::IODevice(string filePath){
  * @param off the location of the first read
  * @param len the number of byes to be read
  */
-void IODevice::read(long offset, uint8_t *buffer, int off, int len) {
+void IODevice::read(long offset, uint8_t* buffer, int off, int len) {
     // catches exception if file cannot be read
     (*streamPtr).exceptions ( fstream ::badbit );
     try {
-        // sets file pointer to key location
-        (*streamPtr).seekg(offset);
-        (*streamPtr).seekg(off);
-        // reads bytes of length len and places them into the buffer
+        (*streamPtr).seekg(offset, ios::beg);
         (*streamPtr).read(reinterpret_cast<char *>(buffer), len);
-        // increase read count and size
         readCount++;
         readSize+= len;
     }
@@ -59,13 +55,12 @@ void IODevice::read(long offset, uint8_t *buffer, int off, int len) {
  * @param off the location of the first write
  * @param len the number of byes to be written
  */
-void IODevice::write(long offset, uint8_t *buffer, int off, int len) {
+void IODevice::write(long offset, uint8_t* buffer, int off, int len) {
     // catches exception if file cannot be written to
     (*streamPtr).exceptions ( fstream ::badbit );
     try {
         // sets file pointer to key location
         (*streamPtr).seekp(offset);
-        (*streamPtr).seekp(off);
         // write bytes of length len and places them into the buffer
         (*streamPtr).write(reinterpret_cast<const char *>(buffer), len);
         // increase write count and size
@@ -99,16 +94,11 @@ long IODevice::getWriteSize() {
 
 // closes the stream reading the file
 void IODevice::close() {
-    // catches exception if file cannot be close
-    (*streamPtr).exceptions ( fstream::failbit);
     try {
-        // closes stream
         (*streamPtr).close();
-    }
-    // catches exception when opening file
-    catch (fstream ::failure e) {
-        cerr << "Error closing: " << file << "\n";
-    }
+    }catch (const exception& e) {
+    cout << "Error closing file: " << file;
+}
 }
 
 // returns a string of read/write statistics

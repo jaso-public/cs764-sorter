@@ -1,5 +1,7 @@
 #ifndef CS764_SORTER_IODEVICETEST_H
 #define CS764_SORTER_IODEVICETEST_H
+#include "IODevice.h"
+#include <assert.h>
 
 
 class IoDeviceTest {
