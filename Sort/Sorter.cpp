@@ -1,11 +1,8 @@
 #include "Sorter.h"
 
-Sorter::Sorter(SorterConfig cfg, Provider* source, int recordSize, uint32_t keyOffset, uint32_t keySize) {
+Sorter::Sorter(SorterConfig cfg, Provider* source) {
     this->cfg = cfg;
     this->source = source;
-    this->recordSize = recordSize;
-    this->keyOffset = keyOffset;
-    this->keySize = keySize;
 
     this->ssdOffset = 0;
     this->ssdRemaining = 0;
@@ -28,7 +25,7 @@ Provider* Sorter::startSort() {
     Record otherClass;
     otherClass.resetCompareCount();
 
-    int maxRecordsPerRun = cfg.memoryBlockSize / recordSize;
+    int maxRecordsPerRun = cfg.memoryBlockSize / cfg.recordSize;
 
     SingleProvider s;
     vector<SingleProvider*> singles(maxRecordsPerRun, &s);
@@ -54,9 +51,9 @@ Provider* Sorter::startSort() {
             vector<Provider*> providerFromSingles(singles.begin(), singles.end());
             TournamentPQ pq(providerFromSingles, keyOffset, recordCount);
             for (int i = 0; i < recordCount; i++) {
-                Record *ptr = pq.next();
+                shared_ptr<Record> ptr = pq.next();
                 Record r = *ptr;
-                r.store(buffer, lastMemoryRun + i * recordSize, 1);
+                r.store(buffer, lastMemoryRun + i * cfg.recordSize, 1);
             }
             Run run(recordCount, lastMemoryRun);
             memoryRuns.push_back(run);
@@ -83,21 +80,20 @@ Provider* Sorter::startSort() {
         int index = 0;
 
         for (Run run: memoryRuns) {
-            MemoryProvider m(buffer, run.offset, run.numRecords, recordSize, keyOffset, keySize);
+            MemoryProvider m(buffer, run.offset, cfg);
             providers[index++] = &m;
         }
         // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
         int offset = 0;
 
         for (Run run: hddRuns) {
-            StorageProvider s(recordSize, run.numRecords, cfg.hddDevice, run.offset, buffer, offset, cfg.hddReadSize,
-                              keyOffset, keySize);
+            StorageProvider s(cfg.hddDevice, run.offset, buffer, offset, cfg.hddReadSize, cfg);
             offset += cfg.hddReadSize;
         }
 
         for (Run run: ssdRuns) {
-            StorageProvider s(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset, cfg.ssdReadSize,
-                              keyOffset, keySize);
+            StorageProvider s(cfg.ssdDevice, run.offset, buffer, offset, cfg.ssdReadSize,
+                             cfg);
             offset += cfg.ssdReadSize;
         }
         TournamentPQ t(providers, keyOffset, index);
@@ -144,8 +140,8 @@ Provider* Sorter::startSort() {
         ssdRuns.erase(ssdRuns.begin());
         recordCount += run.numRecords;
         int offset = cfg.memoryBlockSize + i * cfg.ssdReadSize;
-        StorageProvider s(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset,
-                          cfg.ssdReadSize, keyOffset, keySize);
+        StorageProvider s(cfg.ssdDevice, run.offset, buffer, offset,
+                          cfg.ssdReadSize, cfg);
         providers[i] = &s;
     }
 
@@ -166,7 +162,7 @@ Provider* Sorter::startSort() {
 
 
         StagingConfig stagingCfg;
-        stagingCfg.recordSize = recordSize;
+        stagingCfg.recordSize = cfg.recordSize;
         stagingCfg.recordCount = run.numRecords;
         stagingCfg.storage = cfg.hddDevice;
         stagingCfg.storageStartOffset = run.offset;
@@ -179,7 +175,7 @@ Provider* Sorter::startSort() {
         stagingCfg.transferBuffer = buffer;
         stagingCfg.transferStartOffset = 0;
         stagingCfg.transferLength = cfg.hddReadSize;
-        stagingCfg.keySize = keySize;
+        stagingCfg.keySize = cfg.keySize;
         stagingCfg.keyOffset = keyOffset;
         StagedProvider sp(stagingCfg);
         providers[index++] = &sp;
@@ -187,8 +183,8 @@ Provider* Sorter::startSort() {
     }
 
     for (Run run: ssdRuns) {
-        StorageProvider storageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer,
-                        memoryOffset, cfg.ssdReadSize, keyOffset, keySize);
+        StorageProvider storageProvider(cfg.ssdDevice, run.offset, buffer,
+                        memoryOffset, cfg.ssdReadSize, cfg);
         providers[index++] = &storageProvider;
         memoryOffset += cfg.ssdReadSize;
     }
@@ -219,8 +215,10 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
     while(memoryRuns.size() > 0 && index < numberBuffersToRelease) {
 
         Run run = memoryRuns[memoryRuns.size()-1];
+        SorterConfig runConfig;
+        runConfig.recordCount = run.numRecords;
         ssdRuns.pop_back();
-        MemoryProvider memProv(buffer, run.offset, run.numRecords, recordSize, keyOffset, keySize);
+        MemoryProvider memProv(buffer, run.offset, runConfig);
         providers[index++] = &memProv;
         recordCount += run.numRecords;
     }
@@ -233,7 +231,7 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 }
 
 void Sorter::storeRun(Provider* provider, long recordCount) {
-    long spaceRequired = recordCount * recordSize;
+    long spaceRequired = recordCount * cfg.recordSize;
 
     //TODO: this needs to be a file path
     IODevice device("");
@@ -262,9 +260,9 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
         shared_ptr<Record> rPtr = provider->next();
         if(!rPtr) break;
         Record r = *rPtr;
-        if(bufferRemaining < recordSize) {
+        if(bufferRemaining < cfg.recordSize) {
             r.store(buffer, bufferOffset, bufferRemaining);
-            int leftOver = recordSize-bufferRemaining;
+            int leftOver = cfg.recordSize-bufferRemaining;
             device.write(deviceOffset, buffer, 0, cfg.memoryBlockSize);
             deviceOffset += cfg.memoryBlockSize;
             r.store(buffer, bufferOffset, leftOver);
@@ -272,8 +270,8 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
             bufferRemaining = cfg.memoryBlockSize - leftOver;
         } else {
             r.store(buffer, bufferOffset, 1);
-            bufferOffset += recordSize;
-            bufferRemaining -= recordSize;
+            bufferOffset += cfg.recordSize;
+            bufferRemaining -= cfg.recordSize;
         }
     }
 

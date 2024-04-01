@@ -22,7 +22,7 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
         storageOffset += sizeof(rec.data);
     }
 
-    uint8_t* buffer = new  uint8_t[10*1024*1024]; // 10MB
+    uint8_t* memory = new  uint8_t[10*1024*1024]; // 10MB
 
 
     long storageStartOffset = 0; // we wrote the records at offset zero
@@ -32,13 +32,11 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
 
 
     StorageProvider sp(
-            recordSize,
-            recordCount,
             storage,
             storageStartOffset,
             buffer,
             bufferStartOffset,
-            bufferLength, keyOffset);
+            bufferLength, cfg);
 
 
     Witness after(&sp);

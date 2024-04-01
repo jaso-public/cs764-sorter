@@ -4,9 +4,7 @@ package sorter;
  * This config exists to supply arguments to the StagingProvider.  
  * The class needs so many parameters that passing them as arguments 
  * to the constructor would be very error prone.
- *    
- * @param recordSize           the size of the record (all records are the same size)
- * @param recordCount          the number of records that this provider will return.
+ *
  * @param storage              the IoDevice where the records are stored (probably an HDD) 
  * @param storageStartOffset   the location (offset) on the storage device where the first records is stored
  * @param staging              the IoDevice where we will stage one block of data from storage (probably an SSD)
