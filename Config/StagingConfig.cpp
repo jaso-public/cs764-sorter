@@ -1,5 +1,3 @@
 #include "StagingConfig.h"
 
-StagingConfig::StagingConfig(): storage(""), staging("")  {
-
-}
+StagingConfig::StagingConfig(): storage(""), staging("")  {}

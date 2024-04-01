@@ -232,6 +232,19 @@ add_custom_command(TARGET testConsumer
         COMMENT "Running testConsumer..."
 )
 
+add_executable(testEmptyProvider
+        Providers/EmptyProvider.cpp
+        Providers/EmptyProvider.h
+        Testing/Tests/Providers/EmptyProviderTest.cpp
+        Testing/Tests/Providers/EmptyProviderTest.h
+)
+
+add_custom_command(TARGET testEmptyProvider
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testEmptyProvider
+        COMMENT "Running testEmptyProvider..."
+)
+
 add_executable(testDuplicateRemoval
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.h
@@ -624,7 +637,9 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testDedooper>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testSorterConfig>
+        COMMAND $<TARGET_FILE:testEmptyProvider>
 )
+
 
 
 
