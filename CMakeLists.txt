@@ -75,6 +75,21 @@ add_custom_command(TARGET createRecords
         COMMENT "Running createRecords..."
 )
 
+add_executable(testSorterConfig
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        Testing/Tests/Config/SorterConfigTest.cpp
+        Testing/Tests/Config/SorterConfigTest.h
+        IODevice.h
+        IODevice.cpp
+)
+
+add_custom_command(TARGET testSorterConfig
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSorterConfig
+        COMMENT "Running testSorterConfig..."
+)
+
 add_executable(testIODevice
         IODevice.cpp
         IODevice.h
@@ -608,7 +623,9 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testTreeSorter>
         COMMAND $<TARGET_FILE:testDedooper>
         COMMAND $<TARGET_FILE:testIODevice>
+        COMMAND $<TARGET_FILE:testSorterConfig>
 )
+
 
 
 add_custom_command(TARGET runAllTests

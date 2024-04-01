@@ -3,7 +3,7 @@
 /**
  * Class constructor that will initialize the IODevices with the right files
  */
-SorterConfig::SorterConfig(): ssdDevice("ssdStaging.tmp"), hddDevice("hddStaging.tmp")
+SorterConfig::SorterConfig(): ssdDevice("../Files/ssdStaging.tmp"), hddDevice("../Files/hddStaging.tmp")
 {
     this->fraction = 0.005F;
     this->memoryBlockSize = 1024 * 1024;
