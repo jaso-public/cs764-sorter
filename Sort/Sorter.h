@@ -20,6 +20,7 @@ private:
     SorterConfig cfg;
     Provider* source;
     int recordSize;
+    uint32_t keySize;
 
     Provider* sortedProvider;
     Record record;
@@ -43,8 +44,8 @@ public:
     vector<Run> memoryRuns;
     vector<Run> ssdRuns;
     vector<Run> hddRuns;
-    Sorter(SorterConfig cfg, Provider* source, int recordSize, uint32_t keyOffset);
-    Record* next() override;
+    Sorter(SorterConfig cfg, Provider* source, int recordSize, uint32_t keyOffset, uint32_t keySize);
+    shared_ptr<Record> next() override;
     void printStats();
 
 };

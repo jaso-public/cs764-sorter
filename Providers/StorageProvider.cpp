@@ -19,7 +19,7 @@ StorageProvider::StorageProvider(int recordSize, long recordCount, IODevice stor
     this->nextRecord = 0;
 }
 
-shared_ptr<Record>  StorageProvider::next() {
+shared_ptr<Record> StorageProvider::next() {
     if(nextRecord >= recordCount) return nullptr;
     void* data = new char[recordSize];
     int recordRemaining = recordSize;

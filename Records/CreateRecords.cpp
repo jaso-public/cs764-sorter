@@ -14,8 +14,8 @@ void CreateRecords::write() {
     }
     while (generated < numberOfRecords){
         //TODO: record should be able to have alpha chars
-        Record r(recordSize, 1);
-        outFile << r.record << std::endl;
+        Record r;
+        outFile << r.data << std::endl;
         generated++;
     }
     // Close file stream

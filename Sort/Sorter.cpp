@@ -1,10 +1,11 @@
 #include "Sorter.h"
 
-Sorter::Sorter(SorterConfig cfg, Provider* source, int recordSize, uint32_t keyOffset) {
+Sorter::Sorter(SorterConfig cfg, Provider* source, int recordSize, uint32_t keyOffset, uint32_t keySize) {
     this->cfg = cfg;
     this->source = source;
     this->recordSize = recordSize;
     this->keyOffset = keyOffset;
+    this->keySize = keySize;
 
     this->ssdOffset = 0;
     this->ssdRemaining = 0;
@@ -18,7 +19,7 @@ Sorter::Sorter(SorterConfig cfg, Provider* source, int recordSize, uint32_t keyO
     this->sortedProvider = startSort();
 }
 
-Record* Sorter::next() {
+shared_ptr<Record> Sorter::next() {
     return sortedProvider->next();
 }
 
@@ -36,7 +37,7 @@ Provider* Sorter::startSort() {
     while (!endReached) {
         int recordCount = 0;
         while (recordCount < maxRecordsPerRun) {
-            Record *recordPtr = source->next();
+            shared_ptr<Record> recordPtr = source->next();
             if (!recordPtr) {
                 endReached = true;
                 break;
@@ -82,7 +83,7 @@ Provider* Sorter::startSort() {
         int index = 0;
 
         for (Run run: memoryRuns) {
-            MemoryProvider m(buffer, run.offset, run.numRecords, recordSize, keyOffset);
+            MemoryProvider m(buffer, run.offset, run.numRecords, recordSize, keyOffset, keySize);
             providers[index++] = &m;
         }
         // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
@@ -90,13 +91,13 @@ Provider* Sorter::startSort() {
 
         for (Run run: hddRuns) {
             StorageProvider s(recordSize, run.numRecords, cfg.hddDevice, run.offset, buffer, offset, cfg.hddReadSize,
-                              keyOffset);
+                              keyOffset, keySize);
             offset += cfg.hddReadSize;
         }
 
         for (Run run: ssdRuns) {
             StorageProvider s(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset, cfg.ssdReadSize,
-                              keyOffset);
+                              keyOffset, keySize);
             offset += cfg.ssdReadSize;
         }
         TournamentPQ t(providers, keyOffset, index);
@@ -144,7 +145,7 @@ Provider* Sorter::startSort() {
         recordCount += run.numRecords;
         int offset = cfg.memoryBlockSize + i * cfg.ssdReadSize;
         StorageProvider s(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer, offset,
-                          cfg.ssdReadSize, keyOffset);
+                          cfg.ssdReadSize, keyOffset, keySize);
         providers[i] = &s;
     }
 
@@ -178,6 +179,8 @@ Provider* Sorter::startSort() {
         stagingCfg.transferBuffer = buffer;
         stagingCfg.transferStartOffset = 0;
         stagingCfg.transferLength = cfg.hddReadSize;
+        stagingCfg.keySize = keySize;
+        stagingCfg.keyOffset = keyOffset;
         StagedProvider sp(stagingCfg);
         providers[index++] = &sp;
         memoryOffset += cfg.ssdReadSize;
@@ -185,7 +188,7 @@ Provider* Sorter::startSort() {
 
     for (Run run: ssdRuns) {
         StorageProvider storageProvider(recordSize, run.numRecords, cfg.ssdDevice, run.offset, buffer,
-                        memoryOffset, cfg.ssdReadSize, keyOffset);
+                        memoryOffset, cfg.ssdReadSize, keyOffset, keySize);
         providers[index++] = &storageProvider;
         memoryOffset += cfg.ssdReadSize;
     }
@@ -217,7 +220,7 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 
         Run run = memoryRuns[memoryRuns.size()-1];
         ssdRuns.pop_back();
-        MemoryProvider memProv(buffer, run.offset, run.numRecords, recordSize, keyOffset);
+        MemoryProvider memProv(buffer, run.offset, run.numRecords, recordSize, keyOffset, keySize);
         providers[index++] = &memProv;
         recordCount += run.numRecords;
     }
@@ -256,7 +259,7 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
     int bufferOffset = 0;
     int bufferRemaining = cfg.memoryBlockSize;
     while(true) {
-        Record* rPtr = provider->next();
+        shared_ptr<Record> rPtr = provider->next();
         if(!rPtr) break;
         Record r = *rPtr;
         if(bufferRemaining < recordSize) {
