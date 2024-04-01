@@ -2,15 +2,18 @@
 #define CS764_SORTER_DEDOOPER_H
 
 #include "Provider.h"
+#include <memory>
+#include <iostream>
+using namespace std;
 
 
 class Dedooper: public Provider{
 public:
     Provider* source;
     Dedooper(Provider* source);
-    Record* next();
+    shared_ptr<Record> next();
 private:
-    Record* previousRecord;
+    shared_ptr<Record> previousRecord;
 };
 
 

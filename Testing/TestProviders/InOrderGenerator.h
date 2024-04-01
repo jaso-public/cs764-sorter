@@ -13,10 +13,11 @@ public:
     // represents the size of the records
     uint64_t size;
     uint32_t keyOffset;
+    uint32_t keySize;
     // class constructor
-    InOrderGenerator(long count, uint64_t size,  uint32_t keyOffset);
+    InOrderGenerator(long count, uint64_t size,  uint32_t keyOffset, uint32_t keySize);
     // returns a pointer to the next record or a null pointer if a next record does not exist
-    Record* next() override;
+    shared_ptr<Record> next() override;
 private:
     // stores actual number of records currently generated
     long generated;

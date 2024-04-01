@@ -30,7 +30,7 @@ public:
      *         0 if the two keys are equal
      *        -1 if the other key is greater
      */
-    int compareTo(Record *other);
+    int compareTo(shared_ptr<Record> other);
 
     void store(uint8_t *dst);
 

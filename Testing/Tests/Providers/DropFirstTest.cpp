@@ -1,7 +1,7 @@
 #include "DropFirstTest.h"
 
 void DropFirstTest::testDropWithCount10() {
-    InOrderGenerator i(10, 100, 8);
+    InOrderGenerator i(10, 100, 8, 8);
     Witness lower(&i);
     DropFirst dropper(&lower);
     for (int i = 0; i < 9; i++){
@@ -13,7 +13,7 @@ void DropFirstTest::testDropWithCount10() {
 }
 
 void DropFirstTest::testDropWithCount20() {
-    InOrderGenerator i(20, 100, 8);
+    InOrderGenerator i(20, 100, 88);
     Witness lower(&i);
     DropFirst dropper(&lower);
     for (int i = 0; i < 19; i++){

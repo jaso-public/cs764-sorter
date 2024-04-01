@@ -15,7 +15,7 @@ public:
      * Generates the next record
      * @returns the a pointer to the next record or a null pointer record if the end of the list been reached
      */
-    virtual Record* next() = 0;
+    virtual shared_ptr<Record> next() = 0;
 };
 
 

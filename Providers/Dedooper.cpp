@@ -7,10 +7,11 @@ Dedooper::Dedooper(Provider *source): source(source) {
 /**
  * Only returns unique records
  */
-Record* Dedooper::next() {
-    Record* currentRecord = source->next();
+shared_ptr<Record> Dedooper::next() {
+    shared_ptr<Record> currentRecord = source->next();
     if (!previousRecord){
         // continues to get next record until a unique record is reached
+        //TODO: this compare needs to compare a data not a key
         while(previousRecord->compareTo(currentRecord) == 0){
             previousRecord = currentRecord;
             currentRecord = source->next();

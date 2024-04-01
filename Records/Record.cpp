@@ -43,7 +43,7 @@ Record::~Record() {
     delete[] data;
 }
 
-int Record::compareTo(Record *other) {
+int Record::compareTo(shared_ptr<Record> other) {
     return memcmp(data + keyOffset, other->data + keyOffset, keySize);
 }
 
