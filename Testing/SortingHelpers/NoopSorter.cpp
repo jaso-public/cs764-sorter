@@ -9,6 +9,6 @@ NoopSorter::NoopSorter(Provider* givenProvider) {
 }
 
 // returns the provider's next generated record pointer
-Record* NoopSorter::next() {
+shared_ptr<Record> NoopSorter::next() {
     return source->next();
 }

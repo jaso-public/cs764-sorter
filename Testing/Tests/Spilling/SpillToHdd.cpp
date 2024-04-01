@@ -5,6 +5,7 @@ void SpillToHdd::testSpillToHdd() {
     int recordSize = 1000;
     int recordCount = 19000;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testSpillToHdd: ";
 
@@ -12,14 +13,14 @@ void SpillToHdd::testSpillToHdd() {
     cfg.ssdStorageSize = 2*1024*1024;
     cfg.memoryBlockCount = 10;
 
-    CrcRandomGenerator crc(recordCount, recordSize, keyOffset);
+    CrcRandomGenerator crc(recordCount, recordSize, keyOffset, keySize);
     Witness lower(&crc);
-    Sorter sorter(cfg, &lower, recordSize, 8);
+    Sorter sorter(cfg, &lower, recordSize, keyOffset, keySize);
     Witness upper(&sorter);
     Printer p(&upper, test);
 
     while(true) {
-        Record* recordPtr = p.next();
+        shared_ptr<Record> recordPtr = p.next();
         if(recordPtr) break;
         crc.verifyCrc(recordPtr);
     }

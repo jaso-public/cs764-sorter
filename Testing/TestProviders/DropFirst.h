@@ -20,7 +20,7 @@ public:
      * Gets the next record from the provider or a null record
      * @return a pointer to the next record or a null pointer if a next record does not exist
      */
-    Record* next() override;
+    shared_ptr<Record> next() override;
 };
 
 

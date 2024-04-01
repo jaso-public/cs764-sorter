@@ -7,10 +7,9 @@ RandomGenerator::RandomGenerator(long count, uint64_t size, uint32_t keyOffset) 
     this->generated = 0;
 }
 
-Record* RandomGenerator::next() {
+shared_ptr<Record> RandomGenerator::next() {
     if(generated >= count) return nullptr;
     generated++;
-    Record r;
-    Record* ptr = &r;
+    shared_ptr<Record> ptr(new Record);
     return ptr;
 }

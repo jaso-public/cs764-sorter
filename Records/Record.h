@@ -54,7 +54,7 @@ public:
     bool operator==(const Record& other) const{
         return data < other.data;
     }
-    uint8_t *data;
+    uint8_t* data;
 
 private:
     static uint32_t recordSize;   // size of the record

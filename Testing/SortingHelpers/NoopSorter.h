@@ -18,7 +18,7 @@ public:
      */
     NoopSorter(Provider* givenProvider);
     // returns the provider's next generated record pointer
-    Record* next() override;
+    shared_ptr<Record> next() override;
 };
 
 

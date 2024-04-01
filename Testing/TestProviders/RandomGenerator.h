@@ -9,7 +9,7 @@ public:
     uint64_t size;
     uint32_t keyOffset;
     RandomGenerator(long count, uint64_t size, uint32_t keyOffset);
-    Record* next() override;
+    shared_ptr<Record> next() override;
 private:
     long generated;
 };

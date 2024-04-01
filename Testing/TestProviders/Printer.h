@@ -31,7 +31,7 @@ public:
      * If the record is not null, it will print out the current time, message, record's key, and checksum to console
      * @returns a pointer to the record or a null pointer
      */
-    Record* next() override;
+    shared_ptr<Record> next() override;
 };
 
 

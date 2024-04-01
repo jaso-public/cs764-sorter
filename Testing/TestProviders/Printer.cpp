@@ -19,7 +19,7 @@ Printer::Printer(Provider* givenSource, string givenMessage) {
  * https://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
  * https://codereview.stackexchange.com/questions/11921/getting-current-time-with-milliseconds
  */
-Record* Printer::next() {
+shared_ptr<Record> Printer::next() {
     // obtains the current time to the millisecond to print out
     time_t now = time(0);
     tm *localTime = localtime(&now);
@@ -30,7 +30,7 @@ Record* Printer::next() {
     cout << localTime->tm_min << ":";
     cout << localTime->tm_sec << ":";
     cout << milliSeconds;
-    Record* recordPtr = source->next();
+    shared_ptr<Record> recordPtr = source->next();
     // if record pointer is null
     if (!recordPtr){
         cout << " " << message << ": record is null!"<< "\n";

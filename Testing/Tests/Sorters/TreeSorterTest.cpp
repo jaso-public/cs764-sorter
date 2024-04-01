@@ -4,10 +4,10 @@ void TreeSorterTest::testCount10() {
     RandomGenerator r(10, 100, 8);
     Witness lower(&r);
     TreeSorter sorter(&r);
-    Record* prevRecordPtr = nullptr;
+    shared_ptr<Record> prevRecordPtr = nullptr;
     Record prevRecord;
     for (int i = 0; i < 10; i++){
-        Record* ptr = sorter.next();
+        shared_ptr<Record> ptr = sorter.next();
         Record currentRecord = *ptr;
         assert("Next should have existed" && ptr != nullptr );
         if (prevRecordPtr != nullptr){
@@ -15,7 +15,7 @@ void TreeSorterTest::testCount10() {
         }
         prevRecordPtr = ptr;
     }
-    Record* ptr = sorter.next();
+    shared_ptr<Record> ptr = sorter.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
@@ -23,10 +23,10 @@ void TreeSorterTest::testCount50() {
     RandomGenerator r(50, 100, 8);
     Witness lower(&r);
     TreeSorter sorter(&r);
-    Record* prevRecordPtr = nullptr;
+    shared_ptr<Record> prevRecordPtr = nullptr;
     Record prevRecord;
     for (int i = 0; i < 50; i++){
-        Record* ptr = sorter.next();
+        shared_ptr<Record> ptr = sorter.next();
         Record currentRecord = *ptr;
         assert("Next should have existed" && ptr != nullptr );
         if (prevRecordPtr != nullptr){
@@ -34,7 +34,7 @@ void TreeSorterTest::testCount50() {
         }
         prevRecordPtr = ptr;
     }
-    Record* ptr = sorter.next();
+    shared_ptr<Record> ptr = sorter.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 

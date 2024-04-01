@@ -1,23 +1,23 @@
 #include "CrcRandomGenerator.h"
 
 
-CrcRandomGenerator::CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset) {
+CrcRandomGenerator::CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset, uint32_t keySize) {
+    this->keySize = keySize;
     this->count = count;
     this->size = size;
     this->keyOffset = keyOffset;
     this->generated = 0;
 }
 
-Record* CrcRandomGenerator::next() {
+shared_ptr<Record> CrcRandomGenerator::next() {
     if(generated >= count) return nullptr;
-    Record r;
     generated++;
-    Record* ptr = &r;
+    shared_ptr<Record> ptr(new Record);
     return ptr;
 }
 
 //TODO: this may be wrong
-bool CrcRandomGenerator::verifyCrc(Record* recordPtr) {
+bool CrcRandomGenerator::verifyCrc(shared_ptr<Record> recordPtr) {
     if (!recordPtr) return true;
     Record r = *recordPtr;
     return r.checksum();

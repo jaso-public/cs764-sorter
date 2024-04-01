@@ -14,7 +14,7 @@ using namespace std;
 class TreeSorter: public Provider{
 public:
     Provider* source;
-    Record* next() override;
+    shared_ptr<Record> next() override;
     TreeSorter(Provider* source);
 
 private:

@@ -7,13 +7,14 @@ void SpillOneBlockToSsd::testSpillToSsdFewBlocks() {
     int recordSize = 1024;
     int recordCount = 1024*100;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testSpillToSsdFewBlocks: ";
 
     RandomGenerator rng(recordCount, recordSize, keyOffset);
     Witness lower(&rng);
     SorterConfig cgf;
-    Sorter sorter(cgf, &lower, recordSize, keyOffset);
+    Sorter sorter(cgf, &lower, recordSize, keyOffset, keySize);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();

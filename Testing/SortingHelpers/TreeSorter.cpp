@@ -5,7 +5,7 @@ TreeSorter::TreeSorter(Provider* source) {
     map<Record,Record> sorted;
     // adds all record to TreeMap until count has been reached
     while(true) {
-        Record* recordPtr = source->next();
+        shared_ptr<Record> recordPtr = source->next();
         if(!recordPtr) break;
         Record record = *recordPtr;
         sorted[record] = record;
@@ -23,12 +23,12 @@ TreeSorter::TreeSorter(Provider* source) {
     this->iterator = records.begin();
 }
 
-Record* TreeSorter::next() {
+shared_ptr<Record> TreeSorter::next() {
     // checks that another record exists
     if (iterator < records.end()){
         // create a pointer to the returned record
         Record result = *iterator;
-        Record* recordPtr =  &result;
+        shared_ptr<Record> recordPtr =  &result;
         iterator++;
         return recordPtr;
     }

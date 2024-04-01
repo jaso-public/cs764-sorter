@@ -10,9 +10,10 @@ public:
     long count;
     uint64_t size;
     uint32_t keyOffset;
-    CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset);
-    Record* next() override;
-    bool verifyCrc(Record* recPtr);
+    uint32_t keySize;
+    CrcRandomGenerator(long count, uint64_t size, uint32_t keyOffset, uint32_t keySize);
+    shared_ptr<Record> next() override;
+    bool verifyCrc(shared_ptr<Record> recordPtr);
 private:
     long generated;
 };

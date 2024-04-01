@@ -4,6 +4,7 @@ void SorterTest::testSmallSort() {
     int recordSize = 100;
     int recordCount = 10;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testSmallSort: ";
 
@@ -11,7 +12,7 @@ void SorterTest::testSmallSort() {
     Printer printer1(&rng, test+"from generator");
     Witness lower(&printer1);
     SorterConfig cgf;
-    Sorter sorter(cgf, &lower, recordSize, keyOffset);
+    Sorter sorter(cgf, &lower, recordSize, keyOffset, keySize);
     Witness upper(&sorter);
     Printer printer2(&upper, test+"from sorter");
     Consumer consumer(&printer2);
@@ -30,13 +31,14 @@ void SorterTest::testAllMemory() {
     int recordSize = 1000;
     int recordCount = 90000;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testAllMemory: ";
 
     RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
-    Sorter sorter(cgf, &lower, recordSize, keyOffset);
+    Sorter sorter(cgf, &lower, recordSize, keyOffset, keySize);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -54,13 +56,14 @@ void SorterTest::testSpillToSsdFewBlocks() {
     int recordSize = 1024;
     int recordCount = 1024*100;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testSpillToSsdFewBlocks: ";
 
     RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
-    Sorter sorter(cgf, &lower, recordSize, keyOffset);
+    Sorter sorter(cgf, &lower, recordSize, keyOffset,keySize);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -78,13 +81,14 @@ void SorterTest::testSpillToSsd() {
     int recordSize = 1000;
     int recordCount = 900000;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testSpillToSsd: ";
 
     RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
-    Sorter sorter(cgf, &lower, recordSize, keyOffset);
+    Sorter sorter(cgf, &lower, recordSize, keyOffset, keySize);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -102,13 +106,14 @@ void SorterTest::testSpillToHdd() {
     int recordSize = 1000;
     int recordCount = 190000;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testSpillToLotsOfHddRuns: ";
 
     RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
-    Sorter sorter(cgf, &lower, recordSize, keyOffset);
+    Sorter sorter(cgf, &lower, recordSize, keyOffset, keySize);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -126,6 +131,7 @@ void SorterTest::testSpillToLotsOfHddRuns() {
     int recordSize = 1000;
     int recordCount = 190000;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testSpillToLotsOfHddRuns: ";
 
@@ -135,7 +141,7 @@ void SorterTest::testSpillToLotsOfHddRuns() {
 
     RandomGenerator r(keyOffset, recordCount, recordSize);
     Witness lower(&r);
-    Sorter sorter(cfg, &lower, recordSize, keyOffset);
+    Sorter sorter(cfg, &lower, recordSize, keyOffset, keySize);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -153,13 +159,14 @@ void SorterTest::testZeroRecords() {
     int recordSize = 1000;
     int recordCount = 0;
     int keyOffset = 8;
+    int keySize = 8;
 
     string test = "testZeroRecords: ";
 
     RandomGenerator rng(keyOffset, recordCount, recordSize);
     Witness lower(&rng);
     SorterConfig cgf;
-    Sorter sorter(cgf, &lower, recordSize, keyOffset);
+    Sorter sorter(cgf, &lower, recordSize, keyOffset, keySize);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();

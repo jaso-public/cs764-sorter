@@ -10,20 +10,20 @@ void RandomGeneratorTest::testInitializationValues() {
 void RandomGeneratorTest::testCount10() {
     RandomGenerator generator(10, 100, 8);
     for (int i = 0; i < 10; i++){
-        Record* ptr = generator.next();
+        shared_ptr<Record>  ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );
     }
-    Record* ptr = generator.next();
+    shared_ptr<Record>  ptr = generator.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
 void RandomGeneratorTest::testCount50() {
     RandomGenerator generator(50, 100, 8);
     for (int i = 0; i < 50; i++){
-        Record* ptr = generator.next();
+        shared_ptr<Record> ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );
     }
-    Record* ptr = generator.next();
+    shared_ptr<Record>  ptr = generator.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
