@@ -90,6 +90,25 @@ add_custom_command(TARGET testSorterConfig
         COMMENT "Running testSorterConfig..."
 )
 
+add_executable(testPrinter
+        Testing/TestProviders/Printer.cpp
+        Testing/TestProviders/Printer.h
+        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/Tests/Providers/PrinterTest.cpp
+        Testing/Tests/Providers/PrinterTest.h
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+)
+
+add_custom_command(TARGET testPrinter
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testPrinter
+        COMMENT "Running testPrinter..."
+)
+
 add_executable(testIODevice
         IODevice.cpp
         IODevice.h
@@ -670,12 +689,8 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testKey>
         COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
         COMMAND $<TARGET_FILE:testStagingConfig>
+        COMMAND $<TARGET_FILE:testPrinter>
 )
-
-
-
-
-
 
 add_custom_command(TARGET runAllTests
         POST_BUILD
