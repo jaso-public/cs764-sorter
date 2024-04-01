@@ -17,6 +17,7 @@ private:
     long recordCount;
     uint64_t recordSize;
     uint32_t keyOffset;
+    uint32_t keySize;
 
     IODevice storage;
     long storageStartOffset;
@@ -64,7 +65,7 @@ public:
 
     StagedProvider(StagingConfig cfg);
 
-    Record* next() override;
+    shared_ptr<Record> next() override;
 
     int minSize(long size1, long size2);
 };

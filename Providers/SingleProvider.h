@@ -9,16 +9,16 @@
 class SingleProvider: public Provider {
 private:
     // a pointer to a record or a null pointer if the record does not exist
-    Record* record;
+    shared_ptr<Record>  record;
 public:
     SingleProvider();
     /**
      * Sets the class record's variable to the given record
      * @param r the new record variable of the class
      */
-    void reset(Record* r);
+    void reset(shared_ptr<Record> r);
     // returns the class record's variable and then turns it to null
-    Record* next() override;
+    shared_ptr<Record>  next() override;
 };
 
 

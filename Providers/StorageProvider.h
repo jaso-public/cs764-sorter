@@ -9,6 +9,7 @@ private:
     string filepath;
     int recordSize;
     long recordCount;
+    uint32_t keySize;
     uint32_t keyOffset;
 
     IODevice storage;
@@ -37,9 +38,10 @@ public:
             uint8_t *buffer,
             int bufferStartOffset,
             int bufferLength,
-            uint32_t keyOffset);
+            uint32_t keyOffset,
+            uint32_t keySize);
 
-    Record* next() override;
+    shared_ptr<Record> next() override;
 
 };
 

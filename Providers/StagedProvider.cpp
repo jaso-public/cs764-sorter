@@ -22,6 +22,7 @@ using namespace std;
 StagedProvider::StagedProvider(StagingConfig cfg): storage(""), staging("") {
     this->recordSize = cfg.recordSize;
     this->keyOffset = cfg.keyOffset;
+    this->keySize = cfg.keySize;
     this->storage = cfg.storage;
     this->staging = cfg.staging;
     this->recordCount = cfg.recordCount;
@@ -50,17 +51,15 @@ StagedProvider::StagedProvider(StagingConfig cfg): storage(""), staging("") {
 /**
  * @return a pointer to the next record or a null pointer if all records have been generated
  */
-Record* StagedProvider::next() {
+shared_ptr<Record> StagedProvider::next() {
     if (nextRecord >= recordCount) return nullptr;
     int recordRemaining = recordSize;
     int recordOffset = 0;
     while (true) {
         if (recordRemaining < 1) {
             nextRecord++;
-            //TODO: cannot take in 8 as real variable
-            Record::staticInitialize(recordSize, keyOffset, 8);
-            Record r;
-            Record* ptr = &r;
+            Record::staticInitialize(recordSize, keyOffset, keySize);
+            shared_ptr<Record> ptr(new Record);
             return ptr;
         }
         if (bufferRemaining < 1) {

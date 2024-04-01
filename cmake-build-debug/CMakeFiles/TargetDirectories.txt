@@ -1,6 +1,10 @@
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/cs764_sorter.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/createRecords.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testSorterConfig.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testPrinter.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testIODevice.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testArrayProvider.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testSingleProvider.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testInOrderGenerator.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testDedooper.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testRandomGenerator.dir
@@ -8,6 +12,8 @@
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testDropFirst.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testTreeSorter.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testConsumer.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testStagingConfig.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testEmptyProvider.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testDuplicateRemoval.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testWitness.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testPQ.dir

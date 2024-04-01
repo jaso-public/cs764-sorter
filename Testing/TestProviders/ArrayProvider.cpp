@@ -19,7 +19,7 @@ ArrayProvider::ArrayProvider(std::string givenName, vector<Record> givenRecords)
  * Continues to return the next method while one exists
  * @return a pointer to the next record or a null pointer if the next record does not exist
  */
-Record* ArrayProvider::next() {
+shared_ptr<Record> ArrayProvider::next() {
     // checks that another record exists
     if (ptr != records.end()){
         // create a pointer to the returned record

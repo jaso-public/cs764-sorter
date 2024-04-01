@@ -28,7 +28,7 @@ public:
     // class constructor
     ArrayProvider(string givenName,  vector<Record> givenRecords);
     // returns a record pointer to the next record or a null pointer if no more records exist
-    Record* next() override;
+    shared_ptr<Record>  next() override;
 };
 
 

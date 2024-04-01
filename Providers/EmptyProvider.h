@@ -9,7 +9,7 @@
 class EmptyProvider: public Provider {
 public:
     // continues to return a null pointer
-    Record* next() override;
+    shared_ptr<Record> next() override;
     EmptyProvider();
 };
 

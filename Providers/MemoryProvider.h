@@ -22,6 +22,7 @@ private:
     //  total number of records returned so far
     int nextRecord;
     uint32_t keyOffset;
+    uint32_t keySize;
     /**
      * Converts a long value to an integer if it is a valid conversion
      * @param the long value wanted to be converted
@@ -38,13 +39,13 @@ public:
      * @param givenRecordCount total number of records to create
      * @param givenRecordSize number of records already created
      */
-    MemoryProvider(uint8_t *buffer, long offset, long recordCount, int recordSize, uint32_t keyOffset);
+    MemoryProvider(uint8_t *buffer, long offset, long recordCount, int recordSize, uint32_t keyOffset, uint32_t keySize);
 
     /**
      * Creates another buffer of memory for the new record and assigns a record to it
      * @return pointer to the next created record or a null pointer if recordCount has been reached
      */
-    Record* next() override;
+    shared_ptr<Record> next() override;
 };
 
 

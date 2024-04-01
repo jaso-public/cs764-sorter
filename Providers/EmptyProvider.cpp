@@ -3,6 +3,6 @@
 EmptyProvider::EmptyProvider() {}
 
 // continues to return a null pointer
-Record* EmptyProvider::next() {
+shared_ptr<Record> EmptyProvider::next() {
     return nullptr;
 }

@@ -7,6 +7,7 @@ class StagingConfig {
 public:
     uint64_t recordSize;
     uint32_t keyOffset;
+    uint32_t keySize;
     long recordCount;
     long storageStartOffset;
     long stagingStartOffset;

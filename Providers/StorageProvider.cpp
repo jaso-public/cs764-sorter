@@ -1,9 +1,10 @@
 #include "StorageProvider.h"
 
 StorageProvider::StorageProvider(int recordSize, long recordCount, IODevice storage, long storageStartOffset,
-                                 uint8_t *buffer, int bufferStartOffset, int bufferLength, uint32_t keyOffset):storage("") {
+                                 uint8_t *buffer, int bufferStartOffset, int bufferLength, uint32_t keyOffset, uint32_t keySize):storage("") {
     this->recordSize = recordSize;
     this->recordCount = recordCount;
+    this->keySize = keySize;
     this->storageStartOffset = storageStartOffset;
     this->buffer = buffer;
     this->bufferStartOffset = bufferStartOffset;
@@ -18,7 +19,7 @@ StorageProvider::StorageProvider(int recordSize, long recordCount, IODevice stor
     this->nextRecord = 0;
 }
 
-Record* StorageProvider::next() {
+shared_ptr<Record>  StorageProvider::next() {
     if(nextRecord >= recordCount) return nullptr;
     void* data = new char[recordSize];
     int recordRemaining = recordSize;
@@ -28,10 +29,8 @@ Record* StorageProvider::next() {
         if(recordRemaining < 1) {
             nextRecord++;
             nextRecord++;
-            //TODO: cannot take in 8 as real variable
-            Record::staticInitialize(recordSize, keyOffset, 8);
-            Record r;
-            Record* ptr = &r;
+            Record::staticInitialize(recordSize, keyOffset, keySize);
+            shared_ptr<Record> ptr(new Record);
             return ptr;
         }
 
