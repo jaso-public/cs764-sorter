@@ -7,7 +7,7 @@ void StagedProviderTest::doTest(uint64_t size,  uint32_t keyOffset, long recordC
     RandomGenerator rg(recordCount, size, keyOffset);
     Witness before(&rg);
 
-    IODevice storage("storage.tmp");
+    IODevice storage("../Files/storage.tmp");
 
     long storageOffset = 0;
     while(true) {
@@ -18,19 +18,19 @@ void StagedProviderTest::doTest(uint64_t size,  uint32_t keyOffset, long recordC
         storageOffset += sizeof(rec.data);
     }
 
-    IODevice staging("staging.tmp");
+    IODevice staging("../Files/staging.tmp");
 
-    char * memory = new char[10*1024*1024]; // 10MB
+    uint8_t* memory = new uint8_t[10*1024*1024]; // 10MB
 
 
 
     long storageStartOffset = 0; // we wrote the records at offset zero
     long stagingStartOffset = 12431; // some arbitrary place in the staging file
 
-    char * buffer = memory;
+    uint8_t* buffer = memory;
     int bufferStartOffset = 20;
 
-    char * transferBuffer = memory;
+    uint8_t* transferBuffer = memory;
     int transferStartOffset = bufferStartOffset + bufferLength;
     int transferLength = stagingLength + bufferLength;
 
