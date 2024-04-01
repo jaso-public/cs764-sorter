@@ -32,6 +32,8 @@ public:
      */
     int compareTo(shared_ptr<Record> other);
 
+    bool isDuplicate(shared_ptr<Record> other);
+
     void store(uint8_t *dst);
 
     void store(uint8_t *dst, int offset, int numToCopy);

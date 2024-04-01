@@ -11,6 +11,10 @@ SorterConfig::SorterConfig(): ssdDevice("../Files/ssdStaging.tmp"), hddDevice(".
     this->ssdReadSize = 16 * 1024;
     this->ssdStorageSize = 10L * 1024 * 1024 * 1024;
     this->hddReadSize = 256 * 1024;
+    this->keySize = 8;
+    this->recordCount = 100;
+    this->recordSize = 10;
+    this->keyOffset = 8;
 }
 
 

@@ -90,3 +90,14 @@ uint64_t Record::getCompareCount() {
 void Record::resetCompareCount() {
     this->compareCount = 0;
 }
+
+bool Record::isDuplicate(shared_ptr<Record> other) {
+    Record otherRecord = *other;
+    uint8_t* otherData = other->data;
+    for (int i = 0; i < recordSize; i++){
+       if (data[i] != otherData[i]){
+           return false;
+       }
+    }
+    return true;
+}

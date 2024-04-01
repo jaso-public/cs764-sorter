@@ -19,6 +19,12 @@ public:
     IODevice hddDevice;
     int hddReadSize;
 
+    uint32_t recordSize;
+    uint32_t keyOffset;
+    uint32_t keySize;
+    long recordCount;
+
+
     /**
      * Class constructor that will initialize the IODevices with the right files
      */

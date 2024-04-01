@@ -11,8 +11,7 @@ shared_ptr<Record> Dedooper::next() {
     shared_ptr<Record> currentRecord = source->next();
     if (!previousRecord){
         // continues to get next record until a unique record is reached
-        //TODO: this compare needs to compare a data not a key
-        while(previousRecord->compareTo(currentRecord) == 0){
+        while(previousRecord->isDuplicate(currentRecord)){
             previousRecord = currentRecord;
             currentRecord = source->next();
         }
