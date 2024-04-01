@@ -652,7 +652,10 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
         COMMAND $<TARGET_FILE:testSingleProvider>
+        COMMAND $<TARGET_FILE:testKey>
+        COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
 )
+
 
 
 
