@@ -7,13 +7,11 @@
  * @param givenRecordCount total number of records to create
  * @param givenRecordSize number of records already created
  */
-MemoryProvider::MemoryProvider(uint8_t *buffer, long offset, long recordCount, int recordSize, uint32_t keyOffset, uint32_t keySize) {
+MemoryProvider::MemoryProvider(uint8_t *buffer, long offset, SorterConfig cfg) {
     this->buffer = *buffer;
     this->offset = safeIntCast(offset);
-    this->recordCount = safeIntCast(recordCount);
-    this->recordSize = recordSize;
-    this->keyOffset = keyOffset;
-    this->keySize = keySize;
+    this->nextRecord = 0;
+    this->cfg = cfg;
 }
 
 /**
@@ -22,10 +20,13 @@ MemoryProvider::MemoryProvider(uint8_t *buffer, long offset, long recordCount, i
   */
 shared_ptr<Record> MemoryProvider::next() {
     // if all records and memory spaces have been created
-    if(nextRecord >= recordCount) return nullptr;
+    if(nextRecord >= cfg.recordCount) return nullptr;
+    uint8_t* data = new uint8_t[cfg.recordSize];
+    int off = offset + nextRecord * cfg.recordSize;
+    copy(&buffer + off, &buffer + off + cfg.recordSize, data);
     nextRecord++;
-    Record::staticInitialize(recordSize, keyOffset, keySize);
-    shared_ptr<Record> ptr(new Record);
+    Record::staticInitialize(cfg.recordSize, cfg.keyOffset, cfg.keySize);
+    shared_ptr<Record> ptr(new Record(data));
     return ptr;
 }
 

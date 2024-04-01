@@ -4,6 +4,8 @@
 #include "Provider.h"
 #include <limits.h>
 #include <iostream>
+#include "Config/SorterConfig.h"
+#include <algorithm>
 using namespace std;
 
 /**
@@ -15,14 +17,9 @@ private:
     uint8_t buffer;
     // offset record
     int offset;
-    //  total number of records (memory spaces) to be returned/created
-    int recordCount;
-    // the size of each record
-    int recordSize;
     //  total number of records returned so far
     int nextRecord;
-    uint32_t keyOffset;
-    uint32_t keySize;
+    SorterConfig cfg;
     /**
      * Converts a long value to an integer if it is a valid conversion
      * @param the long value wanted to be converted
@@ -39,7 +36,7 @@ public:
      * @param givenRecordCount total number of records to create
      * @param givenRecordSize number of records already created
      */
-    MemoryProvider(uint8_t *buffer, long offset, long recordCount, int recordSize, uint32_t keyOffset, uint32_t keySize);
+    MemoryProvider(uint8_t *buffer, long offset, SorterConfig);
 
     /**
      * Creates another buffer of memory for the new record and assigns a record to it
