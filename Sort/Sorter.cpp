@@ -176,7 +176,7 @@ Provider* Sorter::startSort() {
         stagingCfg.transferStartOffset = 0;
         stagingCfg.transferLength = cfg.hddReadSize;
         stagingCfg.keySize = cfg.keySize;
-        stagingCfg.keyOffset = keyOffset;
+        stagingCfg.keyOffset = cfg.keyOffset;
         StagedProvider sp(stagingCfg);
         providers[index++] = &sp;
         memoryOffset += cfg.ssdReadSize;
@@ -233,8 +233,7 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 void Sorter::storeRun(Provider* provider, long recordCount) {
     long spaceRequired = recordCount * cfg.recordSize;
 
-    //TODO: this needs to be a file path
-    IODevice device("");
+    IODevice device("../Files/storeRun.tmp");
     long deviceOffset = 0;
 
     long ssdRequired = roundUp(spaceRequired, cfg.ssdReadSize);

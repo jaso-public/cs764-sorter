@@ -28,6 +28,7 @@ private:
     long writeSize;
 
 public:
+    ~IODevice();
     /**
     * Class constructor; Opens the given file in read/write mode
     * @param givenFile the string file path of the file
@@ -57,8 +58,6 @@ public:
     long getWriteCount();
     // returns the class' write size
     long getWriteSize();
-    // closes the stream reading the file
-    void close();
     // returns a string of read/write statistics
     string stats();
     // returns the file path and class identification string

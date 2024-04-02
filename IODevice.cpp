@@ -7,22 +7,24 @@
  * Source for exception handling code: https://cplusplus.com/reference/ios/ios/exceptions/
  */
 IODevice::IODevice(string filePath){
-    fstream f;
-    this->streamPtr = &f;
     this->readCount= 0;
     this->readSize = 0;
     this->writeSize = 0;
     this->writeCount = 0;
-    // catches exception if file cannot be opened
-    (*streamPtr).exceptions ( fstream::failbit);
-    try {
-        this->file = filePath;
-        // opens stream in read/write mode
-        (*streamPtr).open(filePath, ios::out | ios::in );
-    }
-    // catches exception when opening file
-    catch (fstream ::failure e) {
+    this->file = filePath;
+    // opens for reading and writing
+    this->streamPtr = new fstream(filePath, ios::in | ios::out);
+    if (!streamPtr->is_open()) {
         cerr << "Error opening: " << filePath << "\n";
+        delete streamPtr;
+        streamPtr = nullptr;
+    }
+}
+
+IODevice::~IODevice() {
+    if (streamPtr) {
+        streamPtr->close();
+        delete streamPtr;
     }
 }
 
@@ -30,45 +32,54 @@ IODevice::IODevice(string filePath){
  * Reads a number of bytes from the file at a certain location
  * @param offset the file pointer offset where reading will begin
  * @param buffer place to store read data
- * @param off the location of the first read
+ * @param off within the buffer
  * @param len the number of byes to be read
  */
 void IODevice::read(long offset, uint8_t* buffer, int off, int len) {
+    if (!streamPtr) {
+        cerr << "File not open for reading\n";
+        return;
+    }
     // catches exception if file cannot be read
     (*streamPtr).exceptions ( fstream ::badbit );
     try {
         (*streamPtr).seekg(offset, ios::beg);
-        (*streamPtr).read(reinterpret_cast<char *>(buffer), len);
+        (*streamPtr).read(reinterpret_cast<char*>(buffer + off), len);
         readCount++;
         readSize+= len;
     }
     // catches failure reading file
-    catch (fstream ::failure e) {
-        cerr << "Error reading: " << file << " Offset: " << offset << " Buffer length: " << sizeof(buffer) << " Off: " << off << " Len: " << len << "\n";
+    catch (ios_base ::failure e) {
+        cerr << "Error reading: " << file << " Offset: " << offset << " Off: " << off << " Len: " << len << "\n";
     }
 }
+
 
 /**
  * Writes a number of bytes from the file at a certain location
  * @param offset the file pointer offset where writing will begin
  * @param buffer place to store written data
- * @param off the location of the first write
+ * @param off within the buffer
  * @param len the number of byes to be written
  */
 void IODevice::write(long offset, uint8_t* buffer, int off, int len) {
+    if (!streamPtr) {
+        cerr << "File not open for writing\n";
+        return;
+    }
     // catches exception if file cannot be written to
     (*streamPtr).exceptions ( fstream ::badbit );
     try {
         // sets file pointer to key location
         (*streamPtr).seekp(offset);
         // write bytes of length len and places them into the buffer
-        (*streamPtr).write(reinterpret_cast<const char *>(buffer), len);
+        (*streamPtr).write(reinterpret_cast<const char *>(buffer + off), len);
         // increase write count and size
         writeCount++;
         writeSize += len;
     }
     // catches failure writing to file
-    catch (fstream ::failure e) {
+    catch (ios_base ::failure e) {
         cerr << "Error writing: " << file << "\n";
     }
 }
@@ -90,15 +101,6 @@ long IODevice::getWriteCount() {
 // returns the class' write size
 long IODevice::getWriteSize() {
     return writeSize;
-}
-
-// closes the stream reading the file
-void IODevice::close() {
-    try {
-        (*streamPtr).close();
-    }catch (const exception& e) {
-    cout << "Error closing file: " << file;
-}
 }
 
 // returns a string of read/write statistics
