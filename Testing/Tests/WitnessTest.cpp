@@ -178,7 +178,7 @@ void WitnessTest::testTreeSorterWithPrinting() {
 
     assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
     assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
-    assert(("The upper witness should have not been sorted but was" && !upper.isSorted));
+    assert(("The upper witness should have been sorted but was" && upper.isSorted));
     assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
     assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 }
