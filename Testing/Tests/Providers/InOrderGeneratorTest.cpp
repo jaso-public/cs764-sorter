@@ -2,7 +2,7 @@
 
 void InOrderGeneratorTest::testCount10() {
     SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 50;
+    cfg->recordCount = 10;
     InOrderGenerator generator(*cfg);
     for (int i = 0; i < 10; i++){
         shared_ptr<Record> ptr = generator.next();
@@ -27,6 +27,6 @@ void InOrderGeneratorTest::testCount50() {
 
 int main(){
     InOrderGeneratorTest test;
-   // test.testCount10();
+    test.testCount10();
     test.testCount50();
 }

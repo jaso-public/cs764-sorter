@@ -21,17 +21,15 @@ shared_ptr<Record> Witness::next() {
     // gets the next record pointer and returns the pointer if it is null
     shared_ptr<Record> recordPtr = source->next();
     if (recordPtr == nullptr) return nullptr;
-    // else obtains the record and checks if it is sorted
-    Record record = *recordPtr;
     if (isSorted){
         if (!lastRecord){
-            if (record.compareTo(lastRecord) < 0)  isSorted = false;
+            if (recordPtr->compareTo(lastRecord) < 0)  isSorted = false;
         }
-        this->lastRecord = recordPtr;
+        lastRecord = recordPtr;
     }
     // increases count and computes the sequential check sum value
     count++;
-    uint64_t checkSum = record.checksum();
+    uint64_t checkSum = recordPtr->checksum();
     crc ^= checkSum;
     return recordPtr;
 }

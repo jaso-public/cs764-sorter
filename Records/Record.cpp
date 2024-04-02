@@ -43,8 +43,13 @@ Record::~Record() {
     delete[] data;
 }
 
+//TODO: this is causing the segmenation faults
 int Record::compareTo(shared_ptr<Record> other) {
     compareCount++;
+    if (!other || !other->data || !data) {
+        cout << "Error occurred with comparing" << "\n";
+        return 0;
+    }
     return memcmp(data + keyOffset, other->data + keyOffset, keySize);
 }
 
@@ -93,6 +98,10 @@ void Record::resetCompareCount() {
 }
 
 bool Record::isDuplicate(shared_ptr<Record> other) {
+    if (!other || !other->data || !data) {
+        cout << "Error occurred with getting duplicate comparing" << "\n";
+        return false;
+    }
     Record otherRecord = *other;
     uint8_t* otherData = other->data;
     for (int i = 0; i < recordSize; i++){
