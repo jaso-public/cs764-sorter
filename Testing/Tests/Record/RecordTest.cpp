@@ -25,9 +25,9 @@ void RecordTest::testIsDuplicate() {
         ptr1->data[i] = i;
         ptr2->data[i] = i;
     }
-    assert("Duplicate was not detected" && ptr1->isDuplicate(ptr2) == true);
+    assert("Duplicate was not detected" && ptr1->isDuplicate(*ptr2) == true);
     ptr2->data[0] = 5;
-    assert("None duplicate was not detected" && ptr1->isDuplicate(ptr2) == false);
+    assert("None duplicate was not detected" && ptr1->isDuplicate(*ptr2) == false);
 }
 
 void RecordTest::testCompare() {
@@ -38,7 +38,7 @@ void RecordTest::testCompare() {
     shared_ptr<Record> ptr1(new Record(data));
     shared_ptr<Record> ptr2(new Record(data));
     assert("Compare count was wrong" && ptr1->getCompareCount() == 0);
-    assert("Compare did not work" && ptr1->compareTo(ptr2) == 0);
+    assert("Compare did not work" && ptr1->compareTo(*ptr2) == 0);
     assert("Compare count was wrong" && ptr1->getCompareCount() == 1);
     ptr1->resetCompareCount();
     assert("Compare count was wrong" && ptr1->getCompareCount() == 0);

@@ -808,42 +808,46 @@ add_custom_command(TARGET testStagedProvider
         COMMENT "Running testStagedProvider..."
 )
 
-add_custom_target(runAllTests
+add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testDuplicateRemoval>
-        COMMAND $<TARGET_FILE:testWitness>
-        COMMAND $<TARGET_FILE:testPQ>
-        COMMAND $<TARGET_FILE:testSorting>
-        COMMAND $<TARGET_FILE:testLotsOfHddRuns>
-        COMMAND $<TARGET_FILE:testSpillToHdd>
-        COMMAND $<TARGET_FILE:testRecord>
-        COMMAND $<TARGET_FILE:testStorageProvider>
-        COMMAND $<TARGET_FILE:testStagedProvider>
         COMMAND $<TARGET_FILE:testInOrderGenerator>
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
-        COMMAND $<TARGET_FILE:testTreeSorter>
         COMMAND $<TARGET_FILE:testDedooper>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
         COMMAND $<TARGET_FILE:testSingleProvider>
         COMMAND $<TARGET_FILE:testKey>
-        COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
         COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testPrinter>
-        COMMAND $<TARGET_FILE:testArrayProvider>
         COMMAND $<TARGET_FILE:testCrcRandomGenerator>
         COMMAND $<TARGET_FILE:testRecordProvider>
+        COMMAND $<TARGET_FILE:testWitness>
 )
 
-
-
-
-
-add_custom_command(TARGET runAllTests
+add_custom_command(TARGET runNonFaultTests
         POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/runAllTests
-        COMMENT "Running runAllTests..."
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/runNonFaultTests
+        COMMENT "Running runNonFaultTests..."
 )
 
+add_custom_target(runFaultTests
+        COMMAND $<TARGET_FILE:testStagedProvider>
+        COMMAND $<TARGET_FILE:testSorting>
+        COMMAND $<TARGET_FILE:testStorageProvider>
+        COMMAND $<TARGET_FILE:testRecord>
+        COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
+        COMMAND $<TARGET_FILE:testSpillToHdd>
+        COMMAND $<TARGET_FILE:testLotsOfHddRuns>
+        COMMAND $<TARGET_FILE:testPQ>
+        COMMAND $<TARGET_FILE:testTreeSorter>
+        COMMAND $<TARGET_FILE:testArrayProvider>
+)
+
+add_custom_command(TARGET runFaultTests
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/runFaultTests
+        COMMENT "Running runFaultTests..."
+)

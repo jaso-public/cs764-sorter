@@ -9,7 +9,7 @@ void DedooperTest::testDuplicateRemoval10() {
         assert("Next should have existed" && ptr != nullptr );
         if (prevRecord){
             Record r = *ptr;
-            assert("Duplicate record was found" && r.compareTo(prevRecord) == 0);
+            assert("Duplicate record was found" && r.compareTo(*prevRecord) == 0);
         }
         prevRecord = ptr;
     }
@@ -27,7 +27,7 @@ void DedooperTest::testDuplicateRemoval100() {
         assert("Next should have existed" && ptr != nullptr );
         if (prevRecord){
             Record r = *ptr;
-            assert("Duplicate record was found" && r.compareTo(prevRecord) == 0);
+            assert("Duplicate record was found" && r.compareTo(*prevRecord) == 0);
         }
         prevRecord = ptr;
     }
