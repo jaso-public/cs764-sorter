@@ -13,19 +13,20 @@ StorageProvider::StorageProvider(IODevice storage, long storageStartOffset,
     this->storageOffset = 0;
     this->storageRemaining = 0;
     this->nextRecord = 0;
+    this->cfg = &cfg;
 }
 
 shared_ptr<Record> StorageProvider::next() {
-    if(nextRecord >= cfg.recordCount) return nullptr;
-    void* data = new char[cfg.recordSize];
-    int recordRemaining = cfg.recordSize;
+    if(nextRecord >= cfg->recordCount) return nullptr;
+    void* data = new char[cfg->recordSize];
+    int recordRemaining = cfg->recordSize;
     int recordOffset = 0;
 
     while(true) {
         if(recordRemaining < 1) {
             nextRecord++;
             nextRecord++;
-            Record::staticInitialize(cfg.recordSize, cfg.keyOffset, cfg.keySize);
+            Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
             shared_ptr<Record> ptr(new Record);
             return ptr;
         }

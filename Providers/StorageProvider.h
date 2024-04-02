@@ -7,7 +7,7 @@
 
 class StorageProvider: public Provider{
 private:
-    SorterConfig cfg;
+    SorterConfig* cfg;
     string filepath;
 
     IODevice storage;

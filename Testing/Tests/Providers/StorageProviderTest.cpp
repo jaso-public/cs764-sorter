@@ -4,11 +4,11 @@
 StorageProviderTest::StorageProviderTest() {};
 
 void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength, uint32_t keyOffset) {
-    SorterConfig cfg;
-    cfg.recordSize = recordSize;
-    cfg.recordCount = recordCount;
-    cfg.keyOffset = keyOffset;
-    RandomGenerator rg(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordSize = recordSize;
+    cfg->recordCount = recordCount;
+    cfg->keyOffset = keyOffset;
+    RandomGenerator rg(*cfg);
     Witness before(&rg);
 
     IODevice storage("../Files/storage.tmp");
@@ -36,7 +36,7 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
             storageStartOffset,
             buffer,
             bufferStartOffset,
-            bufferLength, cfg);
+            bufferLength, *cfg);
 
 
     Witness after(&sp);

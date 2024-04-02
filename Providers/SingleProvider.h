@@ -11,7 +11,7 @@ class SingleProvider: public Provider {
 private:
     // a pointer to a record or a null pointer if the record does not exist
     shared_ptr<Record> record;
-    SorterConfig cfg;
+    SorterConfig* cfg;
 
 public:
     SingleProvider(SorterConfig cfg);

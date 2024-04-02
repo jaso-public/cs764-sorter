@@ -20,6 +20,7 @@ using namespace std;
   * @param transferLength       the length of the transfer buffer (should equal stagingLength+bufferLength)
   */
 StagedProvider::StagedProvider(StagingConfig cfg): storage(""), staging("") {
+    this->cfg = &cfg;
     this->recordSize = cfg.recordSize;
     this->keyOffset = cfg.keyOffset;
     this->keySize = cfg.keySize;

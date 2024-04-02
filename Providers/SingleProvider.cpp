@@ -14,7 +14,7 @@ void SingleProvider::reset(shared_ptr<Record> r) {
     this->record = r;
 }
 
-shared_ptr<Record>  SingleProvider::next() {
+shared_ptr<Record> SingleProvider::next() {
     // sets the class' record variable to result to return
     shared_ptr<Record> result = record;
     // class' record variable turns to null pointer

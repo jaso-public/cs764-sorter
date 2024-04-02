@@ -1,9 +1,9 @@
 #include "DropFirstTest.h"
 
 void DropFirstTest::testDropWithCount10() {
-    SorterConfig cfg;
-    cfg.recordCount = 10;
-    InOrderGenerator i(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 10;
+    InOrderGenerator i(*cfg);
     Witness lower(&i);
     DropFirst dropper(&lower);
     for (int i = 0; i < 9; i++){
@@ -15,9 +15,9 @@ void DropFirstTest::testDropWithCount10() {
 }
 
 void DropFirstTest::testDropWithCount20() {
-    SorterConfig cfg;
-    cfg.recordCount = 20;
-    InOrderGenerator i(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 20;
+    InOrderGenerator i(*cfg);
     Witness lower(&i);
     DropFirst dropper(&lower);
     for (int i = 0; i < 19; i++){
