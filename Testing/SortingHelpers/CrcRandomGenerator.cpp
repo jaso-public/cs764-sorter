@@ -8,14 +8,19 @@ CrcRandomGenerator::CrcRandomGenerator(SorterConfig cfg) {
 
 shared_ptr<Record> CrcRandomGenerator::next() {
     if(generated >= cfg.recordCount) return nullptr;
+    uint8_t* data = new uint8_t[cfg.recordSize];
+    fill(cfg.recordSize, data);
     generated++;
     shared_ptr<Record> ptr(new Record);
     return ptr;
 }
 
-//TODO: this may be wrong
 bool CrcRandomGenerator::verifyCrc(shared_ptr<Record> recordPtr) {
-    if (!recordPtr) return true;
+    if (!recordPtr) return false;
     Record r = *recordPtr;
-    return r.checksum();
+    r.data[0] = 5;
+    uint64_t checksum = r.checksum();
+    r.data[0] = 3;
+    uint64_t checksum1 = r.checksum();
+    return checksum != checksum1;
 }
