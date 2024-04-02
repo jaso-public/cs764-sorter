@@ -41,5 +41,7 @@ shared_ptr<Record> RecordProvider::next() {
         // catches failure reading file
     catch (ios_base ::failure e) {
         cerr << "Error reading: " << filePath << " to obtain record";
+        return nullptr;
     }
 }
+

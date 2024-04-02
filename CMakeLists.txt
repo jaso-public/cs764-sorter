@@ -381,6 +381,35 @@ add_executable(testRecordProvider
         IODevice.h
         Records/Record.cpp
         Records/Record.h
+        Providers/Provider.h
+        Witness.h
+        Witness.cpp
+        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/SortingHelpers/NoopSorter.h
+        Testing/SortingHelpers/NoopSorter.cpp
+        Consumer.h
+        Consumer.cpp
+        Testing/TestProviders/DropFirst.h
+        Testing/TestProviders/DropFirst.cpp
+        Testing/SortingHelpers/TreeSorter.h
+        Testing/SortingHelpers/TreeSorter.cpp
+        Testing/SortingHelpers/Key.h
+        Testing/SortingHelpers/Key.cpp
+        Testing/TestProviders/Printer.h
+        Testing/TestProviders/Printer.cpp
+        Testing/TestProviders/RandomGenerator.h
+        Testing/TestProviders/RandomGenerator.cpp
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Providers/Dedooper.cpp
+        Providers/Dedooper.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testRecordProvider
