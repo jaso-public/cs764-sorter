@@ -10,7 +10,7 @@ public:
     shared_ptr<Record> next() override;
 private:
     long generated;
-    SorterConfig cfg;
+    SorterConfig* cfg;
 };
 
 

@@ -2,7 +2,7 @@
 
 
 CrcRandomGenerator::CrcRandomGenerator(SorterConfig cfg) {
-    this->cfg = cfg;
+    this->cfg = &cfg;
     this->generated = 0;
 }
 

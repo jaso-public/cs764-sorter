@@ -1,8 +1,8 @@
 #include "DedooperTest.h"
 void DedooperTest::testDuplicateRemoval10() {
-    SorterConfig cfg;
-    cfg.recordCount = 10;
-    InOrderGenerator generator(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 10;
+    InOrderGenerator generator(*cfg);
     shared_ptr<Record> prevRecord = nullptr;
     for (int i = 0; i < 10; i++){
         shared_ptr<Record>  ptr = generator.next();
@@ -18,9 +18,9 @@ void DedooperTest::testDuplicateRemoval10() {
 }
 
 void DedooperTest::testDuplicateRemoval100() {
-    SorterConfig cfg;
-    cfg.recordCount = 100;
-    InOrderGenerator generator(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 100;
+    InOrderGenerator generator(*cfg);
     shared_ptr<Record> prevRecord = nullptr;
     for (int i = 0; i < 100; i++){
         shared_ptr<Record>  ptr = generator.next();

@@ -14,7 +14,7 @@ public:
     shared_ptr<Record> next() override;
     bool verifyCrc(shared_ptr<Record> recordPtr);
 private:
-    SorterConfig cfg;
+    SorterConfig* cfg;
     long generated;
 };
 
