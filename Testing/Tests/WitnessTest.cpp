@@ -107,9 +107,9 @@ void WitnessTest::testDropOne() {
 }
 
 void WitnessTest::testRandomOrder() {
-    SorterConfig cfg;
-    cfg.recordCount = 10;
-    RandomGenerator r(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 10;
+    RandomGenerator r(*cfg);
     Witness lower(&r);
     NoopSorter sorter(&lower);
     Witness upper(&sorter);
@@ -125,9 +125,9 @@ void WitnessTest::testRandomOrder() {
 }
 
 void WitnessTest::testTreeSorter() {
-    SorterConfig cfg;
-    cfg.recordCount = 10;
-    RandomGenerator r(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 10;
+    RandomGenerator r(*cfg);
     Witness lower(&r);
     TreeSorter sorter(&lower);
     Witness upper(&sorter);
@@ -143,9 +143,9 @@ void WitnessTest::testTreeSorter() {
 
 void WitnessTest::testRandomOrderWithPrinting() {
     string test = "testRandomOrderWithPrinting: ";
-    SorterConfig cfg;
-    cfg.recordCount = 10;
-    RandomGenerator r(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 10;
+    RandomGenerator r(*cfg);
     Printer printer1(&r, test+"from generator");
     Witness lower(&printer1);
     NoopSorter sorter(&lower);
@@ -164,9 +164,9 @@ void WitnessTest::testRandomOrderWithPrinting() {
 
 void WitnessTest::testTreeSorterWithPrinting() {
     string test = "testTreeSorterWithPrinting: ";
-    SorterConfig cfg;
-    cfg.recordCount = 10;
-    RandomGenerator r(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 10;
+    RandomGenerator r(*cfg);
     Printer printer1(&r, test+"from generator");
     Witness lower(&printer1);
     TreeSorter sorter(&lower);
@@ -191,9 +191,9 @@ int main(){
     w.testGivingWitnessAnotherWitness();
     w.testUpper();
     w.testTenInorder();
-//    w.testTreeSorterWithPrinting();
-//    w.testRandomOrderWithPrinting();
-//    w.testTreeSorter();
-//    w.testDropOne();
-//    w.testRandomOrder();
+  //  w.testTreeSorterWithPrinting();
+    w.testRandomOrderWithPrinting();
+   // w.testTreeSorter();
+    w.testDropOne();
+    w.testRandomOrder();
 };

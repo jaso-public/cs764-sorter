@@ -12,7 +12,7 @@ shared_ptr<Record> Dedooper::next() {
     if (currentRecord == nullptr) return nullptr;
     if (!previousRecord){
         // continues to get next record until a unique record is reached
-        while(previousRecord->isDuplicate(currentRecord)){
+        while(currentRecord->isDuplicate(previousRecord)){
             previousRecord = currentRecord;
             currentRecord = source->next();
         }
