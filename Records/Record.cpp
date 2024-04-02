@@ -23,14 +23,14 @@ Record::Record(uint8_t *_data) {
 
 // Copy constructor
 Record::Record(const Record &other) {
-    cout << "copy constructor (you don't wanna see this)" << endl;
+  //  cout << "copy constructor (you don't wanna see this)" << endl;
     data = new uint8_t[recordSize];
     set(other.data);
 }
 
 // Copy assignment operator
 Record &Record::operator=(const Record &other) {
-    cout << "assignment operator (you don't wanna see this)" << endl;
+  //  cout << "assignment operator (you don't wanna see this)" << endl;
     if (this != &other) {
         delete[] data;
         data = new uint8_t[recordSize];
@@ -43,13 +43,13 @@ Record::~Record() {
     delete[] data;
 }
 
-int Record::compareTo(shared_ptr<Record> other) {
-    compareCount++;
-    if (!other || !other->data || !data) {
+int Record::compareTo(Record other) {
+    if (!data) {
         cout << "Error occurred with comparing" << "\n";
         return 0;
     }
-    return memcmp(data + keyOffset, other->data + keyOffset, keySize);
+    compareCount++;
+    return memcmp(data + keyOffset, other.data + keyOffset, keySize);
 }
 
 void Record::store(uint8_t *dst) {
@@ -96,13 +96,12 @@ void Record::resetCompareCount() {
     this->compareCount = 0;
 }
 
-bool Record::isDuplicate(shared_ptr<Record> other) {
-    if (!other || !other->data || !data) {
+bool Record::isDuplicate(Record other) {
+    if (!data) {
         cout << "Error occurred in isDuplicate" << "\n";
         return false;
     }
-    Record otherRecord = *other;
-    uint8_t* otherData = other->data;
+    uint8_t* otherData = other.data;
     for (int i = 0; i < recordSize; i++){
        if (data[i] != otherData[i]){
            return false;

@@ -23,9 +23,10 @@ shared_ptr<Record> Witness::next() {
     if (recordPtr == nullptr) return nullptr;
     if (isSorted){
         if (!lastRecord){
-            if (recordPtr->compareTo(lastRecord) < 0)  isSorted = false;
+            if (recordPtr->compareTo(last) < 0)  isSorted = false;
         }
         lastRecord = recordPtr;
+        last = *recordPtr;
     }
     // increases count and computes the sequential check sum value
     count++;

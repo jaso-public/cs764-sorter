@@ -14,6 +14,7 @@ public:
     shared_ptr<Record> next();
 private:
     shared_ptr<Record> previousRecord;
+    Record prev;
 };
 
 

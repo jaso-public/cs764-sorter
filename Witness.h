@@ -50,6 +50,7 @@ private:
     // keeps track of checksum value
     uint64_t crc;
     shared_ptr<Record> lastRecord;
+    Record last;
 
 };
 

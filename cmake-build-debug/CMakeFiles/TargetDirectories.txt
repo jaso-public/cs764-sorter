@@ -15,6 +15,7 @@
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testConsumer.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testStagingConfig.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testEmptyProvider.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testRecordProvider.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testDuplicateRemoval.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testWitness.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testPQ.dir

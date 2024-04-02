@@ -30,9 +30,9 @@ public:
      *         0 if the two keys are equal
      *        -1 if the other key is greater
      */
-    int compareTo(shared_ptr<Record> other);
+    int compareTo(Record other);
 
-    bool isDuplicate(shared_ptr<Record> other);
+    bool isDuplicate(Record other);
 
     void store(uint8_t *dst);
 
