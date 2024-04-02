@@ -35,6 +35,7 @@ shared_ptr<Record> RecordProvider::next() {
         (*streamPtr).read(reinterpret_cast<char*>(data), cfg->recordSize);
         shared_ptr<Record> ptr(new Record(data));
         generated++;
+        // moves pointer to position of next record
         (*streamPtr).seekg(cfg->recordSize);
         return ptr;
     }
