@@ -3,7 +3,7 @@
 // class constructor
 InOrderGenerator::InOrderGenerator(SorterConfig cfg) {
     // sets given variables to class variables
-    this->cfg = cfg;
+    this->cfg = &cfg;
     this->generated = 0;
 }
 
@@ -13,10 +13,10 @@ InOrderGenerator::InOrderGenerator(SorterConfig cfg) {
     */
 shared_ptr<Record> InOrderGenerator::next() {
     // returns a null pointer when no more records are to be generated
-    if (generated >= cfg.recordCount) return nullptr;
+    if (generated >= cfg->recordCount) return shared_ptr<Record>();
     // returns a newly created record in memory
-    Record::staticInitialize(cfg.recordSize, cfg.keyOffset, cfg.keySize);
+    Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
     generated++;
-    shared_ptr<Record> ptr(new Record);
+    shared_ptr<Record> ptr(new Record());
     return ptr;
 }

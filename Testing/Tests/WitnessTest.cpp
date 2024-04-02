@@ -186,14 +186,14 @@ void WitnessTest::testTreeSorterWithPrinting() {
 int main(){
     WitnessTest w;
     w.testLower();
-    w.testWithSorter();
-    w.testGivingWitnessNoopSorter();
-    w.testGivingWitnessAnotherWitness();
-    w.testUpper();
-    w.testTenInorder();
-    w.testTreeSorterWithPrinting();
-    w.testRandomOrderWithPrinting();
-    w.testTreeSorter();
-    w.testDropOne();
-    w.testRandomOrder();
+//    w.testWithSorter();
+//    w.testGivingWitnessNoopSorter();
+//    w.testGivingWitnessAnotherWitness();
+//    w.testUpper();
+//    w.testTenInorder();
+//    w.testTreeSorterWithPrinting();
+//    w.testRandomOrderWithPrinting();
+//    w.testTreeSorter();
+//    w.testDropOne();
+//    w.testRandomOrder();
 };

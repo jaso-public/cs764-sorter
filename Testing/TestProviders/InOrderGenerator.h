@@ -3,6 +3,8 @@
 #include "./Providers/Provider.h"
 #include "Config/SorterConfig.h"
 #include <stdlib.h>
+#include <memory>
+using namespace std;
 
 /**
  * This class can be used to generate records of a certain size and amount
@@ -16,7 +18,7 @@ public:
 private:
     // stores actual number of records currently generated
     long generated;
-    SorterConfig cfg;
+    SorterConfig* cfg;
 };
 
 
