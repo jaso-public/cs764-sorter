@@ -23,9 +23,8 @@ shared_ptr<Record> ArrayProvider::next() {
     // checks that another record exists
     if (ptr != records.end()){
         // create a pointer to the returned record
-        Record result = *ptr;
         ptr++;
-        shared_ptr<Record> recordPtr =  make_shared<Record>(result);
+        shared_ptr<Record> recordPtr = make_shared<Record>(*ptr);
         return recordPtr;
     }
     return nullptr;

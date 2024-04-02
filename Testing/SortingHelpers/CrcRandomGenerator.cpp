@@ -7,10 +7,10 @@ CrcRandomGenerator::CrcRandomGenerator(SorterConfig cfg) {
 }
 
 shared_ptr<Record> CrcRandomGenerator::next() {
-    if(generated >= cfg.recordCount) return nullptr;
-    Record::staticInitialize(cfg.recordSize, cfg.keyOffset, cfg.keySize);
-    uint8_t* data = new uint8_t[cfg.recordSize];
-    fill(cfg.recordSize, data);
+    if(generated >= cfg->recordCount) return nullptr;
+    Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
+    uint8_t* data = new uint8_t[cfg->recordSize];
+    fill(cfg->recordSize, data);
     generated++;
     shared_ptr<Record> ptr(new Record(data));
     return ptr;
