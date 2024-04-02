@@ -189,6 +189,27 @@ add_custom_command(TARGET testInOrderGenerator
         COMMENT "Running testInOrderGenerator..."
 )
 
+add_executable(testCrcRandomGenerator
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Testing/SortingHelpers/CrcRandomGenerator.cpp
+        Testing/SortingHelpers/CrcRandomGenerator.h
+        Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp
+        Testing/Tests/Helpers/CrcRandomGeneratorTest.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
+)
+
+add_custom_command(TARGET testCrcRandomGenerator
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testCrcRandomGenerator
+        COMMENT "Running testCrcRandomGenerator..."
+)
+
 add_executable(testDedooper
         Records/Record.cpp
         Records/Record.h
@@ -196,8 +217,8 @@ add_executable(testDedooper
         Records/rng.h
         Testing/TestProviders/InOrderGenerator.cpp
         Testing/TestProviders/InOrderGenerator.h
-        Testing/Tests/DedooperTest.cpp
-        Testing/Tests/DedooperTest.h
+        Testing/Tests/Providers/DedooperTest.cpp
+        Testing/Tests/Providers/DedooperTest.h
         Providers/Dedooper.cpp
         Providers/Dedooper.h
         Config/SorterConfig.cpp
@@ -236,8 +257,8 @@ add_custom_command(TARGET testRandomGenerator
 add_executable(testKey
         Testing/SortingHelpers/Key.cpp
         Testing/SortingHelpers/Key.h
-        Testing/Tests/Sorters/KeyTest.cpp
-        Testing/Tests/Sorters/KeyTest.h
+        Testing/Tests/Helpers/KeyTest.cpp
+        Testing/Tests/Helpers/KeyTest.h
 )
 
 add_custom_command(TARGET testKey
@@ -756,7 +777,9 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testPrinter>
         COMMAND $<TARGET_FILE:testArrayProvider>
+        COMMAND $<TARGET_FILE:testCrcRandomGenerator>
 )
+
 
 
 

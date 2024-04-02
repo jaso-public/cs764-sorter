@@ -5,6 +5,7 @@
 #include "../../Providers/Provider.h"
 #include "Config/SorterConfig.h"
 #include "Records/rng.h"
+#include <assert.h>
 using namespace std;
 
 class CrcRandomGenerator: public Provider{
