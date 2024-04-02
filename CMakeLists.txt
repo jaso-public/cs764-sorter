@@ -370,6 +370,25 @@ add_custom_command(TARGET testEmptyProvider
         COMMENT "Running testEmptyProvider..."
 )
 
+add_executable(testRecordProvider
+        Providers/RecordProvider.cpp
+        Providers/RecordProvider.h
+        Testing/Tests/Providers/RecordProviderTest.cpp
+        Testing/Tests/Providers/RecordProviderTest.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.cpp
+        IODevice.h
+        Records/Record.cpp
+        Records/Record.h
+)
+
+add_custom_command(TARGET testRecordProvider
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRecordProvider
+        COMMENT "Running testRecordProvider..."
+)
+
 add_executable(testDuplicateRemoval
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.h
@@ -786,7 +805,9 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testPrinter>
         COMMAND $<TARGET_FILE:testArrayProvider>
         COMMAND $<TARGET_FILE:testCrcRandomGenerator>
+        COMMAND $<TARGET_FILE:testRecordProvider>
 )
+
 
 
 
