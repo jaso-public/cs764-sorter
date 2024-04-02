@@ -4,6 +4,7 @@
 #include "Records/Record.h"
 #include "Config/SorterConfig.h"
 #include "Records/GenerateRecords.h"
+#include <assert.h>
 using namespace std;
 
 
@@ -11,7 +12,9 @@ class RecordTest {
 public:
     void testNoParameterConstructor();
     void testDataParameterConstructor();
-    void testCompareRecords();
+    void testIsDuplicate();
+    void testCompare();
+    void testCheckSum();
 };
 
 

@@ -13,7 +13,7 @@ SorterConfig::SorterConfig(): ssdDevice("../Files/ssdStaging.tmp"), hddDevice(".
     this->hddReadSize = 256 * 1024;
     this->keySize = 8;
     this->recordCount = 100;
-    this->recordSize = 10;
+    this->recordSize = 16;
     this->keyOffset = 8;
 }
 

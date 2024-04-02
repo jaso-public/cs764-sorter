@@ -44,6 +44,7 @@ Record::~Record() {
 }
 
 int Record::compareTo(shared_ptr<Record> other) {
+    compareCount++;
     return memcmp(data + keyOffset, other->data + keyOffset, keySize);
 }
 
