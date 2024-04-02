@@ -1,9 +1,9 @@
 #include "ConsumerTest.h"
 
 void ConsumerTest::testConsume() {
-    SorterConfig cfg;
-    cfg.recordCount = 10;
-    InOrderGenerator generator(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 10;
+    InOrderGenerator generator(*cfg);
     Consumer consume(&generator);
     consume.consume();
     shared_ptr<Record> ptr = generator.next();

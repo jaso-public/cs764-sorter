@@ -2,21 +2,20 @@
 
 
 void SpillToHdd::testSpillToHdd() {
-    int recordSize = 1000;
-    int recordCount = 19000;
-    int keyOffset = 8;
-    int keySize = 8;
-
     string test = "testSpillToHdd: ";
 
-    SorterConfig cfg;
-    cfg.ssdStorageSize = 2*1024*1024;
-    cfg.memoryBlockCount = 10;
+    SorterConfig* cfg = new SorterConfig();
+    cfg->ssdStorageSize = 2*1024*1024;
+    cfg->memoryBlockCount = 10;
+    cfg->recordSize = 1000;
+    cfg->recordCount = 19000;
+    cfg->keyOffset = 8;
+    cfg->keySize = 8;
 
-    CrcRandomGenerator crc(cfg);
+    CrcRandomGenerator crc(*cfg);
     Witness lower(&crc);
-    Sorter sorter(cfg, &lower);
-    Witness upper(&sorter);
+    Sorter sorter(*cfg, &sorter);
+    Witness upper(&lower);
     Printer p(&upper, test);
 
     while(true) {
@@ -25,10 +24,10 @@ void SpillToHdd::testSpillToHdd() {
         crc.verifyCrc(recordPtr);
     }
 
-    sorter.printStats();
+   sorter.printStats();
 
-    assert(("The count of the lower witness should have equaled the record count" && recordCount == lower.getCount()));
-    assert(("The count of the upper witness should equaled the record count" && recordCount == upper.getCount()));
+    assert(("The count of the lower witness should have equaled the record count" && cfg->recordCount == lower.getCount()));
+    assert(("The count of the upper witness should equaled the record count" && cfg->recordCount  == upper.getCount()));
     assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
     assert(("The lower was sorted but should not have been" && !lower.isSorted));
     assert(("The upper witness was not sorted but should have been" && upper.isSorted));

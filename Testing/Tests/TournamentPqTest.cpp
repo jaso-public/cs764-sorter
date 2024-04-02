@@ -6,9 +6,9 @@ TournamentPqTest::TournamentPqTest() {};
 void TournamentPqTest::doTest(int numProviders) {
     int numItemsPerList = 10;
 
-    SorterConfig cfg;
-    cfg.recordCount = 10;
-    InOrderGenerator i(cfg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordCount = 10;
+    InOrderGenerator i(*cfg);
     Witness before(&i);
 
 
