@@ -21,46 +21,35 @@ using namespace std;
   */
 StagedProvider::StagedProvider(StagingConfig cfg): storage(""), staging("") {
     this->cfg = &cfg;
-    this->recordSize = cfg.recordSize;
-    this->keyOffset = cfg.keyOffset;
-    this->keySize = cfg.keySize;
-    this->storage = cfg.storage;
-    this->staging = cfg.staging;
-    this->recordCount = cfg.recordCount;
-    this->storageStartOffset = cfg.storageStartOffset;
-    this->stagingStartOffset = cfg.stagingStartOffset;
-    this->stagingLength = cfg.stagingLength;
-    this->buffer = cfg.buffer;
-    this->bufferStartOffset = cfg.bufferStartOffset;
-    this->bufferLength = cfg.bufferLength;
-    this->transferBuffer = cfg.transferBuffer;
-    this->transferStartOffset = cfg.transferStartOffset;
     this->storageOffset = 0;
     this->storageRemaining = 0;
     this->stagingOffset = 0;
+    this->stagingRemaining = 0;
     this->bufferOffset = 0;
     this->bufferRemaining = 0;
     this->nextRecord = 0;
 
-    assert(cfg.transferLength >= bufferLength + stagingLength);
+    assert(cfg.transferLength >= cfg.bufferLength + cfg.stagingLength);
 
-    assert(cfg.bufferStartOffset + cfg.bufferLength <= sizeof(cfg.buffer));
+    //TODO: get the proper length
+    size_t length = strlen(reinterpret_cast<const char*>(cfg.buffer));
+    assert(cfg.bufferStartOffset + cfg.bufferLength <= length);
 
-    storageRemaining = recordCount * (long)recordSize;
+    storageRemaining = cfg.recordCount * (long)cfg.recordSize;
 }
 
 /**
  * @return a pointer to the next record or a null pointer if all records have been generated
  */
 shared_ptr<Record> StagedProvider::next() {
-    if (nextRecord >= recordCount) return nullptr;
-    uint8_t* data = new  uint8_t[recordSize];
-    int recordRemaining = recordSize;
+    if (nextRecord >= cfg->recordCount) return nullptr;
+    uint8_t* data = new  uint8_t[cfg->recordSize];
+    int recordRemaining = cfg->recordSize;
     int recordOffset = 0;
     while (true) {
         if (recordRemaining < 1) {
             nextRecord++;
-            Record::staticInitialize(recordSize, keyOffset, keySize);
+            Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
             shared_ptr<Record> ptr(new Record(data));
             return ptr;
         }
@@ -109,7 +98,7 @@ shared_ptr<Record> StagedProvider::next() {
             }
             }
         int sizeToCopy = minSize(recordRemaining, bufferRemaining);
-        void* data = new uint8_t[recordSize];
+        void* data = new uint8_t[cfg->recordSize];
         void *destination = &data + recordOffset;
         void *source = &buffer + bufferStartOffset + bufferOffset;
         memcpy(destination, source, sizeToCopy);

@@ -14,11 +14,6 @@ using namespace std;
 
 class StagedProvider: public Provider {
 private:
-    long recordCount;
-    uint64_t recordSize;
-    uint32_t keyOffset;
-    uint32_t keySize;
-
     IODevice storage;
     long storageStartOffset;
 
