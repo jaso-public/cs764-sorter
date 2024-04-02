@@ -191,9 +191,9 @@ int main(){
     w.testGivingWitnessAnotherWitness();
     w.testUpper();
     w.testTenInorder();
-  //  w.testTreeSorterWithPrinting();
+    w.testTreeSorterWithPrinting();
     w.testRandomOrderWithPrinting();
-   // w.testTreeSorter();
+    w.testTreeSorter();
     w.testDropOne();
     w.testRandomOrder();
 };
