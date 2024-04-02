@@ -95,7 +95,7 @@ void usage(const char* programName, const char* message) {
     exit(1);
 }
 
-int main (int argc, char * argv []) {
+int main3 (int argc, char * argv []) {
 
     std::string fileName = "input.txt";
     uint64_t recordCount = 1000;

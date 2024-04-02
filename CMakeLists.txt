@@ -645,8 +645,16 @@ add_custom_command(TARGET testSpillToOneBlockToSdd
 )
 
 add_executable(testRecord
-    Testing/Tests/Record/RecordTest.cpp
+        Testing/Tests/Record/RecordTest.cpp
         Testing/Tests/Record/RecordTest.h
+        Records/Record.cpp
+        Records/Record.h
+        Records/rng.cpp
+        Records/rng.h
+        Config/SorterConfig.cpp
+        Config/SorterConfig.h
+        IODevice.h
+        IODevice.cpp
 )
 
 add_custom_command(TARGET testRecord
