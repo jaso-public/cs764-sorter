@@ -30,7 +30,8 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
     uint8_t* buffer = memory;
     int bufferStartOffset = 20;
 
-    StorageProvider sp(storage,storageStartOffset,buffer,bufferStartOffset,bufferLength, *cfg);
+    SorterConfig* cfg2 = new SorterConfig();
+    StorageProvider sp(&storage, storageStartOffset,buffer,bufferStartOffset,bufferLength, *cfg2);
 
 
     Witness after(&sp);

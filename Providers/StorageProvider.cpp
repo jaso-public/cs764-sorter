@@ -1,15 +1,14 @@
 #include "StorageProvider.h"
 
-StorageProvider::StorageProvider(IODevice storage,
+StorageProvider::StorageProvider(IODevice* storage,
                                       long storageStartOffset,
                                       uint8_t *buffer,
                                       int bufferStartOffset,
-                                      int bufferLength, SorterConfig cfg):storage("") {
+                                      int bufferLength, SorterConfig cfg):storage(*storage) {
     this->storageStartOffset = storageStartOffset;
     this->buffer = buffer;
     this->bufferStartOffset = bufferStartOffset;
     this->bufferLength = bufferLength;
-    this->storage=storage;
     this->storageRemaining = cfg.recordCount * (long)cfg.recordSize;
     this->bufferOffset = 0;
     this->bufferRemaining = 0;
@@ -21,14 +20,13 @@ StorageProvider::StorageProvider(IODevice storage,
 
 shared_ptr<Record> StorageProvider::next() {
     if(nextRecord >= cfg->recordCount) return nullptr;
-    void* data = new char[cfg->recordSize];
+    uint8_t* data = new  uint8_t[cfg->recordSize];
     int recordRemaining = cfg->recordSize;
     int recordOffset = 0;
     Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
 
     while(true) {
         if(recordRemaining < 1) {
-            nextRecord++;
             nextRecord++;
             shared_ptr<Record> ptr(new Record);
             return ptr;

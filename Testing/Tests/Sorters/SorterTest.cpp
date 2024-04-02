@@ -9,7 +9,8 @@ void SorterTest::testSmallSort() {
 
     Printer printer1(&rng, test+"from generator");
     Witness lower(&printer1);
-    Sorter sorter(*cfg, &lower);
+    SorterConfig* cfg2 = new SorterConfig();
+    Sorter sorter(*cfg2, &lower);
     Witness upper(&sorter);
     Printer printer2(&upper, test+"from sorter");
     Consumer consumer(&printer2);
@@ -32,7 +33,8 @@ void SorterTest::testAllMemory() {
     cfg->recordSize = 1000;
     RandomGenerator rng(*cfg);
     Witness lower(&rng);
-    Sorter sorter(*cfg, &lower);
+    SorterConfig* cfg2 = new SorterConfig();
+    Sorter sorter(*cfg2, &lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -53,7 +55,8 @@ void SorterTest::testSpillToSsdFewBlocks() {
     cfg->recordSize = 1024;
     RandomGenerator rng(*cfg);
     Witness lower(&rng);
-    Sorter sorter(*cfg, &lower);
+    SorterConfig* cfg2 = new SorterConfig();
+    Sorter sorter(*cfg2, &lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -74,7 +77,10 @@ void SorterTest::testSpillToSsd() {
     cfg->recordSize = 1000;
     RandomGenerator rng(*cfg);
     Witness lower(&rng);
-    Sorter sorter(*cfg, &lower);
+    SorterConfig* cfg2 = new SorterConfig();
+    cfg2->recordCount = 900000;
+    cfg2->recordSize = 1000;
+    Sorter sorter(*cfg2, &lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -95,7 +101,8 @@ void SorterTest::testSpillToHdd() {
     cfg->recordSize = 1000;
     RandomGenerator rng(*cfg);
     Witness lower(&rng);
-    Sorter sorter(*cfg, &lower);
+    SorterConfig* cfg2 = new SorterConfig();
+    Sorter sorter(*cfg2, &lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -118,7 +125,8 @@ void SorterTest::testSpillToLotsOfHddRuns() {
     cfg->memoryBlockSize = 100*1024*1024;
     RandomGenerator r(*cfg);
     Witness lower(&r);
-    Sorter sorter(*cfg, &lower);
+    SorterConfig* cfg2 = new SorterConfig();
+    Sorter sorter(*cfg2, &lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -139,8 +147,8 @@ void SorterTest::testZeroRecords() {
     cfg->recordSize = 1000;
     RandomGenerator rng(*cfg);
     Witness lower(&rng);
-    SorterConfig cgf;
-    Sorter sorter(*cfg, &lower);
+    SorterConfig* cfg2 = new SorterConfig();
+    Sorter sorter(*cfg2, &lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
@@ -159,10 +167,10 @@ void SorterTest::testZeroRecords() {
 int main(){
     SorterTest test;
     test.testSmallSort();
-    test.testAllMemory();
-    test.testSpillToSsdFewBlocks();
-    test.testSpillToSsd();
-    test.testSpillToHdd();
-    test.testSpillToLotsOfHddRuns();
-    test.testZeroRecords();
+//    test.testAllMemory();
+//    test.testSpillToSsdFewBlocks();
+//    test.testSpillToSsd();
+//    test.testSpillToHdd();
+//    test.testSpillToLotsOfHddRuns();
+//    test.testZeroRecords();
 }

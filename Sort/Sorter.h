@@ -17,7 +17,7 @@ using namespace std;
 
 class Sorter: public Provider, public Record{
 private:
-    SorterConfig cfg;
+    SorterConfig* cfg;
     Provider* source;
 
     Provider* sortedProvider;

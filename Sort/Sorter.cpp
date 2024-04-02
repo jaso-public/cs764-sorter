@@ -1,7 +1,7 @@
 #include "Sorter.h"
 
 Sorter::Sorter(SorterConfig cfg, Provider* source) {
-    this->cfg = cfg;
+    this->cfg = &cfg;
     this->source = source;
 
     this->ssdOffset = 0;
@@ -25,9 +25,9 @@ Provider* Sorter::startSort() {
     Record otherClass;
     otherClass.resetCompareCount();
 
-    int maxRecordsPerRun = cfg.memoryBlockSize / cfg.recordSize;
+    int maxRecordsPerRun = cfg->memoryBlockSize / cfg->recordSize;
 
-    SingleProvider s(cfg);
+    SingleProvider s(*cfg);
     vector<SingleProvider*> singles(maxRecordsPerRun, &s);
 
     bool endReached = false;
@@ -44,16 +44,16 @@ Provider* Sorter::startSort() {
 
         if (recordCount > 0) {
             // find the buffer that we are going to fill.
-            if (lastMemoryRun == cfg.memoryBlockSize) makeFreeSpace();
+            if (lastMemoryRun == cfg->memoryBlockSize) makeFreeSpace();
 
-            lastMemoryRun -= cfg.memoryBlockSize;
+            lastMemoryRun -= cfg->memoryBlockSize;
 
             vector<Provider*> providerFromSingles(singles.begin(), singles.end());
             TournamentPQ pq(providerFromSingles, keyOffset, recordCount);
             for (int i = 0; i < recordCount; i++) {
                 shared_ptr<Record> ptr = pq.next();
                 Record r = *ptr;
-                r.store(buffer, lastMemoryRun + i * cfg.recordSize, 1);
+                r.store(buffer, lastMemoryRun + i * cfg->recordSize, 1);
             }
             Run run(recordCount, lastMemoryRun);
             memoryRuns.push_back(run);
@@ -69,10 +69,10 @@ Provider* Sorter::startSort() {
 
     // see if we can do the final merge with the memory we have.
     // i.e not too many runs and no need to stage hdd runs to ssd
-    int memoryRequired = ssdRuns.size() * cfg.ssdReadSize + (hddRuns.size() + 1) * cfg.hddReadSize;
-    if (memoryRequired < cfg.memoryBlockCount * cfg.memoryBlockSize) {
+    int memoryRequired = ssdRuns.size() * cfg->ssdReadSize + (hddRuns.size() + 1) * cfg->hddReadSize;
+    if (memoryRequired < cfg->memoryBlockCount * cfg->memoryBlockSize) {
         if (memoryRequired > lastMemoryRun) {
-            int toRelease = (memoryRequired - lastMemoryRun + cfg.memoryBlockSize - 1) / cfg.memoryBlockSize;
+            int toRelease = (memoryRequired - lastMemoryRun + cfg->memoryBlockSize - 1) / cfg->memoryBlockSize;
             releaseMemory(toRelease);
         }
 
@@ -80,21 +80,21 @@ Provider* Sorter::startSort() {
         int index = 0;
 
         for (Run run: memoryRuns) {
-            MemoryProvider m(buffer, run.offset, cfg);
+            MemoryProvider m(buffer, run.offset, *cfg);
             providers[index++] = &m;
         }
         // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
         int offset = 0;
 
         for (Run run: hddRuns) {
-            StorageProvider s(cfg.hddDevice, run.offset, buffer, offset, cfg.hddReadSize, cfg);
-            offset += cfg.hddReadSize;
+            StorageProvider s(&cfg->hddDevice, run.offset, buffer, offset, cfg->hddReadSize, *cfg);
+            offset += cfg->hddReadSize;
         }
 
         for (Run run: ssdRuns) {
-            StorageProvider s(cfg.ssdDevice, run.offset, buffer, offset, cfg.ssdReadSize,
-                             cfg);
-            offset += cfg.ssdReadSize;
+            StorageProvider s(&cfg->ssdDevice, run.offset, buffer, offset, cfg->ssdReadSize,
+                             *cfg);
+            offset += cfg->ssdReadSize;
         }
         TournamentPQ t(providers, keyOffset, index);
         Provider* providerPointer = &t;
@@ -113,11 +113,11 @@ Provider* Sorter::startSort() {
 
     // max number of merge runs that can be merged using cfg.ssdReadSize chunk sized memory for each run
     // Note we reserve one cfg.hddReadSize block of memory to transfer data from the hdd back to the ssd
-    int maxMergeRuns = ((cfg.memoryBlockCount * cfg.memoryBlockSize) - cfg.hddReadSize) / cfg.ssdReadSize;
+    int maxMergeRuns = ((cfg->memoryBlockCount * cfg->memoryBlockSize) - cfg->hddReadSize) / cfg->ssdReadSize;
     int runsToMergeForCount = ssdRuns.size() + hddRuns.size() - maxMergeRuns;
 
     // figure out how much space we need for staging hdd data
-    long stagingRequired = (hddRuns.size() + 1) * (cfg.hddReadSize - cfg.ssdReadSize);
+    long stagingRequired = (hddRuns.size() + 1) * (cfg->hddReadSize - cfg->ssdReadSize);
     int runsToMergeForSpace = 0;
     for (Run run: ssdRuns) {
         if (run.offset > stagingRequired) break;
@@ -139,9 +139,9 @@ Provider* Sorter::startSort() {
         Run run = ssdRuns[0];
         ssdRuns.erase(ssdRuns.begin());
         recordCount += run.numRecords;
-        int offset = cfg.memoryBlockSize + i * cfg.ssdReadSize;
-        StorageProvider s(cfg.ssdDevice, run.offset, buffer, offset,
-                          cfg.ssdReadSize, cfg);
+        int offset = cfg->memoryBlockSize + i * cfg->ssdReadSize;
+        StorageProvider s(&cfg->ssdDevice, run.offset, buffer, offset,
+                          cfg->ssdReadSize, *cfg);
         providers[i] = &s;
     }
 
@@ -154,7 +154,7 @@ Provider* Sorter::startSort() {
     vector<Provider*> newProvider(ssdRuns.size() + hddRuns.size());
     providers = newProvider;
     int index = 0;
-    int memoryOffset = cfg.memoryBlockSize;
+    int memoryOffset = cfg->memoryBlockSize;
 
 
     for (int i = 0; i < hddRuns.size(); i++) {
@@ -162,31 +162,31 @@ Provider* Sorter::startSort() {
 
 
         StagingConfig stagingCfg;
-        stagingCfg.recordSize = cfg.recordSize;
+        stagingCfg.recordSize = cfg->recordSize;
         stagingCfg.recordCount = run.numRecords;
-        stagingCfg.storage = cfg.hddDevice;
+        stagingCfg.storage = cfg->hddDevice;
         stagingCfg.storageStartOffset = run.offset;
-        stagingCfg.staging = cfg.ssdDevice;
-        stagingCfg.stagingStartOffset = i * (cfg.hddReadSize - cfg.ssdReadSize);
-        stagingCfg.stagingLength = cfg.hddReadSize - cfg.ssdReadSize;
+        stagingCfg.staging = cfg->ssdDevice;
+        stagingCfg.stagingStartOffset = i * (cfg->hddReadSize - cfg->ssdReadSize);
+        stagingCfg.stagingLength = cfg->hddReadSize - cfg->ssdReadSize;
         stagingCfg.buffer = buffer;
         stagingCfg.bufferStartOffset = memoryOffset;
-        stagingCfg.bufferLength = cfg.ssdReadSize;
+        stagingCfg.bufferLength = cfg->ssdReadSize;
         stagingCfg.transferBuffer = buffer;
         stagingCfg.transferStartOffset = 0;
-        stagingCfg.transferLength = cfg.hddReadSize;
-        stagingCfg.keySize = cfg.keySize;
-        stagingCfg.keyOffset = cfg.keyOffset;
+        stagingCfg.transferLength = cfg->hddReadSize;
+        stagingCfg.keySize = cfg->keySize;
+        stagingCfg.keyOffset = cfg->keyOffset;
         StagedProvider sp(stagingCfg);
         providers[index++] = &sp;
-        memoryOffset += cfg.ssdReadSize;
+        memoryOffset += cfg->ssdReadSize;
     }
 
     for (Run run: ssdRuns) {
-        StorageProvider storageProvider(cfg.ssdDevice, run.offset, buffer,
-                        memoryOffset, cfg.ssdReadSize, cfg);
+        StorageProvider storageProvider(&cfg->ssdDevice, run.offset, buffer,
+                        memoryOffset, cfg->ssdReadSize, *cfg);
         providers[index++] = &storageProvider;
-        memoryOffset += cfg.ssdReadSize;
+        memoryOffset += cfg->ssdReadSize;
     }
 
     TournamentPQ t(providers, keyOffset, index);
@@ -196,11 +196,11 @@ Provider* Sorter::startSort() {
 
 void Sorter::makeFreeSpace() {
     long sorted = ssdOffset + hddOffset;
-    sorted /= cfg.memoryBlockSize;
+    sorted /= cfg->memoryBlockSize;
     sorted += memoryRuns.size();
     // at this point sorted contains the number of 1MB blocks we have.
 
-    int numToMove = (int)(sorted * cfg.fraction);
+    int numToMove = (int)(sorted * cfg->fraction);
     if(numToMove < 1) numToMove = 1;
 
     releaseMemory(numToMove);
@@ -223,7 +223,7 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
         recordCount += run.numRecords;
     }
 
-    lastMemoryRun += numberBuffersToRelease * cfg.memoryBlockSize;
+    lastMemoryRun += numberBuffersToRelease * cfg->memoryBlockSize;
 
     TournamentPQ t(providers, keyOffset, index);
     Provider* provider = &t;
@@ -231,22 +231,22 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 }
 
 void Sorter::storeRun(Provider* provider, long recordCount) {
-    long spaceRequired = recordCount * cfg.recordSize;
+    long spaceRequired = recordCount * cfg->recordSize;
 
     IODevice device("../Files/storeRun.tmp");
     long deviceOffset = 0;
 
-    long ssdRequired = roundUp(spaceRequired, cfg.ssdReadSize);
+    long ssdRequired = roundUp(spaceRequired, cfg->ssdReadSize);
     if(ssdRequired <= ssdRemaining) {
-        device = cfg.ssdDevice;
+        device = cfg->ssdDevice;
         deviceOffset = ssdOffset;
         Run run(recordCount, ssdOffset);
         ssdRuns.push_back(run);
         ssdOffset += ssdRequired;
         ssdRemaining -= ssdRequired;
     } else {
-        long hddRequired = roundUp(spaceRequired, cfg.hddReadSize);
-        device = cfg.hddDevice;
+        long hddRequired = roundUp(spaceRequired, cfg->hddReadSize);
+        device = cfg->hddDevice;
         deviceOffset = hddOffset;
         Run run(recordCount, hddOffset);
         hddRuns.push_back(run);
@@ -254,23 +254,23 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
     }
 
     int bufferOffset = 0;
-    int bufferRemaining = cfg.memoryBlockSize;
+    int bufferRemaining = cfg->memoryBlockSize;
     while(true) {
         shared_ptr<Record> rPtr = provider->next();
         if(!rPtr) break;
         Record r = *rPtr;
-        if(bufferRemaining < cfg.recordSize) {
+        if(bufferRemaining < cfg->recordSize) {
             r.store(buffer, bufferOffset, bufferRemaining);
-            int leftOver = cfg.recordSize-bufferRemaining;
-            device.write(deviceOffset, buffer, 0, cfg.memoryBlockSize);
-            deviceOffset += cfg.memoryBlockSize;
+            int leftOver = cfg->recordSize-bufferRemaining;
+            device.write(deviceOffset, buffer, 0, cfg->memoryBlockSize);
+            deviceOffset += cfg->memoryBlockSize;
             r.store(buffer, bufferOffset, leftOver);
             bufferOffset = leftOver;
-            bufferRemaining = cfg.memoryBlockSize - leftOver;
+            bufferRemaining = cfg->memoryBlockSize - leftOver;
         } else {
             r.store(buffer, bufferOffset, 1);
-            bufferOffset += cfg.recordSize;
-            bufferRemaining -= cfg.recordSize;
+            bufferOffset += cfg->recordSize;
+            bufferRemaining -= cfg->recordSize;
         }
     }
 
@@ -286,8 +286,8 @@ long Sorter::roundUp(long value, long multiple) {
 }
 
 void Sorter::printStats(){
-    cout << "SSD usage:" << cfg.ssdDevice.stats() << "\n";
-    cout << "HDD usage:" << cfg.hddDevice.stats() << "\n";
+    cout << "SSD usage:" << cfg->ssdDevice.stats() << "\n";
+    cout << "HDD usage:" << cfg->hddDevice.stats() << "\n";
     cout << "total number of record comparisons: " <<  record.getCompareCount() << "\n";
 }
 

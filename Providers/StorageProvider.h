@@ -27,7 +27,7 @@ private:
 
 public:
     StorageProvider(
-            IODevice storage,
+            IODevice* storage,
             long storageStartOffset,
             uint8_t *buffer,
             int bufferStartOffset,
