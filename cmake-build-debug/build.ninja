@@ -654,6 +654,73 @@ build testInOrderGenerator: CXX_EXECUTABLE_LINKER__testInOrderGenerator_Debug CM
   TARGET_PDB = testInOrderGenerator.dbg
 
 # =============================================================================
+# Object build statements for EXECUTABLE target testCrcRandomGenerator
+
+
+#############################################
+# Order-only phony target for testCrcRandomGenerator
+
+build cmake_object_order_depends_target_testCrcRandomGenerator: phony || CMakeFiles/testCrcRandomGenerator.dir
+
+build CMakeFiles/testCrcRandomGenerator.dir/Records/Record.cpp.o: CXX_COMPILER__testCrcRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testCrcRandomGenerator
+  DEP_FILE = CMakeFiles/testCrcRandomGenerator.dir/Records/Record.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testCrcRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testCrcRandomGenerator.dir/Records
+
+build CMakeFiles/testCrcRandomGenerator.dir/Records/rng.cpp.o: CXX_COMPILER__testCrcRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testCrcRandomGenerator
+  DEP_FILE = CMakeFiles/testCrcRandomGenerator.dir/Records/rng.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testCrcRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testCrcRandomGenerator.dir/Records
+
+build CMakeFiles/testCrcRandomGenerator.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o: CXX_COMPILER__testCrcRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/SortingHelpers/CrcRandomGenerator.cpp || cmake_object_order_depends_target_testCrcRandomGenerator
+  DEP_FILE = CMakeFiles/testCrcRandomGenerator.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testCrcRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testCrcRandomGenerator.dir/Testing/SortingHelpers
+
+build CMakeFiles/testCrcRandomGenerator.dir/Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp.o: CXX_COMPILER__testCrcRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp || cmake_object_order_depends_target_testCrcRandomGenerator
+  DEP_FILE = CMakeFiles/testCrcRandomGenerator.dir/Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testCrcRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testCrcRandomGenerator.dir/Testing/Tests/Helpers
+
+build CMakeFiles/testCrcRandomGenerator.dir/Config/SorterConfig.cpp.o: CXX_COMPILER__testCrcRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/SorterConfig.cpp || cmake_object_order_depends_target_testCrcRandomGenerator
+  DEP_FILE = CMakeFiles/testCrcRandomGenerator.dir/Config/SorterConfig.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testCrcRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testCrcRandomGenerator.dir/Config
+
+build CMakeFiles/testCrcRandomGenerator.dir/IODevice.cpp.o: CXX_COMPILER__testCrcRandomGenerator_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/IODevice.cpp || cmake_object_order_depends_target_testCrcRandomGenerator
+  DEP_FILE = CMakeFiles/testCrcRandomGenerator.dir/IODevice.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testCrcRandomGenerator.dir
+  OBJECT_FILE_DIR = CMakeFiles/testCrcRandomGenerator.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target testCrcRandomGenerator
+
+
+#############################################
+# Link the executable testCrcRandomGenerator
+
+build testCrcRandomGenerator: CXX_EXECUTABLE_LINKER__testCrcRandomGenerator_Debug CMakeFiles/testCrcRandomGenerator.dir/Records/Record.cpp.o CMakeFiles/testCrcRandomGenerator.dir/Records/rng.cpp.o CMakeFiles/testCrcRandomGenerator.dir/Testing/SortingHelpers/CrcRandomGenerator.cpp.o CMakeFiles/testCrcRandomGenerator.dir/Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp.o CMakeFiles/testCrcRandomGenerator.dir/Config/SorterConfig.cpp.o CMakeFiles/testCrcRandomGenerator.dir/IODevice.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
+  OBJECT_DIR = CMakeFiles/testCrcRandomGenerator.dir
+  POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testCrcRandomGenerator
+  PRE_LINK = :
+  TARGET_FILE = testCrcRandomGenerator
+  TARGET_PDB = testCrcRandomGenerator.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target testDedooper
 
 
@@ -683,12 +750,12 @@ build CMakeFiles/testDedooper.dir/Testing/TestProviders/InOrderGenerator.cpp.o: 
   OBJECT_DIR = CMakeFiles/testDedooper.dir
   OBJECT_FILE_DIR = CMakeFiles/testDedooper.dir/Testing/TestProviders
 
-build CMakeFiles/testDedooper.dir/Testing/Tests/DedooperTest.cpp.o: CXX_COMPILER__testDedooper_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/DedooperTest.cpp || cmake_object_order_depends_target_testDedooper
-  DEP_FILE = CMakeFiles/testDedooper.dir/Testing/Tests/DedooperTest.cpp.o.d
+build CMakeFiles/testDedooper.dir/Testing/Tests/Providers/DedooperTest.cpp.o: CXX_COMPILER__testDedooper_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Providers/DedooperTest.cpp || cmake_object_order_depends_target_testDedooper
+  DEP_FILE = CMakeFiles/testDedooper.dir/Testing/Tests/Providers/DedooperTest.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
   OBJECT_DIR = CMakeFiles/testDedooper.dir
-  OBJECT_FILE_DIR = CMakeFiles/testDedooper.dir/Testing/Tests
+  OBJECT_FILE_DIR = CMakeFiles/testDedooper.dir/Testing/Tests/Providers
 
 build CMakeFiles/testDedooper.dir/Providers/Dedooper.cpp.o: CXX_COMPILER__testDedooper_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Providers/Dedooper.cpp || cmake_object_order_depends_target_testDedooper
   DEP_FILE = CMakeFiles/testDedooper.dir/Providers/Dedooper.cpp.o.d
@@ -719,7 +786,7 @@ build CMakeFiles/testDedooper.dir/IODevice.cpp.o: CXX_COMPILER__testDedooper_uns
 #############################################
 # Link the executable testDedooper
 
-build testDedooper: CXX_EXECUTABLE_LINKER__testDedooper_Debug CMakeFiles/testDedooper.dir/Records/Record.cpp.o CMakeFiles/testDedooper.dir/Records/rng.cpp.o CMakeFiles/testDedooper.dir/Testing/TestProviders/InOrderGenerator.cpp.o CMakeFiles/testDedooper.dir/Testing/Tests/DedooperTest.cpp.o CMakeFiles/testDedooper.dir/Providers/Dedooper.cpp.o CMakeFiles/testDedooper.dir/Config/SorterConfig.cpp.o CMakeFiles/testDedooper.dir/IODevice.cpp.o
+build testDedooper: CXX_EXECUTABLE_LINKER__testDedooper_Debug CMakeFiles/testDedooper.dir/Records/Record.cpp.o CMakeFiles/testDedooper.dir/Records/rng.cpp.o CMakeFiles/testDedooper.dir/Testing/TestProviders/InOrderGenerator.cpp.o CMakeFiles/testDedooper.dir/Testing/Tests/Providers/DedooperTest.cpp.o CMakeFiles/testDedooper.dir/Providers/Dedooper.cpp.o CMakeFiles/testDedooper.dir/Config/SorterConfig.cpp.o CMakeFiles/testDedooper.dir/IODevice.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testDedooper.dir
   POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDedooper
@@ -810,12 +877,12 @@ build CMakeFiles/testKey.dir/Testing/SortingHelpers/Key.cpp.o: CXX_COMPILER__tes
   OBJECT_DIR = CMakeFiles/testKey.dir
   OBJECT_FILE_DIR = CMakeFiles/testKey.dir/Testing/SortingHelpers
 
-build CMakeFiles/testKey.dir/Testing/Tests/Sorters/KeyTest.cpp.o: CXX_COMPILER__testKey_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Sorters/KeyTest.cpp || cmake_object_order_depends_target_testKey
-  DEP_FILE = CMakeFiles/testKey.dir/Testing/Tests/Sorters/KeyTest.cpp.o.d
+build CMakeFiles/testKey.dir/Testing/Tests/Helpers/KeyTest.cpp.o: CXX_COMPILER__testKey_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Testing/Tests/Helpers/KeyTest.cpp || cmake_object_order_depends_target_testKey
+  DEP_FILE = CMakeFiles/testKey.dir/Testing/Tests/Helpers/KeyTest.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
   INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
   OBJECT_DIR = CMakeFiles/testKey.dir
-  OBJECT_FILE_DIR = CMakeFiles/testKey.dir/Testing/Tests/Sorters
+  OBJECT_FILE_DIR = CMakeFiles/testKey.dir/Testing/Tests/Helpers
 
 
 # =============================================================================
@@ -825,7 +892,7 @@ build CMakeFiles/testKey.dir/Testing/Tests/Sorters/KeyTest.cpp.o: CXX_COMPILER__
 #############################################
 # Link the executable testKey
 
-build testKey: CXX_EXECUTABLE_LINKER__testKey_Debug CMakeFiles/testKey.dir/Testing/SortingHelpers/Key.cpp.o CMakeFiles/testKey.dir/Testing/Tests/Sorters/KeyTest.cpp.o
+build testKey: CXX_EXECUTABLE_LINKER__testKey_Debug CMakeFiles/testKey.dir/Testing/SortingHelpers/Key.cpp.o CMakeFiles/testKey.dir/Testing/Tests/Helpers/KeyTest.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testKey.dir
   POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testKey
@@ -2066,6 +2133,34 @@ build CMakeFiles/testRecord.dir/Testing/Tests/Record/RecordTest.cpp.o: CXX_COMPI
   OBJECT_DIR = CMakeFiles/testRecord.dir
   OBJECT_FILE_DIR = CMakeFiles/testRecord.dir/Testing/Tests/Record
 
+build CMakeFiles/testRecord.dir/Records/Record.cpp.o: CXX_COMPILER__testRecord_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/Record.cpp || cmake_object_order_depends_target_testRecord
+  DEP_FILE = CMakeFiles/testRecord.dir/Records/Record.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testRecord.dir
+  OBJECT_FILE_DIR = CMakeFiles/testRecord.dir/Records
+
+build CMakeFiles/testRecord.dir/Records/rng.cpp.o: CXX_COMPILER__testRecord_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Records/rng.cpp || cmake_object_order_depends_target_testRecord
+  DEP_FILE = CMakeFiles/testRecord.dir/Records/rng.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testRecord.dir
+  OBJECT_FILE_DIR = CMakeFiles/testRecord.dir/Records
+
+build CMakeFiles/testRecord.dir/Config/SorterConfig.cpp.o: CXX_COMPILER__testRecord_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/Config/SorterConfig.cpp || cmake_object_order_depends_target_testRecord
+  DEP_FILE = CMakeFiles/testRecord.dir/Config/SorterConfig.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testRecord.dir
+  OBJECT_FILE_DIR = CMakeFiles/testRecord.dir/Config
+
+build CMakeFiles/testRecord.dir/IODevice.cpp.o: CXX_COMPILER__testRecord_unscanned_Debug /Users/morgannelson/Desktop/cs764-sorter/IODevice.cpp || cmake_object_order_depends_target_testRecord
+  DEP_FILE = CMakeFiles/testRecord.dir/IODevice.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3 -fcolor-diagnostics
+  INCLUDES = -I/Users/morgannelson/Desktop/cs764-sorter/.
+  OBJECT_DIR = CMakeFiles/testRecord.dir
+  OBJECT_FILE_DIR = CMakeFiles/testRecord.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target testRecord
@@ -2074,7 +2169,7 @@ build CMakeFiles/testRecord.dir/Testing/Tests/Record/RecordTest.cpp.o: CXX_COMPI
 #############################################
 # Link the executable testRecord
 
-build testRecord: CXX_EXECUTABLE_LINKER__testRecord_Debug CMakeFiles/testRecord.dir/Testing/Tests/Record/RecordTest.cpp.o
+build testRecord: CXX_EXECUTABLE_LINKER__testRecord_Debug CMakeFiles/testRecord.dir/Testing/Tests/Record/RecordTest.cpp.o CMakeFiles/testRecord.dir/Records/Record.cpp.o CMakeFiles/testRecord.dir/Records/rng.cpp.o CMakeFiles/testRecord.dir/Config/SorterConfig.cpp.o CMakeFiles/testRecord.dir/IODevice.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk -mmacosx-version-min=14.3
   OBJECT_DIR = CMakeFiles/testRecord.dir
   POST_BUILD = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecord
@@ -2402,7 +2497,7 @@ build testStagedProvider: CXX_EXECUTABLE_LINKER__testStagedProvider_Debug CMakeF
 #############################################
 # Utility command for runAllTests
 
-build CMakeFiles/runAllTests.util: CUSTOM_COMMAND CMakeFiles/runAllTests testArrayProvider testConsumer testDedooper testDropFirst testDuplicateRemoval testEmptyProvider testIODevice testInOrderGenerator testKey testLotsOfHddRuns testPQ testPrinter testRandomGenerator testRecord testSingleProvider testSorterConfig testSorting testSpillToHdd testSpillToOneBlockToSdd testStagedProvider testStagingConfig testStorageProvider testTreeSorter testWitness
+build CMakeFiles/runAllTests.util: CUSTOM_COMMAND CMakeFiles/runAllTests testArrayProvider testConsumer testCrcRandomGenerator testDedooper testDropFirst testDuplicateRemoval testEmptyProvider testIODevice testInOrderGenerator testKey testLotsOfHddRuns testPQ testPrinter testRandomGenerator testRecord testSingleProvider testSorterConfig testSorting testSpillToHdd testSpillToOneBlockToSdd testStagedProvider testStagingConfig testStorageProvider testTreeSorter testWitness
   COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/runAllTests
   DESC = Running utility command for runAllTests
   restat = 1
@@ -2436,8 +2531,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Custom command for CMakeFiles/runAllTests
 
-build CMakeFiles/runAllTests | ${cmake_ninja_workdir}CMakeFiles/runAllTests: CUSTOM_COMMAND || testArrayProvider testConsumer testDedooper testDropFirst testDuplicateRemoval testEmptyProvider testIODevice testInOrderGenerator testKey testLotsOfHddRuns testPQ testPrinter testRandomGenerator testRecord testSingleProvider testSorterConfig testSorting testSpillToHdd testSpillToOneBlockToSdd testStagedProvider testStagingConfig testStorageProvider testTreeSorter testWitness
-  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDuplicateRemoval && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testWitness && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPQ && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorting && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testLotsOfHddRuns && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToHdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecord && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStorageProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagedProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testInOrderGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testConsumer && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDropFirst && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRandomGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testTreeSorter && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDedooper && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testIODevice && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorterConfig && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testEmptyProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSingleProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testKey && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToOneBlockToSdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagingConfig && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPrinter && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testArrayProvider
+build CMakeFiles/runAllTests | ${cmake_ninja_workdir}CMakeFiles/runAllTests: CUSTOM_COMMAND || testArrayProvider testConsumer testCrcRandomGenerator testDedooper testDropFirst testDuplicateRemoval testEmptyProvider testIODevice testInOrderGenerator testKey testLotsOfHddRuns testPQ testPrinter testRandomGenerator testRecord testSingleProvider testSorterConfig testSorting testSpillToHdd testSpillToOneBlockToSdd testStagedProvider testStagingConfig testStorageProvider testTreeSorter testWitness
+  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDuplicateRemoval && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testWitness && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPQ && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorting && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testLotsOfHddRuns && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToHdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecord && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStorageProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagedProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testInOrderGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testConsumer && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDropFirst && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRandomGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testTreeSorter && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDedooper && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testIODevice && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorterConfig && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testEmptyProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSingleProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testKey && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToOneBlockToSdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagingConfig && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPrinter && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testArrayProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testCrcRandomGenerator
 
 # =============================================================================
 # Target aliases.
@@ -2450,7 +2545,7 @@ build CMakeFiles/runAllTests | ${cmake_ninja_workdir}CMakeFiles/runAllTests: CUS
 #############################################
 # Folder: /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug
 
-build all: phony cs764_sorter createRecords testSorterConfig testPrinter testIODevice testArrayProvider testSingleProvider testInOrderGenerator testDedooper testRandomGenerator testKey testDropFirst testTreeSorter testConsumer testStagingConfig testEmptyProvider testDuplicateRemoval testWitness testPQ testSorting testLotsOfHddRuns testSpillToHdd testSpillToOneBlockToSdd testRecord testStorageProvider testStagedProvider
+build all: phony cs764_sorter createRecords testSorterConfig testPrinter testIODevice testArrayProvider testSingleProvider testInOrderGenerator testCrcRandomGenerator testDedooper testRandomGenerator testKey testDropFirst testTreeSorter testConsumer testStagingConfig testEmptyProvider testDuplicateRemoval testWitness testPQ testSorting testLotsOfHddRuns testSpillToHdd testSpillToOneBlockToSdd testRecord testStorageProvider testStagedProvider
 
 # =============================================================================
 # Built-in targets

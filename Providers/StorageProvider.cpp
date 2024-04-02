@@ -1,7 +1,10 @@
 #include "StorageProvider.h"
 
-StorageProvider::StorageProvider(IODevice storage, long storageStartOffset,
-                                 uint8_t *buffer, int bufferStartOffset, int bufferLength, SorterConfig cfg):storage("") {
+StorageProvider::StorageProvider(IODevice storage,
+                                      long storageStartOffset,
+                                      uint8_t *buffer,
+                                      int bufferStartOffset,
+                                      int bufferLength, SorterConfig cfg):storage("") {
     this->storageStartOffset = storageStartOffset;
     this->buffer = buffer;
     this->bufferStartOffset = bufferStartOffset;
@@ -21,12 +24,12 @@ shared_ptr<Record> StorageProvider::next() {
     void* data = new char[cfg->recordSize];
     int recordRemaining = cfg->recordSize;
     int recordOffset = 0;
+    Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
 
     while(true) {
         if(recordRemaining < 1) {
             nextRecord++;
             nextRecord++;
-            Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
             shared_ptr<Record> ptr(new Record);
             return ptr;
         }

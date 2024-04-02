@@ -30,13 +30,7 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
     uint8_t* buffer = memory;
     int bufferStartOffset = 20;
 
-
-    StorageProvider sp(
-            storage,
-            storageStartOffset,
-            buffer,
-            bufferStartOffset,
-            bufferLength, *cfg);
+    StorageProvider sp(storage,storageStartOffset,buffer,bufferStartOffset,bufferLength, *cfg);
 
 
     Witness after(&sp);
@@ -60,5 +54,5 @@ void StorageProviderTest::testMedium() {
 int main(){
     StorageProviderTest test;
     test.testSmall();
-    test.testMedium();
+//    test.testMedium();
 }

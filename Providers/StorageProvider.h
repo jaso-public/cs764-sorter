@@ -17,8 +17,6 @@ private:
     int bufferStartOffset;
     int bufferLength;
 
-
-
     int bufferOffset;
     int bufferRemaining;
 
