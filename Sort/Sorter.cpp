@@ -49,55 +49,55 @@ Provider* Sorter::startSort() {
 
             vector<Provider*> providerFromSingles(singles.begin(), singles.end());
             TournamentPQ pq(providerFromSingles, keyOffset, recordCount);
-//            for (int i = 0; i < recordCount; i++) {
-//                shared_ptr<Record> ptr = pq.next();
-//                Record r = *ptr;
-//                r.store(buffer, lastMemoryRun + i * cfg->recordSize, 1);
-//            }
-//            Run run(recordCount, lastMemoryRun);
-//            memoryRuns.push_back(run);
+            for (int i = 0; i < recordCount; i++) {
+                shared_ptr<Record> ptr = pq.next();
+                //TODO: error here
+              //  ptr->store(buffer, lastMemoryRun + i * cfg->recordSize, 1);
+            }
+            Run run(recordCount, lastMemoryRun);
+            memoryRuns.push_back(run);
         }
     }
-//    // if there was nothing to sort then return an empty provider.
-//    if (memoryRuns.size() + ssdRuns.size() + hddRuns.size() == 0) {
-//        EmptyProvider e;
-//        Provider* providerPtr = reinterpret_cast<Provider *>(&e);
-//        return providerPtr;
-//    }
-//
+    // if there was nothing to sort then return an empty provider.
+    if (memoryRuns.size() + ssdRuns.size() + hddRuns.size() == 0) {
+        EmptyProvider e;
+        Provider* providerPtr = reinterpret_cast<Provider *>(&e);
+        return providerPtr;
+    }
+
 //    // see if we can do the final merge with the memory we have.
 //    // i.e not too many runs and no need to stage hdd runs to ssd
-//    int memoryRequired = ssdRuns.size() * cfg->ssdReadSize + (hddRuns.size() + 1) * cfg->hddReadSize;
-//    if (memoryRequired < cfg->memoryBlockCount * cfg->memoryBlockSize) {
-//        if (memoryRequired > lastMemoryRun) {
-//            int toRelease = (memoryRequired - lastMemoryRun + cfg->memoryBlockSize - 1) / cfg->memoryBlockSize;
-//            releaseMemory(toRelease);
-//        }
-//
-//        vector<Provider*> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
-//        int index = 0;
-//
-//        for (Run run: memoryRuns) {
-//            MemoryProvider m(buffer, run.offset, *cfg);
-//            providers[index++] = &m;
-//        }
-//        // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
-//        int offset = 0;
-//
-//        for (Run run: hddRuns) {
-//            StorageProvider s(&cfg->hddDevice, run.offset, buffer, offset, cfg->hddReadSize, *cfg);
-//            offset += cfg->hddReadSize;
-//        }
-//
-//        for (Run run: ssdRuns) {
-//            StorageProvider s(&cfg->ssdDevice, run.offset, buffer, offset, cfg->ssdReadSize,
-//                             *cfg);
-//            offset += cfg->ssdReadSize;
-//        }
-//        TournamentPQ t(providers, keyOffset, index);
-//        Provider* providerPointer = &t;
-//        return providerPointer;
-//    }
+    int memoryRequired = ssdRuns.size() * cfg->ssdReadSize + (hddRuns.size() + 1) * cfg->hddReadSize;
+    if (memoryRequired < cfg->memoryBlockCount * cfg->memoryBlockSize) {
+        if (memoryRequired > lastMemoryRun) {
+            int toRelease = (memoryRequired - lastMemoryRun + cfg->memoryBlockSize - 1) / cfg->memoryBlockSize;
+            releaseMemory(toRelease);
+        }
+
+        vector<Provider*> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
+        int index = 0;
+
+        for (Run run: memoryRuns) {
+            MemoryProvider m(buffer, run.offset, *cfg);
+            providers[index++] = &m;
+        }
+        // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
+        int offset = 0;
+
+        for (Run run: hddRuns) {
+            StorageProvider s(&cfg->hddDevice, run.offset, buffer, offset, cfg->hddReadSize, *cfg);
+            offset += cfg->hddReadSize;
+        }
+
+        for (Run run: ssdRuns) {
+            StorageProvider s(&cfg->ssdDevice, run.offset, buffer, offset, cfg->ssdReadSize,
+                             *cfg);
+            offset += cfg->ssdReadSize;
+        }
+        TournamentPQ t(providers, keyOffset, index);
+        Provider* providerPointer = &t;
+        return providerPointer;
+    }
 //
 //    // we did not have enough memory to do the final merge, so lets flush all of our memory
 //    // runs and use all the memory to stage the final merge run.
