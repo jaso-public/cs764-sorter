@@ -6,7 +6,7 @@
 TournamentPQ::TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset, int numProviders): providers(providers) {
     this->numProviders = numProviders;
     this->keyOffset = givenKeyOffset;
-
+    this->losers = vector<int> (numProviders);
 
     // create and fill the records array
     vector<shared_ptr<Record>> r;
@@ -22,7 +22,6 @@ TournamentPQ::TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset,
         }
     }
 
-    vector<int> losers(numProviders);
     vector<int> winners(numProviders);
     for(int match=numProviders-1; match>0 ; match--) {
         int h1 = match * 2;

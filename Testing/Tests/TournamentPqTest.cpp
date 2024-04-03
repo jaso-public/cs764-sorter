@@ -30,7 +30,7 @@ void TournamentPqTest::doTest(int numProviders) {
         }
     }
 
-    vector<Provider*> providers(numProviders);
+    vector<Provider*> providers;
     int index = 0;
     for (auto it = lists.begin(); it != lists.end(); ++it){
             string name ="Provider-"+ to_string(index);
@@ -41,7 +41,7 @@ void TournamentPqTest::doTest(int numProviders) {
     }
 
 
-    TournamentPQ pq(providers, 8, providers.size());
+    TournamentPQ pq(providers, 8, numProviders);
     Witness w(&pq);
     Consumer c(&w);
     c.consume();
