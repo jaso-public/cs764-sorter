@@ -12,7 +12,8 @@ void TournamentPqTest::doTest(int numProviders) {
     Witness before(&i);
 
 
-    list<vector<Record>> lists(numProviders);
+    list<vector<Record>> lists;
+
 
 
     for(int i=0; i<numProviders ; i++) {
@@ -21,12 +22,10 @@ void TournamentPqTest::doTest(int numProviders) {
     }
 
     for(int j=0 ; j<numItemsPerList ; j++) {
-        for(int i=numProviders-1 ; i>=0 ; i--) {
-            auto iterator = lists.begin();
-            advance(iterator, i);
+        for (auto it = lists.begin(); it != lists.end(); ++it){
             shared_ptr<Record> recordPtr = before.next();
             if (recordPtr){
-                iterator->push_back(*recordPtr);
+                it->push_back(*recordPtr);
             }
         }
     }
@@ -43,18 +42,18 @@ void TournamentPqTest::doTest(int numProviders) {
 
 
     TournamentPQ pq(providers, 8, providers.size());
-//    Witness w(&pq);
-//    Consumer c(&w);
-//    c.consume();
-//
-//    assert(w.isSorted);
-//    assert(("The count of the before witness did have the same checksum as the w witness but should have" && 4 == 5));
-//    assert(("The count of the before witness did have the same checksum as the w witness but should have" && before.getCrc() == w.getCrc()));
+    Witness w(&pq);
+    Consumer c(&w);
+    c.consume();
+
+    assert(w.isSorted);
+    assert(("The count of the before witness did have the same checksum as the w witness but should have" && 4 == 5));
+    assert(("The count of the before witness did have the same checksum as the w witness but should have" && before.getCrc() == w.getCrc()));
 }
 
 void TournamentPqTest::testVariousNumberOfProviders() {
     for(int i=1; i<100; i++) {
-        doTest(i);
+            doTest(i);
     }
 }
 
