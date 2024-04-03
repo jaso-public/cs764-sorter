@@ -11,7 +11,7 @@ ArrayProvider::ArrayProvider(std::string givenName, vector<Record> givenRecords)
     this->name = givenName;
     this->records = givenRecords;
     // places pointer at start of records vector
-    this->ptr = givenRecords.begin();
+    this->ptr = records.begin();
 
 }
 
@@ -23,8 +23,8 @@ shared_ptr<Record> ArrayProvider::next() {
     // checks that another record exists
     if (ptr != records.end()){
         // create a pointer to the returned record
-        ptr++;
         shared_ptr<Record> recordPtr = make_shared<Record>(*ptr);
+        ptr++;
         return recordPtr;
     }
     return nullptr;
