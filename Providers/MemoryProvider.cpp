@@ -11,7 +11,7 @@ MemoryProvider::MemoryProvider(uint8_t *buffer, long offset, SorterConfig cfg) {
     this->buffer = *buffer;
     this->offset = safeIntCast(offset);
     this->nextRecord = 0;
-    this->cfg = cfg;
+    this->cfg = &cfg;
 }
 
 /**
@@ -20,12 +20,12 @@ MemoryProvider::MemoryProvider(uint8_t *buffer, long offset, SorterConfig cfg) {
   */
 shared_ptr<Record> MemoryProvider::next() {
     // if all records and memory spaces have been created
-    if(nextRecord >= cfg.recordCount) return nullptr;
-    uint8_t* data = new uint8_t[cfg.recordSize];
-    int off = offset + nextRecord * cfg.recordSize;
-    copy(&buffer + off, &buffer + off + cfg.recordSize, data);
+    if(nextRecord >= cfg->recordCount) return nullptr;
+    uint8_t* data = new uint8_t[cfg->recordSize];
+    int off = offset + nextRecord * cfg->recordSize;
+    copy(&buffer + off, &buffer + off + cfg->recordSize, data);
     nextRecord++;
-    Record::staticInitialize(cfg.recordSize, cfg.keyOffset, cfg.keySize);
+    Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
     shared_ptr<Record> ptr(new Record(data));
     return ptr;
 }

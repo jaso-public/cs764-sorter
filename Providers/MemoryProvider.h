@@ -19,7 +19,7 @@ private:
     int offset;
     //  total number of records returned so far
     int nextRecord;
-    SorterConfig cfg;
+    SorterConfig* cfg;
     /**
      * Converts a long value to an integer if it is a valid conversion
      * @param the long value wanted to be converted
