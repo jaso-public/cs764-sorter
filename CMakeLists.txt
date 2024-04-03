@@ -827,6 +827,8 @@ add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testStagedProvider>
         COMMAND $<TARGET_FILE:testArrayProvider>
+        COMMAND $<TARGET_FILE:testRecord>
+        COMMAND $<TARGET_FILE:testStorageProvider>
 )
 
 add_custom_command(TARGET runNonFaultTests
@@ -837,8 +839,6 @@ add_custom_command(TARGET runNonFaultTests
 
 add_custom_target(runFaultTests
         COMMAND $<TARGET_FILE:testSorting>
-        COMMAND $<TARGET_FILE:testStorageProvider>
-        COMMAND $<TARGET_FILE:testRecord>
         COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
         COMMAND $<TARGET_FILE:testSpillToHdd>
         COMMAND $<TARGET_FILE:testLotsOfHddRuns>
