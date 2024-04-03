@@ -2632,14 +2632,25 @@ build testStagedProvider: CXX_EXECUTABLE_LINKER__testStagedProvider_Debug CMakeF
 
 
 #############################################
-# Utility command for runAllTests
+# Utility command for runNonFaultTests
 
-build CMakeFiles/runAllTests.util: CUSTOM_COMMAND CMakeFiles/runAllTests testArrayProvider testConsumer testCrcRandomGenerator testDedooper testDropFirst testDuplicateRemoval testEmptyProvider testIODevice testInOrderGenerator testKey testLotsOfHddRuns testPQ testPrinter testRandomGenerator testRecord testRecordProvider testSingleProvider testSorterConfig testSorting testSpillToHdd testSpillToOneBlockToSdd testStagedProvider testStagingConfig testStorageProvider testTreeSorter testWitness
-  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/runAllTests
-  DESC = Running utility command for runAllTests
+build CMakeFiles/runNonFaultTests.util: CUSTOM_COMMAND CMakeFiles/runNonFaultTests testConsumer testCrcRandomGenerator testDedooper testDropFirst testDuplicateRemoval testEmptyProvider testIODevice testInOrderGenerator testKey testPrinter testRandomGenerator testRecordProvider testSingleProvider testSorterConfig testStagedProvider testStagingConfig testWitness
+  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/runNonFaultTests
+  DESC = Running utility command for runNonFaultTests
   restat = 1
 
-build runAllTests: phony CMakeFiles/runAllTests.util
+build runNonFaultTests: phony CMakeFiles/runNonFaultTests.util
+
+
+#############################################
+# Utility command for runFaultTests
+
+build CMakeFiles/runFaultTests.util: CUSTOM_COMMAND CMakeFiles/runFaultTests testArrayProvider testLotsOfHddRuns testPQ testRecord testSorting testSpillToHdd testSpillToOneBlockToSdd testStorageProvider testTreeSorter
+  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/runFaultTests
+  DESC = Running utility command for runFaultTests
+  restat = 1
+
+build runFaultTests: phony CMakeFiles/runFaultTests.util
 
 
 #############################################
@@ -2666,10 +2677,17 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 
 #############################################
-# Custom command for CMakeFiles/runAllTests
+# Custom command for CMakeFiles/runNonFaultTests
 
-build CMakeFiles/runAllTests | ${cmake_ninja_workdir}CMakeFiles/runAllTests: CUSTOM_COMMAND || testArrayProvider testConsumer testCrcRandomGenerator testDedooper testDropFirst testDuplicateRemoval testEmptyProvider testIODevice testInOrderGenerator testKey testLotsOfHddRuns testPQ testPrinter testRandomGenerator testRecord testRecordProvider testSingleProvider testSorterConfig testSorting testSpillToHdd testSpillToOneBlockToSdd testStagedProvider testStagingConfig testStorageProvider testTreeSorter testWitness
-  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDuplicateRemoval && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testWitness && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPQ && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorting && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testLotsOfHddRuns && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToHdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecord && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStorageProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagedProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testInOrderGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testConsumer && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDropFirst && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRandomGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testTreeSorter && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDedooper && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testIODevice && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorterConfig && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testEmptyProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSingleProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testKey && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToOneBlockToSdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagingConfig && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPrinter && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testArrayProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testCrcRandomGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecordProvider
+build CMakeFiles/runNonFaultTests | ${cmake_ninja_workdir}CMakeFiles/runNonFaultTests: CUSTOM_COMMAND || testConsumer testCrcRandomGenerator testDedooper testDropFirst testDuplicateRemoval testEmptyProvider testIODevice testInOrderGenerator testKey testPrinter testRandomGenerator testRecordProvider testSingleProvider testSorterConfig testStagedProvider testStagingConfig testWitness
+  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDuplicateRemoval && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testInOrderGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testConsumer && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDropFirst && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRandomGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testDedooper && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testIODevice && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorterConfig && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testEmptyProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSingleProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testKey && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagingConfig && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPrinter && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testCrcRandomGenerator && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecordProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testWitness && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStagedProvider
+
+
+#############################################
+# Custom command for CMakeFiles/runFaultTests
+
+build CMakeFiles/runFaultTests | ${cmake_ninja_workdir}CMakeFiles/runFaultTests: CUSTOM_COMMAND || testArrayProvider testLotsOfHddRuns testPQ testRecord testSorting testSpillToHdd testSpillToOneBlockToSdd testStorageProvider testTreeSorter
+  COMMAND = cd /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSorting && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testStorageProvider && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testRecord && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToOneBlockToSdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testSpillToHdd && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testLotsOfHddRuns && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testPQ && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testTreeSorter && /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/testArrayProvider
 
 # =============================================================================
 # Target aliases.

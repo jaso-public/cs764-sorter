@@ -26,6 +26,7 @@
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testRecord.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testStorageProvider.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/testStagedProvider.dir
-/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/runAllTests.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/runNonFaultTests.dir
+/Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/runFaultTests.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/edit_cache.dir
 /Users/morgannelson/Desktop/cs764-sorter/cmake-build-debug/CMakeFiles/rebuild_cache.dir

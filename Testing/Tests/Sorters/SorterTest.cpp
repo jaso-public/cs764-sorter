@@ -11,7 +11,7 @@ void SorterTest::testSmallSort() {
     Witness lower(&printer1);
     SorterConfig* cfg2 = new SorterConfig();
     Sorter sorter(*cfg2, &lower);
-    Witness upper(&sorter);
+    Witness upper(&lower);
     Printer printer2(&upper, test+"from sorter");
     Consumer consumer(&printer2);
     consumer.consume();

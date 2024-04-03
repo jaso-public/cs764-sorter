@@ -1,7 +1,8 @@
 #include "SingleProvider.h"
 
-SingleProvider::SingleProvider(SorterConfig cfg) {
-    Record::staticInitialize(cfg.recordSize, cfg.keyOffset, cfg.keySize);
+SingleProvider::SingleProvider(SorterConfig* cfg) {
+    this->cfg = cfg;
+    Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
     shared_ptr<Record> ptr(new Record);
     this->record = ptr;
 };

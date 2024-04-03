@@ -14,7 +14,7 @@ private:
     SorterConfig* cfg;
 
 public:
-    SingleProvider(SorterConfig cfg);
+    SingleProvider(SorterConfig* cfg);
     /**
      * Sets the class record's variable to the given record
      * @param r the new record variable of the class
