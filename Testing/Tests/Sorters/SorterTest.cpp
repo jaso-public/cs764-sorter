@@ -165,6 +165,7 @@ void SorterTest::testZeroRecords() {
 }
 
 int main(){
+    //TODO: all these need to run
     SorterTest test;
     test.testSmallSort();
 //    test.testAllMemory();
