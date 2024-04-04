@@ -54,7 +54,12 @@ Provider* Sorter::startSort() {
             for (int i = 0; i < recordCount; i++) {
                 shared_ptr<Record> ptr = pq.next();
                 //TODO: do not know why this is causing an error
-                //ptr->store(buffer, lastMemoryRun + i * cfg->recordSize, bufferLength);
+                int storeOffset = lastMemoryRun + i * cfg->recordSize;
+                cout << buffer << "\n";
+                cout << storeOffset << "\n";
+                cout << bufferLength << "\n";
+                ptr->store(buffer, storeOffset, bufferLength);
+                cout << "Done" << "\n";
             }
             Run run(cfg->recordCount, lastMemoryRun);
             memoryRuns.push_back(run);
