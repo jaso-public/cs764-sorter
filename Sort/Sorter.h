@@ -29,6 +29,7 @@ private:
      long hddOffset;
 
      uint8_t *buffer;
+     int bufferLength;
      int lastMemoryRun;
 
      Provider* startSort();

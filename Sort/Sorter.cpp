@@ -10,8 +10,9 @@ Sorter::Sorter(SorterConfig cfg, Provider* source) {
 
     this->ssdRemaining = cfg.ssdStorageSize;
 
-    this->buffer = new uint8_t[cfg.memoryBlockSize * cfg.memoryBlockCount];
-    this->lastMemoryRun= cfg.memoryBlockSize * cfg.memoryBlockCount;
+    this->bufferLength = cfg.memoryBlockSize * cfg.memoryBlockCount;
+    this->buffer = new uint8_t[bufferLength];
+    this->lastMemoryRun= bufferLength;
 
     this->sortedProvider = startSort();
 }
@@ -53,7 +54,7 @@ Provider* Sorter::startSort() {
             for (int i = 0; i < recordCount; i++) {
                 shared_ptr<Record> ptr = pq.next();
                 //TODO: do not know why this is causing an error
-               // ptr->store(buffer, lastMemoryRun + i * cfg->recordSize, cfg->recordSize);
+                //ptr->store(buffer, lastMemoryRun + i * cfg->recordSize, bufferLength);
             }
             Run run(cfg->recordCount, lastMemoryRun);
             memoryRuns.push_back(run);
