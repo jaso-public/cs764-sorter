@@ -14,8 +14,8 @@ void SpillToHdd::testSpillToHdd() {
 
     CrcRandomGenerator crc(*cfg);
     Witness lower(&crc);
-    Sorter sorter(*cfg, &sorter);
-    Witness upper(&lower);
+    Sorter sorter(*cfg, &lower);
+    Witness upper(&sorter);
     Printer p(&upper, test);
 
     while(true) {

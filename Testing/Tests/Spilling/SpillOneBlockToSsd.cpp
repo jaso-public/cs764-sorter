@@ -11,7 +11,7 @@ void SpillOneBlockToSsd::testSpillToSsdFewBlocks() {
     RandomGenerator rng(*cfg);
     Witness lower(&rng);
     Sorter sorter(*cfg, &lower);
-    Witness upper(&lower);
+    Witness upper(&sorter);
     Consumer consumer(&upper);
     consumer.consume();
 
