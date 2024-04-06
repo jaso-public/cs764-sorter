@@ -6,7 +6,7 @@
 #include <memory>
 #include <random>
 
-#include "./Records/Record.h"
+#include "Record.h"
 
 vector<shared_ptr<Record>> generateInOrder(int recordCount);
 vector<shared_ptr<Record>> generateRandom(int recordCount);

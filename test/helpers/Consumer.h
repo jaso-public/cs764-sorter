@@ -1,7 +1,7 @@
 #ifndef DB_CONSUMER_H
 #define DB_CONSUMER_H
-#include "Providers/Provider.h"
-#include "Records/Record.h"
+#include "../../src/Provider.h"
+#include "../../src/Record.h"
 #include <iostream>
 using namespace std;
 

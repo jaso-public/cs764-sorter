@@ -1,7 +1,7 @@
 #ifndef CS764_SORTER_SINGLEPROVIDER_H
 #define CS764_SORTER_SINGLEPROVIDER_H
-#include "../Records/Record.h"
-#include "Provider.h"
+#include "../src/Record.h"
+#include "../src/Provider.h"
 #include "Config/SorterConfig.h"
 
 /**

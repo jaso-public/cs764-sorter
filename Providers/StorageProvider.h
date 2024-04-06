@@ -1,9 +1,10 @@
 #ifndef CS764_SORTER_STORAGEPROVIDER_H
 #define CS764_SORTER_STORAGEPROVIDER_H
-#include "../IODevice.h"
-#include "./Records/Record.h"
+#include "Record.h"
 #include "Provider.h"
+
 #include "Config/SorterConfig.h"
+#include "../src/IODevice.h"
 
 class StorageProvider: public Provider{
 private:

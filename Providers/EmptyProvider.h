@@ -1,7 +1,7 @@
 #ifndef CS764_SORTER_EMPTYPROVIDER_H
 #define CS764_SORTER_EMPTYPROVIDER_H
-#include "../Records/Record.h"
-#include "Provider.h"
+#include "../src/Record.h"
+#include "../src/Provider.h"
 
 /**
  * This class is an empty provider that continues to return a null pointer as a record

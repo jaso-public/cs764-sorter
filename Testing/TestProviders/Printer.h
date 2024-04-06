@@ -1,9 +1,12 @@
 #ifndef CS764_SORTER_PRINTER_H
 #define CS764_SORTER_PRINTER_H
-#include "Providers/Provider.h"
+
 #include <string>
 #include <iostream>
 #include <sys/time.h>
+
+#include "Provider.h"
+
 using namespace std;
 
 /**

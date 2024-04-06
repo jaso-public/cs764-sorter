@@ -1,9 +1,9 @@
 #ifndef CS764_SORTER_DROPFIRST_H
 #define CS764_SORTER_DROPFIRST_H
-#include "Providers/Provider.h"
-#include "Records/Record.h"
 #include <iostream>
-using namespace std;
+
+#include "Provider.h"
+#include "Record.h"
 
 
 /**

@@ -1,19 +1,42 @@
-#include "WitnessTest.h"
 
-void WitnessTest::testLower() {
+#include <iostream>
+#include <cassert>
+#include <string>
+
+#include "Record.h"
+#include "Provider.h"
+#include "Witness.h"
+
+#include "test/helpers/Consumer.h"
+#include "test/helpers/Generators.h"
+#include "test/helpers/ArrayProvider.h"
+
+#include "Testing/SortingHelpers/NoopSorter.h"
+//#include "Testing/TestProviders/DropFirst.h"
+//#include "Testing/SortingHelpers/TreeSorter.h"
+//#include "Testing/TestProviders/Printer.h"
+//#include "Providers/Dedooper.h"
+
+using namespace std;
+
+
+void testLower() {
     auto records = generateInOrder(10);
-    shared_ptr<Provider> provider = make_shared<ArrayProvider>("name", records);
-    Witness lower(provider);
+    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
+    auto lower = make_shared<Witness>(source);
+
     for (int i = 0; i < 10; i++){
-        shared_ptr<Record> ptr = lower.next();
+        shared_ptr<Record> ptr = lower->next();
+        ptr->dump();
         assert("Next should have existed" && ptr != nullptr );
     }
-    shared_ptr<Record> ptr = lower.next();
+
+    shared_ptr<Record> ptr = lower->next();
     assert("Next should have given a null pointer" && ptr == nullptr );
-    assert("Count should be 10" && lower.getCount() == 10 );
+    assert("Count should be 10" && lower->getCount() == 10 );
 }
 
-void WitnessTest::testWithSorter() {
+void testWithSorter() {
     auto records = generateInOrder(10);
     shared_ptr<Provider> provider = make_shared<ArrayProvider>("name", records);
     shared_ptr<Provider> lower = make_shared<Witness>(provider);
@@ -27,7 +50,7 @@ void WitnessTest::testWithSorter() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void WitnessTest::testGivingWitnessNoopSorter() {
+void testGivingWitnessNoopSorter() {
     auto records = generateInOrder(10);
     shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
     shared_ptr<Provider> sorter = make_shared<NoopSorter>(source);
@@ -41,7 +64,7 @@ void WitnessTest::testGivingWitnessNoopSorter() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void WitnessTest::testGivingWitnessAnotherWitness() {
+void testGivingWitnessAnotherWitness() {
     auto records = generateInOrder(10);
     shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
     shared_ptr<Provider> lower = make_shared<Witness>(source);
@@ -55,7 +78,7 @@ void WitnessTest::testGivingWitnessAnotherWitness() {
     assert("Next should have given a null pointer" && ptr2 == nullptr );
 }
 
-void WitnessTest::testUpper() {
+void testUpper() {
     auto records = generateInOrder(10);
     shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
     shared_ptr<Provider> lower = make_shared<Witness>(source);
@@ -70,7 +93,7 @@ void WitnessTest::testUpper() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 //
-//void WitnessTest::testTenInorder() {
+//void testTenInorder() {
 //    auto records = generateInOrder(10);
 //    ArrayProvider provider("name", records);
 //    Witness lower(&provider);
@@ -85,7 +108,7 @@ void WitnessTest::testUpper() {
 //    assert("The upper witness should have been sorted but was not" && upper.isSorted == lower.isSorted);
 //}
 //
-//void WitnessTest::testDropOne() {
+//void testDropOne() {
 //    auto records = generateInOrder(10);
 //    ArrayProvider provider("name", records);
 //    Witness lower(&provider);
@@ -103,7 +126,7 @@ void WitnessTest::testUpper() {
 //    assert("The checksum of the lower witness was equal to the checksum of the upper but should not have been" && lower.getCrc() != upper.getCrc());
 //}
 //
-//void WitnessTest::testRandomOrder() {
+//void testRandomOrder() {
 //    auto records = generateRandom(10);
 //    ArrayProvider provider("name", records);
 //    Witness lower(&provider);
@@ -120,7 +143,7 @@ void WitnessTest::testUpper() {
 //    assert(("The checksum of the lower witness was not equal to the checksum of the upper but should have been" && lower.getCrc() == upper.getCrc()));
 //}
 //
-//void WitnessTest::testTreeSorter() {
+//void testTreeSorter() {
 //    auto records = generateRandom(10);
 //    ArrayProvider provider("name", records);
 //    Witness lower(&provider);
@@ -136,7 +159,7 @@ void WitnessTest::testUpper() {
 //    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 //}
 //
-//void WitnessTest::testRandomOrderWithPrinting() {
+//void testRandomOrderWithPrinting() {
 //    string test = "testRandomOrderWithPrinting: ";
 //    auto records = generateRandom(10);
 //    ArrayProvider provider("name", records);
@@ -156,7 +179,7 @@ void WitnessTest::testUpper() {
 //    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 //}
 //
-//void WitnessTest::testTreeSorterWithPrinting() {
+//void testTreeSorterWithPrinting() {
 //    string test = "testTreeSorterWithPrinting: ";
 //    auto records = generateRandom(10);
 //    ArrayProvider provider("name", records);
@@ -176,13 +199,12 @@ void WitnessTest::testUpper() {
 //    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
 //}
 
-int main(){
-    WitnessTest w;
-    w.testLower();
-    w.testWithSorter();
-    w.testGivingWitnessNoopSorter();
-    w.testGivingWitnessAnotherWitness();
-    w.testUpper();
+int main() {
+    testLower();
+    testWithSorter();
+    testGivingWitnessNoopSorter();
+    testGivingWitnessAnotherWitness();
+    testUpper();
 //    w.testTenInorder();
 //    w.testTreeSorterWithPrinting();
 //    w.testRandomOrderWithPrinting();

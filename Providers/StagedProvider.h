@@ -3,13 +3,13 @@
 #include <assert.h>
 #include <limits.h>
 #include <iostream>
-#include "../IODevice.h"
+#include "../src/IODevice.h"
 #include "../Config/StagingConfig.h"
 using namespace std;
 
 
 #include "IODevice.h"
-#include "Provider.h"
+#include "../src/Provider.h"
 #include "Config/StagingConfig.h"
 
 class StagedProvider: public Provider {

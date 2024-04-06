@@ -1,7 +1,7 @@
 #ifndef CS764_SORTER_TREESORTER_H
 #define CS764_SORTER_TREESORTER_H
-#include "../../Providers/Provider.h"
-#include "../../Records/Record.h"
+#include "../../src/Provider.h"
+#include "../../src/Record.h"
 #include "Key.h"
 #include <vector>
 #include <map>

@@ -1,8 +1,10 @@
 #ifndef CS764_SORTER_NOOPSORTER_H
 #define CS764_SORTER_NOOPSORTER_H
-#include "Providers/Provider.h"
-using namespace std;
 
+#include <memory>
+
+#include "Record.h"
+#include "Provider.h"
 
 /**
  * A class that implements the provider to return the provider's next record
@@ -18,6 +20,5 @@ public:
 private:
     shared_ptr<Provider> source; // the provider that will generate the next record
 };
-
 
 #endif //CS764_SORTER_NOOPSORTER_H

@@ -1,7 +1,7 @@
 #ifndef DB_PROVIDER_H
 #define DB_PROVIDER_H
 #include <stdint.h>
-#include "../Records/Record.h"
+#include "Record.h"
 #include <memory>
 using namespace std;
 

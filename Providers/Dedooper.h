@@ -1,7 +1,7 @@
 #ifndef CS764_SORTER_DEDOOPER_H
 #define CS764_SORTER_DEDOOPER_H
 
-#include "Provider.h"
+#include "../src/Provider.h"
 #include <memory>
 using namespace std;
 

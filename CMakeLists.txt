@@ -4,18 +4,19 @@ project(cs764_sorter)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(.)
+include_directories(src)
 
 add_executable(cs764_sorter
         OutlinedFiles/Assert.cpp
-        Consumer.cpp
-        Consumer.h
+        test/helpers/Consumer.cpp
+        test/helpers/Consumer.h
         OutlinedFiles/defs.cpp
         OutlinedFiles/defs.h
         OutlinedFiles/Filter.cpp
         OutlinedFiles/Filter.h
         OutlinedFiles/Iterator.cpp
         OutlinedFiles/Iterator.h
-        Providers/Provider.h
+        src/Provider.h
         Providers/SingleProvider.h
         Providers/SingleProvider.cpp
         Providers/EmptyProvider.h
@@ -24,39 +25,98 @@ add_executable(cs764_sorter
         Providers/StagedProvider.cpp
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
-        Records/Record.cpp
-        Records/Record.h
+        src/Record.cpp
+        src/Record.h
         OutlinedFiles/Scan.cpp
         OutlinedFiles/Scan.h
-        Sort/Sort.cpp
-        Sort/Sort.h
-        TournamentPQ.cpp
-        TournamentPQ.h
-        Witness.h
-        IODevice.h
-        IODevice.cpp
+        OutlinedFiles/Sort.cpp
+        OutlinedFiles/Sort.h
+        src/TournamentPQ.cpp
+        src/TournamentPQ.h
+        src/Witness.h
+        src/IODevice.h
+        src/IODevice.cpp
         Testing/TestProviders/Printer.cpp
         Testing/TestProviders/Printer.h
-        Sort/Sorter.h
+        src/Sorter.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
         Config/StagingConfig.h
         Config/StagingConfig.cpp
         Testing/SortingHelpers/NoopSorter.h
-        Sort/Sorter.cpp
-        Run.h
-        Run.cpp
+        src/Sorter.cpp
+        src/Run.h
         Providers/MemoryProvider.h
         Providers/Dedooper.h
+        src/main.cpp test/ArrayProviderTest.cpp)
+
+
+add_executable(testRecord
+        test/RecordTest.cpp
+        src/Record.cpp
+        src/Record.h)
+
+add_custom_command(TARGET testRecord
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRecord
+        COMMENT "Running testRecord...")
+
+
+add_executable(testArrayProvider
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/ArrayProviderTest.cpp
+        src/Record.cpp
+        src/Record.h)
+
+add_custom_command(TARGET testArrayProvider
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testArrayProvider
+        COMMENT "Running testArrayProvider...")
+
+add_executable(testWitness
+        test/WitnessTest.cpp
+
+        src/Record.h
+        src/Record.cpp
+        src/Provider.h
+        src/Witness.h
+
+        test/helpers/Consumer.h
+        test/helpers/Consumer.cpp
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
+
+        Testing/SortingHelpers/NoopSorter.h
+
+        #        Testing/TestProviders/DropFirst.h
+        #        Testing/TestProviders/DropFirst.cpp
+        #        Testing/SortingHelpers/TreeSorter.h
+        #        Testing/SortingHelpers/TreeSorter.cpp
+        #        Testing/SortingHelpers/Key.h
+        #        Testing/SortingHelpers/Key.cpp
+        #        Testing/TestProviders/Printer.h
+        #        Testing/TestProviders/Printer.cpp
+        #        Providers/Dedooper.h
+        #        Config/SorterConfig.cpp
+        #        Config/SorterConfig.h
+        )
+
+add_custom_command(TARGET testWitness
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testWitness
+        COMMENT "Running testWitness..."
 )
+
 
 add_executable(testSorterConfig
         Config/SorterConfig.cpp
         Config/SorterConfig.h
         Testing/Tests/Config/SorterConfigTest.cpp
         Testing/Tests/Config/SorterConfigTest.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testSorterConfig
@@ -68,18 +128,17 @@ add_custom_command(TARGET testSorterConfig
 add_executable(testPrinter
         Testing/TestProviders/Printer.cpp
         Testing/TestProviders/Printer.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
         Testing/Tests/Providers/PrinterTest.cpp
         Testing/Tests/Providers/PrinterTest.h
-        Records/Record.cpp
-        Records/Record.h
+        src/Record.cpp
+        src/Record.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testPrinter
@@ -89,8 +148,8 @@ add_custom_command(TARGET testPrinter
 )
 
 add_executable(testIODevice
-        IODevice.cpp
-        IODevice.h
+        src/IODevice.cpp
+        src/IODevice.h
         Testing/Tests/IODevice/IoDeviceTest.cpp
         Testing/Tests/IODevice/IoDeviceTest.h
 )
@@ -101,27 +160,6 @@ add_custom_command(TARGET testIODevice
         COMMENT "Running testIODevice..."
 )
 
-add_executable(testArrayProvider
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.h
-        Testing/TestProviders/ArrayProvider.cpp
-        Records/Record.cpp
-        Records/Record.h
-        Testing/Tests/Providers/ArrayProviderTest.cpp
-        Testing/Tests/Providers/ArrayProviderTest.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
-)
-
-add_custom_command(TARGET testArrayProvider
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testArrayProvider
-        COMMENT "Running testArrayProvider..."
-)
-
 add_executable(testSingleProvider
         Providers/SingleProvider.cpp
         Providers/SingleProvider.h
@@ -129,10 +167,10 @@ add_executable(testSingleProvider
         Testing/Tests/Providers/SingleProviderTest.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
-        Records/Record.cpp
-        Records/Record.h
+        src/IODevice.h
+        src/IODevice.cpp
+        src/Record.cpp
+        src/Record.h
         )
 
 add_custom_command(TARGET testSingleProvider
@@ -142,18 +180,17 @@ add_custom_command(TARGET testSingleProvider
 )
 
 add_executable(testInOrderGenerator
-        Records/Record.cpp
-        Records/Record.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        src/Record.cpp
+        src/Record.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
         Testing/Tests/Providers/InOrderGeneratorTest.cpp
         Testing/Tests/Providers/InOrderGeneratorTest.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testInOrderGenerator
@@ -163,18 +200,17 @@ add_custom_command(TARGET testInOrderGenerator
 )
 
 add_executable(testCrcRandomGenerator
-        Records/Record.cpp
-        Records/Record.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        src/Record.cpp
+        src/Record.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
         Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp
         Testing/Tests/Helpers/CrcRandomGeneratorTest.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testCrcRandomGenerator
@@ -184,19 +220,18 @@ add_custom_command(TARGET testCrcRandomGenerator
 )
 
 add_executable(testDedooper
-        Records/Record.cpp
-        Records/Record.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        src/Record.cpp
+        src/Record.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
         Testing/Tests/Providers/DedooperTest.cpp
         Testing/Tests/Providers/DedooperTest.h
         Providers/Dedooper.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testDedooper
@@ -206,18 +241,17 @@ add_custom_command(TARGET testDedooper
 )
 
 add_executable(testRandomGenerator
-        Records/Record.cpp
-        Records/Record.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        src/Record.cpp
+        src/Record.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
         Testing/Tests/Providers/RandomGeneratorTest.h
         Testing/Tests/Providers/RandomGeneratorTest.cpp
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testRandomGenerator
@@ -240,21 +274,20 @@ add_custom_command(TARGET testKey
 )
 
 add_executable(testDropFirst
-        Records/Record.cpp
-        Records/Record.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        src/Record.cpp
+        src/Record.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
         Testing/TestProviders/DropFirst.cpp
         Testing/TestProviders/DropFirst.h
         Testing/Tests/Providers/DropFirstTest.cpp
         Testing/Tests/Providers/DropFirstTest.cpp
-        Witness.h
+        src/Witness.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testDropFirst
@@ -264,23 +297,22 @@ add_custom_command(TARGET testDropFirst
 )
 
 add_executable(testTreeSorter
-        Records/Record.cpp
-        Records/Record.h
+        src/Record.cpp
+        src/Record.h
         Testing/SortingHelpers/TreeSorter.cpp
         Testing/SortingHelpers/TreeSorter.h
         Testing/Tests/Sorters/TreeSorterTest.cpp
         Testing/Tests/Sorters/TreeSorterTest.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
-        Witness.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
+        src/Witness.h
         Testing/SortingHelpers/Key.h
         Testing/SortingHelpers/Key.cpp
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testTreeSorter
@@ -290,20 +322,19 @@ add_custom_command(TARGET testTreeSorter
 )
 
 add_executable(testConsumer
-        Records/Record.cpp
-        Records/Record.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        src/Record.cpp
+        src/Record.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
         Testing/Tests/ConsumerTest.cpp
         Testing/Tests/ConsumerTest.h
-        Consumer.cpp
-        Consumer.h
+        test/helpers/Consumer.cpp
+        test/helpers/Consumer.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testConsumer
@@ -317,8 +348,8 @@ add_executable(testStagingConfig
         Config/StagingConfig.cpp
         Testing/Tests/Config/StagingConfigTest.cpp
         Testing/Tests/Config/StagingConfigTest.h
-        IODevice.cpp
-        IODevice.h
+        src/IODevice.cpp
+        src/IODevice.h
 )
 
 add_custom_command(TARGET testStagingConfig
@@ -347,19 +378,18 @@ add_executable(testRecordProvider
         Testing/Tests/Providers/RecordProviderTest.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.cpp
-        IODevice.h
-        Records/Record.cpp
-        Records/Record.h
-        Providers/Provider.h
-        Witness.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        src/IODevice.cpp
+        src/IODevice.h
+        src/Record.cpp
+        src/Record.h
+        src/Provider.h
+        src/Witness.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
         Testing/SortingHelpers/NoopSorter.h
-        Consumer.h
-        Consumer.cpp
+        test/helpers/Consumer.h
+        test/helpers/Consumer.cpp
         Testing/TestProviders/DropFirst.h
         Testing/TestProviders/DropFirst.cpp
         Testing/SortingHelpers/TreeSorter.h
@@ -368,13 +398,13 @@ add_executable(testRecordProvider
         Testing/SortingHelpers/Key.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Records/Record.cpp
-        Records/Record.h
+        src/Record.cpp
+        src/Record.h
         Providers/Dedooper.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testRecordProvider
@@ -396,62 +426,25 @@ add_custom_command(TARGET testDuplicateRemoval
         COMMENT "Running testDuplicateRemoval..."
 )
 
-add_executable(testWitness
-        Providers/Provider.h
-        Witness.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
-        Testing/SortingHelpers/NoopSorter.h
-        Consumer.h
-        Consumer.cpp
-        Testing/TestProviders/DropFirst.h
-        Testing/TestProviders/DropFirst.cpp
-        Testing/SortingHelpers/TreeSorter.h
-        Testing/SortingHelpers/TreeSorter.cpp
-        Testing/SortingHelpers/Key.h
-        Testing/SortingHelpers/Key.cpp
-        Testing/TestProviders/Printer.h
-        Testing/TestProviders/Printer.cpp
-        Records/Record.cpp
-        Records/Record.h
-        Testing/Tests/WitnessTest.cpp
-        Testing/Tests/WitnessTest.h
-        Providers/Dedooper.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
-)
-
-add_custom_command(TARGET testWitness
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testWitness
-        COMMENT "Running testWitness..."
-)
-
 add_executable(testPQ
-        Providers/Provider.h
-        Witness.h
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        src/Provider.h
+        src/Witness.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
         Testing/Tests/TournamentPqTest.cpp
         Testing/Tests/TournamentPqTest.h
-        Consumer.h
-        Consumer.cpp
-        TournamentPQ.cpp
-        TournamentPQ.h
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
-        Records/Record.cpp
-        Records/Record.h
+        test/helpers/Consumer.h
+        test/helpers/Consumer.cpp
+        src/TournamentPQ.cpp
+        src/TournamentPQ.h
+        test/helpers/ArrayProvider.h
+        src/Record.cpp
+        src/Record.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
+        src/IODevice.h
+        src/IODevice.cpp
 )
 
 add_custom_command(TARGET testPQ
@@ -461,15 +454,14 @@ add_custom_command(TARGET testPQ
 )
 
 add_executable(testSorting
-        Providers/Provider.h
-        Records/Record.cpp
-        Records/Record.h
+        src/Provider.h
+        src/Record.cpp
+        src/Record.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
         Config/StagingConfig.cpp
-        Run.cpp
-        Run.h
+        src/Run.h
         Providers/SingleProvider.cpp
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
@@ -479,17 +471,17 @@ add_executable(testSorting
         Providers/StorageProvider.cpp
         Providers/StagedProvider.cpp
         Providers/StagedProvider.h
-        TournamentPQ.cpp
-        TournamentPQ.h
-        IODevice.h
-        IODevice.cpp
+        src/TournamentPQ.cpp
+        src/TournamentPQ.h
+        src/IODevice.h
+        src/IODevice.cpp
         Testing/Tests/Sorters/SorterTest.cpp
         Testing/Tests/Sorters/SorterTest.h
-        Sort/Sorter.cpp
-        Sort/Sorter.h
-        Consumer.cpp
-        Consumer.h
-        Witness.h
+        src/Sorter.cpp
+        src/Sorter.h
+        test/helpers/Consumer.cpp
+        test/helpers/Consumer.h
+        src/Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
 )
@@ -501,15 +493,14 @@ add_custom_command(TARGET testSorting
 )
 
 add_executable(testLotsOfHddRuns
-        Providers/Provider.h
-        Records/Record.cpp
-        Records/Record.h
+        src/Provider.h
+        src/Record.cpp
+        src/Record.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
         Config/StagingConfig.cpp
-        Run.cpp
-        Run.h
+        src/Run.h
         Providers/SingleProvider.cpp
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
@@ -519,23 +510,22 @@ add_executable(testLotsOfHddRuns
         Providers/StorageProvider.cpp
         Providers/StagedProvider.cpp
         Providers/StagedProvider.h
-        TournamentPQ.cpp
-        TournamentPQ.h
-        IODevice.h
-        IODevice.cpp
+        src/TournamentPQ.cpp
+        src/TournamentPQ.h
+        src/IODevice.h
+        src/IODevice.cpp
         Testing/Tests/LotsOfHddRuns.cpp
         Testing/Tests/LotsOfHddRuns.h
-        Sort/Sorter.cpp
-        Sort/Sorter.h
-        Consumer.cpp
-        Consumer.h
-        Witness.h
+        src/Sorter.cpp
+        src/Sorter.h
+        test/helpers/Consumer.cpp
+        test/helpers/Consumer.h
+        src/Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
 )
 
 add_custom_command(TARGET testLotsOfHddRuns
@@ -545,15 +535,14 @@ add_custom_command(TARGET testLotsOfHddRuns
 )
 
 add_executable(testSpillToHdd
-        Providers/Provider.h
-        Records/Record.cpp
-        Records/Record.h
+        src/Provider.h
+        src/Record.cpp
+        src/Record.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
         Config/StagingConfig.cpp
-        Run.cpp
-        Run.h
+        src/Run.h
         Providers/SingleProvider.cpp
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
@@ -563,23 +552,22 @@ add_executable(testSpillToHdd
         Providers/StorageProvider.cpp
         Providers/StagedProvider.cpp
         Providers/StagedProvider.h
-        TournamentPQ.cpp
-        TournamentPQ.h
-        IODevice.h
-        IODevice.cpp
+        src/TournamentPQ.cpp
+        src/TournamentPQ.h
+        src/IODevice.h
+        src/IODevice.cpp
         Testing/Tests/Spilling/SpillToHdd.cpp
         Testing/Tests/Spilling/SpillToHdd.h
-        Sort/Sorter.cpp
-        Sort/Sorter.h
-        Consumer.cpp
-        Consumer.h
-        Witness.h
+        src/Sorter.cpp
+        src/Sorter.h
+        test/helpers/Consumer.cpp
+        test/helpers/Consumer.h
+        src/Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
 )
 
 add_custom_command(TARGET testSpillToHdd
@@ -589,15 +577,14 @@ add_custom_command(TARGET testSpillToHdd
 )
 
 add_executable(testSpillToOneBlockToSdd
-        Providers/Provider.h
-        Records/Record.cpp
-        Records/Record.h
+        src/Provider.h
+        src/Record.cpp
+        src/Record.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
         Config/StagingConfig.cpp
-        Run.cpp
-        Run.h
+        src/Run.h
         Providers/SingleProvider.cpp
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
@@ -607,23 +594,22 @@ add_executable(testSpillToOneBlockToSdd
         Providers/StorageProvider.cpp
         Providers/StagedProvider.cpp
         Providers/StagedProvider.h
-        TournamentPQ.cpp
-        TournamentPQ.h
-        IODevice.h
-        IODevice.cpp
+        src/TournamentPQ.cpp
+        src/TournamentPQ.h
+        src/IODevice.h
+        src/IODevice.cpp
         Testing/Tests/Spilling/SpillOneBlockToSsd.cpp
         Testing/Tests/Spilling/SpillOneBlockToSsd.cpp
-        Sort/Sorter.cpp
-        Sort/Sorter.h
-        Consumer.cpp
-        Consumer.h
-        Witness.h
+        src/Sorter.cpp
+        src/Sorter.h
+        test/helpers/Consumer.cpp
+        test/helpers/Consumer.h
+        src/Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
 )
 
 add_custom_command(TARGET testSpillToOneBlockToSdd
@@ -632,33 +618,15 @@ add_custom_command(TARGET testSpillToOneBlockToSdd
         COMMENT "Running testSpillToOneBlockToSdd..."
 )
 
-add_executable(testRecord
-        Testing/Tests/Record/RecordTest.cpp
-        Testing/Tests/Record/RecordTest.h
-        Records/Record.cpp
-        Records/Record.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
-        IODevice.h
-        IODevice.cpp
-)
-
-add_custom_command(TARGET testRecord
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRecord
-        COMMENT "Running testRecord..."
-)
-
 add_executable(testStorageProvider
-        Providers/Provider.h
-        Records/Record.cpp
-        Records/Record.h
+        src/Provider.h
+        src/Record.cpp
+        src/Record.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
         Config/StagingConfig.cpp
-        Run.cpp
-        Run.h
+        src/Run.h
         Providers/SingleProvider.cpp
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
@@ -668,23 +636,22 @@ add_executable(testStorageProvider
         Providers/StorageProvider.cpp
         Providers/StagedProvider.cpp
         Providers/StagedProvider.h
-        TournamentPQ.cpp
-        TournamentPQ.h
-        IODevice.h
-        IODevice.cpp
+        src/TournamentPQ.cpp
+        src/TournamentPQ.h
+        src/IODevice.h
+        src/IODevice.cpp
         Testing/Tests/Providers/StorageProviderTest.h
         Testing/Tests/Providers/StorageProviderTest.cpp
-        Sort/Sorter.cpp
-        Sort/Sorter.h
-        Consumer.cpp
-        Consumer.h
-        Witness.h
+        src/Sorter.cpp
+        src/Sorter.h
+        test/helpers/Consumer.cpp
+        test/helpers/Consumer.h
+        src/Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
 )
 
 
@@ -695,15 +662,14 @@ add_custom_command(TARGET testStorageProvider
 )
 
 add_executable(testStagedProvider
-        Providers/Provider.h
-        Records/Record.cpp
-        Records/Record.h
+        src/Provider.h
+        src/Record.cpp
+        src/Record.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
         Config/StagingConfig.cpp
-        Run.cpp
-        Run.h
+        src/Run.h
         Providers/SingleProvider.cpp
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
@@ -713,23 +679,22 @@ add_executable(testStagedProvider
         Providers/StorageProvider.cpp
         Providers/StagedProvider.cpp
         Providers/StagedProvider.h
-        TournamentPQ.cpp
-        TournamentPQ.h
-        IODevice.h
-        IODevice.cpp
+        src/TournamentPQ.cpp
+        src/TournamentPQ.h
+        src/IODevice.h
+        src/IODevice.cpp
         Testing/Tests/Providers/StagedProviderTest.cpp
         Testing/Tests/Providers/StagedProviderTest.h
-        Sort/Sorter.cpp
-        Sort/Sorter.h
-        Consumer.cpp
-        Consumer.h
-        Witness.h
+        src/Sorter.cpp
+        src/Sorter.h
+        test/helpers/Consumer.cpp
+        test/helpers/Consumer.h
+        src/Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/TestProviders/Generators.h
-        Testing/TestProviders/Generators.cpp
-        Testing/TestProviders/ArrayProvider.cpp
-        Testing/TestProviders/ArrayProvider.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+        test/helpers/ArrayProvider.h
 )
 
 add_custom_command(TARGET testStagedProvider

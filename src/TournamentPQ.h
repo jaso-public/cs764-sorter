@@ -1,9 +1,12 @@
 #ifndef CS764_SORTER_TOURNAMENTPQ_H
 #define CS764_SORTER_TOURNAMENTPQ_H
-#include "Providers/SingleProvider.h"
+
 #include <iostream>
 #include <vector>
-#include "Records/Record.h"
+
+#include "Record.h"
+#include "Provider.h"
+
 using namespace std;
 
 

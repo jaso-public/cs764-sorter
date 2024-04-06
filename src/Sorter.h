@@ -1,9 +1,9 @@
 #ifndef CS764_SORTER_SORTER_H
 #define CS764_SORTER_SORTER_H
-#include "../Providers/Provider.h"
+#include "Provider.h"
 #include "../Config/SorterConfig.h"
-#include "../Run.h"
-#include "../Records/Record.h"
+#include "Run.h"
+#include "Record.h"
 #include "Providers/SingleProvider.h"
 #include "Providers/EmptyProvider.h"
 #include "Providers/MemoryProvider.h"

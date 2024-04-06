@@ -1,10 +1,10 @@
 #ifndef CS764_SORTER_WITNESS_H
 #define CS764_SORTER_WITNESS_H
-#include "Providers/Provider.h"
-#include "Records/Record.h"
 
 #include <memory>
-using namespace std;
+
+#include "Provider.h"
+#include "Record.h"
 
 /**
  * This class will be utilized to verify the correctness of the records sorting algorithm

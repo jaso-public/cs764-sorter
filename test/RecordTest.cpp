@@ -1,11 +1,15 @@
-#include "RecordTest.h"
+#include <iostream>
+#include <cassert>
+
+#include "Record.h"
+#include "test/helpers/Generators.h"
 
 
-void RecordTest::testNoParameterConstructor() {
+void testNoParameterConstructor() {
     auto ptr = make_shared<Record>();
 }
 
-void RecordTest::testDataParameterConstructor() {
+void testDataParameterConstructor() {
     int recordSize = Record::getRecordSize();
     uint8_t data[recordSize];
     for(int i=0 ; i<recordSize ; i++) data[i] = i;
@@ -13,7 +17,7 @@ void RecordTest::testDataParameterConstructor() {
     auto ptr = make_shared<Record>(&data[0]);
 }
 
-void RecordTest::testIsDuplicate() {
+void testIsDuplicate() {
     int recordSize = Record::getRecordSize();
     uint8_t data[recordSize];
     for(int i = 0; i < recordSize; i++) {
@@ -31,7 +35,7 @@ void RecordTest::testIsDuplicate() {
     assert("None duplicate was not detected" && ptr1->isDuplicate(ptr2) == false);
 }
 
-void RecordTest::testCompare() {
+void testCompare() {
     uint8_t* data = new uint8_t[Record::getRecordSize()];
     auto ptr1 = make_shared<Record>(&data[0]);
     auto ptr2 = make_shared<Record>(&data[0]);
@@ -43,7 +47,7 @@ void RecordTest::testCompare() {
     assert("Compare count was wrong" && ptr1->getCompareCount() == 0);
 }
 
-void RecordTest::testCheckSum() {
+void testCheckSum() {
     int recordSize = Record::getRecordSize();
     uint8_t data[recordSize];
     for(int i = 0; i < recordSize; i++) {
@@ -62,10 +66,9 @@ void RecordTest::testCheckSum() {
 }
 
 int main(){
-    RecordTest test;
-    test.testNoParameterConstructor();
-    test.testDataParameterConstructor();
-    test.testIsDuplicate();
-    test.testCompare();
-    test.testCheckSum();
+    testNoParameterConstructor();
+    testDataParameterConstructor();
+    testIsDuplicate();
+    testCompare();
+    testCheckSum();
 }

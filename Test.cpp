@@ -8,7 +8,7 @@
 #include "OutlinedFiles/Iterator.h"
 #include "OutlinedFiles/Scan.h"
 #include "OutlinedFiles/Filter.h"
-#include "Sort/Sort.h"
+#include "OutlinedFiles/Sort.h"
 
 #include <charconv>
 #include <cstdint>

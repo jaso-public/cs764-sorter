@@ -48,6 +48,14 @@ public:
         return data < other.data;
     }
 
+    void dump() {
+        cout << "record:";
+        for(int i=0; i<5 ; i++) {
+            cout << (int)data[i] << " ";
+        }
+        cout << endl;
+    }
+
     static uint32_t getRecordSize() {return recordSize;}
     static uint32_t getKeySize() {return keySize;}
     static uint32_t getKeyOffset() {return keyOffset;}

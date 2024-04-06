@@ -1,11 +1,13 @@
 #ifndef CS764_SORTER_MEMORYPROVIDER_H
 #define CS764_SORTER_MEMORYPROVIDER_H
-#include "Records/Record.h"
-#include "Provider.h"
+
 #include <limits.h>
 #include <iostream>
-#include "Config/SorterConfig.h"
 #include <algorithm>
+
+#include "Record.h"
+#include "Provider.h"
+
 using namespace std;
 
 /**

@@ -8,6 +8,7 @@
 #include <cstdio>
 #include <cstdint>
 #include <cstring>
+#include <random>
 #include <sstream> // For std::istringstream
 #include <type_traits> // For std::is_integral
 

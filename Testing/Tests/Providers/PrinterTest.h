@@ -2,7 +2,7 @@
 #define CS764_SORTER_PRINTERTEST_H
 #include "assert.h"
 #include "Testing/TestProviders/Printer.h"
-#include "Testing/TestProviders/Generators.h"
+#include "Testing/Helpers/Generators.h"
 #include "Testing/TestProviders/ArrayProvider.h"
 
 class PrinterTest {

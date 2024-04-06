@@ -1,6 +1,6 @@
 #ifndef CS764_SORTER_SORTERCONFIG_H
 #define CS764_SORTER_SORTERCONFIG_H
-#include "../IODevice.h"
+#include "../src/IODevice.h"
 
 /**
  * This is the configuration file utilized to aid in sorting records
