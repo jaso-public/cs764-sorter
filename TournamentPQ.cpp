@@ -96,7 +96,7 @@ bool TournamentPQ::isFirstWinner(int first, int second) {
         return false;
     } else if(!r2Ptr) {
         return true;
-    } else if(r1Ptr->compareTo(*r2Ptr) < 0) {
+    } else if(r1Ptr->compareTo(r2Ptr) < 0) {
         return true;
     } else {
         return false;

@@ -8,17 +8,15 @@ using namespace std;
  * A class that implements the provider to return the provider's next record
  */
 class NoopSorter: public Provider {
-private:
-    // the provider that will generate the next record
-    Provider* source;
 public:
-    /**
-     * Class constructor that will set the provider
-     * @param givenProvider the given provider
-     */
-    NoopSorter(Provider* givenProvider);
-    // returns the provider's next generated record pointer
-    shared_ptr<Record> next() override;
+    NoopSorter(shared_ptr<Provider> source): source(source) {}
+
+    shared_ptr<Record> next() override {
+        return source->next();
+    }
+
+private:
+    shared_ptr<Provider> source; // the provider that will generate the next record
 };
 
 

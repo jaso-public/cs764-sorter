@@ -34,7 +34,6 @@ add_executable(cs764_sorter
         Sort/Sort.h
         TournamentPQ.cpp
         TournamentPQ.h
-        Witness.cpp
         Witness.h
         IODevice.h
         IODevice.cpp
@@ -47,13 +46,11 @@ add_executable(cs764_sorter
         Config/StagingConfig.h
         Config/StagingConfig.cpp
         Testing/SortingHelpers/NoopSorter.h
-        Testing/SortingHelpers/NoopSorter.cpp
         Sort/Sorter.cpp
         Run.h
         Run.cpp
         Providers/MemoryProvider.h
         Records/CreateRecords.h
-        Providers/Dedooper.cpp
         Providers/Dedooper.h
 )
 
@@ -226,7 +223,6 @@ add_executable(testDedooper
         Testing/TestProviders/ArrayProvider.h
         Testing/Tests/Providers/DedooperTest.cpp
         Testing/Tests/Providers/DedooperTest.h
-        Providers/Dedooper.cpp
         Providers/Dedooper.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
@@ -290,7 +286,6 @@ add_executable(testDropFirst
         Testing/Tests/Providers/DropFirstTest.cpp
         Testing/Tests/Providers/DropFirstTest.cpp
         Witness.h
-        Witness.cpp
         Config/SorterConfig.cpp
         Config/SorterConfig.h
         IODevice.h
@@ -317,7 +312,6 @@ add_executable(testTreeSorter
         Testing/TestProviders/ArrayProvider.cpp
         Testing/TestProviders/ArrayProvider.h
         Witness.h
-        Witness.cpp
         Testing/SortingHelpers/Key.h
         Testing/SortingHelpers/Key.cpp
         Config/SorterConfig.cpp
@@ -398,13 +392,11 @@ add_executable(testRecordProvider
         Records/Record.h
         Providers/Provider.h
         Witness.h
-        Witness.cpp
         Testing/TestProviders/Generators.h
         Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.cpp
         Testing/TestProviders/ArrayProvider.h
         Testing/SortingHelpers/NoopSorter.h
-        Testing/SortingHelpers/NoopSorter.cpp
         Consumer.h
         Consumer.cpp
         Testing/TestProviders/DropFirst.h
@@ -419,7 +411,6 @@ add_executable(testRecordProvider
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Providers/Dedooper.cpp
         Providers/Dedooper.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
@@ -449,13 +440,11 @@ add_custom_command(TARGET testDuplicateRemoval
 add_executable(testWitness
         Providers/Provider.h
         Witness.h
-        Witness.cpp
         Testing/TestProviders/Generators.h
         Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.cpp
         Testing/TestProviders/ArrayProvider.h
         Testing/SortingHelpers/NoopSorter.h
-        Testing/SortingHelpers/NoopSorter.cpp
         Consumer.h
         Consumer.cpp
         Testing/TestProviders/DropFirst.h
@@ -472,7 +461,6 @@ add_executable(testWitness
         Records/rng.h
         Testing/Tests/WitnessTest.cpp
         Testing/Tests/WitnessTest.h
-        Providers/Dedooper.cpp
         Providers/Dedooper.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
@@ -489,7 +477,6 @@ add_custom_command(TARGET testWitness
 add_executable(testPQ
         Providers/Provider.h
         Witness.h
-        Witness.cpp
         Testing/TestProviders/Generators.h
         Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.cpp
@@ -549,7 +536,6 @@ add_executable(testSorting
         Sort/Sorter.h
         Consumer.cpp
         Consumer.h
-        Witness.cpp
         Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
@@ -592,7 +578,6 @@ add_executable(testLotsOfHddRuns
         Sort/Sorter.h
         Consumer.cpp
         Consumer.h
-        Witness.cpp
         Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
@@ -639,7 +624,6 @@ add_executable(testSpillToHdd
         Sort/Sorter.h
         Consumer.cpp
         Consumer.h
-        Witness.cpp
         Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
@@ -686,7 +670,6 @@ add_executable(testSpillToOneBlockToSdd
         Sort/Sorter.h
         Consumer.cpp
         Consumer.h
-        Witness.cpp
         Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
@@ -752,7 +735,6 @@ add_executable(testStorageProvider
         Sort/Sorter.h
         Consumer.cpp
         Consumer.h
-        Witness.cpp
         Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
@@ -800,7 +782,6 @@ add_executable(testStagedProvider
         Sort/Sorter.h
         Consumer.cpp
         Consumer.h
-        Witness.cpp
         Witness.h
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp

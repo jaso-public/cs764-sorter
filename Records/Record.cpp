@@ -1,9 +1,10 @@
 #include "Record.h"
 
-uint32_t Record::recordSize = 0;
-uint32_t Record::keySize = 0;
+// initialize the global values for the record parameters
+uint32_t Record::recordSize = 64;
+uint32_t Record::keySize = 12;
+uint32_t Record::keyOffset = 10;
 uint64_t Record::compareCount = 0;
-uint32_t Record::keyOffset = 0;
 
 void Record::staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_t _keySize) {
     recordSize = _recordSize;
@@ -12,13 +13,14 @@ void Record::staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_
     compareCount = 0;
 }
 
+// TODO remove this constructor
 Record::Record() {
     data = new uint8_t[recordSize];
 }
 
-Record::Record(uint8_t *_data) {
+Record::Record(uint8_t *newData) {
     data = new uint8_t[recordSize];
-    set(_data);
+    set(newData);
 }
 
 // Copy constructor
@@ -43,13 +45,13 @@ Record::~Record() {
     delete[] data;
 }
 
-int Record::compareTo(Record other) {
-    if (!data) {
-        cout << "Error occurred with comparing" << "\n";
-        return 0;
-    }
+int Record::compareTo(const shared_ptr<Record> other) {
     compareCount++;
-    return memcmp(data + keyOffset, other.data + keyOffset, keySize);
+    return memcmp(data + keyOffset, other->data + keyOffset, keySize);
+}
+
+bool Record::isDuplicate(const shared_ptr <Record> other) {
+    return memcmp(this->data, other->data, recordSize) == 0;
 }
 
 void Record::store(uint8_t *dst) {
@@ -60,14 +62,17 @@ void Record::store(uint8_t *dst, int offset, int numToCopy) {
     memcpy(dst, data + offset, numToCopy);
 }
 
+// TODO get rid of this method -- just use the constructor
 void Record::set(uint8_t *src) {
     memcpy(data, src, recordSize);
 }
 
+// TODO get rid of this method -- just use the constructor
 void Record::set(uint8_t *src, int offset, int numToCopy) {
     memcpy(data + offset, src, numToCopy);
 }
 
+// TODO compute a real crc32
 uint64_t Record::checksum() {
     int extra = recordSize & 7;
     int num = recordSize >> 3;
@@ -86,18 +91,4 @@ uint64_t Record::checksum() {
     }
 
     return result;
-}
-
-bool Record::isDuplicate(Record other) {
-    if (!data) {
-        cout << "Error occurred in isDuplicate" << "\n";
-        return false;
-    }
-    uint8_t* otherData = other.data;
-    for (int i = 0; i < recordSize; i++){
-       if (data[i] != otherData[i]){
-           return false;
-       }
-    }
-    return true;
 }

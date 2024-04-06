@@ -2,9 +2,9 @@
 #define CS764_SORTER_RECORDTEST_H
 #include <iostream>
 #include "Records/Record.h"
-#include "Config/SorterConfig.h"
 #include "Records/GenerateRecords.h"
 #include <assert.h>
+
 using namespace std;
 
 

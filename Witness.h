@@ -1,58 +1,56 @@
-#ifndef DB_WITNESS_H
-#define DB_WITNESS_H
+#ifndef CS764_SORTER_WITNESS_H
+#define CS764_SORTER_WITNESS_H
 #include "Providers/Provider.h"
 #include "Records/Record.h"
-#include <iostream>
-using namespace std;
 
+#include <memory>
+using namespace std;
 
 /**
  * This class will be utilized to verify the correctness of the records sorting algorithm
  * Implements the Provider class
  */
-class Witness: public Provider{
+class Witness: public Provider {
 public:
-    // the source that will generate records
-    Provider* source;
-
     // the witness constructor that takes in a provider
-    Witness(Provider* givenSource);
+    Witness(shared_ptr<Provider> source): source(source), record(source->next()), count(0), checksum(0), sorted(true) {}
 
     /**
-   * Returns a pointer to the next record in the list and checks that each record key is sorted
-   * @return pointer to next record or null if no more records exists
-   */
-    shared_ptr<Record> next() override;
-
-    /**
-     * Gets total number of generated records
-     * @return the total number of record returned by next()
+     * Returns a pointer to the next record in the list and checks that each record key is sorted
+     * @return pointer to next record or null if no more records exists
      */
-    long getCount();
+    shared_ptr<Record> next() override {
+        if(record == nullptr) return nullptr;
 
-    /**
-     * Returns the checksum value of all the records
-     * @return checksum value
-     */
-    uint64_t getCrc();
+        shared_ptr<Record> result = record;
+        count++;
+        checksum ^= result->checksum();
 
-    /**
-   * Returns a true or false value indicating whether the records are sorted or not
-   * @return true if records are sorted else false
-   */
-    bool checkSorted();
-    // bool value that indicates if records have been sorted
-    bool isSorted;
+        record = source->next();
+        if(record != nullptr && sorted) sorted = result->compareTo(record);
+
+        return result;
+    }
+
+    long getCount() {
+        return count;
+    }
+
+    uint64_t getChecksum() {
+        return checksum;
+    };
+
+    bool isSorted() {
+        return sorted;
+    }
 
 private:
-    // keeps track of all the records generated
-    long count;
-    // keeps track of checksum value
-    uint64_t crc;
-    shared_ptr<Record> lastRecord;
-    Record last;
+    shared_ptr<Provider> source; // the source that will generate records
+    shared_ptr<Record> record; // lastRecord seen
 
+    uint64_t count; // keeps track of all the records generated
+    uint64_t checksum; // keeps track of checksum value
+    bool sorted; // bool value that indicates if records have been sorted
 };
 
-
-#endif //DB_WITNESS_H
+#endif //CS764_SORTER_WITNESS_H

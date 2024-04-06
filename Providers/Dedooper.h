@@ -3,19 +3,31 @@
 
 #include "Provider.h"
 #include <memory>
-#include <iostream>
 using namespace std;
 
 
-class Dedooper: public Provider{
+class Dedooper: public Provider {
 public:
-    Provider* source;
-    Dedooper(Provider* source);
-    shared_ptr<Record> next();
-private:
-    shared_ptr<Record> previousRecord;
-    Record prev;
-};
+    Dedooper(shared_ptr<Provider> source): source(source), previousRecord(nullptr) {}
 
+    shared_ptr<Record> next() override {
+        auto currentRecord = source->next();
+        if (currentRecord == nullptr) return nullptr;
+
+        if (previousRecord != nullptr){
+            // continues to get next record until a unique record is reached
+            while(currentRecord->isDuplicate(previousRecord)){
+                currentRecord = source->next();
+                if (currentRecord == nullptr) return nullptr;
+            }
+        }
+        previousRecord = currentRecord;
+        return currentRecord;
+    }
+
+private:
+    shared_ptr<Provider> source;
+    shared_ptr<Record> previousRecord;
+};
 
 #endif //CS764_SORTER_DEDOOPER_H
