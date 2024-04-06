@@ -35,7 +35,6 @@ add_executable(cs764_sorter
         Witness.h
         IODevice.h
         IODevice.cpp
-        Sim.cpp
         Testing/TestProviders/Printer.cpp
         Testing/TestProviders/Printer.h
         Sort/Sorter.h
