@@ -23,14 +23,14 @@ Record::Record(uint8_t *_data) {
 
 // Copy constructor
 Record::Record(const Record &other) {
-  //  cout << "copy constructor (you don't wanna see this)" << endl;
+    cout << "copy constructor (you don't wanna see this)" << endl;
     data = new uint8_t[recordSize];
     set(other.data);
 }
 
 // Copy assignment operator
 Record &Record::operator=(const Record &other) {
-  //  cout << "assignment operator (you don't wanna see this)" << endl;
+    cout << "assignment operator (you don't wanna see this)" << endl;
     if (this != &other) {
         delete[] data;
         data = new uint8_t[recordSize];
@@ -86,14 +86,6 @@ uint64_t Record::checksum() {
     }
 
     return result;
-}
-
-uint64_t Record::getCompareCount() {
-    return compareCount;
-}
-
-void Record::resetCompareCount() {
-    this->compareCount = 0;
 }
 
 bool Record::isDuplicate(Record other) {

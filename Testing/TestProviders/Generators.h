@@ -11,5 +11,7 @@
 vector<shared_ptr<Record>> generateInOrder(int recordCount);
 vector<shared_ptr<Record>> generateRandom(int recordCount);
 vector<shared_ptr<Record>> generateDuplicates(int recordCount);
+vector<shared_ptr<Record>> generateRandomWithCrc(int recordCount);
 
+bool isCrcValid(shared_ptr<Record> record);
 #endif //CS764_SORTER_GENERATORS_H

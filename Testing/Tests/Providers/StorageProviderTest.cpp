@@ -18,9 +18,13 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
     while(true) {
         shared_ptr<Record> recPtr = before.next();
         if(!recPtr) break;
-        Record rec = *recPtr;
-        storage.write(storageOffset, rec.data, 0, sizeof(rec.data));
-        storageOffset += sizeof(rec.data);
+        int recordSize = Record::getRecordSize();
+        uint8_t *data = new uint8_t[recordSize];
+        recPtr->store(data);
+        storage.write(storageOffset, data, 0, recordSize);
+        delete(data);
+        storageOffset += recordSize;
+
     }
 
     uint8_t* memory = new  uint8_t[10*1024*1024]; // 10MB

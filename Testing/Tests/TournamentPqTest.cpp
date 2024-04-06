@@ -30,7 +30,7 @@ void TournamentPqTest::doTest(int numProviders) {
     }
 
 
-    TournamentPQ pq(providers, 8, numProviders);
+    TournamentPQ pq(providers, numProviders);
     Witness w(&pq);
     Consumer c(&w);
     c.consume();

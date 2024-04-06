@@ -896,7 +896,7 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testKey>
         COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testPrinter>
-        COMMAND $<TARGET_FILE:testCrcRandomGenerator>
+        COMMAND $<TARGET_FILE:testCrcRandomGenerator >
         COMMAND $<TARGET_FILE:testRecordProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testArrayProvider>
