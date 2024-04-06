@@ -4,12 +4,13 @@
 StagedProviderTest::StagedProviderTest() {};
 
 void StagedProviderTest::doTest(uint64_t size,  uint32_t keyOffset, long recordCount, int stagingLength, int bufferLength) {
-    SorterConfig cfg;
-    cfg.recordSize = size;
-    cfg.keyOffset = keyOffset;
-    cfg.recordCount = recordCount;
-    RandomGenerator rg(cfg);
-    Witness before(&rg);
+    SorterConfig* cfg = new SorterConfig();
+    cfg->recordSize = size;
+    cfg->keyOffset = keyOffset;
+    cfg->recordCount = recordCount;
+    auto records = generateRandom(recordCount);
+    ArrayProvider generator("name", records);
+    Witness before(&generator);
 
     IODevice storage("../Files/storage.tmp");
 
@@ -17,9 +18,12 @@ void StagedProviderTest::doTest(uint64_t size,  uint32_t keyOffset, long recordC
     while(true) {
         shared_ptr<Record> recPtr = before.next();
         if(!recPtr) break;
-        Record rec = *recPtr;
-        storage.write(storageOffset, rec.data, 0, sizeof(rec.data));
-        storageOffset += sizeof(rec.data);
+        int recordSize = Record::getRecordSize();
+        uint8_t *data = new uint8_t[recordSize];
+        recPtr->store(data);
+        storage.write(storageOffset, data, 0, recordSize);
+        delete(data);
+        storageOffset += recordSize;
     }
 
     IODevice staging("../Files/staging.tmp");
@@ -41,7 +45,7 @@ void StagedProviderTest::doTest(uint64_t size,  uint32_t keyOffset, long recordC
     StagingConfig stagingCfg;
     stagingCfg.recordSize = size;
     stagingCfg.recordCount = recordCount;
-    cfg.keyOffset = keyOffset;
+    stagingCfg.keyOffset = keyOffset;
     stagingCfg.storage = storage;
     stagingCfg.storageStartOffset = storageStartOffset;
     stagingCfg.staging = staging;

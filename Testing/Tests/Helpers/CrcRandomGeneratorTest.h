@@ -1,4 +1,6 @@
-#include "Testing/SortingHelpers/CrcRandomGenerator.h"
+#include "Testing/TestProviders/Generators.h"
+#include "Testing/TestProviders/ArrayProvider.h"
+#include "assert.h"
 using namespace std;
 #ifndef CS764_SORTER_CRCRANDOMGENERATORTEST_H
 #define CS764_SORTER_CRCRANDOMGENERATORTEST_H

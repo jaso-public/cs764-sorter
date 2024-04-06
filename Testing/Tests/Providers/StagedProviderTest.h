@@ -2,7 +2,9 @@
 #define CS764_SORTER_STAGEDPROVIDERTEST_H
 #include "Providers/StagedProvider.h"
 #include "Consumer.h"
-#include "Testing/TestProviders/RandomGenerator.h"
+#include "Testing/TestProviders/Generators.h"
+#include "Testing/TestProviders/ArrayProvider.h"
+#include "Config/SorterConfig.h"
 #include "Witness.h"
 #include <cassert>
 

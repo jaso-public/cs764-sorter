@@ -12,8 +12,9 @@ void SpillToHdd::testSpillToHdd() {
     cfg->keyOffset = 8;
     cfg->keySize = 8;
 
-    CrcRandomGenerator crc(*cfg);
-    Witness lower(&crc);
+    auto records = generateRandomWithCrc(   cfg->recordCount);
+    ArrayProvider provider("name", records);
+    Witness lower(&provider);
     Sorter sorter(*cfg, &lower);
     Witness upper(&sorter);
     Printer p(&upper, test);

@@ -1,6 +1,7 @@
 #ifndef CS764_SORTER_SPILLONEBLOCKTOSSD_H
 #define CS764_SORTER_SPILLONEBLOCKTOSSD_H
-#include "Testing/TestProviders/RandomGenerator.h"
+#include "Testing/TestProviders/Generators.h"
+#include "Testing/TestProviders/ArrayProvider.h"
 #include "Witness.h"
 #include "Config/SorterConfig.h"
 #include "Sort/Sorter.h"

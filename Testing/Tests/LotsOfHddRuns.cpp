@@ -10,8 +10,9 @@ void LotsOfHddRuns::testSpillToLotsOfHddRuns() {
     cfg->ssdStorageSize = 100*1024*1024;
     cfg->memoryBlockCount = 10;
 
-    CrcRandomGenerator crc(*cfg);
-    Witness lower(&crc);
+    auto records = generateRandomWithCrc(   cfg->recordCount);
+    ArrayProvider provider("name", records);
+    Witness lower(&provider);
     Sorter sorter(*cfg, &lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);

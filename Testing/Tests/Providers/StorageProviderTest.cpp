@@ -8,8 +8,9 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
     cfg->recordSize = recordSize;
     cfg->recordCount = recordCount;
     cfg->keyOffset = keyOffset;
-    RandomGenerator rg(*cfg);
-    Witness before(&rg);
+    auto records = generateRandom(recordCount);
+    ArrayProvider generator("name", records);
+    Witness before(&generator);
 
     IODevice storage("../Files/storage.tmp");
 
@@ -55,5 +56,5 @@ void StorageProviderTest::testMedium() {
 int main(){
     StorageProviderTest test;
     test.testSmall();
-//    test.testMedium();
+    test.testMedium();
 }

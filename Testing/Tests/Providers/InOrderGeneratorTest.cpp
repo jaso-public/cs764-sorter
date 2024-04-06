@@ -1,9 +1,8 @@
 #include "InOrderGeneratorTest.h"
 
 void InOrderGeneratorTest::testCount10() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 10;
-    InOrderGenerator generator(*cfg);
+    auto records = generateInOrder(10);
+    ArrayProvider generator("name", records);
     for (int i = 0; i < 10; i++){
         shared_ptr<Record> ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );
@@ -13,9 +12,8 @@ void InOrderGeneratorTest::testCount10() {
 }
 
 void InOrderGeneratorTest::testCount50() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 50;
-    InOrderGenerator generator(*cfg);
+    auto records = generateInOrder(50);
+    ArrayProvider generator("name", records);
     for (int i = 0; i < 50; i++){
         shared_ptr<Record> ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );

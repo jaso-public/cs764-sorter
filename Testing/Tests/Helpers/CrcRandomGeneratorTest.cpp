@@ -1,31 +1,29 @@
 #include "CrcRandomGeneratorTest.h"
 
 void CrcRandomGeneratorTest::testNextWith10Records() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 10;
-    CrcRandomGenerator generator(*cfg);
+    auto records = generateRandomWithCrc(10);
+    ArrayProvider generator("name", records);
     for (int i = 0; i < 10; i++){
         shared_ptr<Record> ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );
-        assert("Verify checksum was not correct" && generator.verifyCrc(ptr) == true );
+        assert("Verify checksum was not correct" && isCrcValid(ptr) == true );
     }
-    shared_ptr<Record>  ptr = generator.next();
+    shared_ptr<Record> ptr = generator.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
-    assert("Verify checksum was not correct" && generator.verifyCrc(ptr) == false );
+    assert("Verify checksum was not correct" && isCrcValid(ptr) == false );
 }
 
 void CrcRandomGeneratorTest::testNextWith50Records() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 50;
-    CrcRandomGenerator generator(*cfg);
+    auto records = generateRandomWithCrc(50);
+    ArrayProvider generator("name", records);
     for (int i = 0; i < 50; i++){
         shared_ptr<Record> ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );
-        assert("Verify checksum was not correct" && generator.verifyCrc(ptr) == true );
+        assert("Verify checksum was not correct" && isCrcValid(ptr) == true );
     }
     shared_ptr<Record>  ptr = generator.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
-    assert("Verify checksum was not correct" && generator.verifyCrc(ptr) == false );
+    assert("Verify checksum was not correct" && isCrcValid(ptr) == false );
 }
 
 int main(){

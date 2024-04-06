@@ -1,9 +1,8 @@
 #include "RandomGeneratorTest.h"
 
 void RandomGeneratorTest::testCount10() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 10;
-    RandomGenerator generator(*cfg);
+    auto records = generateRandom(10);
+    ArrayProvider generator("name", records);
     for (int i = 0; i < 10; i++){
         shared_ptr<Record>  ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );
@@ -13,9 +12,8 @@ void RandomGeneratorTest::testCount10() {
 }
 
 void RandomGeneratorTest::testCount50() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 50;
-    RandomGenerator generator(*cfg);
+    auto records = generateRandom(50);
+    ArrayProvider generator("name", records);
     for (int i = 0; i < 50; i++){
         shared_ptr<Record> ptr = generator.next();
         assert("Next should have existed" && ptr != nullptr );

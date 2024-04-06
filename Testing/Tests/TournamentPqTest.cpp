@@ -4,40 +4,29 @@
 TournamentPqTest::TournamentPqTest() {};
 
 void TournamentPqTest::doTest(int numProviders) {
-    int numItemsPerList = 10;
+    int itemsPerProvider = 10;
+    cerr << "first test " << numProviders <<" " << itemsPerProvider << endl;
 
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 10;
-    InOrderGenerator i(*cfg);
-    Witness before(&i);
+    // make a big list of records
+    auto records = generateInOrder(numProviders * itemsPerProvider);
 
+    cerr << "generateInOrder\n";
 
-    list<vector<Record>> lists;
+    // make an array provider so we can pass the records thru a witness
 
+    ArrayProvider ap("source", records);
+    Witness before(&ap);
 
+    cerr << "made  Witness before\n";
+
+    vector<unique_ptr<Provider>> providers;
 
     for(int i=0; i<numProviders ; i++) {
-        vector<Record> l(numItemsPerList);
-        lists.push_back(l);
-    }
-
-    for(int j=0 ; j<numItemsPerList ; j++) {
-        for (auto it = lists.begin(); it != lists.end(); ++it){
-            shared_ptr<Record> recordPtr = before.next();
-            if (recordPtr){
-                it->push_back(*recordPtr);
-            }
+        vector<shared_ptr<Record>> perProviderRecords;
+        for (int j = 0; j < 10; j++) {
+            perProviderRecords.push_back(before.next());
         }
-    }
-
-    vector<Provider*> providers;
-    int index = 0;
-    for (auto it = lists.begin(); it != lists.end(); ++it){
-            string name ="Provider-"+ to_string(index);
-            vector<Record> currentIndex = *it;
-            ArrayProvider p(name, currentIndex);
-            providers.push_back(&p);
-            index++;
+        providers.push_back(make_unique<ArrayProvider>("prov", perProviderRecords));
     }
 
 

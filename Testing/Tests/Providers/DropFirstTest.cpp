@@ -1,10 +1,9 @@
 #include "DropFirstTest.h"
 
 void DropFirstTest::testDropWithCount10() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 10;
-    InOrderGenerator i(*cfg);
-    Witness lower(&i);
+    auto records = generateInOrder(10);
+    ArrayProvider generator("name", records);
+    Witness lower(&generator);
     DropFirst dropper(&lower);
     for (int i = 0; i < 9; i++){
         shared_ptr<Record> ptr = dropper.next();
@@ -15,10 +14,9 @@ void DropFirstTest::testDropWithCount10() {
 }
 
 void DropFirstTest::testDropWithCount20() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 20;
-    InOrderGenerator i(*cfg);
-    Witness lower(&i);
+    auto records = generateInOrder(20);
+    ArrayProvider generator("name", records);
+    Witness lower(&generator);
     DropFirst dropper(&lower);
     for (int i = 0; i < 19; i++){
         shared_ptr<Record>  ptr = dropper.next();

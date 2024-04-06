@@ -44,10 +44,6 @@ public:
 
     uint64_t checksum();
 
-    uint64_t getCompareCount();
-    static uint32_t keyOffset;    // key offset inside the record
-    void resetCompareCount();
-
     // these are required to have the mapping in tree sorter work
     bool operator<(const Record& other) const{
         return data < other.data;
@@ -56,13 +52,22 @@ public:
     bool operator==(const Record& other) const{
         return data < other.data;
     }
+
+    static uint32_t getRecordSize() {return recordSize;}
+    static uint32_t getKeySize() {return keySize;}
+    static uint32_t getKeyOffset() {return keyOffset;}
+
+    static uint64_t getCompareCount() {return compareCount;}
+    static void resetCompareCount() {compareCount = 0;}
+
+    // BIG ASS TODO get rid of this and uncomment the data reference
     uint8_t* data;
 
 private:
     static uint32_t recordSize;   // size of the record
     static uint32_t keySize;      // the size of the key
+    static uint32_t keyOffset;    // key offset inside the record
     static uint64_t compareCount; // the number of compares that
-
-             // the actual bytes of the record
+//    uint8_t* data;                // the actual bytes of the record
 };
 #endif //DB_RECORD_H

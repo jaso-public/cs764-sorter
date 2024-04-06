@@ -8,8 +8,9 @@ void SpillOneBlockToSsd::testSpillToSsdFewBlocks() {
     SorterConfig* cfg = new SorterConfig();
     cfg->recordCount = 1024*100;
     cfg->recordSize = 1024;
-    RandomGenerator rng(*cfg);
-    Witness lower(&rng);
+    auto records = generateRandom(cfg->recordCount);
+    ArrayProvider provider("name", records);
+    Witness lower(&provider);
     Sorter sorter(*cfg, &lower);
     Witness upper(&sorter);
     Consumer consumer(&upper);

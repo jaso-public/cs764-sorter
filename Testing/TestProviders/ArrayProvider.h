@@ -21,12 +21,12 @@ private:
     // name to identify the record array
     string name;
     // vector of record pointers that will be used for iteration
-    vector<Record> records;
+    vector<shared_ptr<Record>> records;
     // iterator to return the records
-    vector<Record>::iterator ptr;
+    vector<shared_ptr<Record>>::iterator ptr;
 public:
     // class constructor
-    ArrayProvider(string givenName,  vector<Record> givenRecords);
+    ArrayProvider(string givenName,  vector<shared_ptr<Record>> givenRecords);
     // returns a record pointer to the next record or a null pointer if no more records exist
     shared_ptr<Record>  next() override;
 };

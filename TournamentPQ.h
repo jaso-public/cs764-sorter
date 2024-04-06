@@ -12,7 +12,7 @@ using namespace std;
  */
 class TournamentPQ: public Provider {
 private:
-    vector<Provider*> providers;
+    vector<shared_ptr<Provider>> providers;
     vector<shared_ptr<Record>> records;
     vector<int> losers;
     int numProviders;

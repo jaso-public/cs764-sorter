@@ -91,8 +91,10 @@ add_custom_command(TARGET testSorterConfig
 add_executable(testPrinter
         Testing/TestProviders/Printer.cpp
         Testing/TestProviders/Printer.h
-        Testing/TestProviders/InOrderGenerator.cpp
-        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/Tests/Providers/PrinterTest.cpp
         Testing/Tests/Providers/PrinterTest.h
         Records/Record.cpp
@@ -125,8 +127,8 @@ add_custom_command(TARGET testIODevice
 )
 
 add_executable(testArrayProvider
-        Testing/TestProviders/InOrderGenerator.cpp
-        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.h
         Testing/TestProviders/ArrayProvider.cpp
         Records/Record.cpp
@@ -173,8 +175,10 @@ add_executable(testInOrderGenerator
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Testing/TestProviders/InOrderGenerator.cpp
-        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/Tests/Providers/InOrderGeneratorTest.cpp
         Testing/Tests/Providers/InOrderGeneratorTest.h
         Config/SorterConfig.cpp
@@ -194,8 +198,10 @@ add_executable(testCrcRandomGenerator
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Testing/SortingHelpers/CrcRandomGenerator.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp
         Testing/Tests/Helpers/CrcRandomGeneratorTest.h
         Config/SorterConfig.cpp
@@ -215,8 +221,10 @@ add_executable(testDedooper
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Testing/TestProviders/InOrderGenerator.cpp
-        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/Tests/Providers/DedooperTest.cpp
         Testing/Tests/Providers/DedooperTest.h
         Providers/Dedooper.cpp
@@ -238,10 +246,12 @@ add_executable(testRandomGenerator
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Testing/TestProviders/RandomGenerator.cpp
-        Testing/TestProviders/RandomGenerator.h
-        Testing/Tests/Providers/RandomGeneratorTest.cpp
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/Tests/Providers/RandomGeneratorTest.h
+        Testing/Tests/Providers/RandomGeneratorTest.cpp
         Config/SorterConfig.cpp
         Config/SorterConfig.h
         IODevice.h
@@ -272,8 +282,10 @@ add_executable(testDropFirst
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Testing/TestProviders/InOrderGenerator.cpp
-        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/TestProviders/DropFirst.cpp
         Testing/TestProviders/DropFirst.h
         Testing/Tests/Providers/DropFirstTest.cpp
@@ -297,12 +309,14 @@ add_executable(testTreeSorter
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
         Testing/SortingHelpers/TreeSorter.cpp
         Testing/SortingHelpers/TreeSorter.h
         Testing/Tests/Sorters/TreeSorterTest.cpp
         Testing/Tests/Sorters/TreeSorterTest.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Witness.h
         Witness.cpp
         Testing/SortingHelpers/Key.h
@@ -324,8 +338,10 @@ add_executable(testConsumer
         Records/Record.h
         Records/rng.cpp
         Records/rng.h
-        Testing/TestProviders/InOrderGenerator.cpp
-        Testing/TestProviders/InOrderGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/Tests/ConsumerTest.cpp
         Testing/Tests/ConsumerTest.h
         Consumer.cpp
@@ -384,8 +400,10 @@ add_executable(testRecordProvider
         Providers/Provider.h
         Witness.h
         Witness.cpp
-        Testing/TestProviders/InOrderGenerator.h
-        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/SortingHelpers/NoopSorter.h
         Testing/SortingHelpers/NoopSorter.cpp
         Consumer.h
@@ -398,8 +416,6 @@ add_executable(testRecordProvider
         Testing/SortingHelpers/Key.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
         Records/Record.cpp
         Records/Record.h
         Records/rng.cpp
@@ -435,8 +451,10 @@ add_executable(testWitness
         Providers/Provider.h
         Witness.h
         Witness.cpp
-        Testing/TestProviders/InOrderGenerator.h
-        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/SortingHelpers/NoopSorter.h
         Testing/SortingHelpers/NoopSorter.cpp
         Consumer.h
@@ -449,8 +467,6 @@ add_executable(testWitness
         Testing/SortingHelpers/Key.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
         Records/Record.cpp
         Records/Record.h
         Records/rng.cpp
@@ -475,11 +491,12 @@ add_executable(testPQ
         Providers/Provider.h
         Witness.h
         Witness.cpp
-        Testing/TestProviders/InOrderGenerator.h
-        Testing/TestProviders/InOrderGenerator.cpp
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
         Testing/Tests/TournamentPqTest.cpp
         Testing/Tests/TournamentPqTest.h
-        Testing/TestProviders/InOrderGenerator.cpp
         Consumer.h
         Consumer.cpp
         TournamentPQ.cpp
@@ -536,8 +553,6 @@ add_executable(testSorting
         Consumer.h
         Witness.cpp
         Witness.h
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
 )
@@ -582,12 +597,12 @@ add_executable(testLotsOfHddRuns
         Consumer.h
         Witness.cpp
         Witness.h
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
 )
 
 add_custom_command(TARGET testLotsOfHddRuns
@@ -630,12 +645,12 @@ add_executable(testSpillToHdd
         Consumer.h
         Witness.cpp
         Witness.h
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
 )
 
 add_custom_command(TARGET testSpillToHdd
@@ -678,12 +693,12 @@ add_executable(testSpillToOneBlockToSdd
         Consumer.h
         Witness.cpp
         Witness.h
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
 )
 
 add_custom_command(TARGET testSpillToOneBlockToSdd
@@ -745,12 +760,12 @@ add_executable(testStorageProvider
         Consumer.h
         Witness.cpp
         Witness.h
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
 )
 
 
@@ -794,12 +809,12 @@ add_executable(testStagedProvider
         Consumer.h
         Witness.cpp
         Witness.h
-        Testing/TestProviders/RandomGenerator.h
-        Testing/TestProviders/RandomGenerator.cpp
         Testing/TestProviders/Printer.h
         Testing/TestProviders/Printer.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.cpp
-        Testing/SortingHelpers/CrcRandomGenerator.h
+        Testing/TestProviders/Generators.h
+        Testing/TestProviders/Generators.cpp
+        Testing/TestProviders/ArrayProvider.cpp
+        Testing/TestProviders/ArrayProvider.h
 )
 
 add_custom_command(TARGET testStagedProvider

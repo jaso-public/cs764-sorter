@@ -1,12 +1,11 @@
 #include "ConsumerTest.h"
 
 void ConsumerTest::testConsume() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 10;
-    InOrderGenerator generator(*cfg);
-    Consumer consume(&generator);
+    auto records = generateRandom(10);
+    ArrayProvider provider("name", records);
+    Consumer consume(&provider);
     consume.consume();
-    shared_ptr<Record> ptr = generator.next();
+    shared_ptr<Record> ptr = provider.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 

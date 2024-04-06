@@ -1,11 +1,10 @@
 #include "TreeSorterTest.h"
 
 void TreeSorterTest::testCount10() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 10;
-    RandomGenerator r(*cfg);
-    Witness lower(&r);
-    TreeSorter sorter(&r);
+    auto records = generateRandom(10);
+    ArrayProvider provider("name", records);
+    Witness lower(&provider);
+    TreeSorter sorter(&lower);
     shared_ptr<Record> prevRecordPtr = nullptr;
     Record prevRecord;
     for (int i = 0; i < 10; i++){
@@ -22,11 +21,10 @@ void TreeSorterTest::testCount10() {
 }
 
 void TreeSorterTest::testCount50() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 50;
-    RandomGenerator r(*cfg);
-    Witness lower(&r);
-    TreeSorter sorter(&r);
+    auto records = generateRandom(50);
+    ArrayProvider provider("name", records);
+    Witness lower(&provider);
+    TreeSorter sorter(&lower);
     shared_ptr<Record> prevRecordPtr = nullptr;
     Record prevRecord;
     for (int i = 0; i < 50; i++){

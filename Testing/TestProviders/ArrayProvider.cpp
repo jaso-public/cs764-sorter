@@ -6,7 +6,7 @@
  * @param givenName name to identify the given array iterator
  * @param givenRecords a vector of records
  */
-ArrayProvider::ArrayProvider(std::string givenName, vector<Record> givenRecords) {
+ArrayProvider::ArrayProvider(std::string givenName, vector<shared_ptr<Record>> givenRecords) {
     // stores give variables as class variables
     this->name = givenName;
     this->records = givenRecords;
@@ -23,7 +23,7 @@ shared_ptr<Record> ArrayProvider::next() {
     // checks that another record exists
     if (ptr != records.end()){
         // create a pointer to the returned record
-        shared_ptr<Record> recordPtr = make_shared<Record>(*ptr);
+        shared_ptr<Record> recordPtr = *ptr;
         ptr++;
         return recordPtr;
     }

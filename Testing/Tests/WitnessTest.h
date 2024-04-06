@@ -1,7 +1,8 @@
 #ifndef CS764_SORTER_WITNESSTEST_H
 #define CS764_SORTER_WITNESSTEST_H
 #include "Providers/Provider.h"
-#include "Testing/TestProviders/InOrderGenerator.h"
+#include "Testing/TestProviders/Generators.h"
+#include "Testing/TestProviders/ArrayProvider.h"
 #include "Witness.h"
 #include "Testing/SortingHelpers/NoopSorter.h"
 #include "Consumer.h"
@@ -10,7 +11,6 @@
 #include <cassert>
 #include <string>
 #include "Testing/TestProviders/Printer.h"
-#include "Testing/TestProviders/RandomGenerator.h"
 #include "Providers/Dedooper.h"
 #include <iostream>
 using namespace std;

@@ -1,6 +1,6 @@
 #ifndef CS764_SORTER_TOURNAMENTPQTEST_H
 #define CS764_SORTER_TOURNAMENTPQTEST_H
-#include "Testing/TestProviders/InOrderGenerator.h"
+#include "Testing/TestProviders/Generators.h"
 #include "Testing/TestProviders/ArrayProvider.h"
 #include "Providers/Provider.h"
 #include "TournamentPQ.h"
