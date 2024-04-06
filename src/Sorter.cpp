@@ -1,16 +1,16 @@
 #include "Sorter.h"
 
 
-Sorter::Sorter(SorterConfig cfg, Provider* source) {
-    this->cfg = &cfg;
+Sorter::Sorter(shared_ptr<SorterConfig> cfg, shared_ptr<Provider> source) {
+    this->cfg = cfg;
     this->source = source;
 
     this->ssdOffset = 0;
     this->hddOffset = 0;
 
-    this->ssdRemaining = cfg.ssdStorageSize;
+    this->ssdRemaining = cfg->ssdStorageSize;
 
-    this->bufferLength = cfg.memoryBlockSize * cfg.memoryBlockCount;
+    this->bufferLength = cfg->memoryBlockSize * cfg->memoryBlockCount;
     this->buffer = new uint8_t[bufferLength];
     this->lastMemoryRun= bufferLength;
 
@@ -22,11 +22,13 @@ shared_ptr<Record> Sorter::next() {
 }
 
 
-Provider* Sorter::startSort() {
+shared_ptr<Provider> Sorter::startSort() {
     int maxRecordsPerRun = cfg->memoryBlockSize / cfg->recordSize;
 
-    SingleProvider s(cfg);
-    vector<SingleProvider*> singles(maxRecordsPerRun, &s);
+    vector<shared_ptr<Provider>> singles(maxRecordsPerRun);
+    for (int i = 0; i < maxRecordsPerRun; ++i) {
+        singles[i] = make_unique<SingleProvider>();
+    }
 
     bool endReached = false;
     while (!endReached) {
@@ -37,7 +39,8 @@ Provider* Sorter::startSort() {
                 endReached = true;
                 break;
             }
-            singles[recordCount++]->reset(recordPtr);
+            shared_ptr<SingleProvider> singleProvider = dynamic_pointer_cast<SingleProvider>(singles[recordCount++]);
+            singleProvider->reset(recordPtr);
         }
 
         if (recordCount > 0) {
@@ -64,9 +67,8 @@ Provider* Sorter::startSort() {
     }
     // if there was nothing to sort then return an empty provider.
     if (memoryRuns.size() + ssdRuns.size() + hddRuns.size() == 0) {
-        EmptyProvider e;
-        Provider* providerPtr = reinterpret_cast<Provider *>(&e);
-        return providerPtr;
+        shared_ptr<Provider> result = make_shared<EmptyProvider>();
+        return result;
     }
 
     // see if we can do the final merge with the memory we have.
@@ -98,9 +100,9 @@ Provider* Sorter::startSort() {
                              *cfg);
             offset += cfg->ssdReadSize;
         }
-        TournamentPQ t(providers, index);
-        Provider* providerPointer = &t;
-        return providerPointer;
+
+        shared_ptr<Provider> result = make_shared<TournamentPQ>(providers, index);
+        return result;
     }
 
       // we did not have enough memory to do the final merge, so lets flush all of our memory
@@ -190,9 +192,8 @@ Provider* Sorter::startSort() {
         memoryOffset += cfg->ssdReadSize;
     }
 
-    TournamentPQ t(providers, index);
-    Provider* providerPointer = &t;
-    return providerPointer;
+    shared_ptr<Provider> result = make_shared<TournamentPQ>(providers, index);
+    return result;
 }
 
 void Sorter::makeFreeSpace() {
@@ -288,7 +289,7 @@ long Sorter::roundUp(long value, long multiple) {
 void Sorter::printStats(){
     cout << "SSD usage:" << cfg->ssdDevice.stats() << "\n";
     cout << "HDD usage:" << cfg->hddDevice.stats() << "\n";
-    cout << "total number of record comparisons: " <<  record.getCompareCount() << "\n";
+    cout << "total number of record comparisons: " <<  Record::getCompareCount() << "\n";
 }
 
 

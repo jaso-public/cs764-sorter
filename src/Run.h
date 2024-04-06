@@ -4,7 +4,7 @@
 // TODO move this into the Sorter.h file
 class Run {
 public:
-    Run(long numRecords, long offset): numRecords(numRecords), offset(offset);
+    Run(long numRecords, long offset): numRecords(numRecords), offset(offset) {}
     long numRecords;
     long offset;
 };

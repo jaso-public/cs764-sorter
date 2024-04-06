@@ -1,9 +1,23 @@
-#include "TournamentPqTest.h"
+#pragma once
+
+#include <iostream>
+#include <vector>
+#include <list>
+#include <cassert>
+
+#include "Record.h"
+#include "Provider.h"
+#include "Witness.h"
+#include "TournamentPQ.h"
+#include "Consumer.h"
+
+#include "test/helpers/Generators.h"
+#include "test/helpers//ArrayProvider.h"
+
+using namespace std;
 
 
-TournamentPqTest::TournamentPqTest() {};
-
-void TournamentPqTest::doTest(int numProviders) {
+void doTest(int numProviders) {
     int itemsPerProvider = 10;
     cerr << "first test " << numProviders <<" " << itemsPerProvider << endl;
 
@@ -40,9 +54,9 @@ void TournamentPqTest::doTest(int numProviders) {
     assert(("The count of the before witness did have the same checksum as the w witness but should have" && before.getCrc() == w.getCrc()));
 }
 
-void TournamentPqTest::testVariousNumberOfProviders() {
+void testVariousNumberOfProviders() {
     for(int i=1; i<100; i++) {
-            doTest(i);
+        doTest(i);
     }
 }
 

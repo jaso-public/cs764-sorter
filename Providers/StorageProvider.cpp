@@ -4,7 +4,7 @@ StorageProvider::StorageProvider(IODevice* storage,
                                       long storageStartOffset,
                                       uint8_t *buffer,
                                       int bufferStartOffset,
-                                      int bufferLength, SorterConfig cfg):storage(*storage) {
+                                      int bufferLength):storage(*storage) {
     this->storageStartOffset = storageStartOffset;
     this->buffer = buffer;
     this->bufferStartOffset = bufferStartOffset;

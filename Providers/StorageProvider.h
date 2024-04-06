@@ -1,22 +1,17 @@
-#ifndef CS764_SORTER_STORAGEPROVIDER_H
-#define CS764_SORTER_STORAGEPROVIDER_H
+#pragma once
+
 #include "Record.h"
 #include "Provider.h"
 
-#include "Config/SorterConfig.h"
-#include "../src/IODevice.h"
+#include "IODevice.h"
 
 class StorageProvider: public Provider{
+public:
+    StorageProvider(shared_ptr<StorageConfig> cfg);
+    shared_ptr<Record> next() override;
+
 private:
-    SorterConfig* cfg;
-    string filepath;
-
-    IODevice storage;
-    long storageStartOffset;
-
-    uint8_t *buffer;
-    int bufferStartOffset;
-    int bufferLength;
+    shared_ptr<StorageConfig> cfg;
 
     int bufferOffset;
     int bufferRemaining;
@@ -25,17 +20,14 @@ private:
     long storageRemaining;
 
     long nextRecord;
+};
 
-public:
-    StorageProvider(
-            IODevice* storage,
-            long storageStartOffset,
-            uint8_t *buffer,
-            int bufferStartOffset,
-            int bufferLength, SorterConfig cfg);
-
-    shared_ptr<Record> next() override;
-
+class StorageConfig {
+    shared_ptr<IODevice> storage = nullptr;
+    long storageStartOffset;
+    uint8_t *buffer;
+    int bufferStartOffset;
+    int bufferLength;
 };
 
 

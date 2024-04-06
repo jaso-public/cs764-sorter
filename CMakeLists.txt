@@ -17,8 +17,7 @@ add_executable(cs764_sorter
         OutlinedFiles/Iterator.cpp
         OutlinedFiles/Iterator.h
         src/Provider.h
-        Providers/SingleProvider.h
-        Providers/SingleProvider.cpp
+        src/SingleProvider.h
         Providers/EmptyProvider.h
         Providers/EmptyProvider.cpp
         Providers/StagedProvider.h
@@ -39,16 +38,12 @@ add_executable(cs764_sorter
         Testing/TestProviders/Printer.cpp
         Testing/TestProviders/Printer.h
         src/Sorter.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
-        Config/StagingConfig.h
-        Config/StagingConfig.cpp
         Testing/SortingHelpers/NoopSorter.h
         src/Sorter.cpp
         src/Run.h
         Providers/MemoryProvider.h
         Providers/Dedooper.h
-        src/main.cpp test/ArrayProviderTest.cpp)
+        src/main.cpp)
 
 
 add_executable(testRecord
@@ -111,8 +106,6 @@ add_custom_command(TARGET testWitness
 
 
 add_executable(testSorterConfig
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         Testing/Tests/Config/SorterConfigTest.cpp
         Testing/Tests/Config/SorterConfigTest.h
         src/IODevice.h
@@ -132,11 +125,8 @@ add_executable(testPrinter
         test/helpers/Generators.cpp
         test/helpers/ArrayProvider.h
         Testing/Tests/Providers/PrinterTest.cpp
-        Testing/Tests/Providers/PrinterTest.h
         src/Record.cpp
         src/Record.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -161,12 +151,9 @@ add_custom_command(TARGET testIODevice
 )
 
 add_executable(testSingleProvider
-        Providers/SingleProvider.cpp
-        Providers/SingleProvider.h
+        src/SingleProvider.h
         Testing/Tests/Providers/SingleProviderTest.cpp
         Testing/Tests/Providers/SingleProviderTest.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
         src/Record.cpp
@@ -187,8 +174,6 @@ add_executable(testInOrderGenerator
         test/helpers/ArrayProvider.h
         Testing/Tests/Providers/InOrderGeneratorTest.cpp
         Testing/Tests/Providers/InOrderGeneratorTest.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -207,8 +192,6 @@ add_executable(testCrcRandomGenerator
         test/helpers/ArrayProvider.h
         Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp
         Testing/Tests/Helpers/CrcRandomGeneratorTest.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -228,8 +211,6 @@ add_executable(testDedooper
         Testing/Tests/Providers/DedooperTest.cpp
         Testing/Tests/Providers/DedooperTest.h
         Providers/Dedooper.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -248,8 +229,6 @@ add_executable(testRandomGenerator
         test/helpers/ArrayProvider.h
         Testing/Tests/Providers/RandomGeneratorTest.h
         Testing/Tests/Providers/RandomGeneratorTest.cpp
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -284,8 +263,6 @@ add_executable(testDropFirst
         Testing/Tests/Providers/DropFirstTest.cpp
         Testing/Tests/Providers/DropFirstTest.cpp
         src/Witness.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -309,8 +286,6 @@ add_executable(testTreeSorter
         src/Witness.h
         Testing/SortingHelpers/Key.h
         Testing/SortingHelpers/Key.cpp
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -331,8 +306,6 @@ add_executable(testConsumer
         Testing/Tests/ConsumerTest.h
         test/helpers/Consumer.cpp
         test/helpers/Consumer.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -344,8 +317,6 @@ add_custom_command(TARGET testConsumer
 )
 
 add_executable(testStagingConfig
-        Config/StagingConfig.h
-        Config/StagingConfig.cpp
         Testing/Tests/Config/StagingConfigTest.cpp
         Testing/Tests/Config/StagingConfigTest.h
         src/IODevice.cpp
@@ -376,8 +347,6 @@ add_executable(testRecordProvider
         Providers/RecordProvider.h
         Testing/Tests/Providers/RecordProviderTest.cpp
         Testing/Tests/Providers/RecordProviderTest.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.cpp
         src/IODevice.h
         src/Record.cpp
@@ -401,8 +370,6 @@ add_executable(testRecordProvider
         src/Record.cpp
         src/Record.h
         Providers/Dedooper.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -432,7 +399,7 @@ add_executable(testPQ
         test/helpers/Generators.h
         test/helpers/Generators.cpp
         test/helpers/ArrayProvider.h
-        Testing/Tests/TournamentPqTest.cpp
+        test/TournamentPqTest.cpp
         Testing/Tests/TournamentPqTest.h
         test/helpers/Consumer.h
         test/helpers/Consumer.cpp
@@ -441,8 +408,6 @@ add_executable(testPQ
         test/helpers/ArrayProvider.h
         src/Record.cpp
         src/Record.h
-        Config/SorterConfig.cpp
-        Config/SorterConfig.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -457,13 +422,8 @@ add_executable(testSorting
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        Config/SorterConfig.h
-        Config/SorterConfig.cpp
-        Config/StagingConfig.h
-        Config/StagingConfig.cpp
         src/Run.h
-        Providers/SingleProvider.cpp
-        Providers/SingleProvider.h
+        src/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
         Providers/MemoryProvider.h
@@ -496,13 +456,8 @@ add_executable(testLotsOfHddRuns
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        Config/SorterConfig.h
-        Config/SorterConfig.cpp
-        Config/StagingConfig.h
-        Config/StagingConfig.cpp
         src/Run.h
-        Providers/SingleProvider.cpp
-        Providers/SingleProvider.h
+        src/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
         Providers/MemoryProvider.h
@@ -538,13 +493,8 @@ add_executable(testSpillToHdd
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        Config/SorterConfig.h
-        Config/SorterConfig.cpp
-        Config/StagingConfig.h
-        Config/StagingConfig.cpp
         src/Run.h
-        Providers/SingleProvider.cpp
-        Providers/SingleProvider.h
+        src/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
         Providers/MemoryProvider.h
@@ -580,13 +530,8 @@ add_executable(testSpillToOneBlockToSdd
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        Config/SorterConfig.h
-        Config/SorterConfig.cpp
-        Config/StagingConfig.h
-        Config/StagingConfig.cpp
         src/Run.h
-        Providers/SingleProvider.cpp
-        Providers/SingleProvider.h
+        src/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
         Providers/MemoryProvider.h
@@ -622,13 +567,8 @@ add_executable(testStorageProvider
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        Config/SorterConfig.h
-        Config/SorterConfig.cpp
-        Config/StagingConfig.h
-        Config/StagingConfig.cpp
         src/Run.h
-        Providers/SingleProvider.cpp
-        Providers/SingleProvider.h
+        src/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
         Providers/MemoryProvider.h
@@ -665,13 +605,8 @@ add_executable(testStagedProvider
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        Config/SorterConfig.h
-        Config/SorterConfig.cpp
-        Config/StagingConfig.h
-        Config/StagingConfig.cpp
         src/Run.h
-        Providers/SingleProvider.cpp
-        Providers/SingleProvider.h
+        src/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
         Providers/MemoryProvider.h

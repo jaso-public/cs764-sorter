@@ -38,10 +38,9 @@ public:
      * Reads a number of bytes from the file at a certain location
      * @param offset the file pointer offset where reading will begin
      * @param buffer place to store read data
-     * @param off the location of the first read
      * @param len the number of byes to be read
      */
-    void read(long offset, uint8_t* dst, int off, int len);
+    void read(long offset, uint8_t* dst, int len);
     /**
      * Writes a number of bytes from the file at a certain location
      * @param offset the file pointer offset where writing will begin
@@ -49,6 +48,7 @@ public:
      * @param off the location of the first write
      * @param len the number of byes to be written
      */
+     // TODO get rid of the off (can just send in the right ptr)
     void write(long offset, uint8_t* dst, int off, int len);
     // returns the class' read count
     long getReadCount();

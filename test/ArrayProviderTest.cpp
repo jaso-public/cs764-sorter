@@ -6,7 +6,8 @@
 #include "test/helpers/ArrayProvider.h"
 
 void testTenRecords() {
-    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", generateInOrder(10));
+    auto records = generateInOrder(10);
+    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
 
     for (int i = 0; i < 10; i++){
         shared_ptr<Record> ptr = source->next();

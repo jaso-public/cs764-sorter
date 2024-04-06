@@ -32,10 +32,9 @@ IODevice::~IODevice() {
  * Reads a number of bytes from the file at a certain location
  * @param offset the file pointer offset where reading will begin
  * @param buffer place to store read data
- * @param off within the buffer
  * @param len the number of byes to be read
  */
-void IODevice::read(long offset, uint8_t* buffer, int off, int len) {
+void IODevice::read(long offset, uint8_t* buffer, int len) {
     if (!streamPtr) {
         cerr << "File not open for reading\n";
         return;

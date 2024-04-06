@@ -6,43 +6,33 @@
    */
 TournamentPQ::TournamentPQ(vector<shared_ptr<Provider>> providers, int numProviders): providers(providers) {
     this->numProviders = numProviders;
-    this->losers = vector<int> (numProviders);
-
-    // create and fill the records array
-    vector<shared_ptr<Record>> r;
-    this->records = r;
+    this->losers = vector<int>(numProviders);
 
     int index = 0;
-    for (auto it = providers.begin(); it != providers.end(); ++it){
-        shared_ptr<Provider> provider = *it;
-        if (provider){
-            index++;
-            shared_ptr<Record> ptr = provider->next();
-            records.push_back(ptr);
-        }
+    for (int i=0 ; i<numProviders ; i++) {
+       records.push_back(providers[i]->next());
     }
 
     vector<int> winners(numProviders);
     for(int match=numProviders-1; match>0 ; match--) {
         int h1 = match * 2;
         int h2 = h1 + 1;
+
         if(h1>=numProviders){
             h1 = h1-numProviders;
-        }
-        else {
+        } else {
             h1 = winners[h1];
         }
         if(h2>=numProviders){
-            h2 = h2-numProviders;
-        }  else  {
+            h2 = h2 - numProviders;
+        } else {
             h2 = winners[h2];
         }
 
         if(isFirstWinner(h1, h2)) {
             winners[match] = h1;
             losers[match] = h2;
-        }
-        else {
+        } else {
             winners[match] = h2;
             losers[match] = h1;
         }

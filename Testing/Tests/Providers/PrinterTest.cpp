@@ -1,6 +1,11 @@
-#include "PrinterTest.h"
 
-void PrinterTest::testCount10() {
+#include "assert.h"
+
+#include "test/helpers/Generators.h"
+#include "test/helpers/ArrayProvider.h"
+
+
+void testCount10() {
     auto records = generateInOrder(20);
     ArrayProvider generator("name", records);
     Printer printer(&generator, "this is a test message");
@@ -12,7 +17,7 @@ void PrinterTest::testCount10() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void PrinterTest::testCount50() {
+void testCount50() {
     auto records = generateInOrder(50);
     ArrayProvider generator("name", records);
     Printer printer(&generator, "this is a test message");
@@ -26,7 +31,6 @@ void PrinterTest::testCount50() {
 
 
 int main(){
-    PrinterTest test;
-    test.testCount10();
-    test.testCount50();
+    testCount10();
+    testCount50();
 }
