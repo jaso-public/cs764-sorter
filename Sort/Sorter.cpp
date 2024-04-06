@@ -23,9 +23,6 @@ shared_ptr<Record> Sorter::next() {
 
 
 Provider* Sorter::startSort() {
-    Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
-    Record::resetCompareCount();
-
     int maxRecordsPerRun = cfg->memoryBlockSize / cfg->recordSize;
 
     SingleProvider s(cfg);
@@ -49,8 +46,8 @@ Provider* Sorter::startSort() {
 
             lastMemoryRun -= cfg->memoryBlockSize;
 
-            vector<Provider*> providerFromSingles(singles.begin(), singles.end());
-            TournamentPQ pq(providerFromSingles, cfg->keyOffset, cfg->recordCount);
+            vector<shared_ptr<Provider>> providerFromSingles(singles.begin(), singles.end());
+            TournamentPQ pq(providerFromSingles, cfg->recordCount);
             for (int i = 0; i < recordCount; i++) {
                 shared_ptr<Record> ptr = pq.next();
                 //TODO: do not know why this is causing an error
@@ -80,13 +77,13 @@ Provider* Sorter::startSort() {
             int toRelease = (memoryRequired - lastMemoryRun + cfg->memoryBlockSize - 1) / cfg->memoryBlockSize;
             releaseMemory(toRelease);
         }
-        vector<Provider*> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
+        vector<shared_ptr<Provider>> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
         int index = 0;
         SorterConfig* memCfg = new SorterConfig();
         for (Run run: memoryRuns) {
-            MemoryProvider m(buffer, run.offset, *memCfg);
+            shared_ptr<Provider> memPtr =  make_shared<MemoryProvider>(buffer, memCfg->recordCount);
             index += 1;
-           providers[index] = &m;
+           providers[index] = memPtr;
         }
         // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
         int offset = 0;
@@ -101,7 +98,7 @@ Provider* Sorter::startSort() {
                              *cfg);
             offset += cfg->ssdReadSize;
         }
-        TournamentPQ t(providers, cfg->keyOffset, index);
+        TournamentPQ t(providers, index);
         Provider* providerPointer = &t;
         return providerPointer;
     }
@@ -137,7 +134,7 @@ Provider* Sorter::startSort() {
     cout << "hddRuns.size():" << hddRuns.size() << "\n";
     cout << "runsToMerge:" << runsToMerge << "\n";
 
-    vector<Provider*> providers(runsToMerge);
+    vector<shared_ptr<Provider>> providers(runsToMerge);
 
     long recordCount = 0;
     for (int i = 0; i < runsToMerge; i++) {
@@ -145,18 +142,18 @@ Provider* Sorter::startSort() {
         ssdRuns.erase(ssdRuns.begin());
         recordCount += run.numRecords;
         int offset = cfg->memoryBlockSize + i * cfg->ssdReadSize;
-        StorageProvider s(&cfg->ssdDevice, run.offset, buffer, offset,
-                          cfg->ssdReadSize, *cfg);
-        providers[i] = &s;
+        shared_ptr<Provider> s = make_shared<StorageProvider>(&cfg->ssdDevice, run.offset, buffer, offset,
+                                                              cfg->ssdReadSize, *cfg);
+        providers[i] = s;
     }
 
 
-    TournamentPQ tPQ(providers, cfg->keyOffset, runsToMerge);
+    TournamentPQ tPQ(providers, runsToMerge);
     Provider* provider = &tPQ;
     storeRun(provider, recordCount);
 
 
-    vector<Provider*> newProvider(ssdRuns.size() + hddRuns.size());
+    vector<shared_ptr<Provider>> newProvider(ssdRuns.size() + hddRuns.size());
     providers = newProvider;
     int index = 0;
     int memoryOffset = cfg->memoryBlockSize;
@@ -181,19 +178,19 @@ Provider* Sorter::startSort() {
         stagingCfg.transferLength = cfg->hddReadSize;
         stagingCfg.keySize = cfg->keySize;
         stagingCfg.keyOffset = cfg->keyOffset;
-        StagedProvider sp(stagingCfg);
-        providers[index++] = &sp;
+        shared_ptr<Provider> sp = make_shared<StagedProvider>(stagingCfg);
+        providers[index++] = sp;
         memoryOffset += cfg->ssdReadSize;
     }
 
     for (Run run: ssdRuns) {
-        StorageProvider storageProvider(&cfg->ssdDevice, run.offset, buffer,
-                        memoryOffset, cfg->ssdReadSize, *cfg);
-        providers[index++] = &storageProvider;
+        shared_ptr<Provider> storagePtr = make_shared<StorageProvider>(&cfg->ssdDevice, run.offset, buffer,
+                                                                        memoryOffset, cfg->ssdReadSize, *cfg);
+        providers[index++] = storagePtr;
         memoryOffset += cfg->ssdReadSize;
     }
 
-    TournamentPQ t(providers, cfg->keyOffset, index);
+    TournamentPQ t(providers, index);
     Provider* providerPointer = &t;
     return providerPointer;
 }
@@ -211,7 +208,7 @@ void Sorter::makeFreeSpace() {
 }
 
 void Sorter::releaseMemory(int numberBuffersToRelease) {
-    vector<Provider*> providers(numberBuffersToRelease);
+    vector<shared_ptr<Provider>> providers(numberBuffersToRelease);
 
     long recordCount = 0;
     int index = 0;
@@ -221,14 +218,14 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
         SorterConfig* runConfig = new SorterConfig();
         runConfig->recordCount = run.numRecords;
         ssdRuns.pop_back();
-        MemoryProvider memProv(buffer, run.offset, *runConfig);
-        providers[index++] = &memProv;
+        shared_ptr<Provider> memPtr =  make_shared<MemoryProvider>(buffer, runConfig->recordCount);
+        providers[index++] = memPtr;
         recordCount += run.numRecords;
     }
 
     lastMemoryRun += numberBuffersToRelease * cfg->memoryBlockSize;
 
-    TournamentPQ t(providers, keyOffset, index);
+    TournamentPQ t(providers, index);
     Provider* provider = &t;
     storeRun(provider, recordCount);
 }

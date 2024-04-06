@@ -19,7 +19,7 @@ void TournamentPqTest::doTest(int numProviders) {
 
     cerr << "made  Witness before\n";
 
-    vector<unique_ptr<Provider>> providers;
+    vector<shared_ptr<Provider>> providers;
 
     for(int i=0; i<numProviders ; i++) {
         vector<shared_ptr<Record>> perProviderRecords;

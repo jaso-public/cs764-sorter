@@ -3,9 +3,8 @@
 /**
    * Initializes TournamentPQ constructor
    */
-TournamentPQ::TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset, int numProviders): providers(providers) {
+TournamentPQ::TournamentPQ(vector<shared_ptr<Provider>> providers, int numProviders): providers(providers) {
     this->numProviders = numProviders;
-    this->keyOffset = givenKeyOffset;
     this->losers = vector<int> (numProviders);
 
     // create and fill the records array
@@ -14,7 +13,7 @@ TournamentPQ::TournamentPQ(vector<Provider*> providers, uint32_t givenKeyOffset,
 
     int index = 0;
     for (auto it = providers.begin(); it != providers.end(); ++it){
-        Provider* provider = *it;
+        shared_ptr<Provider> provider = *it;
         if (provider){
             index++;
             shared_ptr<Record> ptr = provider->next();

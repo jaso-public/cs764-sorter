@@ -52,7 +52,6 @@ add_executable(cs764_sorter
         Run.h
         Run.cpp
         Providers/MemoryProvider.h
-        Providers/MemoryProvider.cpp
         Records/CreateRecords.h
         Providers/Dedooper.cpp
         Providers/Dedooper.h
@@ -535,7 +534,6 @@ add_executable(testSorting
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
-        Providers/MemoryProvider.cpp
         Providers/MemoryProvider.h
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
@@ -579,7 +577,6 @@ add_executable(testLotsOfHddRuns
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
-        Providers/MemoryProvider.cpp
         Providers/MemoryProvider.h
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
@@ -627,7 +624,6 @@ add_executable(testSpillToHdd
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
-        Providers/MemoryProvider.cpp
         Providers/MemoryProvider.h
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
@@ -675,7 +671,6 @@ add_executable(testSpillToOneBlockToSdd
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
-        Providers/MemoryProvider.cpp
         Providers/MemoryProvider.h
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
@@ -742,7 +737,6 @@ add_executable(testStorageProvider
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
-        Providers/MemoryProvider.cpp
         Providers/MemoryProvider.h
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp
@@ -791,7 +785,6 @@ add_executable(testStagedProvider
         Providers/SingleProvider.h
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
-        Providers/MemoryProvider.cpp
         Providers/MemoryProvider.h
         Providers/StorageProvider.h
         Providers/StorageProvider.cpp

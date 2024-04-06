@@ -12,37 +12,22 @@ using namespace std;
  * This class is used to create continuously create buffer space for a new record
  */
 class MemoryProvider: public Provider {
-private:
-    // buffer of memory
-    uint8_t buffer;
-    // offset record
-    int offset;
-    //  total number of records returned so far
-    int nextRecord;
-    SorterConfig* cfg;
-    /**
-     * Converts a long value to an integer if it is a valid conversion
-     * @param the long value wanted to be converted
-     * @return an integer if the conversion could occur
-     * @throws an exception
-     */
-    int safeIntCast(long value);
 
 public:
-    /**
-     * Class constructor that assigns given variables to class variables
-     * @param givenBuffer buffer of memory
-     * @param givenOffset offset of record
-     * @param givenRecordCount total number of records to create
-     * @param givenRecordSize number of records already created
-     */
-    MemoryProvider(uint8_t *buffer, long offset, SorterConfig);
+     MemoryProvider(uint8_t *buffer, uint32_t recordCount): buffer(buffer), recordCount(recordCount), generatedRecordCount(0) {}
 
-    /**
-     * Creates another buffer of memory for the new record and assigns a record to it
-     * @return pointer to the next created record or a null pointer if recordCount has been reached
-     */
-    shared_ptr<Record> next() override;
+     shared_ptr<Record> next() override {
+        if(generatedRecordCount >= recordCount) return nullptr;
+
+        uint8_t *startOfRecord = buffer + generatedRecordCount * Record::getRecordSize();
+        generatedRecordCount++;
+        return make_shared<Record>(startOfRecord);
+    }
+
+private:
+    uint8_t *buffer; // the buffer holding the record data
+    uint64_t generatedRecordCount;
+    uint64_t recordCount;
 };
 
 
