@@ -1,6 +1,5 @@
 #ifndef CS764_SORTER_GENERATERECORDS_H
 #define CS764_SORTER_GENERATERECORDS_H
-#include "CreateRecords.h"
 #include <unistd.h>
 
 #include <iostream>

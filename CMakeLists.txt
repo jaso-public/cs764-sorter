@@ -26,8 +26,6 @@ add_executable(cs764_sorter
         Providers/StorageProvider.cpp
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         OutlinedFiles/Scan.cpp
         OutlinedFiles/Scan.h
         Sort/Sort.cpp
@@ -50,23 +48,7 @@ add_executable(cs764_sorter
         Run.h
         Run.cpp
         Providers/MemoryProvider.h
-        Records/CreateRecords.h
         Providers/Dedooper.h
-)
-
-add_executable(createRecords
-        Records/CreateRecords.h
-        Records/CreateRecords.cpp
-        Records/Record.cpp
-        Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
-)
-
-add_custom_command(TARGET createRecords
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/createRecords
-        COMMENT "Running createRecords..."
 )
 
 add_executable(testSorterConfig
@@ -95,8 +77,6 @@ add_executable(testPrinter
         Testing/Tests/Providers/PrinterTest.h
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
         IODevice.h
@@ -129,8 +109,6 @@ add_executable(testArrayProvider
         Testing/TestProviders/ArrayProvider.cpp
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Testing/Tests/Providers/ArrayProviderTest.cpp
         Testing/Tests/Providers/ArrayProviderTest.h
         Config/SorterConfig.cpp
@@ -156,9 +134,7 @@ add_executable(testSingleProvider
         IODevice.cpp
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
-)
+        )
 
 add_custom_command(TARGET testSingleProvider
         POST_BUILD
@@ -169,8 +145,6 @@ add_custom_command(TARGET testSingleProvider
 add_executable(testInOrderGenerator
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Testing/TestProviders/Generators.h
         Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.cpp
@@ -192,8 +166,6 @@ add_custom_command(TARGET testInOrderGenerator
 add_executable(testCrcRandomGenerator
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Testing/TestProviders/Generators.h
         Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.cpp
@@ -215,8 +187,6 @@ add_custom_command(TARGET testCrcRandomGenerator
 add_executable(testDedooper
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Testing/TestProviders/Generators.h
         Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.cpp
@@ -239,8 +209,6 @@ add_custom_command(TARGET testDedooper
 add_executable(testRandomGenerator
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Testing/TestProviders/Generators.h
         Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.cpp
@@ -275,8 +243,6 @@ add_custom_command(TARGET testKey
 add_executable(testDropFirst
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Testing/TestProviders/Generators.h
         Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.cpp
@@ -301,8 +267,6 @@ add_custom_command(TARGET testDropFirst
 add_executable(testTreeSorter
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Testing/SortingHelpers/TreeSorter.cpp
         Testing/SortingHelpers/TreeSorter.h
         Testing/Tests/Sorters/TreeSorterTest.cpp
@@ -329,8 +293,6 @@ add_custom_command(TARGET testTreeSorter
 add_executable(testConsumer
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Testing/TestProviders/Generators.h
         Testing/TestProviders/Generators.cpp
         Testing/TestProviders/ArrayProvider.cpp
@@ -409,8 +371,6 @@ add_executable(testRecordProvider
         Testing/TestProviders/Printer.cpp
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Providers/Dedooper.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
@@ -457,8 +417,6 @@ add_executable(testWitness
         Testing/TestProviders/Printer.cpp
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Testing/Tests/WitnessTest.cpp
         Testing/Tests/WitnessTest.h
         Providers/Dedooper.h
@@ -491,8 +449,6 @@ add_executable(testPQ
         Testing/TestProviders/ArrayProvider.h
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
         IODevice.h
@@ -509,8 +465,6 @@ add_executable(testSorting
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
@@ -551,8 +505,6 @@ add_executable(testLotsOfHddRuns
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
@@ -597,8 +549,6 @@ add_executable(testSpillToHdd
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
@@ -643,8 +593,6 @@ add_executable(testSpillToOneBlockToSdd
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
@@ -690,8 +638,6 @@ add_executable(testRecord
         Testing/Tests/Record/RecordTest.h
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Config/SorterConfig.cpp
         Config/SorterConfig.h
         IODevice.h
@@ -708,8 +654,6 @@ add_executable(testStorageProvider
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
@@ -755,8 +699,6 @@ add_executable(testStagedProvider
         Providers/Provider.h
         Records/Record.cpp
         Records/Record.h
-        Records/rng.cpp
-        Records/rng.h
         Config/SorterConfig.h
         Config/SorterConfig.cpp
         Config/StagingConfig.h
