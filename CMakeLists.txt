@@ -610,8 +610,6 @@ add_executable(testStagedProvider
         Providers/EmptyProvider.cpp
         Providers/EmptyProvider.h
         Providers/MemoryProvider.h
-        Providers/StorageProvider.h
-        Providers/StorageProvider.cpp
         Providers/StagedProvider.cpp
         Providers/StagedProvider.h
         src/TournamentPQ.cpp

@@ -43,13 +43,13 @@ void IODevice::read(long offset, uint8_t* buffer, int len) {
     (*streamPtr).exceptions ( fstream ::badbit );
     try {
         (*streamPtr).seekg(offset, ios::beg);
-        (*streamPtr).read(reinterpret_cast<char*>(buffer + off), len);
+        (*streamPtr).read(reinterpret_cast<char*>(buffer), len);
         readCount++;
         readSize+= len;
     }
     // catches failure reading file
     catch (ios_base ::failure e) {
-        cerr << "Error reading: " << file << " Offset: " << offset << " Off: " << off << " Len: " << len << "\n";
+        cerr << "Error reading: " << file << " Offset: " << offset  << " Len: " << len << "\n";
     }
 }
 
