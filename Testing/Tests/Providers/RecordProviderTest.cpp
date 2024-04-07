@@ -1,35 +1,32 @@
 #include <cassert>
 #include <string>
+#include "test/helpers/Generator.h"
+#include "Provider.h"
+#include "src/Witness.h"
 
 
 void testNext() {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordCount = 20;
-    cfg->recordSize = 1024;
     string file = "../ExampleFiles/input_table";
-    RecordProvider recordProvider(*cfg, file);
-    recordProvider.next();
+    InputStreamProvider provider(file);
+    provider.next();
 }
 
 void testInputRecord() {
-    SorterConfig* cfg = new SorterConfig();
     string file = "../ExampleFiles/input_table";
-    cfg->recordCount = 20;
-    cfg->recordSize = 1024;
-    RecordProvider generator(*cfg, file);
-    for (int i = 0; i <     cfg->recordCount; i++){
-        shared_ptr<Record> ptr = generator.next();
+    int recordCount = 20;
+    InputStreamProvider provider(file);
+    for (int i = 0; i <    recordCount; i++){
+        shared_ptr<Record> ptr = provider.next();
         assert("Next should have existed" && ptr != nullptr );
     }
-    shared_ptr<Record>  ptr = generator.next();
+    shared_ptr<Record>  ptr = provider.next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
 void testTenInOrder() {
-    SorterConfig* cfg = new SorterConfig();
     string file = "../ExampleFiles/input_table";
-    cfg->recordCount = 20;
-    cfg->recordSize = 1024;
+    int recordCount = 20;
+    int recordSize = 1024;
     RecordProvider generator(*cfg, file);
     Witness lower(&generator);
     NoopSorter sorter(&lower);
