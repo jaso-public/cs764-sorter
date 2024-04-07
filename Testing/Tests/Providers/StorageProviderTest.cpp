@@ -1,27 +1,27 @@
 #include <cassert>
 #include <filesystem>
+#include "test/helpers/Consumer.h"
+#include "test/helpers/Generator.h"
+#include "src/Witness.h"
+#include "src/StorageProvider.h"
 using namespace std;
 
 
 void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength, uint32_t keyOffset) {
-    SorterConfig* cfg = new SorterConfig();
-    cfg->recordSize = recordSize;
-    cfg->recordCount = recordCount;
-    cfg->keyOffset = keyOffset;
-    auto records = generateRandom(recordCount);
-    ArrayProvider generator("name", records);
-    Witness before(&generator);
+    auto records = generateRandom(10);
+    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Witness>  before = make_shared<Witness>(source);
 
     IODevice storage("../Files/storage.tmp");
 
     long storageOffset = 0;
     while(true) {
-        shared_ptr<Record> recPtr = before.next();
+        shared_ptr<Record> recPtr = before->next();
         if(!recPtr) break;
         int recordSize = Record::getRecordSize();
         uint8_t *data = new uint8_t[recordSize];
         recPtr->store(data);
-        storage.write(storageOffset, data, 0, recordSize);
+        storage.write(storageOffset, data, recordSize);
         delete(data);
         storageOffset += recordSize;
 
@@ -33,18 +33,18 @@ void doTest(int recordSize, long recordCount, int stagingLength, int bufferLengt
     long storageStartOffset = 0; // we wrote the records at offset zero
 
     uint8_t* buffer = memory;
-    int bufferStartOffset = 20;
-
-    SorterConfig* cfg2 = new SorterConfig();
-    StorageProvider sp(&storage, storageStartOffset,buffer,bufferStartOffset,bufferLength, *cfg2);
 
 
-    Witness after(&sp);
-    Consumer c(&after);
-    c.consume();
+    unique_ptr<StorageConfig> storageConfig = make_unique<StorageConfig>();
+    storageConfig->buffer = buffer;
+    storageConfig->startOffset = 20;
+    shared_ptr<StorageProvider> sp =  make_shared<StorageProvider>(storageConfig);
+    shared_ptr<Witness> after = make_shared<Witness>(sp);
+    Consumer consumer(after);
+    consumer.consume();
 
-    assert(("The count of the before witness should have equaled the count of the after witness" && before.getCount() == after.getCount()));
-    assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before.getCrc() == after.getCrc()));
+    assert(("The count of the before witness should have equaled the count of the after witness" && before->getCount() == after->getCount()));
+    assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before->getChecksum() == after->getChecksum()));
 
     remove("storage.tmp");
 }
