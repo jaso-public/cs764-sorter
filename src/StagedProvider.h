@@ -49,7 +49,7 @@ public:
 
 class StagedProvider: public Provider {
 public:
-    StagedProvider(unique_ptr<StagingConfig> cfg);
+    StagedProvider(unique_ptr<StagingConfig> &cfg);
     shared_ptr<Record> next() override;
 
 private:

@@ -1,20 +1,24 @@
 #include "Sorter.h"
 
+#include "StorageProvider.h"
+#include "StagedProvider.h"
+#include "TournamentPQ.h"
 
-Sorter::Sorter(shared_ptr<SorterConfig> cfg, shared_ptr<Provider> source) {
-    this->cfg = cfg;
-    this->source = source;
 
-    this->ssdOffset = 0;
-    this->hddOffset = 0;
+Sorter::Sorter(unique_ptr<SorterConfig> &config, shared_ptr<Provider> src) {
+    cfg = std::move(config);
+    source = src;
 
-    this->ssdRemaining = cfg->ssdStorageSize;
+    ssdOffset = 0;
+    hddOffset = 0;
 
-    this->bufferLength = cfg->memoryBlockSize * cfg->memoryBlockCount;
-    this->buffer = new uint8_t[bufferLength];
-    this->lastMemoryRun= bufferLength;
+    ssdRemaining = cfg->ssdStorageSize;
 
-    this->sortedProvider = startSort();
+    bufferLength = cfg->memoryBlockSize * cfg->memoryBlockCount;
+    buffer = new uint8_t[bufferLength];
+    lastMemoryRun= bufferLength;
+
+    sortedProvider = startSort();
 }
 
 shared_ptr<Record> Sorter::next() {
@@ -23,7 +27,7 @@ shared_ptr<Record> Sorter::next() {
 
 
 shared_ptr<Provider> Sorter::startSort() {
-    int maxRecordsPerRun = cfg->memoryBlockSize / cfg->recordSize;
+    int maxRecordsPerRun = cfg->memoryBlockSize / Record::getRecordSize();
 
     vector<shared_ptr<Provider>> singles(maxRecordsPerRun);
     for (int i = 0; i < maxRecordsPerRun; ++i) {
@@ -50,18 +54,18 @@ shared_ptr<Provider> Sorter::startSort() {
             lastMemoryRun -= cfg->memoryBlockSize;
 
             vector<shared_ptr<Provider>> providerFromSingles(singles.begin(), singles.end());
-            TournamentPQ pq(providerFromSingles, cfg->recordCount);
+            TournamentPQ pq(providerFromSingles, recordCount);
             for (int i = 0; i < recordCount; i++) {
                 shared_ptr<Record> ptr = pq.next();
                 //TODO: do not know why this is causing an error
-                int storeOffset = lastMemoryRun + i * cfg->recordSize;
+                int storeOffset = lastMemoryRun + i * Record::getRecordSize();
                 cout << buffer << "\n";
                 cout << storeOffset << "\n";
                 cout << bufferLength << "\n";
                 ptr->store(buffer, storeOffset, bufferLength);
                 cout << "Done" << "\n";
             }
-            Run run(cfg->recordCount, lastMemoryRun);
+            Run run(recordCount, lastMemoryRun);
             memoryRuns.push_back(run);
         }
     }
@@ -81,11 +85,10 @@ shared_ptr<Provider> Sorter::startSort() {
         }
         vector<shared_ptr<Provider>> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
         int index = 0;
-        SorterConfig* memCfg = new SorterConfig();
         for (Run run: memoryRuns) {
-            shared_ptr<Provider> memPtr =  make_shared<MemoryProvider>(buffer, memCfg->recordCount);
+            shared_ptr<Provider> memPtr =  make_shared<MemoryProvider>(buffer, run.numRecords);
             index += 1;
-           providers[index] = memPtr;
+            providers[index] = memPtr;
         }
         // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
         int offset = 0;
@@ -232,7 +235,7 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 }
 
 void Sorter::storeRun(Provider* provider, long recordCount) {
-    long spaceRequired = recordCount * cfg->recordSize;
+    long spaceRequired = recordCount * Record::getRecordSize();
 
     IODevice* device;
     long deviceOffset;
@@ -260,9 +263,9 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
     while(true) {
         shared_ptr<Record> rPtr = provider->next();
         if(!rPtr) break;
-        if(bufferRemaining < cfg->recordSize) {
+        if(bufferRemaining < Record::getRecordSize()) {
             rPtr->store(buffer, bufferOffset, bufferRemaining);
-            int leftOver = cfg->recordSize-bufferRemaining;
+            int leftOver = Record::getRecordSize()-bufferRemaining;
             device->write(deviceOffset, buffer, 0, cfg->memoryBlockSize);
             deviceOffset += cfg->memoryBlockSize;
             rPtr->store(buffer, bufferOffset, leftOver);
@@ -270,8 +273,8 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
             bufferRemaining = cfg->memoryBlockSize - leftOver;
         } else {
             rPtr->store(buffer, bufferOffset, 1);
-            bufferOffset += cfg->recordSize;
-            bufferRemaining -= cfg->recordSize;
+            bufferOffset += Record::getRecordSize();
+            bufferRemaining -= Record::getRecordSize()e;
         }
     }
 

@@ -8,7 +8,7 @@
 
 #include "test/helpers/Consumer.h"
 #include "test/helpers/Generators.h"
-#include "test/helpers/ArrayProvider.h"
+
 
 void doTest(uint64_t size,  uint32_t keyOffset, long recordCount, int stagingLength, int bufferLength) {
 
@@ -27,7 +27,7 @@ void doTest(uint64_t size,  uint32_t keyOffset, long recordCount, int stagingLen
         shared_ptr<Record> recPtr = before->next();
         if(!recPtr) break;
         recPtr->store(bufferPtr);
-        storage->write(storageOffset, bufferPtr, 0, recordSize);
+        storage->write(storageOffset, bufferPtr, recordSize);
         storageOffset += recordSize;
     }
 

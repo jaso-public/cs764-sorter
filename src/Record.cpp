@@ -13,63 +13,65 @@ void Record::staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_
     compareCount = 0;
 }
 
+Record::Record(unique_ptr<uint8_t[]> &newData) {
+    newData = std::move(data);
+}
+
+
 // TODO remove this constructor
 Record::Record() {
-    data = new uint8_t[recordSize];
+    data = make_unique<uint8_t[]>(recordSize);
 }
 
 Record::Record(uint8_t *newData) {
-    data = new uint8_t[recordSize];
-    set(newData);
+    data = make_unique<uint8_t[]>(recordSize);
+    memcpy(data.get(), newData, recordSize);
 }
 
 // Copy constructor
 Record::Record(const Record &other) {
     cout << "copy constructor (you don't wanna see this)" << endl;
-    data = new uint8_t[recordSize];
-    set(other.data);
+    data = std::make_unique<uint8_t[]>(recordSize);
+    memcpy(data.get(), other.data.get(), recordSize);
 }
 
 // Copy assignment operator
 Record &Record::operator=(const Record &other) {
     cout << "assignment operator (you don't wanna see this)" << endl;
     if (this != &other) {
-        delete[] data;
-        data = new uint8_t[recordSize];
-        set(other.data);
+        data = std::make_unique<uint8_t[]>(recordSize);
+        memcpy(data.get(), other.data.get(), recordSize);
     }
     return *this;
 }
 
-Record::~Record() {
-    delete[] data;
-}
+Record::~Record() {}
 
 int Record::compareTo(const shared_ptr<Record> other) {
     compareCount++;
-    return memcmp(data + keyOffset, other->data + keyOffset, keySize);
+    return memcmp(data.get() + keyOffset, other->data.get() + keyOffset, keySize);
 }
 
 bool Record::isDuplicate(const shared_ptr <Record> other) {
-    return memcmp(this->data, other->data, recordSize) == 0;
+    return memcmp(this->data.get(), other->data.get(), recordSize) == 0;
 }
 
 void Record::store(uint8_t *dst) {
-    memcpy(dst, data, recordSize);
+    memcpy(dst, data.get(), recordSize);
 }
 
 void Record::store(uint8_t *dst, int offset, int numToCopy) {
-    memcpy(dst, data + offset, numToCopy);
+    memcpy(dst, data.get() + offset, numToCopy);
 }
 
 // TODO get rid of this method -- just use the constructor
 void Record::set(uint8_t *src) {
-    memcpy(data, src, recordSize);
+    memcpy(data.get(), src, recordSize);
 }
 
 // TODO get rid of this method -- just use the constructor
 void Record::set(uint8_t *src, int offset, int numToCopy) {
-    memcpy(data + offset, src, numToCopy);
+    memcpy(data.get() + offset, src, numToCopy);
 }
 
 // TODO compute a real crc32
@@ -78,7 +80,7 @@ uint64_t Record::checksum() {
     int num = recordSize >> 3;
 
     uint64_t result = 0;
-    uint64_t *a = (uint64_t *) data;
+    uint64_t *a = (uint64_t *) data.get();
     for (int i = 0; i < num; i++) {
         result = result ^ a[i];
     }

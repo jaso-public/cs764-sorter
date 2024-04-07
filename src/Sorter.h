@@ -6,20 +6,38 @@
 
 #include "Record.h"
 #include "Provider.h"
-#include "SingleProvider.h"
+#include "IODevice.h"
 
 
-#include "Run.h"
-#include "Providers/EmptyProvider.h"
-#include "Providers/MemoryProvider.h"
-#include "Providers/StorageProvider.h"
-#include "Providers/StagedProvider.h"
-#include "TournamentPQ.h"
 using namespace std;
+
+class SorterConfig {
+public:
+    SorterConfig() {}
+
+    float fraction = 0.005F;
+    int memoryBlockSize = 1024 * 1024;
+    int memoryBlockCount = 100;
+
+    shared_ptr<IODevice> ssdDevice = nullptr;
+    int ssdReadSize = 16 * 1024;
+    long ssdStorageSize = 10L * 1024 * 1024 * 1024;;
+
+    shared_ptr<IODevice> hddDevice = nullptr;
+    int hddReadSize = 256 * 1024;;
+};
+
+class Run {
+public:
+    Run(long numRecords, long offset): numRecords(numRecords), offset(offset) {}
+    long numRecords;
+    long offset;
+};
+
 
 class Sorter: public Provider {
 public:
-    Sorter(shared_ptr<SorterConfig> cfg, shared_ptr<Provider> source);
+    Sorter(unique_ptr<SorterConfig> &cfg, shared_ptr<Provider> source);
     shared_ptr<Record> next() override;
     void printStats();
 
@@ -49,18 +67,3 @@ private:
     long roundUp(long value, long multiple);
 };
 
-class SorterConfig {
-public:
-    SorterConfig {}
-
-    float fraction = 0.005F;
-    int memoryBlockSize = 1024 * 1024;
-    int memoryBlockCount = 100;
-
-    shared_ptr<IODevice> ssdDevice = nullptr;
-    int ssdReadSize = 16 * 1024;
-    long ssdStorageSize = 10L * 1024 * 1024 * 1024;;
-
-    shared_ptr<IODevice> hddDevice = nullptr;
-    int hddReadSize = 256 * 1024;;
-};

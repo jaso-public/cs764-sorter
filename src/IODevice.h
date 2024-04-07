@@ -25,7 +25,7 @@ public:
      * @param buffer place to store read data
      * @param len the number of byes to be read
      */
-    void read(long offset, uint8_t* dst, int len);
+    void read(uint64_t offset, uint8_t* dst, uint32_t len);
     
     
     /**
@@ -36,7 +36,7 @@ public:
      * @param len the number of byes to be written
      */
      // TODO get rid of the off (can just send in the right ptr)
-    void write(long offset, uint8_t* dst, int off, int len);
+    void write(uint64_t offset, uint8_t* src, uint32_t len);
 
     /**
      * as this IoDevice does I/O operations to and from the device,
@@ -46,25 +46,25 @@ public:
      */
     uint64_t getReadCount();     // cumulative numbers of times read was called
     uint64_t getReadSize();      // cumulative numbers of bytes read from this device
-    uint64_t getReadMillis();    // cumulative time measured in millis for all read operations 
-    uint64_t getMaxReadMillis(); // the elapsed millis of the longest read operation for this device
+    double   getTotalRead();     // cumulative time measured in seconds for all read operations
+    double   getMaxRead();       // the elapsed time of the longest read operation for this device
 
-    uint64_t getWriteCount();     // cumulative numbers of times read was called
-    uint64_t getWriteSize();      // cumulative numbers of bytes read from this device
-    uint64_t getWriteMillis();    // cumulative time measured in millis for all read operations 
-    uint64_t getMaxWriteMillis(); // the elapsed millis of the longest read operation for this device
+    uint64_t getWriteCount();     // cumulative numbers of times write was called
+    uint64_t getWriteSize();      // cumulative numbers of bytes write from this device
+    double   getTotalWrite();     // cumulative time measured in seconds for all write operations
+    double   getMaxWrite();       // the elapsed time of the longest write operation for this device
 
 private:
-    int fd;                  // the file descriptor of the opened device (file)
-    string pathName;         // the path to the IoDevice (file name)
+    int fd;                   // the file descriptor of the opened device (file)
+    string path;              // the path to the device (file name)
 
-    uint64_t readCount;      // number of time read was called
-    uint64_t readSize;       // total bytes read from device
-    uint64_t readMillis;     // total millis spent reading from the device
-    uint64_t maxReadMillis;  // time taken for the longest read operation
+    uint64_t readCount;       // number of time read was called
+    uint64_t readSize;        // total bytes read from device
+    double totalReadSeconds;  // total millis spent reading from the device
+    double maxReadSeconds;    // time taken for the longest read operation
 
-    uint64_t writeCount;     // number of time write was called
-    uint64_t writeSize;      // total bytes written to device
-    uint64_t writeMillis;    // total millis spent writing to the device
-    uint64_t maxWriteMillis; // time taken for the longest write operation
+    uint64_t writeCount;      // number of time write was called
+    uint64_t writeSize;       // total bytes written to device
+    double totalWriteSeconds; // total millis spent writing to the device
+    double maxWriteSeconds;   // time taken for the longest write operation
 };

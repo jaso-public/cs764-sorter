@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <vector>
 
 #include "Record.h"
 
@@ -100,9 +101,14 @@ public:
     shared_ptr<Record> next() override {
         if(generatedRecordCount >= recordCount) return nullptr;
 
-        uint8_t *startOfRecord = buffer + generatedRecordCount * Record::getRecordSize();
+        uint32_t offset = generatedRecordCount * Record::getRecordSize();
+
+        int recordSize = Record::getRecordSize();
+        unique_ptr<uint8_t[]> data = std::make_unique<uint8_t[]>(recordSize);
+        memcpy(data.get(), buffer + offset, recordSize);
+
         generatedRecordCount++;
-        return make_shared<Record>(startOfRecord);
+        return make_shared<Record>(data);
     }
 
 private:
@@ -125,6 +131,29 @@ public:
         return nullptr;
     }
 };
+
+/**
+ * TODO docs
+ */
+class ArrayProvider: public Provider {
+
+public:
+    ArrayProvider(string name, vector <shared_ptr<Record>> _records) : name(name), records(_records), iter(records.begin()) {}
+
+    shared_ptr<Record> next() override {
+        cout << "in next\n";
+        if (iter == records.end()) return nullptr;
+        shared_ptr<Record> result = *iter;
+        iter++;
+        return result;
+    }
+
+private:
+    string name; // name to identify the record array
+    vector<shared_ptr<Record>> records; // vector of record pointers that will be used for iteration
+    vector<shared_ptr<Record>>::iterator iter; // iterator to return the records
+};
+
 
 /**
  * TODO docs

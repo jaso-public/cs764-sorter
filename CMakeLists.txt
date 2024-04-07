@@ -1,12 +1,16 @@
 cmake_minimum_required(VERSION 3.23)
 project(cs764_sorter)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 17++)
 
 include_directories(.)
 include_directories(src)
 
-add_executable(cs764_sorter
+add_executable(grabbag
+        src/grabbag.cpp
+        )
+
+        add_executable(cs764_sorter
         OutlinedFiles/Assert.cpp
         test/helpers/Consumer.h
         OutlinedFiles/defs.cpp
@@ -36,8 +40,7 @@ add_executable(cs764_sorter
         src/Sorter.h
         Testing/SortingHelpers/NoopSorter.h
         src/Sorter.cpp
-        src/Run.h
-        src/main.cpp src/Provider.cpp)
+                src/main.cpp src/Provider.cpp src/grabbag.cpp)
 
 
 add_executable(testRecord
@@ -74,7 +77,6 @@ add_executable(testWitness
         test/helpers/Consumer.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
 
         Testing/SortingHelpers/NoopSorter.h
 
@@ -116,7 +118,6 @@ add_executable(testPrinter
         Testing/TestProviders/Printer.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         Testing/Tests/Providers/PrinterTest.cpp
         src/Record.cpp
         src/Record.h
@@ -163,7 +164,6 @@ add_executable(testInOrderGenerator
         src/Record.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         Testing/Tests/Providers/InOrderGeneratorTest.cpp
         Testing/Tests/Providers/InOrderGeneratorTest.h
         src/IODevice.h
@@ -181,7 +181,6 @@ add_executable(testCrcRandomGenerator
         src/Record.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp
         Testing/Tests/Helpers/CrcRandomGeneratorTest.h
         src/IODevice.h
@@ -199,7 +198,6 @@ add_executable(testDedooper
         src/Record.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         Testing/Tests/Providers/DedooperTest.cpp
         Testing/Tests/Providers/DedooperTest.h
         src/IODevice.h
@@ -217,7 +215,6 @@ add_executable(testRandomGenerator
         src/Record.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         Testing/Tests/Providers/RandomGeneratorTest.h
         Testing/Tests/Providers/RandomGeneratorTest.cpp
         src/IODevice.h
@@ -248,7 +245,6 @@ add_executable(testDropFirst
         src/Record.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         Testing/TestProviders/DropFirst.cpp
         Testing/TestProviders/DropFirst.h
         Testing/Tests/Providers/DropFirstTest.cpp
@@ -273,7 +269,6 @@ add_executable(testTreeSorter
         Testing/Tests/Sorters/TreeSorterTest.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         src/Witness.h
         Testing/SortingHelpers/Key.h
         Testing/SortingHelpers/Key.cpp
@@ -292,7 +287,6 @@ add_executable(testConsumer
         src/Record.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         Testing/Tests/ConsumerTest.cpp
         Testing/Tests/ConsumerTest.h
         test/helpers/Consumer.h
@@ -341,7 +335,6 @@ add_executable(testRecordProvider
         src/Witness.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         Testing/SortingHelpers/NoopSorter.h
         test/helpers/Consumer.h
         Testing/TestProviders/DropFirst.h
@@ -382,13 +375,11 @@ add_executable(testPQ
         src/Witness.h
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
         test/TournamentPqTest.cpp
         Testing/Tests/TournamentPqTest.h
         test/helpers/Consumer.h
         src/TournamentPQ.cpp
         src/TournamentPQ.h
-        test/helpers/ArrayProvider.h
         src/Record.cpp
         src/Record.h
         src/IODevice.h
@@ -405,7 +396,6 @@ add_executable(testSorting
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        src/Run.h
         src/StorageProvider.h
         src/StorageProvider.cpp
         src/StagedProvider.cpp
@@ -434,7 +424,6 @@ add_executable(testLotsOfHddRuns
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        src/Run.h
         src/StorageProvider.h
         src/StorageProvider.cpp
         src/StagedProvider.cpp
@@ -453,8 +442,7 @@ add_executable(testLotsOfHddRuns
         Testing/TestProviders/Printer.cpp
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
-)
+        )
 
 add_custom_command(TARGET testLotsOfHddRuns
         POST_BUILD
@@ -466,7 +454,6 @@ add_executable(testSpillToHdd
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        src/Run.h
         src/StorageProvider.h
         src/StorageProvider.cpp
         src/StagedProvider.cpp
@@ -485,8 +472,7 @@ add_executable(testSpillToHdd
         Testing/TestProviders/Printer.cpp
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
-)
+        )
 
 add_custom_command(TARGET testSpillToHdd
         POST_BUILD
@@ -498,7 +484,6 @@ add_executable(testSpillToOneBlockToSdd
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        src/Run.h
         src/StorageProvider.h
         src/StorageProvider.cpp
         src/StagedProvider.cpp
@@ -517,8 +502,7 @@ add_executable(testSpillToOneBlockToSdd
         Testing/TestProviders/Printer.cpp
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
-)
+        )
 
 add_custom_command(TARGET testSpillToOneBlockToSdd
         POST_BUILD
@@ -530,7 +514,6 @@ add_executable(testStorageProvider
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        src/Run.h
         src/StorageProvider.h
         src/StorageProvider.cpp
         src/StagedProvider.cpp
@@ -549,8 +532,7 @@ add_executable(testStorageProvider
         Testing/TestProviders/Printer.cpp
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
-)
+        )
 
 
 add_custom_command(TARGET testStorageProvider
@@ -563,7 +545,6 @@ add_executable(testStagedProvider
         src/Provider.h
         src/Record.cpp
         src/Record.h
-        src/Run.h
         src/StagedProvider.cpp
         src/StagedProvider.h
         src/TournamentPQ.cpp
@@ -579,8 +560,7 @@ add_executable(testStagedProvider
         Testing/TestProviders/Printer.cpp
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/helpers/ArrayProvider.h
-)
+        )
 
 add_custom_command(TARGET testStagedProvider
         POST_BUILD

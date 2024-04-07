@@ -1,5 +1,4 @@
-#ifndef CS764_SORTER_TOURNAMENTPQ_H
-#define CS764_SORTER_TOURNAMENTPQ_H
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -25,5 +24,3 @@ private:
     vector<int> losers;
     int numProviders;
 };
-
-#endif //CS764_SORTER_TOURNAMENTPQ_H

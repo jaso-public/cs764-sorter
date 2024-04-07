@@ -1,5 +1,4 @@
-#ifndef DB_RECORD_H
-#define DB_RECORD_H
+#pragma once
 
 #include <iostream>
 #include <cstring>
@@ -11,6 +10,7 @@ public:
     static void staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_t _keySize);
 
     Record();
+    Record(unique_ptr<uint8_t[]> &newData);
 
     Record(uint8_t *_data);
 
@@ -68,6 +68,5 @@ private:
     static uint32_t keySize;      // the size of the key
     static uint32_t keyOffset;    // key offset inside the record
     static uint64_t compareCount; // the number of compares that
-    uint8_t* data;                // the actual bytes of the record
+    unique_ptr<uint8_t[]> data;   // the actual bytes of the record
 };
-#endif //DB_RECORD_H

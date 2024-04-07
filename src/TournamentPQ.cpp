@@ -1,5 +1,4 @@
 #include "TournamentPQ.h"
-#include "SingleProvider.h"
 
 /**
    * Initializes TournamentPQ constructor
