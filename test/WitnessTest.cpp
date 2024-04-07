@@ -6,7 +6,7 @@
 #include "Witness.h"
 
 #include "test/helpers/Consumer.h"
-#include "test/helpers/Generators.h"
+#include "test/helpers/Generator.h"
 #include "test/helpers/Printer.h"
 
 

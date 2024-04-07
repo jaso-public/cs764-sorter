@@ -54,16 +54,11 @@ shared_ptr<Provider> Sorter::startSort() {
             lastMemoryRun -= cfg->memoryBlockSize;
 
             vector<shared_ptr<Provider>> providerFromSingles(singles.begin(), singles.end());
-            TournamentPQ pq(providerFromSingles, recordCount);
+            shared_ptr<Provider> pq = make_shared<TournamentPQ>(providerFromSingles, recordCount);
             for (int i = 0; i < recordCount; i++) {
-                shared_ptr<Record> ptr = pq.next();
-                //TODO: do not know why this is causing an error
+                shared_ptr<Record> ptr = pq->next();
                 int storeOffset = lastMemoryRun + i * Record::getRecordSize();
-                cout << buffer << "\n";
-                cout << storeOffset << "\n";
-                cout << bufferLength << "\n";
                 ptr->store(buffer, storeOffset, bufferLength);
-                cout << "Done" << "\n";
             }
             Run run(recordCount, lastMemoryRun);
             memoryRuns.push_back(run);

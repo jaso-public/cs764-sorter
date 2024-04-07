@@ -49,7 +49,9 @@ Record::~Record() {}
 
 int Record::compareTo(const shared_ptr<Record> other) {
     compareCount++;
-    return memcmp(data.get() + keyOffset, other->data.get() + keyOffset, keySize);
+    int result = memcmp(data.get() + keyOffset, other->data.get() + keyOffset, keySize);
+    if(result != 0) return result;
+    return memcmp(this->data.get(), other->data.get(), recordSize);
 }
 
 bool Record::isDuplicate(const shared_ptr <Record> other) {

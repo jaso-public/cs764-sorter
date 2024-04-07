@@ -1,4 +1,4 @@
-#include "Generators.h"
+#include "Generator.h"
 
 
 void fill_buffer(uint8_t  *buffer, std::mt19937 &gen) {

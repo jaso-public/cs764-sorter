@@ -7,7 +7,7 @@
 #include "StagedProvider.h"
 
 #include "test/helpers/Consumer.h"
-#include "test/helpers/Generators.h"
+#include "test/helpers/Generator.h"
 
 
 void doTest(uint64_t size,  uint32_t keyOffset, long recordCount, int stagingLength, int bufferLength) {

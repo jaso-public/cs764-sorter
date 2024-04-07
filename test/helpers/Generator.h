@@ -1,5 +1,5 @@
-#ifndef CS764_SORTER_GENERATORS_H
-#define CS764_SORTER_GENERATORS_H
+#ifndef CS764_SORTER_GENERATOR_H
+#define CS764_SORTER_GENERATOR_H
 
 #include <cstdlib>
 #include <cstdint>
@@ -14,4 +14,4 @@ vector<shared_ptr<Record>> generateDuplicates(int recordCount);
 vector<shared_ptr<Record>> generateRandomWithCrc(int recordCount);
 
 bool isCrcValid(shared_ptr<Record> record);
-#endif //CS764_SORTER_GENERATORS_H
+#endif //CS764_SORTER_GENERATOR_H

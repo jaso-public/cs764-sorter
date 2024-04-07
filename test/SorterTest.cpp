@@ -8,7 +8,7 @@
 #include "Sorter.h"
 
 #include "test/helpers/Consumer.h"
-#include "test/helpers/Generators.h"
+#include "test/helpers/Generator.h"
 #include "test/helpers/Printer.h"
 
 using namespace std;
@@ -19,10 +19,12 @@ void testSmallSort() {
 
     Record::staticInitialize(20, 10, 12);
 
+    auto cfg = make_unique<SorterConfig>();
+
     shared_ptr<Provider> provider = make_shared<ArrayProvider>(testName, generateRandom(10));
     shared_ptr<Provider> printer1 = make_shared<Printer>(provider, testName+"-before");
     shared_ptr<Provider> lower = make_shared<Witness>(printer1);
-    shared_ptr<Provider> sorter = make_shared<Sorter>(lower);
+    shared_ptr<Provider> sorter = make_shared<Sorter>(cfg, lower);
     shared_ptr<Provider> upper = make_shared<Witness>(sorter);
     shared_ptr<Provider> printer2 = make_shared<Printer>(upper,testName+"-after");
 

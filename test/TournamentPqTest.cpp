@@ -1,15 +1,12 @@
-#pragma once
-
 #include <iostream>
 #include <vector>
-#include <list>
 #include <cassert>
 
 #include "Record.h"
 #include "Provider.h"
 #include "Witness.h"
 #include "TournamentPQ.h"
-#include "test/helpers/Generators.h"
+#include "test/helpers/Generator.h"
 #include "test/helpers/Consumer.h"
 
 using namespace std;
@@ -41,15 +38,14 @@ void doTest(int numProviders) {
         providers.push_back(make_unique<ArrayProvider>("prov", perProviderRecords));
     }
 
+    shared_ptr<TournamentPQ> pq = make_shared<TournamentPQ>(providers, numProviders);
+    shared_ptr<Witness> w = make_shared<Witness>(pq);
+    Consumer consumer(w);
+    consumer.consume();
 
-    TournamentPQ pq(providers, numProviders);
-    Witness w(&pq);
-    Consumer c(&w);
-    c.consume();
-
-    assert(w.isSorted());
-    assert(("The count of the before witness did have the same checksum as the w witness but should have" && before.getCrc() == w.getCrc()));
-    assert(("The count of the before witness did have the same checksum as the w witness but should have" && before.getCrc() == w.getCrc()));
+    assert(w->isSorted());
+    assert(("The count of the before witness did have the same checksum as the w witness but should have" && before->getChecksum() == w->getChecksum()));
+    assert(("The count of the before witness did have the same checksum as the w witness but should have" && before->getChecksum() == w->getChecksum()));
 }
 
 void testVariousNumberOfProviders() {

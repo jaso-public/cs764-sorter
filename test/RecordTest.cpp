@@ -2,7 +2,7 @@
 #include <cassert>
 
 #include "Record.h"
-#include "test/helpers/Generators.h"
+#include "test/helpers/Generator.h"
 #include "Provider.h"
 
 
@@ -63,7 +63,7 @@ void testCheckSum() {
     assert("Checksums should have been the same but were not" && checksum1 == checksum2);
     data[1] = 5;
     ptr2 = make_shared<Record>(&data[0]);
-    assert("Checksums should have been different but were not" && checksum1 == checksum2);
+    assert("Checksums should have been different but were not" && checksum1 != ptr2->checksum());
 }
 
 void testNextWith10RecordsWithCrc() {
