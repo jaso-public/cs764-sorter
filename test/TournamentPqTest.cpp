@@ -12,7 +12,7 @@
 #include "Consumer.h"
 
 #include "test/helpers/Generators.h"
-#include "test/helpers//ArrayProvider.h"
+#include "test/helpers/ArrayProvider.h"
 
 using namespace std;
 

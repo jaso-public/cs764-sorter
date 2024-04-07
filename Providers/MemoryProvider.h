@@ -1,5 +1,4 @@
-#ifndef CS764_SORTER_MEMORYPROVIDER_H
-#define CS764_SORTER_MEMORYPROVIDER_H
+#prqgma once
 
 #include <limits.h>
 #include <iostream>
@@ -31,6 +30,3 @@ private:
     uint64_t generatedRecordCount;
     uint64_t recordCount;
 };
-
-
-#endif //CS764_SORTER_MEMORYPROVIDER_H
