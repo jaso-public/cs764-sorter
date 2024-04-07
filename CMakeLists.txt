@@ -6,11 +6,7 @@ set(CMAKE_CXX_STANDARD 17++)
 include_directories(.)
 include_directories(src)
 
-add_executable(grabbag
-        src/grabbag.cpp
-        )
-
-        add_executable(cs764_sorter
+add_executable(cs764_sorter
         OutlinedFiles/Assert.cpp
         test/helpers/Consumer.h
         OutlinedFiles/defs.cpp
@@ -40,7 +36,7 @@ add_executable(grabbag
         src/Sorter.h
         Testing/SortingHelpers/NoopSorter.h
         src/Sorter.cpp
-                src/main.cpp src/Provider.cpp src/grabbag.cpp)
+                src/main.cpp src/Provider.cpp)
 
 
 add_executable(testRecord

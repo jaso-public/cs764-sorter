@@ -171,7 +171,7 @@ public class Sorter implements Provider {
         
         providers = new Provider[ssdRuns.size() + hddRuns.size()];
         int index = 0;
-        int memoryOffset = cfg.memoryBlockSize;
+        int memoryOffset = cfg.hddReadSize;
         
         
         for(int i=0 ; i<hddRuns.size(); i++) {

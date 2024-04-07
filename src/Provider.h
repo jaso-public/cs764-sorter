@@ -13,7 +13,7 @@ using namespace std;
  * it provides an a virtual method that all other providers implement.
  * You call next to receive the records in some order depending on where
  * the records are coming from, for example if the records are being provided
- * by a file, then the records will arrrive in the order they are stored in
+ * by a file, then the records will arrive in the order they are stored in
  * the file, if the provider is the Sorter, then the records will be provided
  * in sorted order. There are many different providers, the simplest one are
  * defined in the header file.
@@ -125,7 +125,7 @@ private:
  */
 class EmptyProvider: public Provider {
 public:
-    EmptyProvider();
+    EmptyProvider() {}
 
     shared_ptr<Record> next() override {
         return nullptr;

@@ -1,7 +1,7 @@
 #include "StorageProvider.h"
 
-StorageProvider::StorageProvider(shared_ptr<StorageConfig> &config) {
-    cfg = config;
+StorageProvider::StorageProvider(unique_ptr<StorageConfig> &config) {
+    cfg = std::move(config);
 
     storageOffset = cfg->startOffset;
     storageRemaining = cfg->recordCount * Record::getRecordSize();

@@ -31,7 +31,7 @@ class StagingConfig {
 public:
     StagingConfig() {}
 
-    uint64_t recordCount;
+    uint64_t recordCount;  // this is how many records were stored in the run that we are staging
 
     uint64_t storageStartOffset;
     uint64_t stagingStartOffset;

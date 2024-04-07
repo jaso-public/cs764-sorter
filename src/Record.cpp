@@ -64,16 +64,6 @@ void Record::store(uint8_t *dst, int offset, int numToCopy) {
     memcpy(dst, data.get() + offset, numToCopy);
 }
 
-// TODO get rid of this method -- just use the constructor
-void Record::set(uint8_t *src) {
-    memcpy(data.get(), src, recordSize);
-}
-
-// TODO get rid of this method -- just use the constructor
-void Record::set(uint8_t *src, int offset, int numToCopy) {
-    memcpy(data.get() + offset, src, numToCopy);
-}
-
 // TODO compute a real crc32
 uint64_t Record::checksum() {
     int extra = recordSize & 7;

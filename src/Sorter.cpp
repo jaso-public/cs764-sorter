@@ -86,22 +86,33 @@ shared_ptr<Provider> Sorter::startSort() {
         vector<shared_ptr<Provider>> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
         int index = 0;
         for (Run run: memoryRuns) {
-            shared_ptr<Provider> memPtr =  make_shared<MemoryProvider>(buffer, run.numRecords);
-            index += 1;
-            providers[index] = memPtr;
+            shared_ptr<Provider> memPtr = make_shared<MemoryProvider>(buffer, run.numRecords);
+            providers[index++] = memPtr;
         }
+
         // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
         int offset = 0;
 
         for (Run run: hddRuns) {
-            StorageProvider s(&cfg->hddDevice, run.offset, buffer, offset, cfg->hddReadSize, *cfg);
+            unique_ptr<StorageConfig> storageConfig = make_unique<StorageConfig>();
+            storageConfig->recordCount = run.numRecords;
+            storageConfig->startOffset = run.offset;
+            storageConfig->buffer = buffer;
+            storageConfig->bufferLength = cfg->hddReadSize;
+            storageConfig->storage = cfg->hddDevice;
             offset += cfg->hddReadSize;
+            providers[index++] = make_shared<StorageProvider>(storageConfig);
         }
 
         for (Run run: ssdRuns) {
-            StorageProvider s(&cfg->ssdDevice, run.offset, buffer, offset, cfg->ssdReadSize,
-                             *cfg);
+            unique_ptr<StorageConfig> storageConfig = make_unique<StorageConfig>();
+            storageConfig->recordCount = run.numRecords;
+            storageConfig->startOffset = run.offset;
+            storageConfig->buffer = buffer;
+            storageConfig->bufferLength = cfg->ssdReadSize;
+            storageConfig->storage = cfg->ssdDevice;
             offset += cfg->ssdReadSize;
+            providers[index++] = make_shared<StorageProvider>(storageConfig);
         }
 
         shared_ptr<Provider> result = make_shared<TournamentPQ>(providers, index);
@@ -147,11 +158,15 @@ shared_ptr<Provider> Sorter::startSort() {
         ssdRuns.erase(ssdRuns.begin());
         recordCount += run.numRecords;
         int offset = cfg->memoryBlockSize + i * cfg->ssdReadSize;
-        shared_ptr<Provider> s = make_shared<StorageProvider>(&cfg->ssdDevice, run.offset, buffer, offset,
-                                                              cfg->ssdReadSize, *cfg);
-        providers[i] = s;
-    }
 
+        unique_ptr<StorageConfig> storageConfig = make_unique<StorageConfig>();
+        storageConfig->recordCount = run.numRecords;
+        storageConfig->startOffset = run.offset;
+        storageConfig->buffer = buffer;
+        storageConfig->bufferLength = cfg->ssdReadSize;
+        storageConfig->storage = cfg->ssdDevice;
+        providers[i] = make_shared<StorageProvider>(storageConfig);
+    }
 
     TournamentPQ tPQ(providers, runsToMerge);
     Provider* provider = &tPQ;
@@ -161,37 +176,35 @@ shared_ptr<Provider> Sorter::startSort() {
     vector<shared_ptr<Provider>> newProvider(ssdRuns.size() + hddRuns.size());
     providers = newProvider;
     int index = 0;
-    int memoryOffset = cfg->memoryBlockSize;
+    int memoryOffset = cfg->hddReadSize;
 
 
     for (int i = 0; i < hddRuns.size(); i++) {
         Run run = hddRuns[i];
 
-        StagingConfig stagingCfg;
-        stagingCfg.recordSize = cfg->recordSize;
-        stagingCfg.recordCount = run.numRecords;
-        stagingCfg.storage = cfg->hddDevice;
-        stagingCfg.storageStartOffset = run.offset;
-        stagingCfg.staging = cfg->ssdDevice;
-        stagingCfg.stagingStartOffset = i * (cfg->hddReadSize - cfg->ssdReadSize);
-        stagingCfg.stagingLength = cfg->hddReadSize - cfg->ssdReadSize;
-        stagingCfg.buffer = buffer;
-        stagingCfg.bufferStartOffset = memoryOffset;
-        stagingCfg.bufferLength = cfg->ssdReadSize;
-        stagingCfg.transferBuffer = buffer;
-        stagingCfg.transferStartOffset = 0;
-        stagingCfg.transferLength = cfg->hddReadSize;
-        stagingCfg.keySize = cfg->keySize;
-        stagingCfg.keyOffset = cfg->keyOffset;
-        shared_ptr<Provider> sp = make_shared<StagedProvider>(stagingCfg);
-        providers[index++] = sp;
+        unique_ptr<StagingConfig> stagingCfg = make_unique<StagingConfig>();
+        stagingCfg->recordCount = run.numRecords;
+        stagingCfg->storage = cfg->hddDevice;
+        stagingCfg->storageStartOffset = run.offset;
+        stagingCfg->staging = cfg->ssdDevice;
+        stagingCfg->stagingStartOffset = i * (cfg->hddReadSize - cfg->ssdReadSize);
+        stagingCfg->stagingLength = cfg->hddReadSize - cfg->ssdReadSize;
+        stagingCfg->buffer = buffer + memoryOffset;
+        stagingCfg->bufferLength = cfg->ssdReadSize;
+        stagingCfg->transferBuffer = buffer; // this is always at the start of the memory buffer
+        stagingCfg->transferLength = cfg->hddReadSize;
+        providers[index++] = make_shared<StagedProvider>(stagingCfg);
         memoryOffset += cfg->ssdReadSize;
     }
 
     for (Run run: ssdRuns) {
-        shared_ptr<Provider> storagePtr = make_shared<StorageProvider>(&cfg->ssdDevice, run.offset, buffer,
-                                                                        memoryOffset, cfg->ssdReadSize, *cfg);
-        providers[index++] = storagePtr;
+        unique_ptr<StorageConfig> storageConfig = make_unique<StorageConfig>();
+        storageConfig->recordCount = run.numRecords;
+        storageConfig->startOffset = run.offset;
+        storageConfig->buffer = buffer;
+        storageConfig->bufferLength = cfg->ssdReadSize;
+        storageConfig->storage = cfg->ssdDevice;
+        providers[index++] = make_shared<StorageProvider>(storageConfig);
         memoryOffset += cfg->ssdReadSize;
     }
 
@@ -220,9 +233,8 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
     while(memoryRuns.size() > 0 && index < numberBuffersToRelease) {
         Run run = memoryRuns[memoryRuns.size()-1];
         SorterConfig* runConfig = new SorterConfig();
-        runConfig->recordCount = run.numRecords;
         ssdRuns.pop_back();
-        shared_ptr<Provider> memPtr =  make_shared<MemoryProvider>(buffer, runConfig->recordCount);
+        shared_ptr<Provider> memPtr =  make_shared<MemoryProvider>(buffer, run.numRecords);
         providers[index++] = memPtr;
         recordCount += run.numRecords;
     }
@@ -237,12 +249,12 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 void Sorter::storeRun(Provider* provider, long recordCount) {
     long spaceRequired = recordCount * Record::getRecordSize();
 
-    IODevice* device;
+    shared_ptr<IODevice> device;
     long deviceOffset;
 
     long ssdRequired = roundUp(spaceRequired, cfg->ssdReadSize);
     if(ssdRequired <= ssdRemaining) {
-        device = &cfg->ssdDevice;
+        device = cfg->ssdDevice;
         deviceOffset = ssdOffset;
         Run run(recordCount, ssdOffset);
         ssdRuns.push_back(run);
@@ -251,7 +263,7 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
     }
     else {
         long hddRequired = roundUp(spaceRequired, cfg->hddReadSize);
-        device = &cfg->hddDevice;
+        device = cfg->hddDevice;
         deviceOffset = hddOffset;
         Run run(recordCount, hddOffset);
         hddRuns.push_back(run);
@@ -266,7 +278,7 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
         if(bufferRemaining < Record::getRecordSize()) {
             rPtr->store(buffer, bufferOffset, bufferRemaining);
             int leftOver = Record::getRecordSize()-bufferRemaining;
-            device->write(deviceOffset, buffer, 0, cfg->memoryBlockSize);
+            device->write(deviceOffset, buffer, cfg->memoryBlockSize);
             deviceOffset += cfg->memoryBlockSize;
             rPtr->store(buffer, bufferOffset, leftOver);
             bufferOffset = leftOver;
@@ -274,12 +286,12 @@ void Sorter::storeRun(Provider* provider, long recordCount) {
         } else {
             rPtr->store(buffer, bufferOffset, 1);
             bufferOffset += Record::getRecordSize();
-            bufferRemaining -= Record::getRecordSize()e;
+            bufferRemaining -= Record::getRecordSize();
         }
     }
 
     // finally write out what ever is left in the buffer.
-    device->write(deviceOffset, buffer, 0, bufferOffset);
+    device->write(deviceOffset, buffer, bufferOffset);
 
 }
 
@@ -289,9 +301,33 @@ long Sorter::roundUp(long value, long multiple) {
     return (quotient + 1) * multiple;
 }
 
-void Sorter::printStats(){
-    cout << "SSD usage:" << cfg->ssdDevice.stats() << "\n";
-    cout << "HDD usage:" << cfg->hddDevice.stats() << "\n";
+void Sorter::printStats() {
+    cout << "SSD stats" << endl;
+    cout << "    read" << endl;
+    cout << "        count:   " << cfg->ssdDevice->getReadCount() << endl;
+    cout << "        size :   " << cfg->ssdDevice->getReadSize() << endl;
+    cout << "        time:    " << cfg->ssdDevice->getTotalRead() << endl;
+    cout << "        average: " << (cfg->ssdDevice->getReadCount() / cfg->ssdDevice->getTotalRead()) << endl;
+    cout << "        maxTime: " << cfg->ssdDevice->getMaxRead() << endl;
+    cout << "    write" << endl;
+    cout << "        count:   " << cfg->ssdDevice->getWriteCount() << endl;
+    cout << "        size :   " << cfg->ssdDevice->getWriteSize() << endl;
+    cout << "        time:    " << cfg->ssdDevice->getTotalWrite() << endl;
+    cout << "        average: " << (cfg->ssdDevice->getWriteCount() / cfg->ssdDevice->getTotalWrite()) << endl;
+    cout << "        maxTime: " << cfg->ssdDevice->getMaxWrite() << endl;
+    cout << "HDD stats" << endl;
+    cout << "    read" << endl;
+    cout << "        count:   " << cfg->hddDevice->getReadCount() << endl;
+    cout << "        size :   " << cfg->hddDevice->getReadSize() << endl;
+    cout << "        time:    " << cfg->hddDevice->getTotalRead() << endl;
+    cout << "        average: " << (cfg->hddDevice->getReadCount() / cfg->ssdDevice->getTotalRead()) << endl;
+    cout << "        maxTime: " << cfg->hddDevice->getMaxRead() << endl;
+    cout << "    write" << endl;
+    cout << "        count:   " << cfg->hddDevice->getWriteCount() << endl;
+    cout << "        size :   " << cfg->hddDevice->getWriteSize() << endl;
+    cout << "        time:    " << cfg->hddDevice->getTotalWrite() << endl;
+    cout << "        average: " << (cfg->hddDevice->getWriteCount() / cfg->ssdDevice->getTotalWrite()) << endl;
+    cout << "        maxTime: " << cfg->hddDevice->getMaxWrite() << endl;
     cout << "total number of record comparisons: " <<  Record::getCompareCount() << "\n";
 }
 

@@ -21,7 +21,7 @@ public:
 
 class StorageProvider: public Provider{
 public:
-    StorageProvider(shared_ptr<StorageConfig> cfg);
+    StorageProvider(unique_ptr<StorageConfig> &cfg);
     shared_ptr<Record> next() override;
 
 private:
