@@ -1,6 +1,6 @@
-#include "DropFirstTest.h"
+#include <cassert>
 
-void DropFirstTest::testDropWithCount10() {
+void testDropWithCount10() {
     auto records = generateInOrder(10);
     ArrayProvider generator("name", records);
     Witness lower(&generator);
@@ -13,7 +13,7 @@ void DropFirstTest::testDropWithCount10() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void DropFirstTest::testDropWithCount20() {
+void testDropWithCount20() {
     auto records = generateInOrder(20);
     ArrayProvider generator("name", records);
     Witness lower(&generator);
@@ -27,7 +27,6 @@ void DropFirstTest::testDropWithCount20() {
 }
 
 int main(){
-    DropFirstTest test;
-    test.testDropWithCount10();
-    test.testDropWithCount20();
+    testDropWithCount10();
+    testDropWithCount20();
 }

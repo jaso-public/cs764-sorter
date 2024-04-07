@@ -1,6 +1,6 @@
-#include "TreeSorterTest.h"
+#include <cassert>
 
-void TreeSorterTest::testCount10() {
+void testCount10() {
     auto records = generateRandom(10);
     ArrayProvider provider("name", records);
     Witness lower(&provider);
@@ -20,7 +20,7 @@ void TreeSorterTest::testCount10() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void TreeSorterTest::testCount50() {
+void testCount50() {
     auto records = generateRandom(50);
     ArrayProvider provider("name", records);
     Witness lower(&provider);
@@ -41,7 +41,6 @@ void TreeSorterTest::testCount50() {
 }
 
 int main(){
-    TreeSorterTest test;
-    test.testCount10();
-    test.testCount50();
+    testCount10();
+    testCount50();
 }

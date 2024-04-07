@@ -1,9 +1,9 @@
-#include "StorageProviderTest.h"
+#include <cassert>
+#include <filesystem>
+using namespace std;
 
 
-StorageProviderTest::StorageProviderTest() {};
-
-void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLength, int bufferLength, uint32_t keyOffset) {
+void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength, uint32_t keyOffset) {
     SorterConfig* cfg = new SorterConfig();
     cfg->recordSize = recordSize;
     cfg->recordCount = recordCount;
@@ -49,16 +49,15 @@ void StorageProviderTest::doTest(int recordSize, long recordCount, int stagingLe
     remove("storage.tmp");
 }
 
-void StorageProviderTest::testSmall() {
+void testSmall() {
     doTest(123,50,564,2048, 8);
 }
 
-void StorageProviderTest::testMedium() {
+void testMedium() {
     doTest(123,50,564,2048, 8);
 }
 
 int main(){
-    StorageProviderTest test;
-    test.testSmall();
-    test.testMedium();
+    testSmall();
+    testMedium();
 }

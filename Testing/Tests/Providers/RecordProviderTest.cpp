@@ -1,6 +1,8 @@
-#include "RecordProviderTest.h"
+#include <cassert>
+#include <string>
 
-void RecordProviderTest::testNext() {
+
+void testNext() {
     SorterConfig* cfg = new SorterConfig();
     cfg->recordCount = 20;
     cfg->recordSize = 1024;
@@ -9,7 +11,7 @@ void RecordProviderTest::testNext() {
     recordProvider.next();
 }
 
-void RecordProviderTest::testInputRecord() {
+void testInputRecord() {
     SorterConfig* cfg = new SorterConfig();
     string file = "../ExampleFiles/input_table";
     cfg->recordCount = 20;
@@ -23,7 +25,7 @@ void RecordProviderTest::testInputRecord() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void RecordProviderTest::testTenInOrder() {
+void testTenInOrder() {
     SorterConfig* cfg = new SorterConfig();
     string file = "../ExampleFiles/input_table";
     cfg->recordCount = 20;
@@ -41,7 +43,7 @@ void RecordProviderTest::testTenInOrder() {
     assert("The sorting of the witnesses should have been the same" && upper.isSorted == lower.isSorted);
 }
 
-void RecordProviderTest::testDropOne() {
+void testDropOne() {
     SorterConfig* cfg = new SorterConfig();
     string file = "../ExampleFiles/input_table";
     cfg->recordCount = 20;
@@ -59,7 +61,7 @@ void RecordProviderTest::testDropOne() {
     assert("The sorting of the witnesses should have been the same" && upper.isSorted == lower.isSorted);
 }
 
-void RecordProviderTest::testTreeSorter() {
+void testTreeSorter() {
     SorterConfig* cfg = new SorterConfig();
     string file = "../ExampleFiles/input_table";
     cfg->recordCount = 20;
@@ -79,9 +81,8 @@ void RecordProviderTest::testTreeSorter() {
 }
 
 int main(){
-    RecordProviderTest test;
-    test.testNext();
-    test.testInputRecord();
-    test.testDropOne();
-    test.testTreeSorter();
+    testNext();
+    testInputRecord();
+    testDropOne();
+    testTreeSorter();
 }

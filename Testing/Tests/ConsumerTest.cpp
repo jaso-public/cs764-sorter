@@ -1,15 +1,17 @@
-#include "ConsumerTest.h"
+#include "test/helpers/Generator.h"
+#include "test/helpers/Consumer.h"
+#include "cassert"
 
-void ConsumerTest::testConsume() {
+
+void testConsume() {
     auto records = generateRandom(10);
-    ArrayProvider provider("name", records);
-    Consumer consume(&provider);
+    shared_ptr<Provider> provider = make_shared<ArrayProvider>("name", records);
+    Consumer consume(provider);
     consume.consume();
-    shared_ptr<Record> ptr = provider.next();
+    shared_ptr<Record> ptr = provider->next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
 int main(){
-    ConsumerTest test;
-    test.testConsume();
+    testConsume();
 }

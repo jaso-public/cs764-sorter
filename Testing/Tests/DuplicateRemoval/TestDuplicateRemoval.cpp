@@ -1,7 +1,8 @@
-#include "TestDuplicateRemoval.h"
 #include "DuplicateRemoval/RemoveDuplicates.h"
+#include <cassert>
+using namespace std;
 
-void TestDuplicateRemoval::testRemovingDuplicates1() {
+void testRemovingDuplicates1() {
     int recordInFile = 0;
     RemoveDuplicates remove("../Testing/Tests/DuplicateRemoval/input1.txt", "../Testing/Tests/DuplicateRemoval/output1.txt");
     remove.removeDuplicates();
@@ -19,7 +20,7 @@ void TestDuplicateRemoval::testRemovingDuplicates1() {
     checkingOutput.close();
 }
 
-void TestDuplicateRemoval::testRemovingNoDuplicates2() {
+void testRemovingNoDuplicates2() {
     int recordInFile = 0;
     RemoveDuplicates remove("../Testing/Tests/DuplicateRemoval/input2.txt", "../Testing/Tests/DuplicateRemoval/output2.txt");
     remove.removeDuplicates();
@@ -38,7 +39,7 @@ void TestDuplicateRemoval::testRemovingNoDuplicates2() {
 }
 
 
-void TestDuplicateRemoval::testRemovingAllDuplicates3() {
+void testRemovingAllDuplicates3() {
     int recordInFile = 0;
     RemoveDuplicates remove("../Testing/Tests/DuplicateRemoval/input3.txt", "../Testing/Tests/DuplicateRemoval/output3.txt");
     remove.removeDuplicates();
@@ -56,7 +57,7 @@ void TestDuplicateRemoval::testRemovingAllDuplicates3() {
     checkingOutput.close();
 }
 
-void TestDuplicateRemoval::testEmptyInputFile4() {
+void testEmptyInputFile4() {
     int recordInFile = 0;
     RemoveDuplicates remove("../Testing/Tests/DuplicateRemoval/input4.txt", "../Testing/Tests/DuplicateRemoval/output4.txt");
     remove.removeDuplicates();
@@ -75,9 +76,8 @@ void TestDuplicateRemoval::testEmptyInputFile4() {
 }
 
 int main(){
-    TestDuplicateRemoval test;
-    test.testRemovingDuplicates1();
-    test.testRemovingNoDuplicates2();
-    test.testRemovingAllDuplicates3();
-    test.testEmptyInputFile4();
+    testRemovingDuplicates1();
+    testRemovingNoDuplicates2();
+    testRemovingAllDuplicates3();
+    testEmptyInputFile4();
 }

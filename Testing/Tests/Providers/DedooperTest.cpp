@@ -1,5 +1,6 @@
-#include "DedooperTest.h"
-void DedooperTest::testDuplicateRemoval10() {
+#include <cassert>
+
+void testDuplicateRemoval10() {
     auto records = generateInOrder(10);
     shared_ptr<Record> prevRecord = nullptr;
     ArrayProvider generator("name", records);
@@ -16,7 +17,7 @@ void DedooperTest::testDuplicateRemoval10() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void DedooperTest::testDuplicateRemoval100() {
+void testDuplicateRemoval100() {
     auto records = generateInOrder(100);
     ArrayProvider generator("name", records);
     shared_ptr<Record> prevRecord = nullptr;
@@ -35,7 +36,6 @@ void DedooperTest::testDuplicateRemoval100() {
 
 
 int main(){
-    DedooperTest test;
-    test.testDuplicateRemoval10();
-    test.testDuplicateRemoval100();
+    testDuplicateRemoval10();
+    testDuplicateRemoval100();
 }

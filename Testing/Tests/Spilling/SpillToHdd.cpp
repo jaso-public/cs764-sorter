@@ -1,40 +1,38 @@
-#include "SpillToHdd.h"
+#include "src/Sorter.h"
+#include "Witness.h"
+#include "test/helpers/Printer.h"
+#include "test/helpers/Generator.h"
+#include <string>
+#include <cassert>
+using namespace std;
 
-
-void SpillToHdd::testSpillToHdd() {
+void testSpillToHdd() {
     string test = "testSpillToHdd: ";
 
-    SorterConfig* cfg = new SorterConfig();
-    cfg->ssdStorageSize = 2*1024*1024;
-    cfg->memoryBlockCount = 10;
-    cfg->recordSize = 1000;
-    cfg->recordCount = 19000;
-    cfg->keyOffset = 8;
-    cfg->keySize = 8;
+    unique_ptr<SorterConfig> cfg = make_unique<SorterConfig>();
+    auto records = generateRandomWithCrc(10);
+    shared_ptr<ArrayProvider> provider = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Witness> lower = make_shared<Witness>(provider);
+    shared_ptr<Sorter> sorter = make_shared<Sorter>(cfg, lower);
+    shared_ptr<Witness> upper = make_shared<Witness>(sorter);
+    shared_ptr<Printer> printer = make_shared<Printer>(upper, test);
 
-    auto records = generateRandomWithCrc(   cfg->recordCount);
-    ArrayProvider provider("name", records);
-    Witness lower(&provider);
-    Sorter sorter(*cfg, &lower);
-    Witness upper(&sorter);
-    Printer p(&upper, test);
 
     while(true) {
-        shared_ptr<Record> recordPtr = p.next();
+        shared_ptr<Record> recordPtr = printer->next();
         if(recordPtr) break;
-        crc.verifyCrc(recordPtr);
+        isCrcValid(recordPtr);
     }
 
-   sorter.printStats();
+   sorter->printStats();
 
-    assert(("The count of the lower witness should have equaled the record count" && cfg->recordCount == lower.getCount()));
-    assert(("The count of the upper witness should equaled the record count" && cfg->recordCount  == upper.getCount()));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
-    assert(("The lower was sorted but should not have been" && !lower.isSorted));
-    assert(("The upper witness was not sorted but should have been" && upper.isSorted));
+    assert(("The count of the lower witness should have equaled the record count" && 10 == lower->getCount()));
+    assert(("The count of the upper witness should equaled the record count" && 10  == upper->getCount()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower->getChecksum() == upper->getChecksum()));
+    assert(("The lower was sorted but should not have been" && !lower->isSorted()));
+    assert(("The upper witness was not sorted but should have been" && upper->isSorted()));
 }
 
 int main(){
-    SpillToHdd spill;
-    spill.testSpillToHdd();
+    testSpillToHdd();
 }

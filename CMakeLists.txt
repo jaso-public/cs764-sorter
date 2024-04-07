@@ -129,7 +129,6 @@ add_executable(testDedooper
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         Testing/Tests/Providers/DedooperTest.cpp
-        Testing/Tests/Providers/DedooperTest.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -145,7 +144,6 @@ add_executable(testRandomGenerator
         src/Record.h
         test/helpers/Generator.h
         test/helpers/Generator.cpp
-        Testing/Tests/Providers/RandomGeneratorTest.h
         Testing/Tests/Providers/RandomGeneratorTest.cpp
         src/IODevice.h
         src/IODevice.cpp
@@ -194,7 +192,6 @@ add_executable(testTreeSorter
         Testing/SorterHelpers/TreeSorter.cpp
         Testing/SorterHelpers/TreeSorter.h
         Testing/Tests/Sorters/TreeSorterTest.cpp
-        Testing/Tests/Sorters/TreeSorterTest.h
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         src/Witness.h
@@ -216,7 +213,6 @@ add_executable(testConsumer
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         Testing/Tests/ConsumerTest.cpp
-        Testing/Tests/ConsumerTest.h
         test/helpers/Consumer.h
         src/IODevice.h
         src/IODevice.cpp
@@ -229,8 +225,6 @@ add_custom_command(TARGET testConsumer
 )
 
 add_executable(testStagingConfig
-        Testing/Tests/Config/StagingConfigTest.cpp
-        Testing/Tests/Config/StagingConfigTest.h
         src/IODevice.cpp
         src/IODevice.h
 )
@@ -243,7 +237,6 @@ add_custom_command(TARGET testStagingConfig
 
 add_executable(testEmptyProvider
         Testing/Tests/Providers/EmptyProviderTest.cpp
-        Testing/Tests/Providers/EmptyProviderTest.h
 )
 
 add_custom_command(TARGET testEmptyProvider
@@ -254,7 +247,6 @@ add_custom_command(TARGET testEmptyProvider
 
 add_executable(testRecordProvider
         Testing/Tests/Providers/RecordProviderTest.cpp
-        Testing/Tests/Providers/RecordProviderTest.h
         src/IODevice.cpp
         src/IODevice.h
         src/Record.cpp
@@ -287,7 +279,6 @@ add_custom_command(TARGET testRecordProvider
 
 add_executable(testDuplicateRemoval
         Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp
-        Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.h
         DuplicateRemoval/RemoveDuplicates.cpp
         DuplicateRemoval/RemoveDuplicates.h
 )
@@ -304,7 +295,6 @@ add_executable(testPQ
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         test/TournamentPqTest.cpp
-        Testing/Tests/TournamentPqTest.h
         test/helpers/Consumer.h
         src/TournamentPQ.cpp
         src/TournamentPQ.h
@@ -362,7 +352,6 @@ add_executable(testLotsOfHddRuns
         src/IODevice.h
         src/IODevice.cpp
         Testing/Tests/LotsOfHddRuns.cpp
-        Testing/Tests/LotsOfHddRuns.h
         src/Sorter.cpp
         src/Sorter.h
         test/helpers/Consumer.h
@@ -392,7 +381,6 @@ add_executable(testSpillToHdd
         src/IODevice.h
         src/IODevice.cpp
         Testing/Tests/Spilling/SpillToHdd.cpp
-        Testing/Tests/Spilling/SpillToHdd.h
         src/Sorter.cpp
         src/Sorter.h
         test/helpers/Consumer.h
@@ -451,7 +439,6 @@ add_executable(testStorageProvider
         src/TournamentPQ.h
         src/IODevice.h
         src/IODevice.cpp
-        Testing/Tests/Providers/StorageProviderTest.h
         Testing/Tests/Providers/StorageProviderTest.cpp
         src/Sorter.cpp
         src/Sorter.h

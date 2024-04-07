@@ -1,6 +1,6 @@
-#include "EmptyProviderTest.h"
+#include <cassert>
 
-void EmptyProviderTest::testNext() {
+void testNext() {
     EmptyProvider generator;
     for (int i = 0; i < 10; i++){
         shared_ptr<Record> ptr = generator.next();
@@ -9,6 +9,5 @@ void EmptyProviderTest::testNext() {
 }
 
 int main(){
-    EmptyProviderTest test;
-    test.testNext();
+    testNext();
 }

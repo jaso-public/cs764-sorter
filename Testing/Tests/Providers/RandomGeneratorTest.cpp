@@ -1,6 +1,6 @@
-#include "RandomGeneratorTest.h"
+#include <cassert>
 
-void RandomGeneratorTest::testCount10() {
+void testCount10() {
     auto records = generateRandom(10);
     ArrayProvider generator("name", records);
     for (int i = 0; i < 10; i++){
@@ -11,7 +11,7 @@ void RandomGeneratorTest::testCount10() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void RandomGeneratorTest::testCount50() {
+void testCount50() {
     auto records = generateRandom(50);
     ArrayProvider generator("name", records);
     for (int i = 0; i < 50; i++){
@@ -24,7 +24,6 @@ void RandomGeneratorTest::testCount50() {
 
 
 int main(){
-    RandomGeneratorTest test;
-    test.testCount10();
-    test.testCount50();
+    testCount10();
+    testCount50();
 }

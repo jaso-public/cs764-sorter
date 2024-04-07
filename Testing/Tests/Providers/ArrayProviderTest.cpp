@@ -1,6 +1,7 @@
-#include "ArrayProviderTest.h"
+#include "cassert"
+#include "test/helpers/Generator.h"
 
-void ArrayProviderTest::testGenerating10Records() {
+void testGenerating10Records() {
     auto records = generateInOrder(10);
     assert("Record size should have been 10" && records.size() == 10 );
     ArrayProvider provider("name", records);
@@ -12,7 +13,7 @@ void ArrayProviderTest::testGenerating10Records() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void ArrayProviderTest::testGenerating50Records() {
+void testGenerating50Records() {
     auto records = generateInOrder(50);
     assert("Record size should have been 50" && records.size() == 50 );
     ArrayProvider provider("name", records);
@@ -25,7 +26,6 @@ void ArrayProviderTest::testGenerating50Records() {
 }
 
 int main(){
-    ArrayProviderTest test;
-    test.testGenerating50Records();
-    test.testGenerating10Records();
+    testGenerating50Records();
+    testGenerating10Records();
 }
