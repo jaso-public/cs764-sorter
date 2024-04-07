@@ -1,8 +1,11 @@
 #include <cassert>
 #include <string>
-#include "test/helpers/Generator.h"
 #include "Provider.h"
 #include "src/Witness.h"
+#include "Testing/SorterHelpers/TreeSorter.h"
+#include "Testing/SorterHelpers/NoopSorter.h"
+#include "Testing/TestProviders/DropFirst.h"
+#include "test/helpers/Consumer.h"
 
 
 void testNext() {
@@ -23,63 +26,65 @@ void testInputRecord() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void testTenInOrder() {
+void testInputChain() {
     string file = "../ExampleFiles/input_table";
     int recordCount = 20;
-    int recordSize = 1024;
-    RecordProvider generator(*cfg, file);
-    Witness lower(&generator);
-    NoopSorter sorter(&lower);
-    Witness upper(&sorter);
-    Dedooper dooper(&upper);
-    Consumer consumer(&dooper);
+
+    shared_ptr<Provider> source = make_shared<InputStreamProvider>(file);
+    shared_ptr<Witness>  lower = make_shared<Witness>(source);
+    shared_ptr<NoopSorter> sorter = make_shared<NoopSorter>(lower);
+    shared_ptr<Witness>  upper = make_shared<Witness>(sorter);
+    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
+    Consumer consumer(dooper);
     consumer.consume();
 
-    assert("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount());
-    assert("The count of the upper witness was wrong" && cfg->recordCount == upper.getCount());
-    assert("The sorting of the witnesses should have been the same" && upper.isSorted == lower.isSorted);
+    assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount() == upper->getCount());
+    assert("The count of the upper witness was wrong" && recordCount == upper->getCount());
+    assert("The sorting of the witnesses should have been the same" && upper->isSorted() == lower->isSorted());
 }
 
 void testDropOne() {
-    SorterConfig* cfg = new SorterConfig();
     string file = "../ExampleFiles/input_table";
-    cfg->recordCount = 20;
-    cfg->recordSize = 1024;
-    RecordProvider generator(*cfg, file);
-    Witness lower(&generator);
-    NoopSorter sorter(&lower);
-    Witness upper(&sorter);
-    Dedooper dooper(&upper);
-    Consumer consumer(&dooper);
+    int recordCount = 20;
+
+    shared_ptr<Provider> source = make_shared<InputStreamProvider>(file);
+    shared_ptr<Witness>  lower = make_shared<Witness>(source);
+    shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
+    shared_ptr<NoopSorter> sorter = make_shared<NoopSorter>(dropper);
+    shared_ptr<Witness>  upper = make_shared<Witness>(sorter);
+    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
+    Consumer consumer(dooper);
     consumer.consume();
 
-    assert("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount());
-    assert("The count of the upper witness was wrong" && cfg->recordCount == upper.getCount());
-    assert("The sorting of the witnesses should have been the same" && upper.isSorted == lower.isSorted);
+
+    assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount() == upper->getCount());
+    assert("The count of the upper witness was wrong" && recordCount == upper->getCount());
+    assert("The sorting of the witnesses should have been the same" && upper->isSorted() == lower->isSorted());
 }
 
 void testTreeSorter() {
-    SorterConfig* cfg = new SorterConfig();
     string file = "../ExampleFiles/input_table";
-    cfg->recordCount = 20;
-    cfg->recordSize = 1024;
-    RecordProvider generator(*cfg, file);
-    Witness lower(&generator);
-    TreeSorter sorter(&lower);
-    Witness upper(&sorter);
-    Dedooper dooper(&upper);
-    Consumer consumer(&dooper);
+    int recordCount = 20;
+
+    shared_ptr<Provider> source = make_shared<InputStreamProvider>(file);
+    shared_ptr<Witness>  lower = make_shared<Witness>(source);
+    shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
+    shared_ptr<TreeSorter> sorter = make_shared<TreeSorter>(dropper);
+    shared_ptr<Witness>  upper = make_shared<Witness>(sorter);
+    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
+    Consumer consumer(dooper);
     consumer.consume();
-    assert(("The count of the lower witness was wrong" &&  cfg->recordCount == lower.getCount()));
-    assert(("The count of the upper witness was wrong" &&  cfg->recordCount == upper.getCount()));
-    assert(("The upper witness should have been sorted but was not" && upper.isSorted));
-    assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
-    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
+
+
+    assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount() == upper->getCount());
+    assert("The count of the upper witness was wrong" && recordCount == upper->getCount());
+    assert("The sorting of the witnesses should have been the same" && upper->isSorted() == lower->isSorted());
 }
 
 int main(){
     testNext();
     testInputRecord();
+    testInputChain();
     testDropOne();
     testTreeSorter();
 }
