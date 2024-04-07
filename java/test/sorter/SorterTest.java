@@ -127,7 +127,8 @@ class SorterTest {
         Witness upper = new Witness(sorter);
         Consumer consumer = new Consumer(upper);
         consumer.consume();
-        
+
+        dynamic_pointer_cast<Witness>(witness)->printStats();
         sorter.printStats();
         
         assertEquals(recordCount, lower.getCount(), "The count of the lower witness was " + lower.getCount() + " but should have been "+recordCount);

@@ -1,5 +1,3 @@
-
-#include <iostream>
 #include <cassert>
 #include <string>
 
@@ -9,12 +7,12 @@
 
 #include "test/helpers/Consumer.h"
 #include "test/helpers/Generators.h"
+#include "test/helpers/Printer.h"
 
-#include "Testing/SortingHelpers/NoopSorter.h"
-//#include "Testing/TestProviders/DropFirst.h"
-//#include "Testing/SortingHelpers/TreeSorter.h"
-//#include "Testing/TestProviders/Printer.h"
-//#include "Providers/Dedooper.h"
+
+#include "Testing/SorterHelpers//NoopSorter.h"
+#include "Testing/TestProviders/DropFirst.h"
+#include "Testing/SorterHelpers/TreeSorter.h"
 
 using namespace std;
 
@@ -91,112 +89,116 @@ void testUpper() {
     shared_ptr<Record> ptr = upper->next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
-//
-//void testTenInorder() {
-//    auto records = generateInOrder(10);
-//    ArrayProvider provider("name", records);
-//    Witness lower(&provider);
-//    NoopSorter sorter(&lower);
-//    Witness upper(&sorter);
-//    Dedooper dooper(&upper);
-//    Consumer consumer(&dooper);
-//    consumer.consume();
-//
-//    assert("The count of the lower witness did not equal the count of the upper but should have" && lower.getCount() == upper.getCount());
-//    assert("The count of the upper witness should have been 10" && 10 == upper.getCount());
-//    assert("The upper witness should have been sorted but was not" && upper.isSorted == lower.isSorted);
-//}
-//
-//void testDropOne() {
-//    auto records = generateInOrder(10);
-//    ArrayProvider provider("name", records);
-//    Witness lower(&provider);
-//    DropFirst dropper(&lower);
-//    NoopSorter sorter(&dropper);
-//    Witness upper(&sorter);
-//    Dedooper dooper(&upper);
-//    Consumer consumer(&dooper);
-//    consumer.consume();
-//
-//    assert("The count of the lower witness should have been 10" && 10 == lower.getCount());
-//    assert("The count of the upper witness should have been 9" && 9 == upper.getCount());
-//    assert("The upper witness should have been sorted but was not" && upper.isSorted);
-//    assert("The lower witness should have been sorted but was not" && lower.isSorted);
-//    assert("The checksum of the lower witness was equal to the checksum of the upper but should not have been" && lower.getCrc() != upper.getCrc());
-//}
-//
-//void testRandomOrder() {
-//    auto records = generateRandom(10);
-//    ArrayProvider provider("name", records);
-//    Witness lower(&provider);
-//    NoopSorter sorter(&lower);
-//    Witness upper(&sorter);
-//    Dedooper dooper(&upper);
-//    Consumer consumer(&dooper);
-//    consumer.consume();
-//
-//    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
-//    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
-//    assert(("The upper witness should not have been sorted but was" && !upper.isSorted));
-//    assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
-//    assert(("The checksum of the lower witness was not equal to the checksum of the upper but should have been" && lower.getCrc() == upper.getCrc()));
-//}
-//
-//void testTreeSorter() {
-//    auto records = generateRandom(10);
-//    ArrayProvider provider("name", records);
-//    Witness lower(&provider);
-//    TreeSorter sorter(&lower);
-//    Witness upper(&sorter);
-//    Dedooper dooper(&upper);
-//    Consumer consumer(&dooper);
-//    consumer.consume();
-//    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
-//    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
-//    assert(("The upper witness should have been sorted but was not" && upper.isSorted));
-//    assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
-//    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
-//}
-//
-//void testRandomOrderWithPrinting() {
-//    string test = "testRandomOrderWithPrinting: ";
-//    auto records = generateRandom(10);
-//    ArrayProvider provider("name", records);
-//    Printer printer1(&provider, test+"from generator");
-//    Witness lower(&printer1);
-//    NoopSorter sorter(&lower);
-//    Witness upper(&sorter);
-//    Dedooper dooper(&upper);
-//    Printer printer2(&dooper, test+"from sorter");
-//    Consumer consumer(&printer2);
-//    consumer.consume();
-//
-//    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
-//    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
-//    assert(("The upper witness should have not been sorted but was" && !upper.isSorted));
-//    assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
-//    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
-//}
-//
-//void testTreeSorterWithPrinting() {
-//    string test = "testTreeSorterWithPrinting: ";
-//    auto records = generateRandom(10);
-//    ArrayProvider provider("name", records);
-//    Printer printer1(&provider, test+"from generator");
-//    Witness lower(&printer1);
-//    TreeSorter sorter(&lower);
-//    Witness upper(&sorter);
-//    Dedooper dooper(&upper);
-//    Printer printer2(&dooper, test+"from sorter");
-//    Consumer consumer(&printer2);
-//    consumer.consume();
-//
-//    assert(("The count of the lower witness should have been 10" && 10 == lower.getCount()));
-//    assert(("The count of the upper witness should have been 10" && 10 == upper.getCount()));
-//    assert(("The upper witness should have been sorted but was" && upper.isSorted));
-//    assert(("The lower witness should not have been sorted but was" && !lower.isSorted));
-//    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower.getCrc() == upper.getCrc()));
-//}
+
+void testTenInorder() {
+    auto records = generateInOrder(10);
+    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
+    shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(lower);
+    shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
+    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
+    Consumer consumer(dooper);
+    consumer.consume();
+
+    assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount() == upper->getCount());
+    assert("The count of the upper witness should have been 10" && 10 == upper->getCount());
+    assert("The upper witness should have been sorted but was not" && upper->isSorted() == lower->isSorted());
+}
+
+void testDropOne() {
+    auto records = generateInOrder(10);
+    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
+    shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
+    shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(dropper);
+    shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
+    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
+    Consumer consumer(dooper);
+    consumer.consume();
+
+    assert("The count of the lower witness should have been 10" && 10 == lower->getCount());
+    assert("The count of the upper witness should have been 9" && 9 == upper->getCount());
+    assert("The upper witness should have been sorted but was not" && upper->isSorted());
+    assert("The lower witness should have been sorted but was not" && lower->isSorted());
+    assert("The checksum of the lower witness was equal to the checksum of the upper but should not have been" && lower->getChecksum() != upper->getChecksum());
+}
+
+
+
+void testRandomOrder() {
+    auto records = generateRandom(10);
+    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
+    shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(lower);
+    shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
+    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
+    Consumer consumer(dooper);
+    consumer.consume();
+
+    assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
+    assert(("The count of the upper witness should have been 10" && 10 == upper->getCount()));
+    assert(("The upper witness should not have been sorted but was" && !upper->isSorted()));
+    assert(("The lower witness should not have been sorted but was" && !lower->isSorted()));
+    assert(("The checksum of the lower witness was not equal to the checksum of the upper but should have been" && lower->getChecksum() == upper->getChecksum()));
+}
+
+void testTreeSorter() {
+    auto records = generateRandom(10);
+    ArrayProvider provider("name", records);
+    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
+    shared_ptr<TreeSorter> sorterPtr = make_shared<TreeSorter>(lower);
+    shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
+    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
+    Consumer consumer(dooper);
+    consumer.consume();
+
+    assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
+    assert(("The count of the upper witness should have been 10" && 10 == upper->getCount()));
+    assert(("The upper witness should have been sorted but was not" && upper->isSorted()));
+    assert(("The lower witness should not have been sorted but was" && !lower->isSorted()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower->getChecksum() == upper->getChecksum()));
+}
+
+void testRandomOrderWithPrinting() {
+    string test = "testRandomOrderWithPrinting: ";
+    auto records = generateRandom(10);
+    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Printer> printer1 = make_shared<Printer>(providerPtr, test+"from generator");
+    shared_ptr<Witness> lower = make_shared<Witness>(printer1);
+    shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(lower);
+    shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
+    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
+    shared_ptr<Printer> printer2 = make_shared<Printer>(dooper, test+"from sorter");
+    Consumer consumer(printer2);
+    consumer.consume();
+
+    assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
+    assert(("The count of the upper witness should have been 10" && 10 == upper->getCount()));
+    assert(("The upper witness should have not been sorted but was" && !upper->isSorted()));
+    assert(("The lower witness should not have been sorted but was" && !lower->isSorted()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower->getChecksum() == upper->getChecksum()));
+}
+
+void testTreeSorterWithPrinting() {
+    string test = "testTreeSorterWithPrinting: ";
+    auto records = generateRandom(10);
+    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Printer> printer1 = make_shared<Printer>(providerPtr, test+"from generator");
+    shared_ptr<Witness> lower = make_shared<Witness>(printer1);
+    shared_ptr<TreeSorter> sorterPtr = make_shared<TreeSorter>(lower);
+    shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
+    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
+    shared_ptr<Printer> printer2 = make_shared<Printer>(dooper, test+"from sorter");
+    Consumer consumer(printer2);
+    consumer.consume();
+
+    assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
+    assert(("The count of the upper witness should have been 10" && 10 == upper->getCount()));
+    assert(("The upper witness should have been sorted but was" && upper->isSorted()));
+    assert(("The lower witness should not have been sorted but was" && !lower->isSorted()));
+    assert(("The checksum of the lower witness did not equal the checksum of the upper but should have" && lower->getChecksum() == upper->getChecksum()));
+}
 
 int main() {
     testLower();
@@ -204,10 +206,10 @@ int main() {
     testGivingWitnessNoopSorter();
     testGivingWitnessAnotherWitness();
     testUpper();
-//    w.testTenInorder();
-//    w.testTreeSorterWithPrinting();
-//    w.testRandomOrderWithPrinting();
-//    w.testTreeSorter();
-//    w.testDropOne();
-//    w.testRandomOrder();
+    testTenInorder();
+    testTreeSorterWithPrinting();
+    testRandomOrderWithPrinting();
+    testTreeSorter();
+    testDropOne();
+    testRandomOrder();
 };

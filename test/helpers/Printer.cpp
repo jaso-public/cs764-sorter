@@ -1,15 +1,5 @@
 #include "Printer.h"
 
-/**
-   * Class constructor of the printer that sets the given variables to the class variables
-   * @param givenSource given provider to get records from
-   * @param givenMessage message to print out with each record
-   */
-Printer::Printer(Provider* givenSource, string givenMessage) {
-    this->source = givenSource;
-    this->message = givenMessage;
-}
-
 /*
  * Obtains the next record from the provider with a message
  * If the record is null, it will print out the time elapsed (milliseconds), message, and a null response to console

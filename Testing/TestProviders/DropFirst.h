@@ -13,9 +13,9 @@
 class DropFirst: public Provider{
 public:
     // the source used to get the records
-    Provider* source;
+    shared_ptr<Provider> source;
     // class constructor
-    DropFirst(Provider* givenSource);
+    DropFirst(shared_ptr<Provider> _source);
     /**
      * Gets the next record from the provider or a null record
      * @return a pointer to the next record or a null pointer if a next record does not exist

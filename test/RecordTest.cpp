@@ -4,7 +4,6 @@
 #include "Record.h"
 #include "test/helpers/Generators.h"
 #include "Provider.h"
-#include "assert.h"
 
 
 void testNoParameterConstructor() {

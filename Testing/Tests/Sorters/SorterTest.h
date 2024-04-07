@@ -2,7 +2,7 @@
 #define CS764_SORTER_SORTERTEST_H
 #include "Testing/TestProviders/Generators.h"
 #include "Testing/TestProviders/ArrayProvider.h"
-#include "Testing/TestProviders/Printer.h"
+#include "test/helpers/Printer.h"
 #include "./Witness.h"
 #include "./Config/SorterConfig.h"
 #include "./Sort/Sorter.h"

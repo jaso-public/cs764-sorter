@@ -10,7 +10,7 @@
 #include "./Testing/SortingHelpers/TreeSorter.h"
 #include <cassert>
 #include <string>
-#include "Testing/TestProviders/Printer.h"
+#include "test/helpers/Printer.h"
 #include "Providers/Dedooper.h"
 
 

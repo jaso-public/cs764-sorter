@@ -18,23 +18,20 @@ using namespace std;
  */
 class Printer: public Provider {
 public:
-    // the source to get the next record pointer from
-    Provider* source;
-    // the message to print out with the record
-    string message;
-    /**
-     * Class constructor of the printer that sets the given variables to the class variables
-     * @param givenSource given provider to get records from
-     * @param givenMessage message to print out with each record
-     */
-    Printer(Provider* givenSource, string givenMessage);
-    /*
+    Printer(shared_ptr<Provider> _source, string _message): source(_source), message(_message) {}
+
+     /*
      * Obtains the next record from the provider with a message
      * If the record is null, it will print out the current time, message, and a null response to console
      * If the record is not null, it will print out the current time, message, record's key, and checksum to console
      * @returns a pointer to the record or a null pointer
      */
     shared_ptr<Record> next() override;
+
+private:
+    shared_ptr<Provider> source; // the source to get the next record pointer from
+    string message;              // the message to print out with the record
+
 };
 
 

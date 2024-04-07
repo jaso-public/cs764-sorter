@@ -4,9 +4,8 @@
  * Class constructor that automatically drops the first record
  * @param givenSource the provider to obtain records from
  */
-DropFirst::DropFirst(Provider* givenSource) {
+DropFirst::DropFirst(shared_ptr<Provider> _source): source(_source) {
     // sets the given provider to class provider variable and skips first record
-    this->source = givenSource;
     source->next();
 }
 

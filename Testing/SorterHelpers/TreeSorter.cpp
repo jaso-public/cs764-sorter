@@ -1,7 +1,6 @@
 #include "TreeSorter.h"
 
-TreeSorter::TreeSorter(Provider* source) {
-    this->source = source;
+TreeSorter::TreeSorter(shared_ptr<Provider> _source): source(_source)  {
     map<Record,Record> sorted;
     // adds all record to TreeMap until count has been reached
     while(true) {

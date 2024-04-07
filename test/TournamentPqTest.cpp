@@ -9,10 +9,8 @@
 #include "Provider.h"
 #include "Witness.h"
 #include "TournamentPQ.h"
-#include "Consumer.h"
-
 #include "test/helpers/Generators.h"
-#include "test/helpers/ArrayProvider.h"
+#include "test/helpers/Consumer.h"
 
 using namespace std;
 
@@ -28,8 +26,8 @@ void doTest(int numProviders) {
 
     // make an array provider so we can pass the records thru a witness
 
-    ArrayProvider ap("source", records);
-    Witness before(&ap);
+    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Witness> before = make_shared<Witness>(providerPtr);
 
     cerr << "made  Witness before\n";
 
@@ -38,7 +36,7 @@ void doTest(int numProviders) {
     for(int i=0; i<numProviders ; i++) {
         vector<shared_ptr<Record>> perProviderRecords;
         for (int j = 0; j < 10; j++) {
-            perProviderRecords.push_back(before.next());
+            perProviderRecords.push_back(before->next());
         }
         providers.push_back(make_unique<ArrayProvider>("prov", perProviderRecords));
     }
@@ -49,7 +47,7 @@ void doTest(int numProviders) {
     Consumer c(&w);
     c.consume();
 
-    assert(w.isSorted);
+    assert(w.isSorted());
     assert(("The count of the before witness did have the same checksum as the w witness but should have" && before.getCrc() == w.getCrc()));
     assert(("The count of the before witness did have the same checksum as the w witness but should have" && before.getCrc() == w.getCrc()));
 }
@@ -62,7 +60,6 @@ void testVariousNumberOfProviders() {
 
 
 int main(){
-    TournamentPqTest test;
-    test.testVariousNumberOfProviders();
+    testVariousNumberOfProviders();
 }
 

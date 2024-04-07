@@ -13,9 +13,9 @@ using namespace std;
 
 class TreeSorter: public Provider{
 public:
-    Provider* source;
+    shared_ptr<Provider> source;
     shared_ptr<Record> next() override;
-    TreeSorter(Provider* source);
+    TreeSorter(shared_ptr<Provider> _source);
 
 private:
     // iterator to return the records
