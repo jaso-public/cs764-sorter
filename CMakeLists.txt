@@ -42,7 +42,11 @@ add_executable(cs764_sorter
 add_executable(testRecord
         test/RecordTest.cpp
         src/Record.cpp
-        src/Record.h)
+        src/Record.h
+        test/helpers/Generators.h
+        test/helpers/Generators.cpp
+
+        )
 
 add_custom_command(TARGET testRecord
         POST_BUILD
@@ -50,17 +54,17 @@ add_custom_command(TARGET testRecord
         COMMENT "Running testRecord...")
 
 
-add_executable(testArrayProvider
+add_executable(testProvider
         test/helpers/Generators.h
         test/helpers/Generators.cpp
-        test/ArrayProviderTest.cpp
+        test/ProviderTest.cpp
         src/Record.cpp
         src/Record.h)
 
-add_custom_command(TARGET testArrayProvider
+add_custom_command(TARGET testProvider
         POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testArrayProvider
-        COMMENT "Running testArrayProvider...")
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testProvider
+        COMMENT "Running testProvider...")
 
 add_executable(testWitness
         test/WitnessTest.cpp
@@ -98,7 +102,6 @@ add_custom_command(TARGET testWitness
 
 add_executable(testSorterConfig
         Testing/Tests/Config/SorterConfigTest.cpp
-        Testing/Tests/Config/SorterConfigTest.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -109,30 +112,11 @@ add_custom_command(TARGET testSorterConfig
         COMMENT "Running testSorterConfig..."
 )
 
-add_executable(testPrinter
-        Testing/TestProviders/Printer.cpp
-        Testing/TestProviders/Printer.h
-        test/helpers/Generators.h
-        test/helpers/Generators.cpp
-        Testing/Tests/Providers/PrinterTest.cpp
-        src/Record.cpp
-        src/Record.h
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testPrinter
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testPrinter
-        COMMENT "Running testPrinter..."
-)
-
 add_executable(testIODevice
         src/IODevice.cpp
         src/IODevice.h
-        Testing/Tests/IODevice/IoDeviceTest.cpp
-        Testing/Tests/IODevice/IoDeviceTest.h
-)
+        test/IoDeviceTest.cpp
+        )
 
 add_custom_command(TARGET testIODevice
         POST_BUILD
@@ -140,54 +124,7 @@ add_custom_command(TARGET testIODevice
         COMMENT "Running testIODevice..."
 )
 
-add_executable(testSingleProvider
-        Testing/Tests/Providers/SingleProviderTest.cpp
-        Testing/Tests/Providers/SingleProviderTest.h
-        src/IODevice.h
-        src/IODevice.cpp
-        src/Record.cpp
-        src/Record.h
-        )
 
-add_custom_command(TARGET testSingleProvider
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSingleProvider
-        COMMENT "Running testSingleProvider..."
-)
-
-add_executable(testInOrderGenerator
-        src/Record.cpp
-        src/Record.h
-        test/helpers/Generators.h
-        test/helpers/Generators.cpp
-        Testing/Tests/Providers/InOrderGeneratorTest.cpp
-        Testing/Tests/Providers/InOrderGeneratorTest.h
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testInOrderGenerator
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testInOrderGenerator
-        COMMENT "Running testInOrderGenerator..."
-)
-
-add_executable(testCrcRandomGenerator
-        src/Record.cpp
-        src/Record.h
-        test/helpers/Generators.h
-        test/helpers/Generators.cpp
-        Testing/Tests/Helpers/CrcRandomGeneratorTest.cpp
-        Testing/Tests/Helpers/CrcRandomGeneratorTest.h
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testCrcRandomGenerator
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testCrcRandomGenerator
-        COMMENT "Running testCrcRandomGenerator..."
-)
 
 add_executable(testDedooper
         src/Record.cpp
@@ -226,9 +163,7 @@ add_custom_command(TARGET testRandomGenerator
 add_executable(testKey
         Testing/SortingHelpers/Key.cpp
         Testing/SortingHelpers/Key.h
-        Testing/Tests/Helpers/KeyTest.cpp
-        Testing/Tests/Helpers/KeyTest.h
-)
+        )
 
 add_custom_command(TARGET testKey
         POST_BUILD
@@ -566,7 +501,6 @@ add_custom_command(TARGET testStagedProvider
 
 add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testDuplicateRemoval>
-        COMMAND $<TARGET_FILE:testInOrderGenerator>
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
@@ -574,14 +508,10 @@ add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
-        COMMAND $<TARGET_FILE:testSingleProvider>
         COMMAND $<TARGET_FILE:testKey>
         COMMAND $<TARGET_FILE:testStagingConfig>
-        COMMAND $<TARGET_FILE:testPrinter>
-        COMMAND $<TARGET_FILE:testCrcRandomGenerator>
         COMMAND $<TARGET_FILE:testRecordProvider>
         COMMAND $<TARGET_FILE:testWitness>
-        COMMAND $<TARGET_FILE:testArrayProvider>
         COMMAND $<TARGET_FILE:testTreeSorter>
         COMMAND $<TARGET_FILE:testPQ>
 )
@@ -625,7 +555,6 @@ add_custom_command(TARGET runErrorTests
 
 add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testDuplicateRemoval>
-        COMMAND $<TARGET_FILE:testInOrderGenerator>
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
@@ -633,14 +562,10 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
-        COMMAND $<TARGET_FILE:testSingleProvider>
-        COMMAND $<TARGET_FILE:testKey>
         COMMAND $<TARGET_FILE:testStagingConfig>
-        COMMAND $<TARGET_FILE:testPrinter>
-        COMMAND $<TARGET_FILE:testCrcRandomGenerator >
         COMMAND $<TARGET_FILE:testRecordProvider>
         COMMAND $<TARGET_FILE:testWitness>
-        COMMAND $<TARGET_FILE:testArrayProvider>
+        COMMAND $<TARGET_FILE:testProvider>
         COMMAND $<TARGET_FILE:testTreeSorter>
         COMMAND $<TARGET_FILE:testPQ>
         COMMAND $<TARGET_FILE:testSorting>

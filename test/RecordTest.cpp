@@ -3,6 +3,8 @@
 
 #include "Record.h"
 #include "test/helpers/Generators.h"
+#include "Provider.h"
+#include "assert.h"
 
 
 void testNoParameterConstructor() {
@@ -65,10 +67,38 @@ void testCheckSum() {
     assert("Checksums should have been different but were not" && checksum1 == checksum2);
 }
 
+void testNextWith10RecordsWithCrc() {
+    auto records = generateRandomWithCrc(10);
+    ArrayProvider generator("name", records);
+    for (int i = 0; i < 10; i++){
+        shared_ptr<Record> ptr = generator.next();
+        assert("Next should have existed" && ptr != nullptr );
+        assert("Verify checksum was not correct" && isCrcValid(ptr) == true );
+    }
+    shared_ptr<Record> ptr = generator.next();
+    assert("Next should have given a null pointer" && ptr == nullptr );
+    assert("Verify checksum was not correct" && isCrcValid(ptr) == false );
+}
+
+void testNextWith50RecordsWithCrc() {
+    auto records = generateRandomWithCrc(50);
+    ArrayProvider generator("name", records);
+    for (int i = 0; i < 50; i++){
+        shared_ptr<Record> ptr = generator.next();
+        assert("Next should have existed" && ptr != nullptr );
+        assert("Verify checksum was not correct" && isCrcValid(ptr) == true );
+    }
+    shared_ptr<Record>  ptr = generator.next();
+    assert("Next should have given a null pointer" && ptr == nullptr );
+    assert("Verify checksum was not correct" && isCrcValid(ptr) == false );
+}
+
 int main(){
     testNoParameterConstructor();
     testDataParameterConstructor();
     testIsDuplicate();
     testCompare();
     testCheckSum();
+    testNextWith10RecordsWithCrc();
+    testNextWith50RecordsWithCrc();
 }

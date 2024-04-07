@@ -9,7 +9,6 @@
 
 #include "test/helpers/Consumer.h"
 #include "test/helpers/Generators.h"
-#include "test/helpers/ArrayProvider.h"
 
 #include "Testing/SortingHelpers/NoopSorter.h"
 //#include "Testing/TestProviders/DropFirst.h"

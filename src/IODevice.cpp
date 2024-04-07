@@ -22,7 +22,7 @@ IODevice::IODevice(string filePath) {
     totalWriteSeconds= 0.0;
     maxWriteSeconds= 0.0;
 
-    fd = open(path.c_str(), O_RDWR | O_CREAT);
+    fd = open(path.c_str(), O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
     if(fd == -1) {
         cerr << "failed opening file:" << path << " strerror:" << strerror(errno) << " errno:" << errno << endl;
         exit(-1);
@@ -55,7 +55,13 @@ void IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
 
     uint32_t count = pread(fd, buffer, len, offset);
     if(count != len) {
-        cerr << "failed reading file:" << path << " strerror:" << strerror(errno) << " errno:" << errno << endl;
+        if(count < 0) {
+            cerr << "failed reading file:" << path << " strerror:" << strerror(errno) << " errno:" << errno << endl;
+        } else if(count ==0) {
+            cerr << "end of file:" << path << endl;
+        } else {
+            cerr << "did not read all the data expected file:" << path << "read:" << count << " expected:" << len << endl;
+        }
         exit(-1);
     }
     clock_gettime(CLOCK_MONOTONIC, &end);
