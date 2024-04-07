@@ -1,10 +1,7 @@
-#ifndef CS764_SORTER_WITNESS_H
-#define CS764_SORTER_WITNESS_H
+#pragma once
 
-#include <memory>
-
-#include "Provider.h"
 #include "Record.h"
+#include "Provider.h"
 
 /**
  * This class will be utilized to verify the correctness of the records sorting algorithm
@@ -46,11 +43,8 @@ public:
 
 private:
     shared_ptr<Provider> source; // the source that will generate records
-    shared_ptr<Record> record; // lastRecord seen
-
-    uint64_t count; // keeps track of all the records generated
-    uint64_t checksum; // keeps track of checksum value
-    bool sorted; // bool value that indicates if records have been sorted
+    shared_ptr<Record> record;   // lastRecord seen
+    uint64_t count;              // keeps track of all the records generated
+    uint64_t checksum;           // keeps track of checksum value
+    bool sorted;                 // bool value that indicates if records have been sorted
 };
-
-#endif //CS764_SORTER_WITNESS_H

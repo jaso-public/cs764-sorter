@@ -1,3 +1,5 @@
+#include "Provider.h"
+
 #include "RecordProvider.h"
 
 RecordProvider::RecordProvider(SorterConfig cfg, string filePath) {
@@ -45,4 +47,6 @@ shared_ptr<Record> RecordProvider::next() {
         return nullptr;
     }
 }
+
+
 

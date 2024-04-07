@@ -1,5 +1,5 @@
-#ifndef CS764_SORTER_IODEVICE_H
-#define CS764_SORTER_IODEVICE_H
+#pragma once
+
 #include <stdio.h>
 #include <fstream>
 #include <string>
@@ -7,33 +7,18 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+
 using namespace std;
 
 /**
  * This class it utilized to read and write to a given file
  */
 class IODevice {
-private:
-    // stream to read/write to file
-    fstream* streamPtr;
-    // the file to read and write to
-    string file;
-    // keeps track of how many times the file has been read
-    long readCount;
-    // keeps track of the number of bytes read
-    long readSize;
-    // keeps track of how many times the file has been written to
-    long writeCount;
-    // keeps track of the number of bytes written
-    long writeSize;
 
 public:
-    ~IODevice();
-    /**
-    * Class constructor; Opens the given file in read/write mode
-    * @param givenFile the string file path of the file
-    */
     IODevice(string filePath);
+    ~IODevice();
+
     /**
      * Reads a number of bytes from the file at a certain location
      * @param offset the file pointer offset where reading will begin
@@ -41,6 +26,8 @@ public:
      * @param len the number of byes to be read
      */
     void read(long offset, uint8_t* dst, int len);
+    
+    
     /**
      * Writes a number of bytes from the file at a certain location
      * @param offset the file pointer offset where writing will begin
@@ -50,19 +37,34 @@ public:
      */
      // TODO get rid of the off (can just send in the right ptr)
     void write(long offset, uint8_t* dst, int off, int len);
-    // returns the class' read count
-    long getReadCount();
-    // returns the class' read size
-    long getReadSize();
-    // returns the class' write count
-    long getWriteCount();
-    // returns the class' write size
-    long getWriteSize();
-    // returns a string of read/write statistics
-    string stats();
-    // returns the file path and class identification string
-    string toString();
+
+    /**
+     * as this IoDevice does I/O operations to and from the device,
+     * it records simple statistics about the read and write operations.
+     * The methods below should be fairly obvious about what the measurement
+     * is recording for each statistic.
+     */
+    uint64_t getReadCount();     // cumulative numbers of times read was called
+    uint64_t getReadSize();      // cumulative numbers of bytes read from this device
+    uint64_t getReadMillis();    // cumulative time measured in millis for all read operations 
+    uint64_t getMaxReadMillis(); // the elapsed millis of the longest read operation for this device
+
+    uint64_t getWriteCount();     // cumulative numbers of times read was called
+    uint64_t getWriteSize();      // cumulative numbers of bytes read from this device
+    uint64_t getWriteMillis();    // cumulative time measured in millis for all read operations 
+    uint64_t getMaxWriteMillis(); // the elapsed millis of the longest read operation for this device
+
+private:
+    int fd;                  // the file descriptor of the opened device (file)
+    string pathName;         // the path to the IoDevice (file name)
+
+    uint64_t readCount;      // number of time read was called
+    uint64_t readSize;       // total bytes read from device
+    uint64_t readMillis;     // total millis spent reading from the device
+    uint64_t maxReadMillis;  // time taken for the longest read operation
+
+    uint64_t writeCount;     // number of time write was called
+    uint64_t writeSize;      // total bytes written to device
+    uint64_t writeMillis;    // total millis spent writing to the device
+    uint64_t maxWriteMillis; // time taken for the longest write operation
 };
-
-
-#endif //CS764_SORTER_IODEVICE_H

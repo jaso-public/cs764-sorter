@@ -9,6 +9,13 @@ using namespace std;
 
 /**
  * This is the provider class that will generate all the desired records
+ * it provides an a virtual method that all other providers implement.
+ * You call next to receive the records in some order depending on where
+ * the records are coming from, for example if the records are being provided
+ * by a file, then the records will arrrive in the order they are stored in
+ * the file, if the provider is the Sorter, then the records will be provided
+ * in sorted order. There are many different providers, the simplest one are
+ * defined in the header file.
  */
 class Provider {
 
@@ -20,3 +27,133 @@ public:
     virtual ~Provider() {}
     virtual shared_ptr<Record> next() = 0;
 };
+
+/**
+ * The Dedooper is a record provider that removes duplicate records from a stream
+ * of records provided by another provider.  This provider only removes consecutive
+ * duplicates, so the stream of records from the source provider needs to be sorted.
+ */
+class Dedooper: public Provider {
+public:
+    Dedooper(shared_ptr<Provider> _source): source(_source), previousRecord(nullptr) {}
+
+    shared_ptr<Record> next() override {
+        auto currentRecord = source->next();
+        if (currentRecord == nullptr) return nullptr;
+
+        if (previousRecord != nullptr){
+            // continues to get next record until a unique record is reached
+            while(currentRecord->isDuplicate(previousRecord)){
+                currentRecord = source->next();
+                if (currentRecord == nullptr) return nullptr;
+            }
+        }
+        previousRecord = currentRecord;
+        return currentRecord;
+    }
+
+private:
+    shared_ptr<Provider> source;
+    shared_ptr<Record> previousRecord;
+};
+
+/**
+ * A single provider is a simple provider that can be reused.  The reset method
+ * provides the provider with a single record that will be returned the next
+ * time that the next() method is called.  The record is only returned once, so
+ * after returning the reset record, the next() will continue to return nullptr.
+ */
+class SingleProvider: public Provider {
+public:
+    SingleProvider(): record(nullptr) {}
+
+    /**
+     * Sets the class record's variable to the given record
+     * @param r the new record variable of the class
+     */
+    void reset(shared_ptr<Record> r) {
+        record = r;
+    }
+
+    // returns the class record's variable and then turns it to null
+    shared_ptr<Record> next() override {
+        shared_ptr<Record> result = record;
+        record = nullptr;
+        return result;
+    }
+
+private:
+    shared_ptr<Record> record; // a pointer to a record or a null pointer if the record does not exist
+};
+
+/**
+ * The memory provider extracts records from packed buffer of records.
+ * The memory buffer requires that records are stored in the buffer one
+ * after another and that each record consumes exactly recordSize number
+ * of byte.  You must know how many records are stored in the buffer when
+ * you use the MemoryProvider (There are no sentinels in the buffers)
+ */
+class MemoryProvider: public Provider {
+public:
+    MemoryProvider(uint8_t *buffer, uint32_t recordCount): buffer(buffer), recordCount(recordCount), generatedRecordCount(0) {}
+
+    shared_ptr<Record> next() override {
+        if(generatedRecordCount >= recordCount) return nullptr;
+
+        uint8_t *startOfRecord = buffer + generatedRecordCount * Record::getRecordSize();
+        generatedRecordCount++;
+        return make_shared<Record>(startOfRecord);
+    }
+
+private:
+    uint8_t *buffer; // the buffer holding the record data
+    uint64_t generatedRecordCount;
+    uint64_t recordCount;
+};
+
+
+/**
+ * This class is an empty provider that continues to return a nullptr
+ * everytime next() is called.  It the provider used by the Sorter when
+ * there are no records to be sorted.
+ */
+class EmptyProvider: public Provider {
+public:
+    EmptyProvider();
+
+    shared_ptr<Record> next() override {
+        return nullptr;
+    }
+};
+
+/**
+ * TODO docs
+ */
+class InputStreamProvider: public Provider {
+public:
+    InputStreamProvider(string filePath);
+    ~InputStreamProvider();
+    shared_ptr<Record> next() override;
+
+private:
+    string filePath;
+    ifstream* streamPtr;
+    bool eofReached;
+};
+
+/**
+ * TODO docs
+ */
+class OutputStreamProvider: public Provider {
+public:
+    OutputStreamProvider(string filePath, shared_ptr<Provider> _source);
+    ~OutputStreamProvider();
+    shared_ptr<Record> next() override;
+
+private:
+    string filePath;
+    ifstream* streamPtr;
+    bool eofReached;
+};
+
+

@@ -16,13 +16,10 @@ add_executable(cs764_sorter
         OutlinedFiles/Iterator.cpp
         OutlinedFiles/Iterator.h
         src/Provider.h
-        src/SingleProvider.h
-        Providers/EmptyProvider.h
-        Providers/EmptyProvider.cpp
         src/StagedProvider.h
         src/StagedProvider.cpp
-        Providers/StorageProvider.h
-        Providers/StorageProvider.cpp
+        src/StorageProvider.h
+        src/StorageProvider.cpp
         src/Record.cpp
         src/Record.h
         OutlinedFiles/Scan.cpp
@@ -40,9 +37,7 @@ add_executable(cs764_sorter
         Testing/SortingHelpers/NoopSorter.h
         src/Sorter.cpp
         src/Run.h
-        Providers/MemoryProvider.h
-        Providers/Dedooper.h
-        src/main.cpp)
+        src/main.cpp src/Provider.cpp)
 
 
 add_executable(testRecord
@@ -149,7 +144,6 @@ add_custom_command(TARGET testIODevice
 )
 
 add_executable(testSingleProvider
-        src/SingleProvider.h
         Testing/Tests/Providers/SingleProviderTest.cpp
         Testing/Tests/Providers/SingleProviderTest.h
         src/IODevice.h
@@ -208,7 +202,6 @@ add_executable(testDedooper
         test/helpers/ArrayProvider.h
         Testing/Tests/Providers/DedooperTest.cpp
         Testing/Tests/Providers/DedooperTest.h
-        Providers/Dedooper.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -327,8 +320,6 @@ add_custom_command(TARGET testStagingConfig
 )
 
 add_executable(testEmptyProvider
-        Providers/EmptyProvider.cpp
-        Providers/EmptyProvider.h
         Testing/Tests/Providers/EmptyProviderTest.cpp
         Testing/Tests/Providers/EmptyProviderTest.h
 )
@@ -340,8 +331,6 @@ add_custom_command(TARGET testEmptyProvider
 )
 
 add_executable(testRecordProvider
-        Providers/RecordProvider.cpp
-        Providers/RecordProvider.h
         Testing/Tests/Providers/RecordProviderTest.cpp
         Testing/Tests/Providers/RecordProviderTest.h
         src/IODevice.cpp
@@ -365,7 +354,6 @@ add_executable(testRecordProvider
         Testing/TestProviders/Printer.cpp
         src/Record.cpp
         src/Record.h
-        Providers/Dedooper.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -418,12 +406,8 @@ add_executable(testSorting
         src/Record.cpp
         src/Record.h
         src/Run.h
-        src/SingleProvider.h
-        Providers/EmptyProvider.cpp
-        Providers/EmptyProvider.h
-        Providers/MemoryProvider.h
-        Providers/StorageProvider.h
-        Providers/StorageProvider.cpp
+        src/StorageProvider.h
+        src/StorageProvider.cpp
         src/StagedProvider.cpp
         src/StagedProvider.h
         src/TournamentPQ.cpp
@@ -451,12 +435,8 @@ add_executable(testLotsOfHddRuns
         src/Record.cpp
         src/Record.h
         src/Run.h
-        src/SingleProvider.h
-        Providers/EmptyProvider.cpp
-        Providers/EmptyProvider.h
-        Providers/MemoryProvider.h
-        Providers/StorageProvider.h
-        Providers/StorageProvider.cpp
+        src/StorageProvider.h
+        src/StorageProvider.cpp
         src/StagedProvider.cpp
         src/StagedProvider.h
         src/TournamentPQ.cpp
@@ -487,12 +467,8 @@ add_executable(testSpillToHdd
         src/Record.cpp
         src/Record.h
         src/Run.h
-        src/SingleProvider.h
-        Providers/EmptyProvider.cpp
-        Providers/EmptyProvider.h
-        Providers/MemoryProvider.h
-        Providers/StorageProvider.h
-        Providers/StorageProvider.cpp
+        src/StorageProvider.h
+        src/StorageProvider.cpp
         src/StagedProvider.cpp
         src/StagedProvider.h
         src/TournamentPQ.cpp
@@ -523,12 +499,8 @@ add_executable(testSpillToOneBlockToSdd
         src/Record.cpp
         src/Record.h
         src/Run.h
-        src/SingleProvider.h
-        Providers/EmptyProvider.cpp
-        Providers/EmptyProvider.h
-        Providers/MemoryProvider.h
-        Providers/StorageProvider.h
-        Providers/StorageProvider.cpp
+        src/StorageProvider.h
+        src/StorageProvider.cpp
         src/StagedProvider.cpp
         src/StagedProvider.h
         src/TournamentPQ.cpp
@@ -559,12 +531,8 @@ add_executable(testStorageProvider
         src/Record.cpp
         src/Record.h
         src/Run.h
-        src/SingleProvider.h
-        Providers/EmptyProvider.cpp
-        Providers/EmptyProvider.h
-        Providers/MemoryProvider.h
-        Providers/StorageProvider.h
-        Providers/StorageProvider.cpp
+        src/StorageProvider.h
+        src/StorageProvider.cpp
         src/StagedProvider.cpp
         src/StagedProvider.h
         src/TournamentPQ.cpp
@@ -596,10 +564,6 @@ add_executable(testStagedProvider
         src/Record.cpp
         src/Record.h
         src/Run.h
-        src/SingleProvider.h
-        Providers/EmptyProvider.cpp
-        Providers/EmptyProvider.h
-        Providers/MemoryProvider.h
         src/StagedProvider.cpp
         src/StagedProvider.h
         src/TournamentPQ.cpp
