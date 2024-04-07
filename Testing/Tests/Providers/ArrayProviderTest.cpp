@@ -1,15 +1,16 @@
 #include "cassert"
 #include "test/helpers/Generator.h"
+#include "Provider.h"
 
 void testGenerating10Records() {
     auto records = generateInOrder(10);
     assert("Record size should have been 10" && records.size() == 10 );
-    ArrayProvider provider("name", records);
+    shared_ptr<Provider> provider = make_shared<ArrayProvider>("name", records);
     for (int i = 0; i < 10; i++){
-        shared_ptr<Record>  ptr = provider.next();
+        shared_ptr<Record>  ptr = provider->next();
         assert("Next should have existed" && ptr != nullptr );
     }
-    shared_ptr<Record> ptr = provider.next();
+    shared_ptr<Record> ptr = provider->next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 

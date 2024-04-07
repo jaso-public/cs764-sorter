@@ -1,4 +1,6 @@
 #include <cassert>
+#include "test/helpers/Generator.h"
+#include "Provider.h"
 
 void testCount10() {
     auto records = generateRandom(10);

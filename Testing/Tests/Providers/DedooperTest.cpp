@@ -1,4 +1,7 @@
 #include <cassert>
+#include "test/helpers/Generator.h"
+#include "Provider.h"
+
 
 void testDuplicateRemoval10() {
     auto records = generateInOrder(10);
@@ -9,7 +12,7 @@ void testDuplicateRemoval10() {
         assert("Next should have existed" && ptr != nullptr );
         if (prevRecord){
             Record r = *ptr;
-            assert("Duplicate record was found" && r.compareTo(*prevRecord) == 0);
+            assert("Duplicate record was found" && r.compareTo(prevRecord) == 0);
         }
         prevRecord = ptr;
     }
@@ -26,7 +29,7 @@ void testDuplicateRemoval100() {
         assert("Next should have existed" && ptr != nullptr );
         if (prevRecord){
             Record r = *ptr;
-            assert("Duplicate record was found" && r.compareTo(*prevRecord) == 0);
+            assert("Duplicate record was found" && r.compareTo(prevRecord) == 0);
         }
         prevRecord = ptr;
     }
