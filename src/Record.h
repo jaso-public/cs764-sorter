@@ -11,7 +11,7 @@ public:
 
     Record(unique_ptr<uint8_t[]> &newData);
 
-    Record(uint8_t *_data);
+//    Record(uint8_t *_data);
 
     // Copy constructor
     Record(const Record &other);

@@ -27,10 +27,10 @@ Record::Record(unique_ptr<uint8_t[]> &newData) {
 }
 
 
-Record::Record(uint8_t *newData) {
-    data = make_unique<uint8_t[]>(recordSize);
-    memcpy(data.get(), newData, recordSize);
-}
+//Record::Record(uint8_t *newData) {
+//    data = make_unique<uint8_t[]>(recordSize);
+//    memcpy(data.get(), newData, recordSize);
+//}
 
 // Copy constructor
 Record::Record(const Record &other) {

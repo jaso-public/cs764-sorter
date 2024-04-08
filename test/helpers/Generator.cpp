@@ -1,7 +1,7 @@
 #include "Generator.h"
 
 
-void fill_buffer(uint8_t  *buffer, std::mt19937 &gen) {
+void fill_buffer(unique_ptr<uint8_t[]> &buffer, std::mt19937 &gen) {
     std::uniform_int_distribution<> distrib(0, 61);
     for (int i = 0; i < Record::getRecordSize(); i++) {
         uint8_t value = distrib(gen);
@@ -26,14 +26,15 @@ vector<shared_ptr<Record>> generateInOrder(int recordCount) {
     int keySize = Record::getKeySize();
     int keyOffset = Record::getKeyOffset();
 
-    uint8_t *buffer = new uint8_t[recordSize];
     char *temp = new char[keySize + 1];
 
     for (uint64_t n = 0; n < recordCount; n++) {
+        auto buffer = std::make_unique<uint8_t[]>(recordSize);
+
         fill_buffer(buffer, gen);
 
         snprintf(temp, keySize + 1, "%0*llu", keySize, n);
-        memcpy(buffer + keyOffset, temp, keySize);
+        memcpy(buffer.get() + keyOffset, temp, keySize);
         buffer[recordSize - 1] = '\n';
 
         result.push_back(std::make_shared<Record>(buffer));
@@ -54,10 +55,8 @@ vector<shared_ptr<Record>> generateRandom(int recordCount) {
     int recordSize = Record::getRecordSize();
     int keySize = Record::getKeySize();
 
-    uint8_t *buffer = new uint8_t[recordSize];
-    char *temp = new char[keySize + 1];
-
     for (uint64_t n = 0; n < recordCount; n++) {
+        auto buffer = std::make_unique<uint8_t[]>(recordSize);
         fill_buffer(buffer, gen);
         result.push_back(std::make_shared<Record>(buffer));
     }
