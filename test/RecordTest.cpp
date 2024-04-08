@@ -6,10 +6,6 @@
 #include "Provider.h"
 
 
-void testNoParameterConstructor() {
-    auto ptr = make_shared<Record>();
-}
-
 void testDataParameterConstructor() {
     int recordSize = Record::getRecordSize();
     uint8_t data[recordSize];
@@ -93,7 +89,6 @@ void testNextWith50RecordsWithCrc() {
 }
 
 int main(){
-    testNoParameterConstructor();
     testDataParameterConstructor();
     testIsDuplicate();
     testCompare();

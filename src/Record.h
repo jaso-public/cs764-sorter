@@ -9,7 +9,6 @@ class Record {
 public:
     static void staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_t _keySize);
 
-    Record();
     Record(unique_ptr<uint8_t[]> &newData);
 
     Record(uint8_t *_data);

@@ -14,14 +14,18 @@ void Record::staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_
 }
 
 Record::Record(unique_ptr<uint8_t[]> &newData) {
+    if(newData == nullptr) {
+        cerr << "cannot construct a Record with a nullptr" <<endl;
+        exit(-1);
+    }
+    if(newData.get() == nullptr) {
+        cerr << "cannot construct a Record with a nullptr" <<endl;
+        exit(-1);
+    }
+
     newData = std::move(data);
 }
 
-
-// TODO remove this constructor
-Record::Record() {
-    data = make_unique<uint8_t[]>(recordSize);
-}
 
 Record::Record(uint8_t *newData) {
     data = make_unique<uint8_t[]>(recordSize);
