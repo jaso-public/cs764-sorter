@@ -23,42 +23,17 @@ Record::Record(unique_ptr<uint8_t[]> &newData) {
         exit(-1);
     }
 
-    newData = std::move(data);
+    data = std::move(newData);
 }
 
-
-//Record::Record(uint8_t *newData) {
-//    data = make_unique<uint8_t[]>(recordSize);
-//    memcpy(data.get(), newData, recordSize);
-//}
-
-// Copy constructor
-Record::Record(const Record &other) {
-    cout << "copy constructor (you don't wanna see this)" << endl;
-    data = std::make_unique<uint8_t[]>(recordSize);
-    memcpy(data.get(), other.data.get(), recordSize);
-}
-
-// Copy assignment operator
-Record &Record::operator=(const Record &other) {
-    cout << "assignment operator (you don't wanna see this)" << endl;
-    if (this != &other) {
-        data = std::make_unique<uint8_t[]>(recordSize);
-        memcpy(data.get(), other.data.get(), recordSize);
-    }
-    return *this;
-}
-
-Record::~Record() {}
-
-int Record::compareTo(const shared_ptr<Record> other) {
+int Record::compareTo(const shared_ptr<Record> &other) {
     compareCount++;
     int result = memcmp(data.get() + keyOffset, other->data.get() + keyOffset, keySize);
     if(result != 0) return result;
     return memcmp(this->data.get(), other->data.get(), recordSize);
 }
 
-bool Record::isDuplicate(const shared_ptr <Record> other) {
+bool Record::isDuplicate(const shared_ptr <Record> &other) {
     return memcmp(this->data.get(), other->data.get(), recordSize) == 0;
 }
 

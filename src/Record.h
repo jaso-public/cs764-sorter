@@ -11,41 +11,15 @@ public:
 
     Record(unique_ptr<uint8_t[]> &newData);
 
-//    Record(uint8_t *_data);
+    int compareTo(const shared_ptr<Record> &other);
 
-    // Copy constructor
-    Record(const Record &other);
-
-    // Copy assignment operator
-    Record &operator=(const Record &other);
-
-    // Destructor
-    ~Record();
-
-    int compareTo(const shared_ptr<Record> other);
-
-    bool isDuplicate(const shared_ptr<Record> other);
+    bool isDuplicate(const shared_ptr<Record> &other);
 
     void store(uint8_t *dst);
 
     void store(uint8_t *dst, int offset, int numToCopy);
 
-    void set(uint8_t *src);
-
-    void set(uint8_t *src, int offset, int numToCopy);
-
     uint64_t checksum();
-
-    // these are required to have the mapping in tree sorter work
-    bool operator<(const Record& other) const {
-        cout << "Record operator< (you don't wanna see this)" << endl;
-        return data < other.data;
-    }
-
-    bool operator==(const Record& other) const {
-        cout << "Record operator== (you don't wanna see this)" << endl;
-        return data < other.data;
-    }
 
     void dump() {
         cout << "record:";

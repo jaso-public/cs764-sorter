@@ -24,10 +24,9 @@ shared_ptr<Record> Printer::next() {
     // if record pointer is null
     if (!recordPtr){
         cout << " " << message << ": record is null!"<< "\n";
-        return recordPtr;
+    } else {
+        cout << " " << message << " Checksum: " << recordPtr->checksum() << "\n";
     }
-    Record record = *recordPtr;
-    cout << " " << message << " Checksum: " << record.checksum() << "\n";
     return recordPtr;
 }
 
