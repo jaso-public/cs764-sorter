@@ -24,7 +24,6 @@ void testLower() {
 
     for (int i = 0; i < 10; i++){
         shared_ptr<Record> ptr = lower->next();
-        ptr->dump();
         assert("Next should have existed" && ptr != nullptr );
     }
 

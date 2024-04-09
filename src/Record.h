@@ -11,23 +11,24 @@ public:
 
     Record(unique_ptr<uint8_t[]> &newData);
 
-    int compareTo(const shared_ptr<Record> &other);
 
+    int compareTo(const shared_ptr<Record> &other);
     bool isDuplicate(const shared_ptr<Record> &other);
+
+
+    bool operator<(const shared_ptr <Record> &other) {
+        return memcmp(data.get(), other->data.get(), Record::getRecordSize()) < 0;
+    }
+
+    bool operator==(const shared_ptr <Record> &other) {
+        return memcmp(data.get(), other->data.get(), Record::getRecordSize()) == 0;
+    }
 
     void store(uint8_t *dst);
 
     void store(uint8_t *dst, int offset, int numToCopy);
 
     uint64_t checksum();
-
-    void dump() {
-        cout << "record:";
-        for(int i=0; i<5 ; i++) {
-            cout << (int)data[i] << " ";
-        }
-        cout << endl;
-    }
 
     static uint32_t getRecordSize() {return recordSize;}
     static uint32_t getKeySize() {return keySize;}

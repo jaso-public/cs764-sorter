@@ -13,14 +13,13 @@ using namespace std;
 
 class TreeSorter: public Provider{
 public:
-    shared_ptr<Provider> source;
+    TreeSorter(shared_ptr<Provider> source);
     shared_ptr<Record> next() override;
-    TreeSorter(shared_ptr<Provider> _source);
 
 private:
     // iterator to return the records
-    vector<Record>::iterator iterator;
-    vector<Record> records;
+    vector<shared_ptr<Record>>::iterator iter;
+    vector<shared_ptr<Record>> records;
 };
 
 

@@ -1,34 +1,25 @@
 #include "TreeSorter.h"
 
-TreeSorter::TreeSorter(shared_ptr<Provider> _source): source(_source)  {
-    map<Record,Record> sorted;
+//
+//bool operator<(const shared_ptr <Record> &lhs, const shared_ptr <Record> &rhs) {
+//    // Assuming records have the same size and key offset
+//    return memcmp(lhs.get(), rhs.get(), Record::getKeySize()) < 0;
+//}
+
+TreeSorter::TreeSorter(shared_ptr<Provider> source) {
     // adds all record to TreeMap until count has been reached
     while(true) {
         shared_ptr<Record> recordPtr = source->next();
-        if(!recordPtr) break;
-        Record record = *recordPtr;
-        sorted[record] = record;
+        if(recordPtr == nullptr) break;
+        records.push_back(recordPtr);
     }
 
-    map<Record, Record>::iterator it = sorted.begin();
-    vector<Record> currentRecords;
-    // getting all records from sorted list
-    while (it != sorted.end()) {
-        Record r = it->second;
-        currentRecords.push_back(r);
-        it++;
-    }
-    this->records = currentRecords;
-    this->iterator = records.begin();
+    std::sort(records.begin(), records.end());
+    iter = records.begin();
 }
 
 shared_ptr<Record> TreeSorter::next() {
     // checks that another record exists
-    if (iterator < records.end()){
-        // create a pointer to the returned record
-        shared_ptr<Record> recordPtr = make_shared<Record>(*iterator);
-        iterator++;
-        return recordPtr;
-    }
-    return nullptr;
-}
+    if (iter == records.end()) return nullptr;
+    return *iter++;
+ }

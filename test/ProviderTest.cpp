@@ -11,7 +11,6 @@ void testTenRecords() {
 
     for (int i = 0; i < 10; i++){
         shared_ptr<Record> ptr = source->next();
-        ptr->dump();
         assert("Next should have existed" && ptr != nullptr );
     }
 

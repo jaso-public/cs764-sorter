@@ -33,6 +33,12 @@ int Record::compareTo(const shared_ptr<Record> &other) {
     return memcmp(this->data.get(), other->data.get(), recordSize);
 }
 
+bool operator<(const shared_ptr <Record> &lhs, const shared_ptr <Record> &rhs) {
+    // Assuming records have the same size and key offset
+    return memcmp(lhs.get(), rhs.get(), Record::getKeySize()) < 0;
+}
+
+
 bool Record::isDuplicate(const shared_ptr <Record> &other) {
     return memcmp(this->data.get(), other->data.get(), recordSize) == 0;
 }
