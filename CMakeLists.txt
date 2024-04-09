@@ -333,11 +333,11 @@ add_executable(testSorter
         test/SorterTest.cpp
         )
 
-#add_custom_command(TARGET testSorter
-#        POST_BUILD
-#        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSorter
-#        COMMENT "Running testSorter..."
-#)
+add_custom_command(TARGET testSorter
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSorter
+        COMMENT "Running testSorter..."
+)
 
 add_executable(testLotsOfHddRuns
         src/Provider.h
