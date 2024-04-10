@@ -1,6 +1,23 @@
 #include "TournamentPQ.h"
 
 /**
+ * Runs a match between to provider.
+ *
+ * @param first the first provider in the match.
+ * @param second the second provider in the match.
+ * @return true if the first provider wins the match, false otherwise.
+ */
+bool isFirstWinner(shared_ptr<Record> &first, shared_ptr<Record> &second) {
+    if(first == nullptr) {
+        return false;
+    } else if(second == nullptr) {
+        return true;
+    }
+
+    return first->compareTo(second) < 0;
+}
+
+/**
    * Initializes TournamentPQ constructor
    */
 TournamentPQ::TournamentPQ(vector<shared_ptr<Provider>> providers, int numProviders): providers(providers) {
@@ -28,7 +45,7 @@ TournamentPQ::TournamentPQ(vector<shared_ptr<Provider>> providers, int numProvid
             h2 = winners[h2];
         }
 
-        if(isFirstWinner(h1, h2)) {
+        if(isFirstWinner(records[h1], records[h2])) {
             winners[match] = h1;
             losers[match] = h2;
         } else {
@@ -58,7 +75,7 @@ shared_ptr<Record> TournamentPQ::next() {
 
     int winner = provider;
     while(match > 0) {
-        if(isFirstWinner(losers[match], winner)) {
+        if(isFirstWinner(records[losers[match]], records[winner])) {
             int tmp = winner;
             winner = losers[match];
             losers[match] = tmp;
@@ -72,23 +89,3 @@ shared_ptr<Record> TournamentPQ::next() {
     return ptrResult;
 }
 
-/**
- * Runs a match between to provider.
- *
- * @param first the first provider in the match.
- * @param second the second provider in the match.
- * @return true if the first provider wins the match, false otherwise.
- */
-bool TournamentPQ::isFirstWinner(int first, int second) {
-    shared_ptr<Record> r1Ptr = records[first];
-    shared_ptr<Record> r2Ptr = records[second];
-    if(!r1Ptr) {
-        return false;
-    } else if(!r2Ptr) {
-        return true;
-    } else if(r1Ptr->compareTo(r2Ptr) < 0) {
-        return true;
-    } else {
-        return false;
-    }
-}

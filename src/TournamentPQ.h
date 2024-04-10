@@ -16,7 +16,6 @@ class TournamentPQ: public Provider {
 public:
     TournamentPQ(vector<shared_ptr<Provider>> providers, int numProviders);
     shared_ptr<Record> next() override;
-    bool isFirstWinner(int first, int second);
 
 private:
     vector<shared_ptr<Provider>> providers;

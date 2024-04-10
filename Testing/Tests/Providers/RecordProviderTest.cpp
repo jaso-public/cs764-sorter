@@ -34,8 +34,7 @@ void testInputChain() {
     shared_ptr<Witness>  lower = make_shared<Witness>(source);
     shared_ptr<NoopSorter> sorter = make_shared<NoopSorter>(lower);
     shared_ptr<Witness>  upper = make_shared<Witness>(sorter);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    Consumer consumer(dooper);
+    Consumer consumer(upper);
     consumer.consume();
 
     assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount() == upper->getCount());
@@ -52,8 +51,7 @@ void testDropOne() {
     shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
     shared_ptr<NoopSorter> sorter = make_shared<NoopSorter>(dropper);
     shared_ptr<Witness>  upper = make_shared<Witness>(sorter);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    Consumer consumer(dooper);
+    Consumer consumer(upper);
     consumer.consume();
 
 
@@ -71,8 +69,7 @@ void testTreeSorter() {
     shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
     shared_ptr<TreeSorter> sorter = make_shared<TreeSorter>(dropper);
     shared_ptr<Witness>  upper = make_shared<Witness>(sorter);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    Consumer consumer(dooper);
+    Consumer consumer(upper);
     consumer.consume();
 
 
