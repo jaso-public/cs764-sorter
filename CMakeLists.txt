@@ -178,7 +178,6 @@ add_executable(testTreeSorter
         src/Record.h
         Testing/SorterHelpers/TreeSorter.cpp
         Testing/SorterHelpers/TreeSorter.h
-        Testing/Tests/Sorters/TreeSorterTest.cpp
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         src/Witness.h
