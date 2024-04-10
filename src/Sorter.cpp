@@ -332,6 +332,8 @@ void Sorter::printStats() {
     } else {
         cout <<"HDD device was null" << endl;
     }
+
+    cout << "number of record comparisons: " << Record::getCompareCount() << endl;
 }
 
 

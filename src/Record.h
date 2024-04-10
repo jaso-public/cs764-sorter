@@ -8,7 +8,7 @@ using namespace std;
 
 class Record {
 public:
-    static void staticInitialize(uint32_t _recordSize);
+    static void staticInitialize(uint32_t recordSize);
 
     Record(unique_ptr<uint8_t[]> &newData);
 
@@ -16,15 +16,18 @@ public:
 
     void store(uint8_t *dst);
 
+    /**
+     * stores part of the record into the destination array
+     * @param dst the destination where the bytes will be stored
+     * @param offset the starting offset in the record from where to begin the transfer
+     * @param numToCopy the number of bytes to be moved to the destination
+     */
     void store(uint8_t *dst, int offset, int numToCopy);
 
     uint64_t checksum();
 
-    static uint32_t getRecordSize() {return recordSize;}
 
-    static uint64_t getCompareCount() {return compareCount;}
-    static void resetCompareCount() {compareCount = 0;}
-
+    // TODO remove (eventually)
     void dump(string message) {
         cout << message << " ";
         for(int i=0; i<recordSize ; i++) {
@@ -32,6 +35,10 @@ public:
         }
         printf(" checksum:%llu\n", checksum());
     }
+
+    static uint32_t getRecordSize() {return recordSize;}
+    static uint64_t getCompareCount() {return compareCount;}
+    static void resetCompareCount() {compareCount = 0;}
 
 private:
     static uint32_t recordSize;   // size of the record
