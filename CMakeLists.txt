@@ -8,7 +8,7 @@ include_directories(src)
 
 add_executable(cs764_sorter
         OutlinedFiles/Assert.cpp
-        test/helpers/Consumer.h
+        src/Consumer.h
         OutlinedFiles/defs.cpp
         OutlinedFiles/defs.h
         OutlinedFiles/Filter.cpp
@@ -36,7 +36,7 @@ add_executable(cs764_sorter
         src/Sorter.h
         test/helpers/NoopSorter.h
         src/Sorter.cpp
-        src/main.cpp src/Provider.cpp)
+        src/main.cpp src/Provider.cpp src/Consumer.cpp)
 
 
 add_executable(testRecord
@@ -74,7 +74,7 @@ add_executable(testWitness
         src/Provider.h
         src/Witness.h
 
-        test/helpers/Consumer.h
+        src/Consumer.h
         test/helpers/Generator.h
         test/helpers/Generator.cpp
 
@@ -196,7 +196,7 @@ add_executable(testConsumer
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         Testing/Tests/ConsumerTest.cpp
-        test/helpers/Consumer.h
+        src/Consumer.h
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -239,7 +239,7 @@ add_executable(testRecordProvider
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         test/helpers/NoopSorter.h
-        test/helpers/Consumer.h
+        src/Consumer.h
         Testing/TestProviders/DropFirst.h
         Testing/TestProviders/DropFirst.cpp
         test/helpers/TreeSorter.h
@@ -276,7 +276,7 @@ add_executable(testPQ
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         test/TournamentPqTest.cpp
-        test/helpers/Consumer.h
+        src/Consumer.h
         src/TournamentPQ.cpp
         src/TournamentPQ.h
         src/Record.cpp
@@ -292,6 +292,8 @@ add_custom_command(TARGET testPQ
 )
 
 add_executable(testSorter
+        src/Consumer.h
+        src/Consumer.cpp
         src/Provider.h
         src/Record.cpp
         src/Record.h
@@ -308,7 +310,6 @@ add_executable(testSorter
         src/Witness.h
         test/helpers/Generator.h
         test/helpers/Generator.cpp
-        test/helpers/Consumer.h
         test/helpers/Printer.h
         test/helpers/Printer.cpp
         test/SorterTest.cpp
@@ -335,7 +336,7 @@ add_executable(testLotsOfHddRuns
         Testing/Tests/LotsOfHddRuns.cpp
         src/Sorter.cpp
         src/Sorter.h
-        test/helpers/Consumer.h
+        src/Consumer.h
         src/Witness.h
         test/helpers/Printer.h
         test/helpers/Printer.cpp
@@ -364,7 +365,7 @@ add_executable(testSpillToHdd
         Testing/Tests/Spilling/SpillToHdd.cpp
         src/Sorter.cpp
         src/Sorter.h
-        test/helpers/Consumer.h
+        src/Consumer.h
         src/Witness.h
         test/helpers/Printer.h
         test/helpers/Printer.cpp
@@ -394,7 +395,7 @@ add_executable(testSpillToOneBlockToSdd
         Testing/Tests/Spilling/SpillOneBlockToSsd.cpp
         src/Sorter.cpp
         src/Sorter.h
-        test/helpers/Consumer.h
+        src/Consumer.h
         src/Witness.h
         test/helpers/Printer.h
         test/helpers/Printer.cpp
@@ -423,7 +424,7 @@ add_executable(testStorageProvider
         Testing/Tests/Providers/StorageProviderTest.cpp
         src/Sorter.cpp
         src/Sorter.h
-        test/helpers/Consumer.h
+        src/Consumer.h
         src/Witness.h
         test/helpers/Printer.h
         test/helpers/Printer.cpp
@@ -451,7 +452,7 @@ add_executable(testStagedProvider
         test/StagedProviderTest.cpp
         src/Sorter.cpp
         src/Sorter.h
-        test/helpers/Consumer.h
+        src/Consumer.h
         src/Witness.h
         test/helpers/Printer.h
         test/helpers/Printer.cpp

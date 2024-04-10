@@ -1,7 +1,7 @@
 #include "src/Provider.h"
 #include "Witness.h"
 #include "src/Sorter.h"
-#include "test/helpers/Consumer.h"
+#include "src/Consumer.h"
 #include "test/helpers/Generator.h"
 #include <cassert>
 #include <string>

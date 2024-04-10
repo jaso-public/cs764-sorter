@@ -1,52 +1,58 @@
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "Provider.h"
 
-//
-//
-//RecordProvider::RecordProvider(SorterConfig cfg, string filePath) {
-//    this->cfg = &cfg;
-//    this->filePath = filePath;
-//    this->generated = 0;
-//    // opens for reading
-//    this->streamPtr = new ifstream (filePath, std::ios::binary);
-//    if (!streamPtr->is_open()) {
-//        cerr << "Error opening: " << filePath << "\n";
-//        delete streamPtr;
-//        streamPtr = nullptr;
-//    }
-//    (*streamPtr).seekg(0, ios::beg);
-//}
-//
-//RecordProvider::~RecordProvider() {
-//    if (streamPtr) {
-//        streamPtr->close();
-//        delete streamPtr;
-//    }
-//}
-//
-//shared_ptr<Record> RecordProvider::next() {
-//    if (!streamPtr) {
-//        cerr << "File not open for reading\n";
-//        return nullptr;
-//    }
-//    // catches exception if file cannot be read
-//    (*streamPtr).exceptions ( fstream ::badbit );
-//    try {
-//        if (generated >= cfg->recordCount) return nullptr;
-//        uint8_t* data = new uint8_t[cfg->recordSize];
-//        Record::staticInitialize(cfg->recordSize, cfg->keyOffset, cfg->keySize);
-//        (*streamPtr).read(reinterpret_cast<char*>(data), cfg->recordSize);
-//        shared_ptr<Record> ptr(new Record(data));
-//        generated++;
-//        // moves pointer to position of next record
-//        (*streamPtr).seekg(cfg->recordSize);
-//        return ptr;
-//    }
-//        // catches failure reading file
-//    catch (ios_base ::failure e) {
-//        cerr << "Error reading: " << filePath << " to obtain record";
-//        return nullptr;
-//    }
-//}
-//
-//
-//
+
+FileProvider::FileProvider(string filePath) {
+    eofReached = false;
+    fd = open(filePath.c_str(), O_RDONLY);
+    if (fd == -1) {
+        cerr << "error opening file:" << filePath << " errno:" << errno << " " << strerror(errno) << endl;
+        exit(-1);
+    }
+}
+
+FileProvider::~FileProvider() {
+    if(fd < 0) return;
+    int result = close(fd);
+    if (result == -1) {
+        cerr << "error closingfile:" << filePath << " errno:" << errno << " " << strerror(errno) << endl;
+        exit(-1);
+    }
+    fd = -1;
+}
+
+shared_ptr<Record> FileProvider::next() {
+    if(eofReached) return nullptr;
+
+    int recordSize = Record::getRecordSize();
+    int remaining = recordSize;
+    int offset = 0;
+    auto buffer = std::make_unique<uint8_t[]>(recordSize);
+
+    while(remaining>0) {
+        int count = read(fd, buffer.get() + offset, remaining);
+        if (count < 0) {
+            cerr << "error reading file:" << filePath << " errno:" << errno << " " << strerror(errno) << endl;
+            exit(-2);
+        }
+
+        if (count == 0) {
+            if (offset != 0) {
+                cerr << "partial record at the end of the file:" << filePath << endl;
+                exit(-3);
+            }
+            eofReached = true;
+            return nullptr;
+        }
+
+        offset += count;
+        remaining -= count;
+    }
+
+    return make_shared<Record>(buffer);
+}
+

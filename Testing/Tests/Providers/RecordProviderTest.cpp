@@ -5,7 +5,7 @@
 #include "test/helpers/TreeSorter.h"
 #include "test/helpers/NoopSorter.h"
 #include "Testing/TestProviders/DropFirst.h"
-#include "test/helpers/Consumer.h"
+#include "src/Consumer.h"
 
 
 void testNext() {

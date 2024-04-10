@@ -5,7 +5,7 @@
 #include "Provider.h"
 #include "Witness.h"
 
-#include "test/helpers/Consumer.h"
+#include "src/Consumer.h"
 #include "test/helpers/Generator.h"
 #include "test/helpers/Printer.h"
 

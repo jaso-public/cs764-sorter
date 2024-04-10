@@ -7,7 +7,7 @@
 #include "Witness.h"
 #include "TournamentPQ.h"
 #include "test/helpers/Generator.h"
-#include "test/helpers/Consumer.h"
+#include "src/Consumer.h"
 
 using namespace std;
 

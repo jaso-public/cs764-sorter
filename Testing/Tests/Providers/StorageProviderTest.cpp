@@ -1,6 +1,6 @@
 #include <cassert>
 #include <filesystem>
-#include "test/helpers/Consumer.h"
+#include "src/Consumer.h"
 #include "test/helpers/Generator.h"
 #include "src/Witness.h"
 #include "src/StorageProvider.h"

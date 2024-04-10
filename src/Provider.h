@@ -129,15 +129,15 @@ private:
 /**
  * TODO docs
  */
-class InputStreamProvider: public Provider {
+class FileProvider: public Provider {
 public:
-    InputStreamProvider(string filePath);
-    ~InputStreamProvider();
+    FileProvider(string filePath);
+    ~FileProvider();
     shared_ptr<Record> next() override;
 
 private:
     string filePath;
-    ifstream* streamPtr;
+    int fd;
     bool eofReached;
 };
 

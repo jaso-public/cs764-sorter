@@ -51,8 +51,6 @@ void usage(const char* programName, const char* message) {
     std::cout << "       -f-             writes the output to stdout." << std::endl;
     std::cout << "       -c<recordCount> number of records to generate." << std::endl;
     std::cout << "       -s<recordSize>  size of the records to generate. " << std::endl;
-    std::cout << "       -k<keyOffset>   offset into the record where the key begins. " << std::endl;
-    std::cout << "       -l<keyLength>   length of the key" << std::endl;
     std::cout << "       -p<probabilty>  probability of generating an alternate key " << std::endl;
     std::cout << "       -r<range>       possible range of values for the alternate key. " << std::endl;
     std::cout << "       -n              make the last byte of the record a new line." << std::endl;
@@ -74,22 +72,6 @@ void usage(const char* programName, const char* message) {
     std::cout << "range.  Therefore you should expect on average that there 1000 duplicate keys for each of" << std::endl;
     std::cout << "the specially generated keys." << std::endl;
     std::cout << std::endl;
-    std::cout << "Below are the counts of the duplicate keys generated:" << std::endl;
-    std::cout << "./generateRecords -c 1000000 -n -p0.1 -r 100 -k0 -f- |  cut -c1-8 | grep -v \"[a-z]\" | grep -v \"[A-Z]\" | sort | uniq -c" << std::endl;
-    std::cout << "957 00000000" << std::endl;
-    std::cout << "990 00000001" << std::endl;
-    std::cout << "998 00000002" << std::endl;
-    std::cout << "1017 00000003" << std::endl;
-    std::cout << "1017 00000004" << std::endl;
-    std::cout << "990 00000005" << std::endl;
-    std::cout << "970 00000006" << std::endl;
-    std::cout << "996 00000007" << std::endl;
-    std::cout << "993 00000008" << std::endl;
-    std::cout << "983 00000009" << std::endl;
-    std::cout << "984 00000010" << std::endl;
-    std::cout << "992 00000011" << std::endl;
-    std::cout << "987 00000012" << std::endl;
-    std::cout << "996 00000013 ..." << std::endl;
 
 
     exit(1);
@@ -100,8 +82,6 @@ int main3 (int argc, char * argv []) {
     std::string fileName = "input.txt";
     uint64_t recordCount = 1000;
     uint32_t recordSize = 128;
-    uint32_t keyOffset = 8;
-    uint32_t keyLength = 8;
     double_t probability = 0;
     uint64_t range = 100;
     bool newLine = false;
@@ -132,16 +112,6 @@ int main3 (int argc, char * argv []) {
                     usage(argv[0], "unable to parse record size");
                 }
                 break;
-            case 'k':
-                if(! parseInteger(optarg, keyOffset)) {
-                    usage(argv[0], "unable to parse key offset");
-                }
-                break;
-            case 'l':
-                if(! parseInteger(optarg, keyLength)) {
-                    usage(argv[0], "unable to parse key offset");
-                }
-                break;
             case 'p':
                 if(! parseFloatingPoint(optarg, probability)) {
                     usage(argv[0], "unable to parse probability for duplicates");
@@ -167,17 +137,9 @@ int main3 (int argc, char * argv []) {
         std::cout << "outputFile: " << fileName << std::endl;
         std::cout << "record count: " << recordCount << std::endl;
         std::cout << "record size: " << recordSize << std::endl;
-        std::cout << "key offset: " << keyOffset << std::endl;
-        std::cout << "key length: " << keyLength << std::endl;
         std::cout << "probability: " << probability << std::endl;
         std::cout << "range: " << range << std::endl;
         std::cout << "new line: " << newLine << std::endl;
-    }
-
-    uint32_t limit = recordSize;
-    if(newLine) limit--;
-    if(limit < keyOffset + keyLength) {
-        usage(argv[0], "key not is within the record size");
     }
 
     std::random_device rd; // Obtain a seed from the system entropy device, or use a fixed seed for reproducible results
@@ -207,7 +169,6 @@ int main3 (int argc, char * argv []) {
     }
 
     char* buffer = new char[recordSize];
-    char* temp = new char[keyLength+1];
 
     for(uint64_t n=0 ; n<recordCount ; n++) {
         for(int i=0 ; i<recordSize ; i++) {
@@ -219,12 +180,6 @@ int main3 (int argc, char * argv []) {
             } else {
                 buffer[i] = value - 52 + '0';
             }
-        }
-
-        if(randomProbabilty(gen) < probability) {
-            uint64_t value = randomRange(gen);
-            snprintf(temp, keyLength+1, "%0*llu", keyLength, value);
-            memcpy(buffer + keyOffset, temp, keyLength);
         }
 
         if(newLine) {

@@ -7,7 +7,7 @@
 
 #include "Sorter.h"
 
-#include "test/helpers/Consumer.h"
+#include "src/Consumer.h"
 #include "test/helpers/Generator.h"
 #include "test/helpers/Printer.h"
 
@@ -28,8 +28,11 @@ void testSmallSort() {
     shared_ptr<Provider> upper = make_shared<Witness>(sorter);
     shared_ptr<Provider> printer2 = make_shared<Printer>(upper,testName+"-after");
 
-    Consumer consumer(printer2);
-    consumer.consume();
+    auto device = make_shared<IODevice>("output.txt");
+    auto consumer = make_shared<FileConsumer>(printer2, device, 256*1024);
+    consumer->consume();
+//    NoopConsumer consumer(printer2);
+//    consumer.consume();
 
     dynamic_pointer_cast<Sorter>(sorter)->printStats();
 
