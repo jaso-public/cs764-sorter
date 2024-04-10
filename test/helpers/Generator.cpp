@@ -23,8 +23,9 @@ vector<shared_ptr<Record>> generateInOrder(int recordCount) {
     std::mt19937 gen(rd()); // Seed the generator
 
     int recordSize = Record::getRecordSize();
-    int keySize = Record::getKeySize();
-    int keyOffset = Record::getKeyOffset();
+
+    int keySize = 10;
+    if(keySize+1>=recordSize) keySize = recordSize - 1;
 
     char *temp = new char[keySize + 1];
 
@@ -34,7 +35,7 @@ vector<shared_ptr<Record>> generateInOrder(int recordCount) {
         fill_buffer(buffer, gen);
 
         snprintf(temp, keySize + 1, "%0*llu", keySize, n);
-        memcpy(buffer.get() + keyOffset, temp, keySize);
+        memcpy(buffer.get(), temp, keySize);
         buffer[recordSize - 1] = '\n';
 
         result.push_back(std::make_shared<Record>(buffer));
@@ -53,7 +54,6 @@ vector<shared_ptr<Record>> generateRandom(int recordCount) {
     std::uniform_int_distribution<> distrib(0, 61); // used to get the random characters
 
     int recordSize = Record::getRecordSize();
-    int keySize = Record::getKeySize();
 
     for (uint64_t n = 0; n < recordCount; n++) {
         auto buffer = std::make_unique<uint8_t[]>(recordSize);

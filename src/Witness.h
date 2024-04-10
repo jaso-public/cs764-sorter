@@ -24,21 +24,21 @@ public:
         checksum ^= result->checksum();
 
         record = source->next();
-        if((record != nullptr) && sorted) {
-            result ->dump("result");
-            record->dump("record");
-            sorted = result <= record;
-            cout << "----------sorted:" << sorted << endl;
-        }
+        if(record == nullptr) return result;
 
-
+        int cmp = result->compareTo(record);
+        if(cmp == 0) duplicateCount++;
+        if(cmp > 0) sorted = false;
         return result;
     }
 
-    long getCount() {
+    uint64_t getCount() {
         return count;
     }
 
+    uint64_t getDuplicateCount() {
+        return duplicateCount;
+    }
     uint64_t getChecksum() {
         return checksum;
     };
@@ -54,4 +54,5 @@ private:
     uint64_t count;              // keeps track of all the records generated
     uint64_t checksum;           // keeps track of checksum value
     bool sorted;                 // bool value that indicates if records have been sorted
+    uint64_t duplicateCount;     // bool value if the witness saw two consecutive identical records
 };

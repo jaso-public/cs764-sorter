@@ -30,35 +30,6 @@ public:
 };
 
 /**
- * The Dedooper is a record provider that removes duplicate records from a stream
- * of records provided by another provider.  This provider only removes consecutive
- * duplicates, so the stream of records from the source provider needs to be sorted.
- */
-class Dedooper: public Provider {
-public:
-    Dedooper(shared_ptr<Provider> _source): source(_source), previousRecord(nullptr) {}
-
-    shared_ptr<Record> next() override {
-        auto currentRecord = source->next();
-        if (currentRecord == nullptr) return nullptr;
-
-        if (previousRecord != nullptr){
-            // continues to get next record until a unique record is reached
-            while(currentRecord->isDuplicate(previousRecord)){
-                currentRecord = source->next();
-                if (currentRecord == nullptr) return nullptr;
-            }
-        }
-        previousRecord = currentRecord;
-        return currentRecord;
-    }
-
-private:
-    shared_ptr<Provider> source;
-    shared_ptr<Record> previousRecord;
-};
-
-/**
  * A single provider is a simple provider that can be reused.  The reset method
  * provides the provider with a single record that will be returned the next
  * time that the next() method is called.  The record is only returned once, so

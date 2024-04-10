@@ -2,14 +2,10 @@
 
 // initialize the global values for the record parameters
 uint32_t Record::recordSize = 64;
-uint32_t Record::keySize = 12;
-uint32_t Record::keyOffset = 10;
 uint64_t Record::compareCount = 0;
 
-void Record::staticInitialize(uint32_t _recordSize, uint32_t _keyOffset, uint32_t _keySize) {
+void Record::staticInitialize(uint32_t _recordSize) {
     recordSize = _recordSize;
-    keyOffset = _keyOffset;
-    keySize = _keySize;
     compareCount = 0;
 }
 
@@ -28,28 +24,10 @@ Record::Record(unique_ptr<uint8_t[]> &newData) {
 
 int Record::compareTo(const shared_ptr<Record> &other) {
     compareCount++;
-    int result = memcmp(data.get() + keyOffset, other->data.get() + keyOffset, keySize);
-    if(result != 0) return result;
     return memcmp(this->data.get(), other->data.get(), recordSize);
 }
 
-bool operator<(const shared_ptr <Record> &lhs, const shared_ptr <Record> &rhs) {
-    // Assuming records have the same size and key offset
-    return memcmp(lhs.get(), rhs.get(), Record::getKeySize()) < 0;
-}
-
-
-bool Record::isDuplicate(const shared_ptr <Record> &other) {
-    return memcmp(this->data.get(), other->data.get(), recordSize) == 0;
-}
-
 void Record::store(uint8_t *dst) {
-    printf("\nstore:: ");
-    for(int i=0; i<recordSize ; i++) {
-        printf("%d:%d ", i, data[i]);
-    }
-    printf("\n");
-
     memcpy(dst, data.get(), recordSize);
 }
 
