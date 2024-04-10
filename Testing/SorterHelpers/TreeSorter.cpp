@@ -1,10 +1,9 @@
 #include "TreeSorter.h"
 
-//
-//bool operator<(const shared_ptr <Record> &lhs, const shared_ptr <Record> &rhs) {
-//    // Assuming records have the same size and key offset
-//    return memcmp(lhs.get(), rhs.get(), Record::getKeySize()) < 0;
-//}
+bool customCompare(const shared_ptr<Record>& a, const shared_ptr<Record>& b) {
+    int cmp = a->compareTo(b);
+    return cmp <= 0;
+}
 
 TreeSorter::TreeSorter(shared_ptr<Provider> source) {
     // adds all record to TreeMap until count has been reached
@@ -14,7 +13,7 @@ TreeSorter::TreeSorter(shared_ptr<Provider> source) {
         records.push_back(recordPtr);
     }
 
-    std::sort(records.begin(), records.end());
+    std::sort(records.begin(), records.end(), customCompare);
     iter = records.begin();
 }
 

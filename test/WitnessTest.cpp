@@ -95,8 +95,7 @@ void testTenInorder() {
     shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
     shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    Consumer consumer(dooper);
+    Consumer consumer(upper);
     consumer.consume();
 
     assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount() == upper->getCount());
@@ -111,8 +110,7 @@ void testDropOne() {
     shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
     shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(dropper);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    Consumer consumer(dooper);
+    Consumer consumer(upper);
     consumer.consume();
 
     assert("The count of the lower witness should have been 10" && 10 == lower->getCount());
@@ -130,8 +128,7 @@ void testRandomOrder() {
     shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
     shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    Consumer consumer(dooper);
+    Consumer consumer(upper);
     consumer.consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
@@ -148,8 +145,7 @@ void testTreeSorter() {
     shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
     shared_ptr<TreeSorter> sorterPtr = make_shared<TreeSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    Consumer consumer(dooper);
+    Consumer consumer(upper);
     consumer.consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
@@ -167,8 +163,7 @@ void testRandomOrderWithPrinting() {
     shared_ptr<Witness> lower = make_shared<Witness>(printer1);
     shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    shared_ptr<Printer> printer2 = make_shared<Printer>(dooper, test+"from sorter");
+     shared_ptr<Printer> printer2 = make_shared<Printer>(upper, test+"from sorter");
     Consumer consumer(printer2);
     consumer.consume();
 
@@ -187,8 +182,7 @@ void testTreeSorterWithPrinting() {
     shared_ptr<Witness> lower = make_shared<Witness>(printer1);
     shared_ptr<TreeSorter> sorterPtr = make_shared<TreeSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    shared_ptr<Printer> printer2 = make_shared<Printer>(dooper, test+"from sorter");
+    shared_ptr<Printer> printer2 = make_shared<Printer>(upper, test+"from sorter");
     Consumer consumer(printer2);
     consumer.consume();
 
