@@ -34,7 +34,7 @@ add_executable(cs764_sorter
         test/helpers/Printer.cpp
         test/helpers/Printer.h
         src/Sorter.h
-        Testing/SorterHelpers/NoopSorter.h
+        test/helpers/NoopSorter.h
         src/Sorter.cpp
         src/main.cpp src/Provider.cpp)
 
@@ -78,12 +78,12 @@ add_executable(testWitness
         test/helpers/Generator.h
         test/helpers/Generator.cpp
 
-        Testing/SorterHelpers/NoopSorter.h
+        test/helpers/NoopSorter.h
 
                 Testing/TestProviders/DropFirst.h
                 Testing/TestProviders/DropFirst.cpp
-                Testing/SorterHelpers/TreeSorter.h
-                Testing/SorterHelpers/TreeSorter.cpp
+        test/helpers/TreeSorter.h
+        test/helpers/TreeSorter.cpp
         test/helpers/Printer.h
                 test/helpers/Printer.cpp
         )
@@ -96,7 +96,6 @@ add_custom_command(TARGET testWitness
 
 
 add_executable(testSorterConfig
-        Testing/Tests/Config/SorterConfigTest.cpp
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -176,8 +175,8 @@ add_custom_command(TARGET testDropFirst
 add_executable(testTreeSorter
         src/Record.cpp
         src/Record.h
-        Testing/SorterHelpers/TreeSorter.cpp
-        Testing/SorterHelpers/TreeSorter.h
+        test/helpers/TreeSorter.cpp
+        test/helpers/TreeSorter.h
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         src/Witness.h
@@ -239,12 +238,12 @@ add_executable(testRecordProvider
         src/Witness.h
         test/helpers/Generator.h
         test/helpers/Generator.cpp
-        Testing/SorterHelpers/NoopSorter.h
+        test/helpers/NoopSorter.h
         test/helpers/Consumer.h
         Testing/TestProviders/DropFirst.h
         Testing/TestProviders/DropFirst.cpp
-        Testing/SorterHelpers/TreeSorter.h
-        Testing/SorterHelpers/TreeSorter.cpp
+        test/helpers/TreeSorter.h
+        test/helpers/TreeSorter.cpp
         test/helpers/Printer.h
         test/helpers/Printer.cpp
         src/Record.cpp

@@ -2,8 +2,8 @@
 #include <string>
 #include "Provider.h"
 #include "src/Witness.h"
-#include "Testing/SorterHelpers/TreeSorter.h"
-#include "Testing/SorterHelpers/NoopSorter.h"
+#include "test/helpers/TreeSorter.h"
+#include "test/helpers/NoopSorter.h"
 #include "Testing/TestProviders/DropFirst.h"
 #include "test/helpers/Consumer.h"
 
