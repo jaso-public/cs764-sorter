@@ -99,10 +99,33 @@ void testNextWith10RecordsWithCrc() {
     assert("Verify checksum was not correct" && isCrcValid(ptr) == false );
 }
 
+void testEqualEqual() {
+    int recordSize = Record::getRecordSize();
+    auto data1 = std::make_unique<uint8_t[]>(recordSize);
+    auto data2 = std::make_unique<uint8_t[]>(recordSize);
+    auto data3 = std::make_unique<uint8_t[]>(recordSize);
+
+    for (int i = 0; i < recordSize; i++) {
+        data1[i] = i;
+        data2[i] = i;
+        data3[i] = i;
+    }
+
+    auto ptr1 = make_shared<Record>(data1);
+    auto ptr2 = make_shared<Record>(data2);
+    assert("are equal" && ptr1 == ptr2);
+
+    data3[2]++;
+    auto ptr3 = make_shared<Record>(data3);
+    assert("are equal" && *ptr1 != *ptr3);
+}
+
+
 int main(){
     testDataParameterConstructor();
     testIsDuplicate();
     testCompare();
     testCheckSum();
     testNextWith10RecordsWithCrc();
+    testEqualEqual();
  }

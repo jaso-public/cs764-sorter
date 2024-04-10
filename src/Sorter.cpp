@@ -53,12 +53,11 @@ shared_ptr<Provider> Sorter::startSort() {
 
             lastMemoryRun -= cfg->memoryBlockSize;
 
-            vector<shared_ptr<Provider>> providerFromSingles(singles.begin(), singles.end());
-            shared_ptr<Provider> pq = make_shared<TournamentPQ>(providerFromSingles, recordCount);
+            shared_ptr<Provider> pq = make_shared<TournamentPQ>(singles, recordCount);
             for (int i = 0; i < recordCount; i++) {
                 shared_ptr<Record> ptr = pq->next();
                 int storeOffset = lastMemoryRun + i * Record::getRecordSize();
-                ptr->store(buffer, storeOffset, bufferLength);
+                ptr->store(buffer + storeOffset);
             }
             Run run(recordCount, lastMemoryRun);
             memoryRuns.push_back(run);
@@ -81,7 +80,7 @@ shared_ptr<Provider> Sorter::startSort() {
         vector<shared_ptr<Provider>> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
         int index = 0;
         for (Run run: memoryRuns) {
-            shared_ptr<Provider> memPtr = make_shared<MemoryProvider>(buffer, run.numRecords);
+            shared_ptr<Provider> memPtr = make_shared<MemoryProvider>(buffer+run.offset, run.numRecords);
             providers[index++] = memPtr;
         }
 

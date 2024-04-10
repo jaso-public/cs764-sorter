@@ -44,6 +44,12 @@ bool Record::isDuplicate(const shared_ptr <Record> &other) {
 }
 
 void Record::store(uint8_t *dst) {
+    printf("\nstore:: ");
+    for(int i=0; i<recordSize ; i++) {
+        printf("%d:%d ", i, data[i]);
+    }
+    printf("\n");
+
     memcpy(dst, data.get(), recordSize);
 }
 

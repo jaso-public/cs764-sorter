@@ -34,8 +34,29 @@ testSingleProvider() {
     assert("Next should have given a null pointer" && single->next() == nullptr );
 }
 
+void
+testMemoryProvider() {
+    int recordCount = 10;
+    auto records = generateRandom(recordCount);
+    uint8_t buffer [1000];
+    long offset = 0;
+    for (int i = 0; i < recordCount; i++) {
+        shared_ptr<Record> ptr = records[i];
+        ptr->store(buffer + offset);
+        offset += Record::getRecordSize();
+    }
+
+    auto memoryProvider = make_shared<MemoryProvider>(buffer, recordCount);
+    for(int i=0 ; i<recordCount ; i++) {
+        shared_ptr<Record> existing = records[i];
+        shared_ptr<Record> retrieved = memoryProvider->next();
+        assert("different" && existing == retrieved);
+     }
+}
 
 int main(){
     testTenRecords();
     testSingleProvider();
+    testMemoryProvider();
+
 }

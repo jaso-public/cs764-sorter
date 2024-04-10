@@ -96,14 +96,15 @@ private:
  */
 class MemoryProvider: public Provider {
 public:
-    MemoryProvider(uint8_t *buffer, uint32_t recordCount): buffer(buffer), recordCount(recordCount), generatedRecordCount(0) {}
+    MemoryProvider(uint8_t *_buffer, uint32_t _recordCount): buffer(_buffer), recordCount(_recordCount), generatedRecordCount(0) {}
 
     shared_ptr<Record> next() override {
         if(generatedRecordCount >= recordCount) return nullptr;
 
-        uint32_t offset = generatedRecordCount * Record::getRecordSize();
-
         int recordSize = Record::getRecordSize();
+
+        uint32_t offset = generatedRecordCount * recordSize;
+
         unique_ptr<uint8_t[]> data = std::make_unique<uint8_t[]>(recordSize);
         memcpy(data.get(), buffer + offset, recordSize);
 
@@ -141,7 +142,6 @@ public:
     ArrayProvider(string name, vector <shared_ptr<Record>> _records) : name(name), records(_records), iter(records.begin()) {}
 
     shared_ptr<Record> next() override {
-        cout << "in next\n";
         if (iter == records.end()) return nullptr;
         shared_ptr<Record> result = *iter;
         iter++;

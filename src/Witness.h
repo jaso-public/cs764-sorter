@@ -24,7 +24,13 @@ public:
         checksum ^= result->checksum();
 
         record = source->next();
-        if(record != nullptr && sorted) sorted = result->compareTo(record);
+        if((record != nullptr) && sorted) {
+            result ->dump("result");
+            record->dump("record");
+            sorted = result <= record;
+            cout << "----------sorted:" << sorted << endl;
+        }
+
 
         return result;
     }
@@ -44,6 +50,7 @@ public:
 private:
     shared_ptr<Provider> source; // the source that will generate records
     shared_ptr<Record> record;   // lastRecord seen
+    uint64_t lastChecksum;
     uint64_t count;              // keeps track of all the records generated
     uint64_t checksum;           // keeps track of checksum value
     bool sorted;                 // bool value that indicates if records have been sorted

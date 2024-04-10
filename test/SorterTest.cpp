@@ -17,7 +17,7 @@ using namespace std;
 void testSmallSort() {
     string testName = "testSmallSort";
 
-    Record::staticInitialize(20, 10, 12);
+    Record::staticInitialize(20, 0, 8);
 
     auto cfg = make_unique<SorterConfig>();
 
