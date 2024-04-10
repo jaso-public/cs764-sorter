@@ -84,9 +84,7 @@ add_executable(testWitness
                 Testing/TestProviders/DropFirst.cpp
                 Testing/SorterHelpers/TreeSorter.h
                 Testing/SorterHelpers/TreeSorter.cpp
-                Testing/SorterHelpers/Key.h
-                Testing/SorterHelpers/Key.cpp
-                test/helpers/Printer.h
+        test/helpers/Printer.h
                 test/helpers/Printer.cpp
         )
 
@@ -155,17 +153,6 @@ add_custom_command(TARGET testRandomGenerator
         COMMENT "Running testRandomGenerator..."
 )
 
-add_executable(testKey
-        Testing/SorterHelpers/Key.cpp
-        Testing/SorterHelpers/Key.h
-        )
-
-add_custom_command(TARGET testKey
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testKey
-        COMMENT "Running testKey..."
-)
-
 add_executable(testDropFirst
         src/Record.cpp
         src/Record.h
@@ -195,8 +182,6 @@ add_executable(testTreeSorter
         test/helpers/Generator.h
         test/helpers/Generator.cpp
         src/Witness.h
-        Testing/SorterHelpers/Key.h
-        Testing/SorterHelpers/Key.cpp
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -261,8 +246,6 @@ add_executable(testRecordProvider
         Testing/TestProviders/DropFirst.cpp
         Testing/SorterHelpers/TreeSorter.h
         Testing/SorterHelpers/TreeSorter.cpp
-        Testing/SorterHelpers/Key.h
-        Testing/SorterHelpers/Key.cpp
         test/helpers/Printer.h
         test/helpers/Printer.cpp
         src/Record.cpp
@@ -493,7 +476,6 @@ add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
-        COMMAND $<TARGET_FILE:testKey>
         COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testRecordProvider>
         COMMAND $<TARGET_FILE:testWitness>
