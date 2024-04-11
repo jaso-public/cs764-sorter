@@ -295,45 +295,4 @@ long Sorter::roundUp(long value, long multiple) {
     return (quotient + 1) * multiple;
 }
 
-void Sorter::printStats() {
-    if(cfg->ssdDevice != nullptr) {
-        cout << "SSD stats" << endl;
-        cout << "    read" << endl;
-        cout << "        count:   " << cfg->ssdDevice->getReadCount() << endl;
-        cout << "        size :   " << cfg->ssdDevice->getReadSize() << endl;
-        cout << "        time:    " << cfg->ssdDevice->getTotalRead() << endl;
-        cout << "        average: " << (cfg->ssdDevice->getReadCount() / cfg->ssdDevice->getTotalRead()) << endl;
-        cout << "        maxTime: " << cfg->ssdDevice->getMaxRead() << endl;
-        cout << "    write" << endl;
-        cout << "        count:   " << cfg->ssdDevice->getWriteCount() << endl;
-        cout << "        size :   " << cfg->ssdDevice->getWriteSize() << endl;
-        cout << "        time:    " << cfg->ssdDevice->getTotalWrite() << endl;
-        cout << "        average: " << (cfg->ssdDevice->getWriteCount() / cfg->ssdDevice->getTotalWrite()) << endl;
-        cout << "        maxTime: " << cfg->ssdDevice->getMaxWrite() << endl;
-    } else {
-        cout << "SSD device was null" << endl;
-    }
-
-    if(cfg->hddDevice != nullptr) {
-        cout << "HDD stats" << endl;
-        cout << "    read" << endl;
-        cout << "        count:   " << cfg->hddDevice->getReadCount() << endl;
-        cout << "        size :   " << cfg->hddDevice->getReadSize() << endl;
-        cout << "        time:    " << cfg->hddDevice->getTotalRead() << endl;
-        cout << "        average: " << (cfg->hddDevice->getReadCount() / cfg->ssdDevice->getTotalRead()) << endl;
-        cout << "        maxTime: " << cfg->hddDevice->getMaxRead() << endl;
-        cout << "    write" << endl;
-        cout << "        count:   " << cfg->hddDevice->getWriteCount() << endl;
-        cout << "        size :   " << cfg->hddDevice->getWriteSize() << endl;
-        cout << "        time:    " << cfg->hddDevice->getTotalWrite() << endl;
-        cout << "        average: " << (cfg->hddDevice->getWriteCount() / cfg->ssdDevice->getTotalWrite()) << endl;
-        cout << "        maxTime: " << cfg->hddDevice->getMaxWrite() << endl;
-        cout << "total number of record comparisons: " << Record::getCompareCount() << "\n";
-    } else {
-        cout <<"HDD device was null" << endl;
-    }
-
-    cout << "number of record comparisons: " << Record::getCompareCount() << endl;
-}
-
 

@@ -93,11 +93,32 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
    }
     clock_gettime(CLOCK_MONOTONIC, &end);
 
-    double duration = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e6;
+    double duration = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
     writeCount++;
     writeSize += len;
     totalWriteSeconds += duration;
     if(duration > maxWriteSeconds) maxWriteSeconds = duration;
+}
+
+void IODevice::writeStats() {
+    cout << "Device: " << path << endl;
+    cout << "    read" << endl;
+    cout << "        count:   " << getReadCount() << " calls" << endl;
+    if(getReadCount() > 0) {
+        cout << "        size :   " << getReadSize() << " bytes" << endl;
+        cout << fixed << setprecision(6) << "        time:    " << getTotalRead() << " seconds" << endl;
+        if(getTotalRead()>0) cout << fixed << setprecision(0) << "        average: " << ((double)getReadSize() / getTotalRead()) << " bytes/second" << endl;
+        cout << "        maxTime: " << getMaxRead() << " seconds" << endl;
+    }
+    cout << "    write" << endl;
+    cout << "        count:   " << getWriteCount() << " calls" <<endl;
+    if(getWriteCount() > 0) {
+        cout << "        size :   " << getWriteSize() << " bytes" << endl;
+        cout << fixed << setprecision(6) << "        time:    " << getTotalWrite() << " seconds" << endl;
+        if (getTotalWrite() > 0)
+            cout << fixed << setprecision(0) << "        average: " << ((double) getWriteSize() / getTotalWrite()) << " bytes/second" << endl;
+        cout << "        maxTime: " << getMaxWrite() << " second" << endl;
+    }
 }
 
 uint64_t IODevice::getReadCount() { return readCount; }

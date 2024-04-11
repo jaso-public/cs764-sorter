@@ -38,12 +38,15 @@ public:
      // TODO get rid of the off (can just send in the right ptr)
     void write(uint64_t offset, uint8_t* src, uint32_t len);
 
-    /**
-     * as this IoDevice does I/O operations to and from the device,
-     * it records simple statistics about the read and write operations.
-     * The methods below should be fairly obvious about what the measurement
-     * is recording for each statistic.
-     */
+    void flush();
+    void writeStats();
+
+        /**
+         * as this IoDevice does I/O operations to and from the device,
+         * it records simple statistics about the read and write operations.
+         * The methods below should be fairly obvious about what the measurement
+         * is recording for each statistic.
+         */
     uint64_t getReadCount();     // cumulative numbers of times read was called
     uint64_t getReadSize();      // cumulative numbers of bytes read from this device
     double   getTotalRead();     // cumulative time measured in seconds for all read operations

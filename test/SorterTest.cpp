@@ -33,8 +33,7 @@ void testSmallSort() {
     consumer->consume();
 //    NoopConsumer consumer(printer2);
 //    consumer.consume();
-
-    dynamic_pointer_cast<Sorter>(sorter)->printStats();
+    device->writeStats();
 
     shared_ptr<Witness> lowerWitness = dynamic_pointer_cast<Witness>(lower);
     shared_ptr<Witness> upperWitness = dynamic_pointer_cast<Witness>(upper);

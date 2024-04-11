@@ -39,7 +39,6 @@ class Sorter: public Provider {
 public:
     Sorter(unique_ptr<SorterConfig> &cfg, shared_ptr<Provider> source);
     shared_ptr<Record> next() override;
-    void printStats();
 
 private:
     shared_ptr<SorterConfig> cfg;

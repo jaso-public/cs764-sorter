@@ -17,9 +17,10 @@ FileConsumer::~FileConsumer() {
 void FileConsumer::consume() {
     while(true) {
         shared_ptr<Record> ptr = source->next();
-        if(ptr == nullptr) return;
+        if(ptr == nullptr) break;
         appendRecord(ptr);
     }
+    doWrite();
 }
 
 void FileConsumer::appendRecord(shared_ptr<Record> &ptr) {
@@ -32,6 +33,7 @@ void FileConsumer::appendRecord(shared_ptr<Record> &ptr) {
         ptr->store(buffer.get() + bufferOffset, offset, bytesToMove);
         bufferOffset += bytesToMove;
         offset += bytesToMove;
+        remaining -= bytesToMove;
         if(bufferOffset==bufferSize) doWrite();
     }
 }
