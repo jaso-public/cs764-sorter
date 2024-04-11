@@ -29,7 +29,7 @@ void testSmallSort() {
     shared_ptr<Provider> printer2 = make_shared<Printer>(upper,testName+"-after");
 
     auto device = make_shared<IODevice>("output.txt");
-    auto consumer = make_shared<FileConsumer>(printer2, device, 256*1024);
+    auto consumer = make_shared<DeviceConsumer>(printer2, device, 256 * 1024);
     consumer->consume();
 //    NoopConsumer consumer(printer2);
 //    consumer.consume();

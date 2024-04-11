@@ -47,30 +47,24 @@ IODevice::~IODevice() {
  * @param buffer place to store read data
  * @param len the number of byes to be read
  */
-void IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
-    if(len == 0) return;
+int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
 
     struct timespec start, end;
     clock_gettime(CLOCK_MONOTONIC, &start);
 
     uint32_t count = pread(fd, buffer, len, offset);
-    if(count != len) {
-        if(count < 0) {
-            cerr << "failed reading file:" << path << " strerror:" << strerror(errno) << " errno:" << errno << endl;
-        } else if(count ==0) {
-            cerr << "end of file:" << path << endl;
-        } else {
-            cerr << "did not read all the data expected file:" << path << "read:" << count << " expected:" << len << endl;
-        }
+    if(count < 0) {
+        cerr << "failed reading file:" << path << " strerror:" << strerror(errno) << " errno:" << errno << endl;
         exit(-1);
     }
     clock_gettime(CLOCK_MONOTONIC, &end);
 
     double duration = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e6;
     readCount++;
-    readSize += len;
+    readSize += count;
     totalReadSeconds += duration;
     if(duration > maxReadSeconds) maxReadSeconds = duration;
+    return count;
 }
 
 

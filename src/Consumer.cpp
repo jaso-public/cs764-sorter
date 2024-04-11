@@ -1,7 +1,7 @@
 #include "Consumer.h"
 
 
-FileConsumer::FileConsumer(shared_ptr<Provider> _source, shared_ptr<IODevice> _device, int _bufferSize) {
+DeviceConsumer::DeviceConsumer(shared_ptr<Provider> _source, shared_ptr<IODevice> _device, int _bufferSize) {
     source = _source;
     outputDevice = _device;
     deviceOffset = 0;
@@ -10,20 +10,16 @@ FileConsumer::FileConsumer(shared_ptr<Provider> _source, shared_ptr<IODevice> _d
     buffer = std::make_unique<uint8_t[]>(bufferSize);
 }
 
-FileConsumer::~FileConsumer() {
-    doWrite(); // flush any pending data
-}
-
-void FileConsumer::consume() {
+void DeviceConsumer::consume() {
     while(true) {
         shared_ptr<Record> ptr = source->next();
         if(ptr == nullptr) break;
         appendRecord(ptr);
     }
-    doWrite();
+    doWrite(); // flush any pending data
 }
 
-void FileConsumer::appendRecord(shared_ptr<Record> &ptr) {
+void DeviceConsumer::appendRecord(shared_ptr<Record> &ptr) {
     int offset = 0;
     int remaining = Record::getRecordSize();
 
@@ -38,7 +34,7 @@ void FileConsumer::appendRecord(shared_ptr<Record> &ptr) {
     }
 }
 
-void FileConsumer::doWrite() {
+void DeviceConsumer::doWrite() {
     if(bufferOffset == 0) return;
     outputDevice->write(deviceOffset, buffer.get(), bufferOffset);
     deviceOffset += bufferOffset;

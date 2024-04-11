@@ -36,10 +36,9 @@ private:
 
 
 
-class FileConsumer : public Consumer {
+class DeviceConsumer : public Consumer {
 public:
-    FileConsumer(shared_ptr<Provider> _source, shared_ptr<IODevice> _device, int _bufferSize);
-    ~FileConsumer();
+    DeviceConsumer(shared_ptr<Provider> _source, shared_ptr<IODevice> _device, int _bufferSize);
     void consume() override;
 
 private:

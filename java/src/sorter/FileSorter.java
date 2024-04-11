@@ -19,7 +19,7 @@ public class FileSorter {
         FileProvider provider = new FileProvider(new File(args[1]), recordSize);
         Sorter sorter = new Sorter(provider);
         Witness witness = new Witness(sorter);
-        FileConsumer consumer = new FileConsumer(new File(args[2]), witness);
+        DeviceConsumer consumer = new DeviceConsumer(new File(args[2]), witness);
         consumer.consume();
         provider.close();
         consumer.close();

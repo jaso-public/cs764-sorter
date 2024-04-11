@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class FileConsumer {
+public class DeviceConsumer {
 
     public final File file;
     public final Provider source;
@@ -15,7 +15,7 @@ public class FileConsumer {
     private long recordCount = 0;
     private int recordSize = 0;
 
-    public FileConsumer(File file, Provider source) {
+    public DeviceConsumer(File file, Provider source) {
         this.file = file ;
         this.source = source;        
          

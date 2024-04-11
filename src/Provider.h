@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Record.h"
+#include "IODevice.h"
 
 using namespace std;
 
@@ -125,35 +126,25 @@ private:
     vector<shared_ptr<Record>>::iterator iter; // iterator to return the records
 };
 
-
 /**
- * TODO docs
+ * DeviceProvider is a provider that read records from a device (file) and
+ * providers them to other via the Provider::next method.  This provider
+ * will eventually read the entire contents of the file.  If the final
+ * read is not a complete records, then provider will write an error
+ * message to cerr and will return null instead of a record.
  */
-class FileProvider: public Provider {
+class DeviceProvider: public Provider {
 public:
-    FileProvider(string filePath);
-    ~FileProvider();
+    DeviceProvider(shared_ptr<IODevice> _device, int _bufferSize);
     shared_ptr<Record> next() override;
 
 private:
-    string filePath;
-    int fd;
-    bool eofReached;
+    shared_ptr<IODevice> device;               // the input device where the records will be read from
+    uint64_t deviceOffset;                     // the location where the next buffer should be read
+    int bufferSize;                            // the size of the buffer
+    int bufferOffset;                          // the offset into the buffer which has already been read
+    int bufferRemaining;                       // the number of usable bytes remaining in the buffer
+    unique_ptr<uint8_t[]> buffer;              // a smallish buffer to stage data so we don,t make so many os calls
+    bool eofReached;                           // true if we have read all the data from the device
 };
-
-/**
- * TODO docs
- */
-class OutputStreamProvider: public Provider {
-public:
-    OutputStreamProvider(string filePath, shared_ptr<Provider> _source);
-    ~OutputStreamProvider();
-    shared_ptr<Record> next() override;
-
-private:
-    string filePath;
-    ifstream* streamPtr;
-    bool eofReached;
-};
-
 

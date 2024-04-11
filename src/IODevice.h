@@ -25,7 +25,7 @@ public:
      * @param buffer place to store read data
      * @param len the number of byes to be read
      */
-    void read(uint64_t offset, uint8_t* dst, uint32_t len);
+    int read(uint64_t offset, uint8_t* dst, uint32_t len);
     
     
     /**
