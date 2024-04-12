@@ -2,7 +2,7 @@
 #include <cassert>
 
 #include "Record.h"
-#include "test/helpers/Generator.h"
+#include "src/Generator.h"
 #include "Provider.h"
 
 

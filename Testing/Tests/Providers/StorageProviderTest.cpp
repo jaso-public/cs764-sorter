@@ -1,7 +1,7 @@
 #include <cassert>
 #include <filesystem>
 #include "src/Consumer.h"
-#include "test/helpers/Generator.h"
+#include "src/Generator.h"
 #include "src/Witness.h"
 #include "src/StorageProvider.h"
 using namespace std;

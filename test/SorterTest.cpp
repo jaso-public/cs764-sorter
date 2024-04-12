@@ -8,7 +8,7 @@
 #include "Sorter.h"
 
 #include "src/Consumer.h"
-#include "test/helpers/Generator.h"
+#include "src/Generator.h"
 #include "test/helpers/Printer.h"
 
 using namespace std;
@@ -16,12 +16,13 @@ using namespace std;
 
 void testSmallSort() {
     string testName = "testSmallSort";
+    int count = 20;
 
     Record::staticInitialize(20);
 
     auto cfg = make_unique<SorterConfig>();
 
-    shared_ptr<Provider> provider = make_shared<ArrayProvider>(testName, generateRandom(10));
+    shared_ptr<Provider> provider = make_shared<RandomProvider>(count, false);
     shared_ptr<Provider> printer1 = make_shared<Printer>(provider, testName+"-before");
     shared_ptr<Provider> lower = make_shared<Witness>(printer1);
     shared_ptr<Provider> sorter = make_shared<Sorter>(cfg, lower);
@@ -38,8 +39,8 @@ void testSmallSort() {
     shared_ptr<Witness> lowerWitness = dynamic_pointer_cast<Witness>(lower);
     shared_ptr<Witness> upperWitness = dynamic_pointer_cast<Witness>(upper);
 
-    assert(("The count of the lower witness should have equaled the record count" && 10 == lowerWitness->getCount()));
-    assert(("The count of the upper witness should equaled the record count" && 10 == upperWitness->getCount()));
+    assert(("The count of the lower witness should have equaled the record count" && count == lowerWitness->getCount()));
+    assert(("The count of the upper witness should equaled the record count" && count == upperWitness->getCount()));
     assert(("The checksum of the lower witness did not equal the checksum of the upper but should have"
         && lowerWitness->getChecksum() == upperWitness->getChecksum()));
     assert(("The lower was sorted but should not have been" && !lowerWitness->isSorted()));

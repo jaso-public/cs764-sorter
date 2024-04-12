@@ -3,7 +3,7 @@
 
 #include "Record.h"
 #include "Provider.h"
-#include "test/helpers/Generator.h"
+#include "src/Generator.h"
 
 void testTenRecords() {
     auto records = generateInOrder(10);

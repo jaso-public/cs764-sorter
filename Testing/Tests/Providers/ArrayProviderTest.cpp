@@ -1,5 +1,5 @@
 #include "cassert"
-#include "test/helpers/Generator.h"
+#include "src/Generator.h"
 #include "Provider.h"
 
 void testGenerating10Records() {

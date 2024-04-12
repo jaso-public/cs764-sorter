@@ -1,5 +1,5 @@
 #include <cassert>
-#include "test/helpers/Generator.h"
+#include "src/Generator.h"
 #include "Provider.h"
 #include "src/Witness.h"
 #include "Testing/TestProviders/DropFirst.h"

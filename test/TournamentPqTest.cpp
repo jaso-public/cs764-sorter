@@ -6,7 +6,7 @@
 #include "Provider.h"
 #include "Witness.h"
 #include "TournamentPQ.h"
-#include "test/helpers/Generator.h"
+#include "src/Generator.h"
 #include "src/Consumer.h"
 
 using namespace std;

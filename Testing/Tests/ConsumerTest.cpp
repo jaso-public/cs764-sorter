@@ -1,4 +1,4 @@
-#include "test/helpers/Generator.h"
+#include "src/Generator.h"
 #include "src/Consumer.h"
 #include "cassert"
 

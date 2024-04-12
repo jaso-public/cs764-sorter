@@ -3,9 +3,11 @@
 #include <cstdint>
 #include <memory>
 #include <vector>
+#include <random>
 
 #include "Record.h"
 #include "IODevice.h"
+#include "Generator.h"
 
 using namespace std;
 
@@ -125,6 +127,70 @@ private:
     vector<shared_ptr<Record>> records; // vector of record pointers that will be used for iteration
     vector<shared_ptr<Record>>::iterator iter; // iterator to return the records
 };
+
+
+class RandomProvider: public Provider {
+
+public:
+    RandomProvider(int _recordCount, bool _newLine) {
+        recordCount = _recordCount;
+        newLine = _newLine;
+        generated = 0;
+        random_device rd;
+        gen.seed((rd()));
+    }
+
+    shared_ptr<Record> next() override {
+        if (generated == recordCount) return nullptr;
+        generated++;
+        return makeRandomRecord(gen, newLine);
+    }
+
+private:
+    uint64_t recordCount;
+    bool newLine;
+    uint64_t generated;
+    mt19937 gen;
+};
+
+
+class DuplicateProvider: public Provider {
+public:
+
+     DuplicateProvider(int _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine)
+            : recordCount(_recordCount),
+              duplicateProbability(_duplicateProbability),
+              newLine(_newLine),
+              generated(0),
+              gen(rd()),  // Seed the main generator
+              randomProbability(0.0, 1.0),  // Initialize the probability distribution
+              randomRange(0, _duplicateRange)  // Initialize the range distribution with _duplicateRange
+    {}
+
+    shared_ptr<Record> next() override {
+        if (generated == recordCount) return nullptr;
+        generated++;
+
+        if(randomProbability(gen) < duplicateProbability) {
+            duplicateGen.seed(randomRange(gen));
+            return makeRandomRecord(duplicateGen, newLine);
+        }
+        return makeRandomRecord(gen, newLine);
+    }
+
+private:
+    random_device rd;  // Device to seed the random generators
+    mt19937 gen;
+    mt19937 duplicateGen;
+    std::uniform_real_distribution<> randomProbability; // Probability distribution
+    std::uniform_int_distribution<> randomRange;        // Range distribution
+
+    uint64_t recordCount;
+    double duplicateProbability;
+    bool newLine;
+    uint64_t generated;
+};
+
 
 /**
  * DeviceProvider is a provider that read records from a device (file) and
