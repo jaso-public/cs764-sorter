@@ -1,5 +1,6 @@
 #include "IODevice.h"
 
+#include <cstring>
 #include <ctime>
 #include <iostream>
 #include <fcntl.h>  // Include for open() function
