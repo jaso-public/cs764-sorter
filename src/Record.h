@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <memory>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ public:
         for(int i=0; i<recordSize ; i++) {
             printf("%c", data[i]);
         }
-        printf(" checksum:%llu\n", checksum());
+        printf(" checksum:%lu\n", checksum());
     }
 
     static uint32_t getRecordSize() {return recordSize;}
