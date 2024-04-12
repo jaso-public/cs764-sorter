@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17++)
 include_directories(.)
 include_directories(src)
 
-add_executable(sorterTool
+add_executable(sort
         src/Record.h
         src/Record.cpp
         src/Provider.h
@@ -27,9 +27,9 @@ add_executable(sorterTool
         src/Sorter.h
         src/Sorter.cpp
         src/Convert.h
-        src/SorterTool.cpp)
+        src/tools/sort.cpp)
 
-add_executable(generatorTool
+add_executable(generate
         src/Record.h
         src/Record.cpp
         src/Provider.h
@@ -40,10 +40,10 @@ add_executable(generatorTool
         src/IODevice.cpp
         src/Generator.h
         src/Generator.cpp
-        src/tools/GeneratorTool.cpp
+        src/tools/generate.cpp
         )
 
-add_executable(copyTool
+add_executable(copy
         src/Record.h
         src/Record.cpp
         src/Provider.h
@@ -54,7 +54,7 @@ add_executable(copyTool
         src/IODevice.cpp
         src/Witness.h
         src/Generator.cpp
-        src/tools/CopyTool.cpp
+        src/tools/copy.cpp
         )
 
 add_executable(testRecord

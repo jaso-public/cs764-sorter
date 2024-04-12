@@ -25,7 +25,6 @@ int main (int argc, char * argv []) {
     string ssdStagingFileName = "ssd.staging";
     string hddStagingFileName = "hdd.staging";
 
-    uint64_t numRecords = 1000;
     uint32_t recordSize = 128;
 
     uint64_t cacheSize = 1L * 1024 * 1024;
@@ -37,7 +36,7 @@ int main (int argc, char * argv []) {
 
 
 
-    while ((opt = getopt(argc, argv, "o:i:j:d:h:c:s:k:l:x:y:z:")) != -1) {
+    while ((opt = getopt(argc, argv, "o:i:j:d:h:s:k:l:x:y:z:")) != -1) {
         switch (opt) {
             case 'o':
                 traceFileName = optarg;
@@ -53,11 +52,6 @@ int main (int argc, char * argv []) {
                 break;
             case 'h':
                 hddStagingFileName = optarg;
-                break;
-            case 'c':
-                if(! parseInteger(optarg, numRecords)) {
-                    usage("unable to parse record count");
-                }
                 break;
             case 's':
                 if(! parseInteger(optarg, recordSize)) {
@@ -108,7 +102,6 @@ int main (int argc, char * argv []) {
     *out << "ssd staging file: " << ssdStagingFileName << std::endl;
     *out << "hdd staging file: " << hddStagingFileName << std::endl;
 
-    *out << "number of records: " << numRecords << std::endl;
     *out << "record size: " << recordSize << std::endl;
     Record::staticInitialize(recordSize);
 

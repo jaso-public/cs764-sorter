@@ -90,12 +90,14 @@ int main (int argc, char * argv []) {
         }
     }
 
-    cout << "outputFile: " << fileName << endl;
-    cout << "record count: " << recordCount << endl;
-    cout << "record size: " << recordSize << endl;
-    cout << "probability: " << probability << endl;
-    cout << "range: " << range << endl;
-    cout << "new line: " << newLine << endl;
+    std::ostream* out = &std::cout;  // Default to cout
+
+    *out << "outputFile: " << fileName << endl;
+    *out << "record count: " << recordCount << endl;
+    *out << "record size: " << recordSize << endl;
+    *out << "probability: " << probability << endl;
+    *out << "range: " << range << endl;
+    *out << "new line: " << newLine << endl;
 
 
     auto provider = make_shared<RandomProvider>(recordCount, probability, range, newLine);
@@ -103,6 +105,6 @@ int main (int argc, char * argv []) {
     auto consumer = make_shared<DeviceConsumer>(provider, device, 256*1024);
     consumer->consume();
 
-    device->writeStats();
+    device->writeStats(*out);
     return 0;
 }
