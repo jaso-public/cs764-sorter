@@ -35,6 +35,14 @@ void Record::store(uint8_t *dst, int offset, int numToCopy) {
     memcpy(dst, data.get() + offset, numToCopy);
 }
 
+void Record::dump(string message) {
+    cout << message << " ";
+    for (int i = 0; i < recordSize; i++) {
+        printf("%c", data[i]);
+    }
+    cout << " checksum:" << checksum() << endl;
+}
+
 // TODO compute a real crc32
 uint64_t Record::checksum() {
     int extra = recordSize & 7;

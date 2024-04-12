@@ -6,45 +6,36 @@ set(CMAKE_CXX_STANDARD 17++)
 include_directories(.)
 include_directories(src)
 
-add_executable(cs764_sorter
-        OutlinedFiles/Assert.cpp
-        src/Consumer.h
-        OutlinedFiles/defs.cpp
-        OutlinedFiles/defs.h
-        OutlinedFiles/Filter.cpp
-        OutlinedFiles/Filter.h
-        OutlinedFiles/Iterator.cpp
-        OutlinedFiles/Iterator.h
+add_executable(sorterTool
+        src/Record.h
+        src/Record.cpp
         src/Provider.h
+        src/Provider.cpp
+        src/Consumer.h
+        src/Consumer.cpp
+        src/IODevice.h
+        src/IODevice.cpp
+        src/Generator.h
+        src/Generator.cpp
         src/StagedProvider.h
         src/StagedProvider.cpp
         src/StorageProvider.h
         src/StorageProvider.cpp
-        src/Record.cpp
-        src/Record.h
-        OutlinedFiles/Scan.cpp
-        OutlinedFiles/Scan.h
-        OutlinedFiles/Sort.cpp
-        OutlinedFiles/Sort.h
         src/TournamentPQ.cpp
         src/TournamentPQ.h
         src/Witness.h
-        src/IODevice.h
-        src/IODevice.cpp
-        test/helpers/Printer.cpp
-        test/helpers/Printer.h
         src/Sorter.h
-        test/helpers/NoopSorter.h
         src/Sorter.cpp
-        src/main.cpp src/Provider.cpp src/Consumer.cpp)
+        src/Convert.h
+        src/SorterTool.cpp)
 
 add_executable(generatorTool
-        src/Consumer.h
-        src/Consumer.cpp
-        src/Provider.h
-        src/Provider.cpp
         src/Record.h
         src/Record.cpp
+        src/Provider.h
+        src/Provider.cpp
+        src/Consumer.h
+        src/Consumer.cpp
         src/IODevice.h
         src/IODevice.cpp
         src/Generator.h
@@ -306,24 +297,25 @@ add_custom_command(TARGET testPQ
 )
 
 add_executable(testSorter
+        src/Record.h
+        src/Record.cpp
+        src/Provider.h
+        src/Provider.cpp
         src/Consumer.h
         src/Consumer.cpp
-        src/Provider.h
-        src/Record.cpp
-        src/Record.h
+        src/IODevice.h
+        src/IODevice.cpp
+        src/Generator.h
+        src/Generator.cpp
         src/StorageProvider.h
         src/StorageProvider.cpp
         src/StagedProvider.cpp
         src/StagedProvider.h
-        src/TournamentPQ.cpp
         src/TournamentPQ.h
-        src/IODevice.h
-        src/IODevice.cpp
-        src/Sorter.cpp
+        src/TournamentPQ.cpp
         src/Sorter.h
+        src/Sorter.cpp
         src/Witness.h
-        src/Generator.h
-        src/Generator.cpp
         test/helpers/Printer.h
         test/helpers/Printer.cpp
         test/SorterTest.cpp

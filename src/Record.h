@@ -27,15 +27,7 @@ public:
 
     uint64_t checksum();
 
-
-    // TODO remove (eventually)
-    void dump(string message) {
-        cout << message << " ";
-        for(int i=0; i<recordSize ; i++) {
-            printf("%c", data[i]);
-        }
-        printf(" checksum:%lu\n", checksum());
-    }
+    void dump(string message);
 
     static uint32_t getRecordSize() {return recordSize;}
     static uint64_t getCompareCount() {return compareCount;}

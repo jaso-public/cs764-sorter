@@ -7,7 +7,7 @@
 
 #include "Record.h"
 #include "IODevice.h"
-#include "Generator.h"
+
 
 using namespace std;
 
@@ -40,22 +40,16 @@ public:
  */
 class SingleProvider: public Provider {
 public:
-    SingleProvider(): record(nullptr) {}
+    SingleProvider();
 
     /**
      * Sets the class record's variable to the given record
      * @param r the new record variable of the class
      */
-    void reset(shared_ptr<Record> r) {
-        record = r;
-    }
+    void reset(shared_ptr<Record> r);
 
     // returns the class record's variable and then turns it to null
-    shared_ptr<Record> next() override {
-        shared_ptr<Record> result = record;
-        record = nullptr;
-        return result;
-    }
+    shared_ptr<Record> next() override;
 
 private:
     shared_ptr<Record> record; // a pointer to a record or a null pointer if the record does not exist
@@ -70,21 +64,8 @@ private:
  */
 class MemoryProvider: public Provider {
 public:
-    MemoryProvider(uint8_t *_buffer, uint32_t _recordCount): buffer(_buffer), recordCount(_recordCount), generatedRecordCount(0) {}
-
-    shared_ptr<Record> next() override {
-        if(generatedRecordCount >= recordCount) return nullptr;
-
-        int recordSize = Record::getRecordSize();
-
-        uint32_t offset = generatedRecordCount * recordSize;
-
-        unique_ptr<uint8_t[]> data = std::make_unique<uint8_t[]>(recordSize);
-        memcpy(data.get(), buffer + offset, recordSize);
-
-        generatedRecordCount++;
-        return make_shared<Record>(data);
-    }
+    MemoryProvider(uint8_t *_buffer, uint32_t _recordCount);
+    shared_ptr<Record> next() override;
 
 private:
     uint8_t *buffer; // the buffer holding the record data
@@ -107,76 +88,12 @@ public:
     }
 };
 
-/**
- * TODO docs
- */
-class ArrayProvider: public Provider {
-
-public:
-    ArrayProvider(string name, vector <shared_ptr<Record>> _records) : name(name), records(_records), iter(records.begin()) {}
-
-    shared_ptr<Record> next() override {
-        if (iter == records.end()) return nullptr;
-        shared_ptr<Record> result = *iter;
-        iter++;
-        return result;
-    }
-
-private:
-    string name; // name to identify the record array
-    vector<shared_ptr<Record>> records; // vector of record pointers that will be used for iteration
-    vector<shared_ptr<Record>>::iterator iter; // iterator to return the records
-};
-
 
 class RandomProvider: public Provider {
-
 public:
-    RandomProvider(int _recordCount, bool _newLine) {
-        recordCount = _recordCount;
-        newLine = _newLine;
-        generated = 0;
-        random_device rd;
-        gen.seed((rd()));
-    }
-
-    shared_ptr<Record> next() override {
-        if (generated == recordCount) return nullptr;
-        generated++;
-        return makeRandomRecord(gen, newLine);
-    }
-
-private:
-    uint64_t recordCount;
-    bool newLine;
-    uint64_t generated;
-    mt19937 gen;
-};
-
-
-class DuplicateProvider: public Provider {
-public:
-
-     DuplicateProvider(int _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine)
-            : recordCount(_recordCount),
-              duplicateProbability(_duplicateProbability),
-              newLine(_newLine),
-              generated(0),
-              gen(rd()),  // Seed the main generator
-              randomProbability(0.0, 1.0),  // Initialize the probability distribution
-              randomRange(0, _duplicateRange)  // Initialize the range distribution with _duplicateRange
-    {}
-
-    shared_ptr<Record> next() override {
-        if (generated == recordCount) return nullptr;
-        generated++;
-
-        if(randomProbability(gen) < duplicateProbability) {
-            duplicateGen.seed(randomRange(gen));
-            return makeRandomRecord(duplicateGen, newLine);
-        }
-        return makeRandomRecord(gen, newLine);
-    }
+    RandomProvider(int _recordCount, bool _newLine);
+    RandomProvider(int _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine);
+    shared_ptr<Record> next() override; // implementation of the Provider interface
 
 private:
     random_device rd;  // Device to seed the random generators
