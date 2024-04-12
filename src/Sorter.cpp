@@ -5,6 +5,15 @@
 #include "TournamentPQ.h"
 
 
+void SorterConfig::writeStats(std::ostream& out) {
+    out << "Sorter % to spill: " << fixed << setprecision(3) << (fraction*100.0)  << "%" << endl;
+    out << "Cache size:" << memoryBlockSize << endl;
+    out << "Memory size:" << (memoryBlockSize * memoryBlockCount) << endl;
+    out << "HDD read size:" << hddReadSize << endl;
+    out << "SSD read size:" << ssdReadSize << endl;
+    out << "SSD size:" << ssdStorageSize << endl;
+}
+
 Sorter::Sorter(unique_ptr<SorterConfig> &config, shared_ptr<Provider> src) {
     cfg = std::move(config);
     source = src;

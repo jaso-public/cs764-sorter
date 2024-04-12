@@ -22,7 +22,7 @@ int main (int argc, char * argv []) {
     string inputFileName = "input.txt";
     string traceFileName = "";
     string outputFileName = "output.txt";
-    string ssdStagingFileName = "ssd.stating";
+    string ssdStagingFileName = "ssd.staging";
     string hddStagingFileName = "hdd.staging";
 
     uint64_t numRecords = 1000;
@@ -37,10 +37,22 @@ int main (int argc, char * argv []) {
 
 
 
-    while ((opt = getopt(argc, argv, "o:c:s:k:l:x:y:z:")) != -1) {
+    while ((opt = getopt(argc, argv, "o:i:j:d:h:c:s:k:l:x:y:z:")) != -1) {
         switch (opt) {
             case 'o':
                 traceFileName = optarg;
+                break;
+            case 'i':
+                inputFileName = optarg;
+                break;
+            case 'j':
+                outputFileName = optarg;
+                break;
+            case 'd':
+                ssdStagingFileName = optarg;
+                break;
+            case 'h':
+                hddStagingFileName = optarg;
                 break;
             case 'c':
                 if(! parseInteger(optarg, numRecords)) {
@@ -78,20 +90,35 @@ int main (int argc, char * argv []) {
         }
     }
 
-    std::cout << "number of records: " << numRecords << std::endl;
-    std::cout << "record size: " << recordSize << std::endl;
+    std::ostream* out = &std::cout;  // Default to cout
+    std::ofstream file;
 
-    std::cout << "cache size: " << cacheSize << std::endl;
-    std::cout << "memory size: " << memorySize << std::endl;
-    std::cout << "ssd size: " << ssdSize << std::endl;
+    if(traceFileName.length() > 0) {
+        file.open(argv[1]);
+        if (!file.is_open()) {
+            std::cerr << "Failed to open the file: " << argv[1] << std::endl;
+            return 1;  // Exit if file cannot be opened
+        }
+        out = &file;  // Redirect output to file
+    }
+    
+    *out << "trace file: " << traceFileName << std::endl;
+    *out << "input file: " << inputFileName << std::endl;
+    *out << "output file: " << outputFileName << std::endl;
+    *out << "ssd staging file: " << ssdStagingFileName << std::endl;
+    *out << "hdd staging file: " << hddStagingFileName << std::endl;
+
+    *out << "number of records: " << numRecords << std::endl;
+    *out << "record size: " << recordSize << std::endl;
+    Record::staticInitialize(recordSize);
 
     auto cfg = make_unique<SorterConfig>();
-
     auto ssdDevice = make_shared<IODevice>(ssdStagingFileName);
     auto hddDevice = make_shared<IODevice>(hddStagingFileName);
 
     cfg->ssdDevice = ssdDevice;
     cfg->hddDevice = hddDevice;
+    cfg->writeStats(*out);
 
     auto inputDevice = make_shared<IODevice>(inputFileName);
     auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
@@ -103,10 +130,10 @@ int main (int argc, char * argv []) {
 
     consumer->consume();
 
-    inputDevice->writeStats();
-    outputDevice->writeStats();
-    ssdDevice->writeStats();
-    hddDevice->writeStats();
+    inputDevice->writeStats(*out);
+    outputDevice->writeStats(*out);
+    ssdDevice->writeStats(*out);
+    hddDevice->writeStats(*out);
 
     return 0;
 }

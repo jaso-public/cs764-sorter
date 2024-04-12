@@ -60,18 +60,19 @@ shared_ptr<Record> DeviceProvider::next() {
 
     while(remaining>0) {
         if(bufferRemaining == 0) {
-            bufferOffset = 0;
             bufferRemaining = device->read(deviceOffset, buffer.get(), bufferSize);
             if (bufferRemaining == 0) {
-                eofReached = true;
                 if (offset != 0) {
                     cerr << "end of file reached with partial record offset:" << offset << endl;
-                    return nullptr;
                 }
+                eofReached = true;
+                return nullptr;
             }
+            deviceOffset += bufferRemaining;
+            bufferOffset = 0;
         }
 
-        int bytesToMove = bufferRemaining - bufferOffset;
+        int bytesToMove = bufferRemaining ;
         if(bytesToMove > remaining) bytesToMove = remaining;
         memcpy(bytes.get()+offset, buffer.get()+bufferOffset, bytesToMove);
         bufferRemaining -= bytesToMove;
@@ -80,7 +81,7 @@ shared_ptr<Record> DeviceProvider::next() {
         offset += bytesToMove;
      }
 
-    return make_shared<Record>(buffer);
+    return make_shared<Record>(bytes);
 }
 
 RandomProvider::RandomProvider(int _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine)

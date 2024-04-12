@@ -40,9 +40,22 @@ add_executable(generatorTool
         src/IODevice.cpp
         src/Generator.h
         src/Generator.cpp
-        src/GeneratorTool.cpp
+        src/tools/GeneratorTool.cpp
         )
 
+add_executable(copyTool
+        src/Record.h
+        src/Record.cpp
+        src/Provider.h
+        src/Provider.cpp
+        src/Consumer.h
+        src/Consumer.cpp
+        src/IODevice.h
+        src/IODevice.cpp
+        src/Witness.h
+        src/Generator.cpp
+        src/tools/CopyTool.cpp
+        )
 
 add_executable(testRecord
         test/RecordTest.cpp

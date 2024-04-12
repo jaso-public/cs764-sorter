@@ -39,7 +39,7 @@ public:
     void write(uint64_t offset, uint8_t* src, uint32_t len);
 
     void flush();
-    void writeStats();
+    void writeStats(std::ostream& out);
 
         /**
          * as this IoDevice does I/O operations to and from the device,

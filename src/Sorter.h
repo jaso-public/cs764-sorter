@@ -25,6 +25,8 @@ public:
 
     shared_ptr<IODevice> hddDevice = nullptr;
     int hddReadSize = 256 * 1024;;
+
+    void writeStats(std::ostream& out);
 };
 
 class Run {

@@ -47,6 +47,15 @@ public:
         return sorted;
     }
 
+    void writeStats(std::ostream& out, string name) {
+        out << "Witness: " << name << endl;
+        out << "    record count: " << count << endl;
+        out << "    checksum:" << checksum << endl;
+        out << "    sorted:" << sorted << endl;
+        out << "    duplicateCount" << duplicateCount << endl;
+    }
+
+
 private:
     shared_ptr<Provider> source; // the source that will generate records
     shared_ptr<Record> record;   // lastRecord seen
