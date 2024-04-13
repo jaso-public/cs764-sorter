@@ -80,7 +80,7 @@ int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
 void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
     if(len == 0) return;
 
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = get_tsc();
 
     uint32_t count = pwrite(fd, src, len, offset);
     if(count != len) {
@@ -88,9 +88,8 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
         exit(-1);
     }
 
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-    double elapsed = duration.count();
+    auto end = get_tsc();
+    double elapsed = end - start;
     elapsed = elapsed / 1e9;
 
     writeCount++;
