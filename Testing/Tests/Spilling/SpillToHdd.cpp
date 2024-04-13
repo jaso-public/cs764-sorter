@@ -8,7 +8,7 @@ using namespace std;
 void testSpillToHdd() {
     string test = "testSpillToHdd: ";
     Record::staticInitialize(100);
-    int recordCount = 1;
+    int recordCount = 110;
 
     unique_ptr<SorterConfig> cfg = make_unique<SorterConfig>();
     cfg->memoryBlockCount = 10;
