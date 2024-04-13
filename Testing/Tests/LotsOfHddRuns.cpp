@@ -1,6 +1,5 @@
 #include "src/Sorter.h"
 #include "../../src/Witness.h"
-#include "../../src/Provider.h"
 #include "src/Consumer.h"
 #include <cassert>
 

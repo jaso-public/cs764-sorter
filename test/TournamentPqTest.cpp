@@ -23,8 +23,8 @@ void doTest(int numProviders) {
 
     // make an array provider so we can pass the records thru a witness
 
-    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
-    shared_ptr<Witness> before = make_shared<Witness>(providerPtr);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
+    shared_ptr<Witness> before = make_shared<Witness>(source);
 
     cerr << "made  Witness before\n";
 
@@ -35,13 +35,14 @@ void doTest(int numProviders) {
         for (int j = 0; j < 10; j++) {
             perProviderRecords.push_back(before->next());
         }
-        providers.push_back(make_unique<ArrayProvider>("prov", perProviderRecords));
+        providers.push_back(make_unique<Provider>("prov", perProviderRecords));
     }
 
     shared_ptr<TournamentPQ> pq = make_shared<TournamentPQ>(providers, numProviders);
     shared_ptr<Witness> w = make_shared<Witness>(pq);
-    Consumer consumer(w);
-    consumer.consume();
+    shared_ptr<NoopConsumer> consumer = make_shared<NoopConsumer>(w);
+    consumer->consume();
+
 
     assert(w->isSorted());
     assert(("The count of the before witness did have the same checksum as the w witness but should have" && before->getChecksum() == w->getChecksum()));

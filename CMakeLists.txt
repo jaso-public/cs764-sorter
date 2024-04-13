@@ -96,35 +96,31 @@ add_executable(testProvider
         src/Generator.h
         src/Generator.cpp
         src/IODevice.h
-        src/IODevice.cpp
-        )
+        src/IODevice.cpp)
 
 add_custom_command(TARGET testProvider
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testProvider
-        COMMENT "Running testProvider...")
+        COMMENT "Running testProvider..."
+)
 
 add_executable(testWitness
         test/WitnessTest.cpp
-
         src/Record.h
         src/Record.cpp
         src/Provider.h
         src/Witness.h
-
         src/Consumer.h
         src/Generator.h
         src/Generator.cpp
-
         test/helpers/NoopSorter.h
-
-                Testing/TestProviders/DropFirst.h
-                Testing/TestProviders/DropFirst.cpp
+        Testing/TestProviders/DropFirst.h
+        Testing/TestProviders/DropFirst.cpp
         test/helpers/TreeSorter.h
         test/helpers/TreeSorter.cpp
         test/helpers/Printer.h
-                test/helpers/Printer.cpp
-        )
+        test/helpers/Printer.cpp
+)
 
 add_custom_command(TARGET testWitness
         POST_BUILD

@@ -6,7 +6,6 @@
 #include "Witness.h"
 
 #include "src/Consumer.h"
-#include "src/Generator.h"
 #include "test/helpers/Printer.h"
 
 
@@ -18,8 +17,7 @@ using namespace std;
 
 
 void testLower() {
-    auto records = generateInOrder(10);
-    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
     auto lower = make_shared<Witness>(source);
 
     for (int i = 0; i < 10; i++){
@@ -33,9 +31,8 @@ void testLower() {
 }
 
 void testWithSorter() {
-    auto records = generateInOrder(10);
-    shared_ptr<Provider> provider = make_shared<ArrayProvider>("name", records);
-    shared_ptr<Provider> lower = make_shared<Witness>(provider);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
+    shared_ptr<Provider> lower = make_shared<Witness>(source);
     shared_ptr<Provider> sorter = make_shared<NoopSorter>(lower);
 
     for (int i = 0; i < 10; i++){
@@ -47,8 +44,7 @@ void testWithSorter() {
 }
 
 void testGivingWitnessNoopSorter() {
-    auto records = generateInOrder(10);
-    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
     shared_ptr<Provider> sorter = make_shared<NoopSorter>(source);
     shared_ptr<Provider> upper = make_shared<Witness>(sorter);
 
@@ -61,8 +57,7 @@ void testGivingWitnessNoopSorter() {
 }
 
 void testGivingWitnessAnotherWitness() {
-    auto records = generateInOrder(10);
-    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
     shared_ptr<Provider> lower = make_shared<Witness>(source);
     shared_ptr<Provider> upper = make_shared<Witness>(lower);
 
@@ -75,8 +70,7 @@ void testGivingWitnessAnotherWitness() {
 }
 
 void testUpper() {
-    auto records = generateInOrder(10);
-    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
     shared_ptr<Provider> lower = make_shared<Witness>(source);
     shared_ptr<Provider> sorter = make_shared<NoopSorter>(lower);
     shared_ptr<Provider> upper = make_shared<Witness>(sorter);
@@ -90,13 +84,12 @@ void testUpper() {
 }
 
 void testTenInorder() {
-    auto records = generateInOrder(10);
-    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
-    shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
+    shared_ptr<Witness> lower = make_shared<Witness>(source);
     shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    Consumer consumer(upper);
-    consumer.consume();
+    shared_ptr<NoopConsumer> consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
 
     assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount() == upper->getCount());
     assert("The count of the upper witness should have been 10" && 10 == upper->getCount());
@@ -104,14 +97,13 @@ void testTenInorder() {
 }
 
 void testDropOne() {
-    auto records = generateInOrder(10);
-    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
-    shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
+    shared_ptr<Witness> lower = make_shared<Witness>(source);
     shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
     shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(dropper);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    Consumer consumer(upper);
-    consumer.consume();
+    shared_ptr<NoopConsumer> consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
 
     assert("The count of the lower witness should have been 10" && 10 == lower->getCount());
     assert("The count of the upper witness should have been 9" && 9 == upper->getCount());
@@ -123,13 +115,12 @@ void testDropOne() {
 
 
 void testRandomOrder() {
-    auto records = generateRandom(10);
-    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
-    shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
+    shared_ptr<Witness> lower = make_shared<Witness>(source);
     shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    Consumer consumer(upper);
-    consumer.consume();
+    shared_ptr<NoopConsumer> consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
     assert(("The count of the upper witness should have been 10" && 10 == upper->getCount()));
@@ -139,14 +130,12 @@ void testRandomOrder() {
 }
 
 void testTreeSorter() {
-    auto records = generateRandom(10);
-    ArrayProvider provider("name", records);
-    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
-    shared_ptr<Witness> lower = make_shared<Witness>(providerPtr);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
+    shared_ptr<Witness> lower = make_shared<Witness>(source);
     shared_ptr<TreeSorter> sorterPtr = make_shared<TreeSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
-    Consumer consumer(upper);
-    consumer.consume();
+    shared_ptr<NoopConsumer> consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
     assert(("The count of the upper witness should have been 10" && 10 == upper->getCount()));
@@ -157,15 +146,14 @@ void testTreeSorter() {
 
 void testRandomOrderWithPrinting() {
     string test = "testRandomOrderWithPrinting: ";
-    auto records = generateRandom(10);
-    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
-    shared_ptr<Printer> printer1 = make_shared<Printer>(providerPtr, test+"from generator");
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
+    shared_ptr<Printer> printer1 = make_shared<Printer>(source, test+"from generator");
     shared_ptr<Witness> lower = make_shared<Witness>(printer1);
     shared_ptr<NoopSorter> sorterPtr = make_shared<NoopSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
      shared_ptr<Printer> printer2 = make_shared<Printer>(upper, test+"from sorter");
-    Consumer consumer(printer2);
-    consumer.consume();
+    shared_ptr<NoopConsumer> consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
     assert(("The count of the upper witness should have been 10" && 10 == upper->getCount()));
@@ -176,15 +164,14 @@ void testRandomOrderWithPrinting() {
 
 void testTreeSorterWithPrinting() {
     string test = "testTreeSorterWithPrinting: ";
-    auto records = generateRandom(10);
-    shared_ptr<ArrayProvider> providerPtr = make_shared<ArrayProvider>("name", records);
-    shared_ptr<Printer> printer1 = make_shared<Printer>(providerPtr, test+"from generator");
+    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
+    shared_ptr<Printer> printer1 = make_shared<Printer>(source, test+"from generator");
     shared_ptr<Witness> lower = make_shared<Witness>(printer1);
     shared_ptr<TreeSorter> sorterPtr = make_shared<TreeSorter>(lower);
     shared_ptr<Witness> upper = make_shared<Witness>(sorterPtr);
     shared_ptr<Printer> printer2 = make_shared<Printer>(upper, test+"from sorter");
-    Consumer consumer(printer2);
-    consumer.consume();
+    shared_ptr<NoopConsumer> consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
 
     assert(("The count of the lower witness should have been 10" && 10 == lower->getCount()));
     assert(("The count of the upper witness should have been 10" && 10 == upper->getCount()));
