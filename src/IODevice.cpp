@@ -80,7 +80,7 @@ int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
 void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
     if(len == 0) return;
 
-    auto start = get_tsc();
+    auto start = std::chrono::high_resolution_clock::now();
 
     uint32_t count = pwrite(fd, src, len, offset);
     if(count != len) {
@@ -88,8 +88,9 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
         exit(-1);
     }
 
-    auto end = get_tsc();
-    double elapsed = end - start;
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    double elapsed = duration.count();
     elapsed = elapsed / 1e9;
 
     writeCount++;
@@ -117,15 +118,6 @@ void IODevice::writeStats(std::ostream& out) {
         out << "        maxTime: " << getMaxWrite() << " second" << endl;
     }
 }
-
-
-uint64_t IODevice::get_tsc() {
-    uint32_t lo, hi;
-    // Inline assembly to read TSC
-    __asm__ volatile ("rdtsc" : "=a" (lo), "=d" (hi));
-    return ((uint64_t)hi << 32) | lo;
-}
-
 
 uint64_t IODevice::getReadCount() { return readCount; }
 uint64_t IODevice::getReadSize() { return readSize; }

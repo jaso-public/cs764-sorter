@@ -57,8 +57,6 @@ public:
     double   getTotalWrite();     // cumulative time measured in seconds for all write operations
     double   getMaxWrite();       // the elapsed time of the longest write operation for this device
 
-    uint64_t get_tsc();
-
 private:
     int fd;                   // the file descriptor of the opened device (file)
     string path;              // the path to the device (file name)
