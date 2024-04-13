@@ -100,18 +100,24 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
 }
 
 void IODevice::writeStats(std::ostream& out) {
+    if(getReadCount() + getWriteCount() == 0) {
+        out << "Device: " << path << " was never used." << endl;
+        return;
+    }
+
     out << "Device: " << path << endl;
-    out << "    read" << endl;
-    out << "        count       : " << getReadCount() << " calls" << endl;
     if(getReadCount() > 0) {
+        out << "    read" << endl;
+        out << "        count       : " << getReadCount() << " calls" << endl;
         out << "        size        : " << getReadSize() << " bytes" << endl;
         out << fixed << setprecision(6) << "        time        : " << getTotalRead() << " seconds" << endl;
         if(getTotalRead()>0) out << fixed << setprecision(0) << "        average     : " << ((double)getReadSize() / getTotalRead()) << " bytes/second" << endl;
         out << fixed << setprecision(6) << "        maxTime     : " << getMaxRead() << " seconds" << endl;
     }
-    out << "    write" << endl;
-    out <<  "        count       : " << getWriteCount() << " calls" <<endl;
+
     if(getWriteCount() > 0) {
+        out << "    write" << endl;
+        out <<  "        count       : " << getWriteCount() << " calls" <<endl;
         out << "        size        : " << getWriteSize() << " bytes" << endl;
         out << fixed << setprecision(6) << "        time        : " << getTotalWrite() << " seconds" << endl;
         if (getTotalWrite() > 0) out << fixed << setprecision(0) << "        average     : " << ((double) getWriteSize() / getTotalWrite()) << " bytes/second" << endl;
