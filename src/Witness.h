@@ -50,10 +50,10 @@ public:
 
     void writeStats(std::ostream& out, string name) {
         out << "Witness: " << name << endl;
-        out << "    record count    : " << count << endl;
-        out << "    checksum        : " << checksum << endl;
-        out << "    sorted          : " << (sorted ? "true" : "false") << endl;
-        out << "    duplicate count : " << duplicateCount << endl;
+        out << "    record count     : " << count << endl;
+        out << "    checksum         : " << checksum << endl;
+        out << "    sorted           : " << (sorted ? "true" : "false") << endl;
+        out << "    duplicate count  : " << duplicateCount << endl;
     }
 
 

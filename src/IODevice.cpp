@@ -108,20 +108,20 @@ void IODevice::writeStats(std::ostream& out) {
 
     if(getReadCount() > 0) {
         out << "    read" << endl;
-        out << "        count       : " << getReadCount() << " calls" << endl;
-        out << "        size        : " << getReadSize() << " bytes" << endl;
-        out << fixed << setprecision(6) << "        time        : " << getTotalRead() << " seconds" << endl;
-        if(getTotalRead()>0) out << fixed << setprecision(0) << "        average     : " << ((double)getReadSize() / getTotalRead()) << " bytes/second" << endl;
-        out << fixed << setprecision(6) << "        maxTime     : " << getMaxRead() << " seconds" << endl;
+        out << "        count        : " << getReadCount() << " calls" << endl;
+        out << "        size         : " << getReadSize() << " bytes" << endl;
+        out << fixed << setprecision(6) << "        time         : " << getTotalRead() << " seconds" << endl;
+        if(getTotalRead()>0) out << fixed << setprecision(0) << "        average      : " << ((double)getReadSize() / getTotalRead()) << " bytes/second" << endl;
+        out << fixed << setprecision(6) << "        maxTime      : " << getMaxRead() << " seconds" << endl;
     }
 
     if(getWriteCount() > 0) {
         out << "    write" << endl;
-        out <<  "        count       : " << getWriteCount() << " calls" <<endl;
-        out << "        size        : " << getWriteSize() << " bytes" << endl;
-        out << fixed << setprecision(6) << "        time        : " << getTotalWrite() << " seconds" << endl;
-        if (getTotalWrite() > 0) out << fixed << setprecision(0) << "        average     : " << ((double) getWriteSize() / getTotalWrite()) << " bytes/second" << endl;
-        out << fixed << setprecision(6) << "        maxTime     : " << getMaxWrite() << " seconds" << endl;
+        out << "        count        : " << getWriteCount() << " calls" <<endl;
+        out << "        size         : " << getWriteSize() << " bytes" << endl;
+        out << fixed << setprecision(6) << "        time         : " << getTotalWrite() << " seconds" << endl;
+        if (getTotalWrite() > 0) out << fixed << setprecision(0) << "        average      : " << ((double) getWriteSize() / getTotalWrite()) << " bytes/second" << endl;
+        out << fixed << setprecision(6) << "        maxTime      : " << getMaxWrite() << " seconds" << endl;
     }
 }
 

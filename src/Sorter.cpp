@@ -9,12 +9,13 @@
 
 
 void SorterConfig::writeStats(std::ostream& out) {
-    out << "Sorter % to spill: " << fixed << setprecision(3) << (fraction*100.0)  << "%" << endl;
-    out << "Cache size:" << memoryBlockSize << endl;
-    out << "Memory size:" << (memoryBlockSize * memoryBlockCount) << endl;
-    out << "HDD read size:" << hddReadSize << endl;
-    out << "SSD read size:" << ssdReadSize << endl;
-    out << "SSD size:" << ssdStorageSize << endl;
+    out << "Sorter Configuration:" << endl;
+    out << "    spill fraction   : " << fixed << setprecision(3) << (fraction*100.0)  << "%" << endl;
+    out << "    cache size       : " << memoryBlockSize << endl;
+    out << "    memory size      : " << (memoryBlockSize * memoryBlockCount) << endl;
+    out << "    HDD read size    : " << hddReadSize << endl;
+    out << "    SSD read size    : " << ssdReadSize << endl;
+    out << "    SSD size         : " << ssdStorageSize << endl;
 }
 
 Sorter::Sorter(unique_ptr<SorterConfig> &config, shared_ptr<Provider> src) {
@@ -307,9 +308,9 @@ void Sorter::writeStats(std::ostream& out) {
     double elapsed = duration.count();
     elapsed = elapsed / 1e9;
 
-    out << "Sorter: " << endl;
-    out << fixed << setprecision(6) << "    compare count   : " << Record::getCompareCount() << " comparisons" << endl;
-    out << fixed << setprecision(6) << "    elapsed time    : " << elapsed << " seconds" << endl;
+    out << "Sorter results: " << endl;
+    out << fixed << setprecision(6) << "    compare count    : " << Record::getCompareCount() << " comparisons" << endl;
+    out << fixed << setprecision(6) << "    elapsed time     : " << elapsed << " seconds" << endl;
  }
 
 

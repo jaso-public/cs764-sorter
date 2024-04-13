@@ -95,14 +95,15 @@ int main (int argc, char * argv []) {
         }
         out = &file;  // Redirect output to file
     }
-    
-    *out << "trace file: " << traceFileName << std::endl;
-    *out << "input file: " << inputFileName << std::endl;
-    *out << "output file: " << outputFileName << std::endl;
-    *out << "ssd staging file: " << ssdStagingFileName << std::endl;
-    *out << "hdd staging file: " << hddStagingFileName << std::endl;
 
-    *out << "record size: " << recordSize << std::endl;
+    *out << "Parameters:" << traceFileName << std::endl;
+    *out << "    trace file       : " << traceFileName << std::endl;
+    *out << "    input file       : " << inputFileName << std::endl;
+    *out << "    output file      : " << outputFileName << std::endl;
+    *out << "    ssd staging file : " << ssdStagingFileName << std::endl;
+    *out << "    hdd staging file : " << hddStagingFileName << std::endl;
+
+    *out << "    record size: " << recordSize << std::endl;
     Record::staticInitialize(recordSize);
 
     auto cfg = make_unique<SorterConfig>();
@@ -111,6 +112,10 @@ int main (int argc, char * argv []) {
 
     cfg->ssdDevice = ssdDevice;
     cfg->hddDevice = hddDevice;
+    cfg->memoryBlockSize = cacheSize;
+    cfg->memoryBlockCount = memorySize / cacheSize;
+    cfg->ssdStorageSize = ssdSize;
+
     cfg->writeStats(*out);
 
     auto inputDevice = make_shared<IODevice>(inputFileName);
@@ -123,13 +128,13 @@ int main (int argc, char * argv []) {
 
     consumer->consume();
 
+    sorter->writeStats(*out);
+    lower->writeStats(*out, "pre-sort");
+    upper->writeStats(*out, "post-sort");
     inputDevice->writeStats(*out);
     outputDevice->writeStats(*out);
     ssdDevice->writeStats(*out);
     hddDevice->writeStats(*out);
-    lower->writeStats(*out, "pre-sort");
-    upper->writeStats(*out, "post-sort");
-    sorter->writeStats(*out);
 
     return 0;
 }
