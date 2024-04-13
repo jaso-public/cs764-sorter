@@ -202,17 +202,6 @@ add_custom_command(TARGET testConsumer
         COMMENT "Running testConsumer..."
 )
 
-add_executable(testStagingConfig
-        src/IODevice.cpp
-        src/IODevice.h
-)
-
-add_custom_command(TARGET testStagingConfig
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testStagingConfig
-        COMMENT "Running testStagingConfig..."
-)
-
 add_executable(testEmptyProvider
         Testing/Tests/Providers/EmptyProviderTest.cpp
 )
@@ -431,7 +420,6 @@ add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testEmptyProvider>
-        COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testPQ>
@@ -479,7 +467,6 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testEmptyProvider>
-        COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testProvider>
