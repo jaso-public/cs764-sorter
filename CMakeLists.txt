@@ -183,24 +183,6 @@ add_custom_command(TARGET testDropFirst
         COMMENT "Running testDropFirst..."
 )
 
-add_executable(testTreeSorter
-        src/Record.cpp
-        src/Record.h
-        test/helpers/TreeSorter.cpp
-        test/helpers/TreeSorter.h
-        src/Generator.h
-        src/Generator.cpp
-        src/Witness.h
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testTreeSorter
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testTreeSorter
-        COMMENT "Running testTreeSorter..."
-)
-
 add_executable(testConsumer
         src/Record.cpp
         src/Record.h
@@ -452,7 +434,6 @@ add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
-        COMMAND $<TARGET_FILE:testTreeSorter>
         COMMAND $<TARGET_FILE:testPQ>
 )
 
@@ -502,7 +483,6 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testProvider>
-        COMMAND $<TARGET_FILE:testTreeSorter>
         COMMAND $<TARGET_FILE:testPQ>
         COMMAND $<TARGET_FILE:testSorter>
         COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
