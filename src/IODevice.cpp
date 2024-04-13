@@ -106,16 +106,16 @@ void IODevice::writeStats(std::ostream& out) {
     if(getReadCount() > 0) {
         out << "        size :   " << getReadSize() << " bytes" << endl;
         out << fixed << setprecision(6) << "        time:    " << getTotalRead() << " seconds" << endl;
-        if(getTotalRead()>0) out << fixed << setprecision(6) << "        average: " << setprecision(0) << ((double)getReadSize() / getTotalRead()) << " bytes/second" << endl;
-        out << "        maxTime: " << getMaxRead() << " seconds" << endl;
+        if(getTotalRead()>0) out << fixed << setprecision(0) << "        average: " << ((double)getReadSize() / getTotalRead()) << " bytes/second" << endl;
+        out << fixed << setprecision(6) << "        maxTime: " << getMaxRead() << " seconds" << endl;
     }
     out << "    write" << endl;
     out << "        count:   " << getWriteCount() << " calls" <<endl;
     if(getWriteCount() > 0) {
         out << "        size :   " << getWriteSize() << " bytes" << endl;
         out << fixed << setprecision(6) << "        time:    " << getTotalWrite() << " seconds" << endl;
-        if (getTotalWrite() > 0) out << fixed << setprecision(6) << "        average: " << setprecision(0) << ((double) getWriteSize() / getTotalWrite()) << " bytes/second" << endl;
-        out << "        maxTime: " << getMaxWrite() << " second" << endl;
+        if (getTotalWrite() > 0) out << fixed << setprecision(0) << "        average: " << ((double) getWriteSize() / getTotalWrite()) << " bytes/second" << endl;
+        out << fixed << setprecision(6) << "        maxTime: " << getMaxWrite() << " second" << endl;
     }
 }
 
