@@ -1,7 +1,6 @@
 #include "src/Sorter.h"
 #include "Witness.h"
 #include "test/helpers/Printer.h"
-#include "src/Generator.h"
 #include <string>
 #include <cassert>
 using namespace std;

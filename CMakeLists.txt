@@ -388,7 +388,7 @@ add_executable(testSpillToHdd
         src/Generator.cpp
         )
 
-add_custom_command(TARGET testSpillToHdd
+add_custom_target(TARGET testSpillToHdd
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSpillToHdd
         COMMENT "Running testSpillToHdd..."
