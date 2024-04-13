@@ -98,7 +98,7 @@ RandomProvider::RandomProvider(int _recordCount, bool _newLine): RandomProvider(
 
 
 shared_ptr<Record> RandomProvider::next() {
-    if (generated == recordCount) return nullptr;
+    if (generated >= recordCount) return nullptr;
     generated++;
 
     if (randomProbability(gen) < duplicateProbability) {

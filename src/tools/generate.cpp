@@ -99,6 +99,7 @@ int main (int argc, char * argv []) {
     *out << "range: " << range << endl;
     *out << "new line: " << newLine << endl;
 
+    Record::staticInitialize(recordSize);
 
     auto provider = make_shared<RandomProvider>(recordCount, probability, range, newLine);
     auto device = make_shared<IODevice>(fileName);
