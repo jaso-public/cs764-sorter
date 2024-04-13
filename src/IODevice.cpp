@@ -1,7 +1,7 @@
 #include "IODevice.h"
 
 #include <cstring>
-#include <ctime>
+#include <chrono>
 #include <iostream>
 #include <iomanip>
 #include <fcntl.h>  // Include for open() function
@@ -50,22 +50,23 @@ IODevice::~IODevice() {
  * @param len the number of byes to be read
  */
 int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
-
-    struct timespec start, end;
-    clock_gettime(CLOCK_MONOTONIC, &start);
+    auto start = std::chrono::high_resolution_clock::now();
 
     uint32_t count = pread(fd, buffer, len, offset);
     if(count < 0) {
         cerr << "failed reading file:" << path << " strerror:" << strerror(errno) << " errno:" << errno << endl;
         exit(-1);
     }
-    clock_gettime(CLOCK_MONOTONIC, &end);
 
-    double duration = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    double elapsed = duration.count();
+    elapsed = elapsed / 1e9;
+
     readCount++;
     readSize += count;
-    totalReadSeconds += duration;
-    if(duration > maxReadSeconds) maxReadSeconds = duration;
+    totalReadSeconds += elapsed;
+    if(elapsed > maxReadSeconds) maxReadSeconds = elapsed;
     return count;
 }
 
@@ -79,21 +80,23 @@ int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
 void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
     if(len == 0) return;
 
-    struct timespec start, end;
-    clock_gettime(CLOCK_MONOTONIC, &start);
+    auto start = std::chrono::high_resolution_clock::now();
 
     uint32_t count = pwrite(fd, src, len, offset);
     if(count != len) {
         cerr << "failed writing file:" << path << " strerror:" << strerror(errno) << " errno:" << errno << endl;
         exit(-1);
-   }
-    clock_gettime(CLOCK_MONOTONIC, &end);
+    }
 
-    double duration = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    double elapsed = duration.count();
+    elapsed = elapsed / 1e9;
+
     writeCount++;
     writeSize += len;
-    totalWriteSeconds += duration;
-    if(duration > maxWriteSeconds) maxWriteSeconds = duration;
+    totalWriteSeconds += elapsed;
+    if(elapsed > maxWriteSeconds) maxWriteSeconds = elapsed;
 }
 
 void IODevice::writeStats(std::ostream& out) {
