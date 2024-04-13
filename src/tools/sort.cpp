@@ -88,9 +88,9 @@ int main (int argc, char * argv []) {
     std::ofstream file;
 
     if(traceFileName.length() > 0) {
-        file.open(argv[1]);
+        file.open(traceFileName);
         if (!file.is_open()) {
-            std::cerr << "Failed to open the file: " << argv[1] << std::endl;
+            std::cerr << "Failed to open the file: " << traceFileName << std::endl;
             return 1;  // Exit if file cannot be opened
         }
         out = &file;  // Redirect output to file
