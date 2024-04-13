@@ -21,17 +21,14 @@ public:
      */
     TournamentPQ(vector<shared_ptr<Provider>> providers, int numProviders);
     /**
-     * Returns the next unique record in the sorted sequence
+     * Gets the next record from the provider
+     * @returns a pointer to the next record or a null pointer if a next record doesn't exist
      */
     shared_ptr<Record> next() override;
 
 private:
-    //vector of provider pointers to return records for matches
-    vector<shared_ptr<Provider>> providers;
-    //vector of records to compare for sorting
-    vector<shared_ptr<Record>> records;
-    //vector of losers from the tournament
-    vector<int> losers;
-    //total number of providers given to the class
-    int numProviders;
+    vector<shared_ptr<Provider>> providers;   // vector of provider pointers to return records for matches
+    vector<shared_ptr<Record>> records;       // vector of records to compare for sorting
+    vector<int> losers;                       // vector of losers from the tournament
+    int numProviders;                         // total number of providers given to the class
 };

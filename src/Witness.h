@@ -80,16 +80,10 @@ public:
 
 
 private:
-    // the source that will generate records
-    shared_ptr<Provider> source;
-    // lastRecord seen
-    shared_ptr<Record> record;
-    // keeps track of all the records generated
-    uint64_t count;
-    // keeps track of checksum value
-    uint64_t checksum;
-    // bool value that indicates if records have been sorted
-    bool sorted;
-    // bool value if the witness saw two consecutive identical records
-    uint64_t duplicateCount;
+    shared_ptr<Provider> source; // the source that will generate records
+    shared_ptr<Record> record;   // lastRecord seen
+    uint64_t count;              // keeps track of all the records generate
+    uint64_t checksum;           // keeps track of checksum value
+    bool sorted;                 // bool value that indicates if records have been sorted
+    uint64_t duplicateCount;     // bool value if the witness saw two consecutive identical records
 };
