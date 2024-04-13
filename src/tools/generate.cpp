@@ -3,6 +3,7 @@
 
 #include "Convert.h"
 #include "Provider.h"
+#include "Witness.h"
 #include "IODevice.h"
 #include "Consumer.h"
 
@@ -102,10 +103,12 @@ int main (int argc, char * argv []) {
     Record::staticInitialize(recordSize);
 
     auto provider = make_shared<RandomProvider>(recordCount, probability, range, newLine);
+    auto witness = make_shared<Witness>(provider);
     auto device = make_shared<IODevice>(fileName);
-    auto consumer = make_shared<DeviceConsumer>(provider, device, 256*1024);
+    auto consumer = make_shared<DeviceConsumer>(witness, device, 256*1024);
     consumer->consume();
 
     device->writeStats(*out);
+    witness->writeStats(*out, "generate");
     return 0;
 }
