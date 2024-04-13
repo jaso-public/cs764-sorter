@@ -307,8 +307,9 @@ void Sorter::writeStats(std::ostream& out) {
     double elapsed = duration.count();
     elapsed = elapsed / 1e9;
 
-    out << fixed << setprecision(6) << "  compare count: " << Record::getCompareCount() << " comparisons" << endl;
-    out << fixed << setprecision(6) << "   elapsed time: " << elapsed << " seconds" << endl;
+    out << "Sorter: " << endl;
+    out << fixed << setprecision(6) << "    compare count   : " << Record::getCompareCount() << " comparisons" << endl;
+    out << fixed << setprecision(6) << "    elapsed time    : " << elapsed << " seconds" << endl;
  }
 
 
