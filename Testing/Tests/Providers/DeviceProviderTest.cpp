@@ -3,7 +3,6 @@
 #include "Provider.h"
 #include "src/Witness.h"
 #include "test/helpers/TreeSorter.h"
-#include "Testing/TestProviders/DropFirst.h"
 #include "src/Consumer.h"
 
 
@@ -40,8 +39,7 @@ void testInputChain() {
     auto inputDevice = make_shared<IODevice>(inputFileName);
     auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
     shared_ptr<Witness>  lower = make_shared<Witness>(provider);
-    shared_ptr<NoopSorter> sorter = make_shared<NoopSorter>(lower);
-    shared_ptr<Witness>  upper = make_shared<Witness>(sorter);
+    shared_ptr<Witness>  upper = make_shared<Witness>(lower);
     auto consumer = make_shared<NoopConsumer>(upper);
     consumer->consume();
 
@@ -59,8 +57,7 @@ void testDropOne() {
     auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
     shared_ptr<Witness>  lower = make_shared<Witness>(provider);
     shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
-    shared_ptr<NoopSorter> sorter = make_shared<NoopSorter>(dropper);
-    shared_ptr<Witness>  upper = make_shared<Witness>(sorter);
+    shared_ptr<Witness>  upper = make_shared<Witness>(dropper);
     auto consumer = make_shared<NoopConsumer>(upper);
     consumer->consume();
 

@@ -132,3 +132,20 @@ private:
     bool eofReached;                           // true if we have read all the data from the device
 };
 
+
+/**
+ * This provider will drop the first record returned by the
+ * the source Provider. See the Provider class for how providers
+ * are used.
+ *
+ * THIS CLASS IS ONLY USED FOR TESTING.
+ */
+class DropFirst: public Provider {
+public:
+    DropFirst(shared_ptr<Provider> _source);
+    shared_ptr<Record> next() override; // see Provider
+
+private:
+    shared_ptr<Provider> source; // the source used to get the records
+};
+

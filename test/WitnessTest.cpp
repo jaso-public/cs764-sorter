@@ -8,8 +8,6 @@
 #include "Generator.h"
 
 #include "test/helpers/Printer.h"
-
-#include "Testing/TestProviders/DropFirst.h"
 #include "test/helpers/TreeSorter.h"
 
 using namespace std;

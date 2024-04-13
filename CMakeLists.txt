@@ -117,8 +117,6 @@ add_executable(testWitness
         src/IODevice.cpp
         src/Generator.h
         src/Generator.cpp
-        Testing/TestProviders/DropFirst.h
-        Testing/TestProviders/DropFirst.cpp
         test/helpers/TreeSorter.h
         test/helpers/TreeSorter.cpp
         test/helpers/Printer.h
@@ -160,29 +158,6 @@ add_custom_command(TARGET testRandomGenerator
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRandomGenerator
         COMMENT "Running testRandomGenerator..."
 )
-
-add_executable(testDropFirst
-        src/Provider.cpp
-        src/Provider.h
-        src/Record.cpp
-        src/Record.h
-        src/Generator.h
-        src/Generator.cpp
-        Testing/TestProviders/DropFirst.cpp
-        Testing/TestProviders/DropFirst.h
-        Testing/Tests/Providers/DropFirstTest.cpp
-        Testing/Tests/Providers/DropFirstTest.cpp
-        src/Witness.h
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testDropFirst
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDropFirst
-        COMMENT "Running testDropFirst..."
-)
-
 add_executable(testConsumer
         src/Record.cpp
         src/Record.h
@@ -224,8 +199,6 @@ add_executable(testDeviceProvider
         src/Generator.h
         src/Generator.cpp
         src/Consumer.h
-        Testing/TestProviders/DropFirst.h
-        Testing/TestProviders/DropFirst.cpp
         test/helpers/TreeSorter.h
         test/helpers/TreeSorter.cpp
         test/helpers/Printer.h
@@ -416,7 +389,6 @@ add_custom_command(TARGET testStagedProvider
 
 add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testConsumer>
-        COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testEmptyProvider>
@@ -463,7 +435,6 @@ add_custom_command(TARGET runErrorTests
 
 add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testConsumer>
-        COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testEmptyProvider>
