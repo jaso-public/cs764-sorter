@@ -1,24 +1,21 @@
 #include "src/Sorter.h"
 #include "../../src/Witness.h"
+#include "../../src/Provider.h"
 #include "src/Consumer.h"
-#include "src/Generator.h"
 #include <cassert>
-#include <string>
 
 
 void testSpillToLotsOfHddRuns() {
     unique_ptr<SorterConfig> cfg = make_unique<SorterConfig>();
 
-    auto records = generateRandomWithCrc(10);
-    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
-    shared_ptr<Witness>  lower = make_shared<Witness>(source);
-    shared_ptr<Sorter> sorter = make_shared<Sorter>(cfg, lower);
-    shared_ptr<Witness> upper = make_shared<Witness>(sorter);
-    shared_ptr<Dedooper> dooper = make_shared<Dedooper>(upper);
-    Consumer consumer(dooper);
-    consumer.consume();
+    auto source = make_shared<RandomProvider>(10);
+    auto lower = make_shared<Witness>(source);
+    auto sorter = make_shared<Sorter>(cfg, lower);
+    auto upper = make_shared<Witness>(sorter);
+    auto consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
 
-    sorter->printStats();
+    sorter->writeStats(std::cout);
 
     assert(("The record count was not equal to the count of the lower witness" && 10 == lower->getCount()));
     assert(("The record count was not equal to the count of the upper witness" && 10 ==  upper->getCount()));

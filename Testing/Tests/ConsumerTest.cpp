@@ -4,10 +4,13 @@
 
 
 void testConsume() {
-    auto records = generateRandom(10);
-    shared_ptr<Provider> provider = make_shared<ArrayProvider>("name", records);
-    Consumer consume(provider);
-    consume.consume();
+    string inputFileName = "input.txt";
+    uint32_t hddReadSize = 256 * 1024;
+
+    auto inputDevice = make_shared<IODevice>(inputFileName);
+    auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
+    auto consumer = make_shared<NoopConsumer>(provider);
+    consumer->consume();
     shared_ptr<Record> ptr = provider->next();
     assert("Next should have given a null pointer" && ptr == nullptr );
 }

@@ -1,15 +1,13 @@
 #include <cassert>
 #include <filesystem>
 #include "src/Consumer.h"
-#include "src/Generator.h"
 #include "src/Witness.h"
 #include "src/StorageProvider.h"
 using namespace std;
 
 
-void doTest(int recordSize, long recordCount, int stagingLength, int bufferLength, uint32_t keyOffset) {
-    auto records = generateRandom(10);
-    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
+void doTest(long recordCount) {
+    auto source = make_shared<RandomProvider>(recordCount);
     shared_ptr<Witness>  before = make_shared<Witness>(source);
 
     IODevice storage("../Files/storage.tmp");
@@ -29,9 +27,6 @@ void doTest(int recordSize, long recordCount, int stagingLength, int bufferLengt
 
     uint8_t* memory = new  uint8_t[10*1024*1024]; // 10MB
 
-
-    long storageStartOffset = 0; // we wrote the records at offset zero
-
     uint8_t* buffer = memory;
 
 
@@ -40,8 +35,8 @@ void doTest(int recordSize, long recordCount, int stagingLength, int bufferLengt
     storageConfig->startOffset = 20;
     shared_ptr<StorageProvider> sp =  make_shared<StorageProvider>(storageConfig);
     shared_ptr<Witness> after = make_shared<Witness>(sp);
-    Consumer consumer(after);
-    consumer.consume();
+    auto consumer = make_shared<NoopConsumer>(after);
+    consumer->consume();
 
     assert(("The count of the before witness should have equaled the count of the after witness" && before->getCount() == after->getCount()));
     assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before->getChecksum() == after->getChecksum()));
@@ -49,15 +44,7 @@ void doTest(int recordSize, long recordCount, int stagingLength, int bufferLengt
     remove("storage.tmp");
 }
 
-void testSmall() {
-    doTest(123,50,564,2048, 8);
-}
-
-void testMedium() {
-    doTest(123,50,564,2048, 8);
-}
-
 int main(){
-    testSmall();
-    testMedium();
+    doTest(10);
+    doTest(50);
 }

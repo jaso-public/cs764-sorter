@@ -156,29 +156,13 @@ add_custom_command(TARGET testIODevice
         COMMENT "Running testIODevice..."
 )
 
-
-
-add_executable(testDedooper
-        src/Record.cpp
-        src/Record.h
-        src/Generator.h
-        src/Generator.cpp
-        Testing/Tests/Providers/DedooperTest.cpp
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testDedooper
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDedooper
-        COMMENT "Running testDedooper..."
-)
-
 add_executable(testRandomGenerator
         src/Record.cpp
         src/Record.h
         src/Generator.h
         src/Generator.cpp
+        src/Provider.cpp
+        src/Provider.h
         Testing/Tests/Providers/RandomGeneratorTest.cpp
         src/IODevice.h
         src/IODevice.cpp
@@ -191,6 +175,8 @@ add_custom_command(TARGET testRandomGenerator
 )
 
 add_executable(testDropFirst
+        src/Provider.cpp
+        src/Provider.h
         src/Record.cpp
         src/Record.h
         src/Generator.h
@@ -233,6 +219,8 @@ add_executable(testConsumer
         src/Record.h
         src/Generator.h
         src/Generator.cpp
+        src/Provider.h
+        src/Provider.cpp
         Testing/Tests/ConsumerTest.cpp
         src/Consumer.h
         src/IODevice.h
@@ -266,13 +254,14 @@ add_custom_command(TARGET testEmptyProvider
         COMMENT "Running testEmptyProvider..."
 )
 
-add_executable(testRecordProvider
-        Testing/Tests/Providers/RecordProviderTest.cpp
+add_executable(testDeviceProvider
+        Testing/Tests/Providers/DeviceProviderTest.cpp
         src/IODevice.cpp
         src/IODevice.h
         src/Record.cpp
         src/Record.h
         src/Provider.h
+        src/Provider.cpp
         src/Witness.h
         src/Generator.h
         src/Generator.cpp
@@ -290,22 +279,10 @@ add_executable(testRecordProvider
         src/IODevice.cpp
 )
 
-add_custom_command(TARGET testRecordProvider
+add_custom_command(TARGET testDeviceProvider
         POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRecordProvider
-        COMMENT "Running testRecordProvider..."
-)
-
-add_executable(testDuplicateRemoval
-        Testing/Tests/DuplicateRemoval/TestDuplicateRemoval.cpp
-        DuplicateRemoval/RemoveDuplicates.cpp
-        DuplicateRemoval/RemoveDuplicates.h
-)
-
-add_custom_command(TARGET testDuplicateRemoval
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDuplicateRemoval
-        COMMENT "Running testDuplicateRemoval..."
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDeviceProvider
+        COMMENT "Running testDeviceProvider..."
 )
 
 add_executable(testPQ
@@ -369,6 +346,8 @@ add_executable(testLotsOfHddRuns
         src/StagedProvider.cpp
         src/StagedProvider.h
         src/TournamentPQ.cpp
+        src/Provider.cpp
+        src/Provider.h
         src/TournamentPQ.h
         src/IODevice.h
         src/IODevice.cpp
@@ -391,6 +370,7 @@ add_custom_command(TARGET testLotsOfHddRuns
 
 add_executable(testSpillToHdd
         src/Provider.h
+        src/Provider.cpp
         src/Record.cpp
         src/Record.h
         src/StorageProvider.h
@@ -420,6 +400,7 @@ add_custom_command(TARGET testSpillToHdd
 
 add_executable(testSpillToOneBlockToSdd
         src/Provider.h
+        src/Provider.cpp
         src/Record.cpp
         src/Record.h
         src/StorageProvider.h
@@ -450,6 +431,7 @@ add_custom_command(TARGET testSpillToOneBlockToSdd
 
 add_executable(testStorageProvider
         src/Provider.h
+        src/Provider.cpp
         src/Record.cpp
         src/Record.h
         src/StorageProvider.h
@@ -506,16 +488,14 @@ add_custom_command(TARGET testStagedProvider
 )
 
 add_custom_target(runNonFaultTests
-        COMMAND $<TARGET_FILE:testDuplicateRemoval>
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
-        COMMAND $<TARGET_FILE:testDedooper>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
         COMMAND $<TARGET_FILE:testStagingConfig>
-        COMMAND $<TARGET_FILE:testRecordProvider>
+        COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testTreeSorter>
         COMMAND $<TARGET_FILE:testPQ>
@@ -559,16 +539,14 @@ add_custom_command(TARGET runErrorTests
 )
 
 add_custom_target(runAllTests
-        COMMAND $<TARGET_FILE:testDuplicateRemoval>
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
-        COMMAND $<TARGET_FILE:testDedooper>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
         COMMAND $<TARGET_FILE:testStagingConfig>
-        COMMAND $<TARGET_FILE:testRecordProvider>
+        COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testProvider>
         COMMAND $<TARGET_FILE:testTreeSorter>
