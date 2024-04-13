@@ -45,7 +45,11 @@ shared_ptr<Record> StagedProvider::next() {
             if (stagingRemaining < 1) {
                 int sizeToRead = cfg->bufferLength + cfg->stagingLength;
                 if(storageRemaining < sizeToRead) sizeToRead = storageRemaining;
-                cfg->storage->read(storageOffset,  cfg->transferBuffer, sizeToRead);
+                int count = cfg->storage->read(storageOffset,  cfg->transferBuffer, sizeToRead);
+                if(count != sizeToRead) {
+                    cerr <<"real message\n";
+                    exit(1);
+                }
                 storageOffset += sizeToRead;
                 storageRemaining -= sizeToRead;
 
@@ -73,7 +77,11 @@ shared_ptr<Record> StagedProvider::next() {
                 // there is data available in the staging area, lets read it.
                 int sizeToRead = cfg->bufferLength;
                 if(stagingRemaining < sizeToRead) sizeToRead = stagingRemaining;
-                cfg->staging->read(cfg->stagingStartOffset + stagingOffset, cfg->buffer, sizeToRead);
+                int count = cfg->staging->read(cfg->stagingStartOffset + stagingOffset, cfg->buffer, sizeToRead);
+                if(count != sizeToRead) {
+                    cerr <<"real message\n";
+                    exit(1);
+                }
                 stagingOffset += sizeToRead;
                 stagingRemaining -= sizeToRead;
                 bufferOffset = 0;

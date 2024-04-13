@@ -32,7 +32,10 @@ public:
 
 class Run {
 public:
-    Run(long numRecords, long offset): numRecords(numRecords), offset(offset) {}
+    Run(long _numRecords, long _offset): numRecords(_numRecords), offset(_offset) {}
+    Run(const Run&) = delete;
+    Run& operator=(const Run&) = delete;
+
     long numRecords;
     long offset;
 };

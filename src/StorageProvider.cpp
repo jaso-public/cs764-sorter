@@ -14,7 +14,6 @@ StorageProvider::StorageProvider(unique_ptr<StorageConfig> &config) {
 
 shared_ptr<Record> StorageProvider::next() {
     if(nextRecord >= cfg->recordCount) return nullptr;
-    nextRecord++;
 
     int recordSize = Record::getRecordSize();
     unique_ptr<uint8_t[]> data = std::make_unique<uint8_t[]>(recordSize);
@@ -25,6 +24,9 @@ shared_ptr<Record> StorageProvider::next() {
     while(true) {
         if(recordRemaining < 1) {
             nextRecord++;
+
+            cout << "storage provider returns record -- nextRecord:" << nextRecord << endl;
+
             return make_shared<Record>(data);
         }
 
@@ -32,7 +34,11 @@ shared_ptr<Record> StorageProvider::next() {
             //need to get more bytes from storage
             int sizeToRead = cfg->bufferLength;
             if(storageRemaining < sizeToRead) sizeToRead = storageRemaining;
-            cfg->storage->read(storageOffset, cfg->buffer, sizeToRead);
+            int count = cfg->storage->read(storageOffset, cfg->buffer, sizeToRead);
+            if(count != sizeToRead) {
+                cerr <<"real message\n";
+                exit(1);
+            }
             storageOffset += sizeToRead;
             storageRemaining -= sizeToRead;
             bufferOffset = 0;
