@@ -91,6 +91,7 @@ public:
 
 class RandomProvider: public Provider {
 public:
+    RandomProvider(int _recordCount);
     RandomProvider(int _recordCount, bool _newLine);
     RandomProvider(int _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine);
     shared_ptr<Record> next() override; // implementation of the Provider interface

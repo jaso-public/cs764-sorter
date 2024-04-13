@@ -6,8 +6,7 @@
 #include "src/Generator.h"
 
 void testTenRecords() {
-    auto records = generateInOrder(10);
-    shared_ptr<Provider> source = make_shared<ArrayProvider>("name", records);
+    auto source = make_shared<RandomProvider>(10);
 
     for (int i = 0; i < 10; i++){
         shared_ptr<Record> ptr = source->next();

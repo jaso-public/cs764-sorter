@@ -95,6 +95,7 @@ RandomProvider::RandomProvider(int _recordCount, double _duplicateProbability, i
 {}
 
 RandomProvider::RandomProvider(int _recordCount, bool _newLine): RandomProvider(_recordCount, 0.0, 10, _newLine) {}
+RandomProvider::RandomProvider(int _recordCount): RandomProvider(_recordCount, 0.0, 10, true) {}
 
 
 shared_ptr<Record> RandomProvider::next() {

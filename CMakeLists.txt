@@ -88,11 +88,16 @@ add_custom_command(TARGET testRecord
 
 
 add_executable(testProvider
+        test/ProviderTest.cpp
+        src/Record.h
+        src/Record.cpp
+        src/Provider.h
+        src/Provider.cpp
         src/Generator.h
         src/Generator.cpp
-        test/ProviderTest.cpp
-        src/Record.cpp
-        src/Record.h)
+        src/IODevice.h
+        src/IODevice.cpp
+        )
 
 add_custom_command(TARGET testProvider
         POST_BUILD
