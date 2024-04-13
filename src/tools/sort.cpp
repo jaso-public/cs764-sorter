@@ -128,7 +128,7 @@ int main (int argc, char * argv []) {
     ssdDevice->writeStats(*out);
     hddDevice->writeStats(*out);
     lower->writeStats(*out, "pre-sort");
-    lower->writeStats(*out, "post-sort");
+    upper->writeStats(*out, "post-sort");
 
     return 0;
 }
