@@ -58,6 +58,20 @@ add_executable(copy
         src/tools/copy.cpp
         )
 
+add_executable(verify
+        src/Record.h
+        src/Record.cpp
+        src/Provider.h
+        src/Provider.cpp
+        src/Consumer.h
+        src/Consumer.cpp
+        src/IODevice.h
+        src/IODevice.cpp
+        src/Witness.h
+        src/Generator.cpp
+        src/tools/verify.cpp
+        )
+
 add_executable(testRecord
         test/RecordTest.cpp
         src/Record.cpp
