@@ -49,7 +49,7 @@ testMemoryProvider() {
     for(int i=0 ; i<recordCount ; i++) {
         shared_ptr<Record> existing = records[i];
         shared_ptr<Record> retrieved = memoryProvider->next();
-        assert("different" && existing == retrieved);
+        assert("different" && existing->compareTo(retrieved) ==0);
      }
 }
 
