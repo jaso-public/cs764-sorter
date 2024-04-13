@@ -22,29 +22,26 @@ void testSmallSort() {
 
     auto cfg = make_unique<SorterConfig>();
 
-    shared_ptr<Provider> provider = make_shared<RandomProvider>(count, false);
-    shared_ptr<Provider> printer1 = make_shared<Printer>(provider, testName+"-before");
-    shared_ptr<Provider> lower = make_shared<Witness>(printer1);
-    shared_ptr<Provider> sorter = make_shared<Sorter>(cfg, lower);
-    shared_ptr<Provider> upper = make_shared<Witness>(sorter);
-    shared_ptr<Provider> printer2 = make_shared<Printer>(upper,testName+"-after");
+    auto provider = make_shared<RandomProvider>(count, false);
+    auto printer1 = make_shared<Printer>(provider, testName+"-before");
+    auto lower = make_shared<Witness>(printer1);
+    auto sorter = make_shared<Sorter>(cfg, lower);
+    auto upper = make_shared<Witness>(sorter);
+    auto printer2 = make_shared<Printer>(upper,testName+"-after");
 
     auto device = make_shared<IODevice>("output.txt");
     auto consumer = make_shared<DeviceConsumer>(printer2, device, 256 * 1024);
     consumer->consume();
-//    NoopConsumer consumer(printer2);
-//    consumer.consume();
-    device->writeStats();
 
-    shared_ptr<Witness> lowerWitness = dynamic_pointer_cast<Witness>(lower);
-    shared_ptr<Witness> upperWitness = dynamic_pointer_cast<Witness>(upper);
+    std::ostream* out = &std::cout;
+    device->writeStats(*out);
 
-    assert(("The count of the lower witness should have equaled the record count" && count == lowerWitness->getCount()));
-    assert(("The count of the upper witness should equaled the record count" && count == upperWitness->getCount()));
+    assert(("The count of the lower witness should have equaled the record count" && count == lower->getCount()));
+    assert(("The count of the upper witness should equaled the record count" && count == upper->getCount()));
     assert(("The checksum of the lower witness did not equal the checksum of the upper but should have"
-        && lowerWitness->getChecksum() == upperWitness->getChecksum()));
-    assert(("The lower was sorted but should not have been" && !lowerWitness->isSorted()));
-    assert(("The upper witness was not sorted but should have been" && upperWitness->isSorted()));
+        && lower->getChecksum() == upper->getChecksum()));
+    assert(("The lower was sorted but should not have been" && !lower->isSorted()));
+    assert(("The upper witness was not sorted but should have been" && upper->isSorted()));
 }
 
 //
