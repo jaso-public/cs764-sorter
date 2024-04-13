@@ -115,6 +115,7 @@ int main (int argc, char * argv []) {
     cfg->memoryBlockSize = cacheSize;
     cfg->memoryBlockCount = memorySize / cacheSize;
     cfg->ssdStorageSize = ssdSize;
+    cfg->ssdReadSize = ssdReadSize;
 
     cfg->writeStats(*out);
 
