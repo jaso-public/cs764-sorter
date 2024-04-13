@@ -10,7 +10,7 @@
  */
 class StorageConfig {
 public:
-    StorageConfig() {}             // Class constructor to initialize class
+    StorageConfig() {}             // class constructor to initialize class
 
     uint64_t recordCount;          // the total number of records to be returned
     uint64_t startOffset;          // starting location in storage buffer
@@ -38,7 +38,7 @@ public:
     shared_ptr<Record> next() override;
 
 private:
-    shared_ptr<StorageConfig> cfg; // configuration file
+    shared_ptr<StorageConfig> cfg; // configuration class
 
     int bufferOffset;              // current location in buffer
     int bufferRemaining;           // sum of unread bytes in buffer
