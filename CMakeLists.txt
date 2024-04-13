@@ -131,18 +131,6 @@ add_custom_command(TARGET testWitness
         COMMENT "Running testWitness..."
 )
 
-
-add_executable(testSorterConfig
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testSorterConfig
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSorterConfig
-        COMMENT "Running testSorterConfig..."
-)
-
 add_executable(testIODevice
         src/IODevice.cpp
         src/IODevice.h
@@ -460,7 +448,6 @@ add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testIODevice>
-        COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
         COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testDeviceProvider>
@@ -510,7 +497,6 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testDropFirst>
         COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testIODevice>
-        COMMAND $<TARGET_FILE:testSorterConfig>
         COMMAND $<TARGET_FILE:testEmptyProvider>
         COMMAND $<TARGET_FILE:testStagingConfig>
         COMMAND $<TARGET_FILE:testDeviceProvider>
