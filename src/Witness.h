@@ -39,6 +39,7 @@ public:
     uint64_t getDuplicateCount() {
         return duplicateCount;
     }
+
     uint64_t getChecksum() {
         return checksum;
     };
