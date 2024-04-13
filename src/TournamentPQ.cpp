@@ -1,11 +1,11 @@
 #include "TournamentPQ.h"
 
 /**
- * Runs a match between to provider.
+ * Compares two records
  *
- * @param first the first provider in the match.
- * @param second the second provider in the match.
- * @return true if the first provider wins the match, false otherwise.
+ * @param first the first record for comparison
+ * @param second the second record for comparison
+ * @return true if the first record is smaller than the second record or the first record does not exist; else false
  */
 bool isFirstWinner(shared_ptr<Record> &first, shared_ptr<Record> &second) {
     if(first == nullptr) {
@@ -13,18 +13,18 @@ bool isFirstWinner(shared_ptr<Record> &first, shared_ptr<Record> &second) {
     } else if(second == nullptr) {
         return true;
     }
-
     return first->compareTo(second) < 0;
 }
 
 /**
-   * Initializes TournamentPQ constructor
-   */
+ * Class constructor
+ * @param providers a vector of providers to use to run a match
+ * @param numProviders the total number of providers in the vector
+ */
 TournamentPQ::TournamentPQ(vector<shared_ptr<Provider>> providers, int numProviders): providers(providers) {
     this->numProviders = numProviders;
     this->losers = vector<int>(numProviders);
 
-    int index = 0;
     for (int i=0 ; i<numProviders ; i++) {
        records.push_back(providers[i]->next());
     }
@@ -60,8 +60,7 @@ TournamentPQ::TournamentPQ(vector<shared_ptr<Provider>> providers, int numProvid
 
 
 /**
- * TournamentPQ constructor
- * Determines which records are winners and losers in the given tournament
+ * Returns the next unique record in the sorted sequence
  */
 shared_ptr<Record> TournamentPQ::next() {
     int provider = losers[0];

@@ -4,17 +4,20 @@
 #include "Provider.h"
 
 /**
- * This class will be utilized to verify the correctness of the records sorting algorithm
- * Implements the Provider class
+ * This class is utilized to verify the correctness of the sorting algorithm
  */
 class Witness: public Provider {
 public:
-    // the witness constructor that takes in a provider
+    /**
+     * Class constructor
+     * @param source a provider to obtain records from
+     */
     Witness(shared_ptr<Provider> source): source(source), record(source->next()), count(0), checksum(0), sorted(true) {}
 
     /**
-     * Returns a pointer to the next record in the list and checks that each record key is sorted
-     * @return pointer to next record or null if no more records exists
+     * Returns a pointer to the next record from the provider
+     * Checks if the records are sorted and keeps track of duplicates
+     * @return pointer to next record or a nullptr if no more records exists
      */
     shared_ptr<Record> next() override {
         if(record == nullptr) return nullptr;
@@ -32,22 +35,41 @@ public:
         return result;
     }
 
+    /**
+     * Get method for the total number of records returned from the class' next() method
+     * @return record count
+     */
     uint64_t getCount() {
         return count;
     }
 
+    /**
+     * Returns the amount of duplicates uncovered
+     * @return duplicate count
+     */
     uint64_t getDuplicateCount() {
         return duplicateCount;
     }
 
+   /**
+    * Get method for the class' checksum value that is used to verify the sorting algorithm's correctness between witnesses
+    * @return class' checksum value
+    */
     uint64_t getChecksum() {
         return checksum;
     };
 
+    /**
+     * Get method to reveal if records were sorted or not
+     * @return true if records were sorted else false
+     */
     bool isSorted() {
         return sorted;
     }
 
+     /**
+      * Prints the class' statistics to the terminal
+      */
     void writeStats(std::ostream& out, string name) {
         out << "Witness: " << name << endl;
         out << "    record count     : " << count << endl;
@@ -58,10 +80,16 @@ public:
 
 
 private:
-    shared_ptr<Provider> source; // the source that will generate records
-    shared_ptr<Record> record;   // lastRecord seen
-    uint64_t count;              // keeps track of all the records generated
-    uint64_t checksum;           // keeps track of checksum value
-    bool sorted;                 // bool value that indicates if records have been sorted
-    uint64_t duplicateCount;     // bool value if the witness saw two consecutive identical records
+    // the source that will generate records
+    shared_ptr<Provider> source;
+    // lastRecord seen
+    shared_ptr<Record> record;
+    // keeps track of all the records generated
+    uint64_t count;
+    // keeps track of checksum value
+    uint64_t checksum;
+    // bool value that indicates if records have been sorted
+    bool sorted;
+    // bool value if the witness saw two consecutive identical records
+    uint64_t duplicateCount;
 };
