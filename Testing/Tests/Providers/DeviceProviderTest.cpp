@@ -3,7 +3,6 @@
 #include "Provider.h"
 #include "src/Witness.h"
 #include "test/helpers/TreeSorter.h"
-#include "test/helpers/NoopSorter.h"
 #include "Testing/TestProviders/DropFirst.h"
 #include "src/Consumer.h"
 

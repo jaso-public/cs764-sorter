@@ -109,11 +109,14 @@ add_executable(testWitness
         src/Record.h
         src/Record.cpp
         src/Provider.h
+        src/Provider.cpp
         src/Witness.h
         src/Consumer.h
+        src/Consumer.cpp
+        src/IODevice.h
+        src/IODevice.cpp
         src/Generator.h
         src/Generator.cpp
-        test/helpers/NoopSorter.h
         Testing/TestProviders/DropFirst.h
         Testing/TestProviders/DropFirst.cpp
         test/helpers/TreeSorter.h
@@ -261,7 +264,6 @@ add_executable(testDeviceProvider
         src/Witness.h
         src/Generator.h
         src/Generator.cpp
-        test/helpers/NoopSorter.h
         src/Consumer.h
         Testing/TestProviders/DropFirst.h
         Testing/TestProviders/DropFirst.cpp
