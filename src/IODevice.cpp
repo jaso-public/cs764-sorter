@@ -119,6 +119,15 @@ void IODevice::writeStats(std::ostream& out) {
     }
 }
 
+
+uint64_t IODevice::get_tsc() {
+    uint32_t lo, hi;
+    // Inline assembly to read TSC
+    __asm__ volatile ("rdtsc" : "=a" (lo), "=d" (hi));
+    return ((uint64_t)hi << 32) | lo;
+}
+
+
 uint64_t IODevice::getReadCount() { return readCount; }
 uint64_t IODevice::getReadSize() { return readSize; }
 double   IODevice::getTotalRead() { return totalReadSeconds; }
