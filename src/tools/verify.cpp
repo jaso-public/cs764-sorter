@@ -58,7 +58,7 @@ int main (int argc, char * argv []) {
     consumer->consume();
 
     inputDevice->writeStats(*out);
-    witness->writeStats(*out, "copyTool");
+    witness->writeStats(*out, "VerifyTool");
 
     return 0;
 }
