@@ -100,12 +100,12 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
 }
 
 void IODevice::writeStats(std::ostream& out) {
+    out << "Device: " << path << endl;
+
     if(getReadCount() + getWriteCount() == 0) {
-        out << "Device: " << path << " was never used." << endl;
-        return;
+        out << "    never accessed" << endl;
     }
 
-    out << "Device: " << path << endl;
     if(getReadCount() > 0) {
         out << "    read" << endl;
         out << "        count       : " << getReadCount() << " calls" << endl;
