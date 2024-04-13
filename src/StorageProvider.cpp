@@ -24,9 +24,6 @@ shared_ptr<Record> StorageProvider::next() {
     while(true) {
         if(recordRemaining < 1) {
             nextRecord++;
-
-            cout << "storage provider returns record -- nextRecord:" << nextRecord << endl;
-
             return make_shared<Record>(data);
         }
 
@@ -36,7 +33,7 @@ shared_ptr<Record> StorageProvider::next() {
             if(storageRemaining < sizeToRead) sizeToRead = storageRemaining;
             int count = cfg->storage->read(storageOffset, cfg->buffer, sizeToRead);
             if(count != sizeToRead) {
-                cerr <<"real message\n";
+                cerr <<"Error in storage provider\n";
                 exit(1);
             }
             storageOffset += sizeToRead;

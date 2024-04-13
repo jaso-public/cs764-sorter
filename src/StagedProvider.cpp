@@ -47,7 +47,7 @@ shared_ptr<Record> StagedProvider::next() {
                 if(storageRemaining < sizeToRead) sizeToRead = storageRemaining;
                 int count = cfg->storage->read(storageOffset,  cfg->transferBuffer, sizeToRead);
                 if(count != sizeToRead) {
-                    cerr <<"real message\n";
+                    cerr <<"Error in staged provider\n";
                     exit(1);
                 }
                 storageOffset += sizeToRead;
@@ -79,7 +79,7 @@ shared_ptr<Record> StagedProvider::next() {
                 if(stagingRemaining < sizeToRead) sizeToRead = stagingRemaining;
                 int count = cfg->staging->read(cfg->stagingStartOffset + stagingOffset, cfg->buffer, sizeToRead);
                 if(count != sizeToRead) {
-                    cerr <<"real message\n";
+                    cerr <<"Error in staged provider\n";
                     exit(1);
                 }
                 stagingOffset += sizeToRead;
