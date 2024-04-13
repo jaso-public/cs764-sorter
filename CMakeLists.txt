@@ -148,7 +148,7 @@ add_executable(testRandomGenerator
         src/Generator.cpp
         src/Provider.cpp
         src/Provider.h
-        Testing/Tests/Providers/RandomGeneratorTest.cpp
+        Testing/RandomGeneratorTest.cpp
         src/IODevice.h
         src/IODevice.cpp
 )
@@ -165,7 +165,7 @@ add_executable(testConsumer
         src/Generator.cpp
         src/Provider.h
         src/Provider.cpp
-        Testing/Tests/ConsumerTest.cpp
+        Testing/ConsumerTest.cpp
         src/Consumer.h
         src/IODevice.h
         src/IODevice.cpp
@@ -178,7 +178,7 @@ add_custom_command(TARGET testConsumer
 )
 
 add_executable(testEmptyProvider
-        Testing/Tests/Providers/EmptyProviderTest.cpp
+        Testing/EmptyProviderTest.cpp
 )
 
 add_custom_command(TARGET testEmptyProvider
@@ -188,7 +188,7 @@ add_custom_command(TARGET testEmptyProvider
 )
 
 add_executable(testDeviceProvider
-        Testing/Tests/Providers/DeviceProviderTest.cpp
+        Testing/DeviceProviderTest.cpp
         src/IODevice.cpp
         src/IODevice.h
         src/Record.cpp
@@ -281,7 +281,7 @@ add_executable(testLotsOfHddRuns
         src/TournamentPQ.h
         src/IODevice.h
         src/IODevice.cpp
-        Testing/Tests/LotsOfHddRuns.cpp
+        Testing/LotsOfHddRuns.cpp
         src/Sorter.cpp
         src/Sorter.h
         src/Consumer.h
@@ -311,8 +311,8 @@ add_executable(testSpillToOneBlockToSdd
         src/TournamentPQ.h
         src/IODevice.h
         src/IODevice.cpp
-        Testing/Tests/Spilling/SpillOneBlockToSsd.cpp
-        Testing/Tests/Spilling/SpillOneBlockToSsd.cpp
+        Testing/SpillOneBlockToSsd.cpp
+        Testing/SpillOneBlockToSsd.cpp
         src/Sorter.cpp
         src/Sorter.h
         src/Consumer.h
@@ -342,7 +342,7 @@ add_executable(testStorageProvider
         src/TournamentPQ.h
         src/IODevice.h
         src/IODevice.cpp
-        Testing/Tests/Providers/StorageProviderTest.cpp
+        Testing/StorageProviderTest.cpp
         src/Sorter.cpp
         src/Sorter.h
         src/Consumer.h
