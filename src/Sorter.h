@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <chrono>
 
 #include "Record.h"
 #include "Provider.h"
@@ -41,6 +42,7 @@ class Sorter: public Provider {
 public:
     Sorter(unique_ptr<SorterConfig> &cfg, shared_ptr<Provider> source);
     shared_ptr<Record> next() override;
+    void writeStats(std::ostream& out);
 
 private:
     shared_ptr<SorterConfig> cfg;
@@ -51,6 +53,8 @@ private:
     vector<shared_ptr<Run>> memoryRuns;
     vector<shared_ptr<Run>> ssdRuns;
     vector<shared_ptr<Run>> hddRuns;
+
+    chrono::time_point<std::chrono::high_resolution_clock> startTime;
 
     long ssdOffset;
     long ssdRemaining;

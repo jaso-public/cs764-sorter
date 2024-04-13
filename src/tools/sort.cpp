@@ -129,6 +129,7 @@ int main (int argc, char * argv []) {
     hddDevice->writeStats(*out);
     lower->writeStats(*out, "pre-sort");
     upper->writeStats(*out, "post-sort");
+    sorter->writeStats(*out);
 
     return 0;
 }

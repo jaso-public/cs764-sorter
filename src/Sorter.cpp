@@ -18,6 +18,8 @@ void SorterConfig::writeStats(std::ostream& out) {
 }
 
 Sorter::Sorter(unique_ptr<SorterConfig> &config, shared_ptr<Provider> src) {
+    startTime = std::chrono::high_resolution_clock::now();
+
     cfg = std::move(config);
     source = src;
 
@@ -298,5 +300,15 @@ long Sorter::roundUp(long value, long multiple) {
     if(quotient * multiple == value) return value;
     return (quotient + 1) * multiple;
 }
+
+void Sorter::writeStats(std::ostream& out) {
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - startTime);
+    double elapsed = duration.count();
+    elapsed = elapsed / 1e9;
+
+    out << fixed << setprecision(6) << "  compare count: " << Record::getCompareCount() << " comparisons" << endl;
+    out << fixed << setprecision(6) << "   elapsed time: " << elapsed << " seconds" << endl;
+ }
 
 
