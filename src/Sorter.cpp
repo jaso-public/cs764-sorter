@@ -22,6 +22,17 @@ Sorter::Sorter(unique_ptr<SorterConfig> &config, shared_ptr<Provider> src) {
     startTime = std::chrono::high_resolution_clock::now();
 
     cfg = std::move(config);
+
+    if(cfg->ssdDevice == nullptr) {
+        cerr << "we need an ssd device." << endl;
+        exit(1);
+    }
+
+    if(cfg->hddDevice == nullptr) {
+        cerr << "we need an hdd device." << endl;
+        exit(1);
+    }
+
     source = src;
 
     ssdOffset = 0;

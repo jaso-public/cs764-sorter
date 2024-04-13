@@ -15,8 +15,8 @@ void testSpillToHdd() {
     cfg->memoryBlockSize = 1000;
     auto ssdDevice = make_shared<IODevice>("ssd.stage");
     auto hddDevice = make_shared<IODevice>("hdd.stage");
-//    cfg->ssdDevice = ssdDevice;
-//    cfg->hddDevice = hddDevice;
+    cfg->ssdDevice = ssdDevice;
+    cfg->hddDevice = hddDevice;
 
 
 
