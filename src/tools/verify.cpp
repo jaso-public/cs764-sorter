@@ -59,6 +59,6 @@ int main (int argc, char * argv []) {
 
     inputDevice->writeStats(*out);
     witness->writeStats(*out, "VerifyTool");
-
+    *out << "record size: " << recordSize << std::endl;
     return 0;
 }

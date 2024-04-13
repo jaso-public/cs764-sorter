@@ -48,9 +48,9 @@ private:
 
     shared_ptr<Provider> sortedProvider;
 
-    vector <Run> memoryRuns;
-    vector <Run> ssdRuns;
-    vector <Run> hddRuns;
+    vector<shared_ptr<Run>> memoryRuns;
+    vector<shared_ptr<Run>> ssdRuns;
+    vector<shared_ptr<Run>> hddRuns;
 
     long ssdOffset;
     long ssdRemaining;
@@ -64,7 +64,7 @@ private:
     shared_ptr<Provider> startSort();
     void makeFreeSpace();
     void releaseMemory(int numberBuffersToRelease);
-    void storeRun(Provider *provider, long recordCount);
+    void storeRun(shared_ptr<Provider> provider, long recordCount);
     long roundUp(long value, long multiple);
 };
 
