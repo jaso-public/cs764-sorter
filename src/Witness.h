@@ -85,5 +85,5 @@ private:
     uint64_t count;              // keeps track of all the records generate
     uint64_t checksum;           // keeps track of checksum value
     bool sorted;                 // bool value that indicates if records have been sorted
-    uint64_t duplicateCount;     // bool value if the witness saw two consecutive identical records
+    uint64_t duplicateCount;     // total number of duplicates witness has seen
 };
