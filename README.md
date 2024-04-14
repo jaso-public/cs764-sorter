@@ -57,7 +57,7 @@ This class is utilized to obtain and read records between the HDD and SSD. It wi
 ### Class Constructor
 The constructor sets the class' default values and Staging Config class.
 
-## next()
+### next()
 The next method will continue to pull chunks out of the HDD and place them into the SSD for reading. If all records have been read from the HDD, then a null pointer will be returned.
 
 
