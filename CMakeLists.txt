@@ -29,7 +29,7 @@ add_executable(sort
         src/Sorter.cpp
         src/Convert.h
         src/tools/SortMain.cpp
-        src/tools/sort.cpp)
+        src/tools/Sort.cpp)
 
 add_executable(generate
         src/Record.h
@@ -42,21 +42,8 @@ add_executable(generate
         src/IODevice.cpp
         src/Generator.h
         src/Generator.cpp
-        src/tools/generate.cpp
-        )
-
-add_executable(copy
-        src/Record.h
-        src/Record.cpp
-        src/Provider.h
-        src/Provider.cpp
-        src/Consumer.h
-        src/Consumer.cpp
-        src/IODevice.h
-        src/IODevice.cpp
-        src/Witness.h
-        src/Generator.cpp
-        src/tools/copy.cpp
+        src/tools/GenerateMain.cpp
+        src/tools/Generate.cpp
         )
 
 add_executable(verify
@@ -70,7 +57,8 @@ add_executable(verify
         src/IODevice.cpp
         src/Witness.h
         src/Generator.cpp
-        src/tools/verify.cpp
+        src/tools/VerifyMain.cpp
+        src/tools/Verify.cpp
         )
 
 add_executable(testRecord
@@ -314,7 +302,7 @@ add_executable(testGenerateRecords
         src/IODevice.cpp
         src/Generator.h
         src/Generator.cpp
-        src/tools/generate.cpp
+        src/tools/GenerateMain.cpp
         Testing/TestGenerateRecords.cpp
         src/StagedProvider.h
         src/StagedProvider.cpp
@@ -327,7 +315,7 @@ add_executable(testGenerateRecords
         src/Sorter.cpp
         src/Convert.h
         src/tools/SortMain.cpp
-        src/tools/sort.cpp)
+        src/tools/Sort.cpp src/tools/Verify.cpp src/tools/Generate.cpp)
 
 add_custom_command(TARGET testGenerateRecords
         POST_BUILD

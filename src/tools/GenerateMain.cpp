@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void usage(const char* programName, const char* message) {
+void generateUsage(const char* programName, const char* message) {
     cout << "Error: " << message << endl;
     cout << "usage: " << programName << " [options]" << endl;
     cout << "       -f<filename>    name of the output file to generate." << endl;
@@ -39,7 +39,7 @@ void usage(const char* programName, const char* message) {
     exit(1);
 }
 
-int main (int argc, char * argv []) {
+int generateMain (int argc, char * argv []) {
 
     string fileName = "input.txt";
     uint64_t recordCount = 1000;
@@ -52,7 +52,7 @@ int main (int argc, char * argv []) {
     while ((opt = getopt(argc, argv, "f:c:s:p:r:nh")) != -1) {
         switch (opt) {
             case 'h':
-                usage(argv[0], "This help message.");
+                generateUsage(argv[0], "This help message.");
                 break;
             case 'f':
                 fileName = optarg;
@@ -62,22 +62,22 @@ int main (int argc, char * argv []) {
                 break;
             case 'c':
                 if(! parseInteger(optarg, recordCount)) {
-                    usage(argv[0], "unable to parse record count");
+                    generateUsage(argv[0], "unable to parse record count");
                 }
                 break;
             case 's':
                 if(! parseInteger(optarg, recordSize)) {
-                    usage(argv[0], "unable to parse record size");
+                    generateUsage(argv[0], "unable to parse record size");
                 }
                 break;
             case 'p':
                 if(! parseFloatingPoint(optarg, probability)) {
-                    usage(argv[0], "unable to parse probability for duplicates");
+                    generateUsage(argv[0], "unable to parse probability for duplicates");
                 }
                 break;
             case 'r':
                 if(! parseInteger(optarg, range)) {
-                    usage(argv[0], "unable to parse range of the duplicate keys");
+                    generateUsage(argv[0], "unable to parse range of the duplicate keys");
                 }
                 break;
             case '?':

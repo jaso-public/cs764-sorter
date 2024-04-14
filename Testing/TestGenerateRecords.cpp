@@ -1,4 +1,4 @@
-#include "./src/tools/generate.cpp"
+#include "./src/tools/GenerateMain.cpp"
 
     //TODO: I want to call the generator's class' main method, but I need to have a main method in here to run the test
     // I originally put the generator and sort methods into their own class, but we do not want to do this I do not think

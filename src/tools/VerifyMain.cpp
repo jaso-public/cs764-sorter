@@ -9,35 +9,27 @@
 
 using namespace std;
 
-void usage(const char* message) {
+void verifyUsage(const char* message) {
     std::cout << "Error: " << message << std::endl;
     std::cout << "other usage stuff needs to go here" << std::endl;
     exit(1);
 }
 
-int main (int argc, char * argv []) {
+int verifyMain (int argc, char * argv []) {
     int opt;
 
     string inputFileName = "input.txt";
-    string outputFileName = "output.txt";
     uint32_t recordSize = 128;
-
-    uint32_t ssdReadSize = 16 * 1024;
     uint32_t hddReadSize = 256 * 1024;
 
-
-
-    while ((opt = getopt(argc, argv, "o:i:j:d:h:c:s:k:l:x:y:z:")) != -1) {
+    while ((opt = getopt(argc, argv, "i:s:")) != -1) {
         switch (opt) {
             case 'i':
                 inputFileName = optarg;
                 break;
-            case 'j':
-                outputFileName = optarg;
-                break;
              case 's':
                 if(! parseInteger(optarg, recordSize)) {
-                    usage("unable to parse record size");
+                    verifyUsage("unable to parse record size");
                 }
                 break;
             case '?':
@@ -53,7 +45,7 @@ int main (int argc, char * argv []) {
 
     std::ostream* out = &std::cout;  // Default to cout
     *out << "input file: " << inputFileName << std::endl;
-    *out << "output file: " << outputFileName << std::endl;
+
     *out << "record size: " << recordSize << std::endl;
     Record::staticInitialize(recordSize);
 
@@ -61,14 +53,12 @@ int main (int argc, char * argv []) {
     auto inputDevice = make_shared<IODevice>(inputFileName);
     auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
     auto witness = make_shared<Witness>(provider);
-    auto outputDevice = make_shared<IODevice>(outputFileName);
-    auto consumer = make_shared<DeviceConsumer>(witness, outputDevice, hddReadSize);
+    auto consumer = make_shared<NoopConsumer>(witness);
 
     consumer->consume();
 
     inputDevice->writeStats(*out);
-    outputDevice->writeStats(*out);
-    witness->writeStats(*out, "copyTool");
-
+    witness->writeStats(*out, "VerifyTool");
+    *out << "record size: " << recordSize << std::endl;
     return 0;
 }

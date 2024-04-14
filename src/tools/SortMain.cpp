@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void usage(const char* message) {
+void sortUsage(const char* message) {
     std::cout << "Error: " << message << std::endl;
     std::cout << "other usage stuff needs to go here" << std::endl;
     exit(1);
@@ -55,22 +55,22 @@ int sortMain (int argc, char * argv []) {
                 break;
             case 's':
                 if(! parseInteger(optarg, recordSize)) {
-                    usage("unable to parse record size");
+                    sortUsage("unable to parse record size");
                 }
                 break;
             case 'x':
                 if(! parseInteger(optarg, cacheSize)) {
-                    usage("unable to parse the cache size");
+                    sortUsage("unable to parse the cache size");
                 }
                 break;
             case 'y':
                 if(! parseInteger(optarg, memorySize)) {
-                    usage("unable to parse the memory size");
+                    sortUsage("unable to parse the memory size");
                 }
                 break;
             case 'z':
                 if(! parseInteger(optarg, ssdSize)) {
-                    usage("unable to parse the ssd size");
+                    sortUsage("unable to parse the ssd size");
                 }
                 break;
             case '?':
