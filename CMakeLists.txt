@@ -314,7 +314,6 @@ add_executable(testGenerateRecords
         src/Sorter.h
         src/Sorter.cpp
         src/Convert.h
-        src/tools/VerifyMain.cpp
         src/tools/SortMain.cpp
 )
 
