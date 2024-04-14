@@ -1,7 +1,9 @@
 #include "./src/tools/generate.cpp"
 
-    //TODO: I want to call the generator's class' main method, but I need to have a main method in here to run the test?
-    //TODO: if I import sort.cpp I get an error because of the Convert.h template
+    //TODO: I want to call the generator's class' main method, but I need to have a main method in here to run the test
+    // I originally put the generator and sort methods into their own class, but we do not want to do this I do not think
+    // I didnt change anything in generator.cpp or sort.cpp for this reason
+    //TODO: if I import sort.cpp into this file I get an error because of the Convert.h template
 
     void testGenerateAndSortRecords(int recordSize, int recordCount, double probability, int range) {
         string inFile = "test-input.txt";
