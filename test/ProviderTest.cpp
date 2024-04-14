@@ -5,6 +5,7 @@
 #include "Provider.h"
 #include "src/Generator.h"
 
+//TODO: want a tester that automatically makes an input file, tests it, and deletes it
 void testTenRecords() {
     auto source = make_shared<RandomProvider>(10);
 
@@ -53,9 +54,18 @@ testMemoryProvider() {
      }
 }
 
+void testEmptyProvider() {
+    shared_ptr<Provider> generator = make_shared<EmptyProvider>();
+    for (int i = 0; i < 10; i++){
+        shared_ptr<Record> ptr = generator->next();
+        assert("Next should be nullptr" && ptr == nullptr );
+    }
+}
+
 int main(){
     testTenRecords();
     testSingleProvider();
     testMemoryProvider();
+    testEmptyProvider();
 
 }

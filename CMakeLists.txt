@@ -177,15 +177,6 @@ add_custom_command(TARGET testConsumer
         COMMENT "Running testConsumer..."
 )
 
-add_executable(testEmptyProvider
-        Testing/EmptyProviderTest.cpp
-)
-
-add_custom_command(TARGET testEmptyProvider
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testEmptyProvider
-        COMMENT "Running testEmptyProvider..."
-)
 
 add_executable(testDeviceProvider
         Testing/DeviceProviderTest.cpp
@@ -376,7 +367,6 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testIODevice>
-        COMMAND $<TARGET_FILE:testEmptyProvider>
         COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testProvider>
