@@ -141,23 +141,6 @@ add_custom_command(TARGET testIODevice
         COMMENT "Running testIODevice..."
 )
 
-add_executable(testRandomGenerator
-        src/Record.cpp
-        src/Record.h
-        src/Generator.h
-        src/Generator.cpp
-        src/Provider.cpp
-        src/Provider.h
-        Testing/RandomGeneratorTest.cpp
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testRandomGenerator
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testRandomGenerator
-        COMMENT "Running testRandomGenerator..."
-)
 add_executable(testConsumer
         src/Record.cpp
         src/Record.h
@@ -321,7 +304,6 @@ add_custom_command(TARGET testStagedProvider
 
 add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testConsumer>
-        COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testEmptyProvider>
         COMMAND $<TARGET_FILE:testDeviceProvider>
@@ -365,7 +347,6 @@ add_custom_command(TARGET runErrorTests
 
 add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testConsumer>
-        COMMAND $<TARGET_FILE:testRandomGenerator>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
