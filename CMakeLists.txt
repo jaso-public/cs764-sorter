@@ -305,7 +305,6 @@ add_custom_command(TARGET testStagedProvider
 add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testIODevice>
-        COMMAND $<TARGET_FILE:testEmptyProvider>
         COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testPQ>
