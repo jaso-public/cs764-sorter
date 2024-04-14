@@ -1,3 +1,6 @@
+#ifndef CONVERT_H
+#define CONVERT_H
+
 #include <charconv>
 #include <cstring>
 #include <iostream>
@@ -36,3 +39,4 @@ bool parseFloatingPoint(const std::string& str, T& value) {
     return iss.eof() && !iss.fail();
 }
 
+#endif // CONVERT_H
