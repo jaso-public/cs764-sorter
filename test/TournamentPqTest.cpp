@@ -35,7 +35,7 @@ void doTest(int numProviders) {
         for (int j = 0; j < 10; j++) {
             perProviderRecords.push_back(before->next());
         }
-        providers.push_back(make_unique<Provider>("prov", perProviderRecords));
+        providers.push_back(make_shared<Provider>("prov", perProviderRecords));
     }
 
     shared_ptr<TournamentPQ> pq = make_shared<TournamentPQ>(providers, numProviders);

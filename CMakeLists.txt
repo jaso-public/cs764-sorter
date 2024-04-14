@@ -302,6 +302,38 @@ add_custom_command(TARGET testStagedProvider
         COMMENT "Running testStagedProvider..."
 )
 
+add_executable(testGenerateRecords
+        src/Record.h
+        src/Record.cpp
+        src/Provider.h
+        src/Provider.cpp
+        src/Consumer.h
+        src/Consumer.cpp
+        src/IODevice.h
+        src/IODevice.cpp
+        src/Generator.h
+        src/Generator.cpp
+        src/tools/generate.cpp
+        Testing/TestGenerateRecords.cpp
+        src/StagedProvider.h
+        src/StagedProvider.cpp
+        src/StorageProvider.h
+        src/StorageProvider.cpp
+        src/TournamentPQ.cpp
+        src/TournamentPQ.h
+        src/Witness.h
+        src/Sorter.h
+        src/Sorter.cpp
+        src/Convert.h
+        src/tools/sort.cpp
+)
+
+add_custom_command(TARGET testGenerateRecords
+        POST_BUILD
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testGenerateRecords
+        COMMENT "Running testGenerateRecords..."
+)
+
 add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testIODevice>

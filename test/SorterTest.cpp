@@ -107,7 +107,6 @@ void testSorterConfigInitialization() {
 int main() {
     testSpill110ToHdd();
     testSorting("testSmallSort", 20, 20);
-    //TODO: testAllMemory fails plus others below
     testSorting("testAllMemory: ", 1000, 9000);
     testSorting("testSpillToSsdFewBlocks: ", 1024, 1024*100);
     testSorting("testSpillToSsd: ", 1000, 900000);
