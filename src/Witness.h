@@ -69,6 +69,8 @@ public:
 
      /**
       * Prints the class' statistics to the terminal
+      * @param out is the stream to write the output to
+      * @param name is a name to identify the Witness
       */
     void writeStats(std::ostream& out, string name) {
         out << "Witness: " << name << endl;

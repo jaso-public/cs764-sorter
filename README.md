@@ -1,6 +1,35 @@
 # CS764-sorter
 CS 764 class project for doing external sorts
 
+# Classes
+## Witness
+The witness class is designed to verify the correctness of the sorting algorithm by comparing a witness before sorting to a witness after sorting.
+### Class Constructor
+Its class constructor takes in a provider that it will obtain records from. It initializes the class' values, including the count (number of returned records), checksum, and the default sorted value of true.
+
+### next()
+The next method returns the next record from the provider or a null pointer if the next record does not exist. It also continuously computes the class' checksum value which is used when verifying the sort order between the lower and upper witness. This method keeps track of the number of duplicate records that were uncovered, and it changes the class' sorted value to false if two unsorted, consecutive records were ucovered.
+
+### getCount()
+This method returns the total number of records that have been returned by the class
+
+### getDuplicateCount()
+This method returns the total number of duplicates that the class has seen.
+
+### getChecksum()
+This method returns the class' computed checksum value that can be used to verify the validity between two witnesses
+
+### isSorted()
+This method returns a boolean value to display if the class was sorted or not.
+
+### writeStats(std::ostream& out, string name)
+This method will print out the class' statistics, including the count (number of records returned by the class), checksum, sorted, and duplicate count values.
+
+## TournamentPQ
+
+
+
+
 # Implemented Techniques
 ## Tournament Tree
 The tournament tree can be seen within the TournamentPQ.cpp and TournamentPQ.h files located within the ./src directory
