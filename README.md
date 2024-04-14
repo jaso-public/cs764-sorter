@@ -37,6 +37,24 @@ The verification of the sort order is completed via the Witness class. It ensure
 ### 125MB
 ### 12GB
 ### 120GB
+record count: 1073741824
+record size: 120
+probability: 0.01
+range: 9999
+new line: 1
+Device: input.txt
+write
+count        : 491520 calls
+size         : 128849018880 bytes
+time         : 33.204455 seconds
+average      : 3880473812 bytes/second
+maxTime      : 0.030100 seconds
+Witness: generate
+record count     : 1073741824
+checksum         : 2323403496170342774
+sorted           : false
+duplicate count  : 7
+
 
 ## Record Sizes
 ### 20B

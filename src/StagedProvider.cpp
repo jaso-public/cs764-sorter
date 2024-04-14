@@ -1,14 +1,15 @@
-
 #include <iostream>
 #include <memory>
-#include <algorithm> // for std::min
 
 #include "Record.h"
 #include "StagedProvider.h"
 
 using namespace std;
 
-
+/**
+  * Class constructor that takes in Staging Config
+  * @param cfg staging config
+ */
 StagedProvider::StagedProvider(unique_ptr<StagingConfig> &stagingCfg) {
     cfg = std::move(stagingCfg);
 
@@ -20,24 +21,26 @@ StagedProvider::StagedProvider(unique_ptr<StagingConfig> &stagingCfg) {
 
     bufferOffset = 0;
     bufferRemaining = 0;
-    nextRecord = 0;
+    totalRecordsReturned = 0;
 }
 
 /**
- * @return a pointer to the next record or a null pointer if all records have been generated
+   * Gets the next record from from the (staging) chunk of HDD
+   * Places the next HDD chunk into SDD for reading
+   * @returns a pointer to the next record or a null pointer if a next record doesn't exist
  */
 shared_ptr<Record> StagedProvider::next() {
-    if (nextRecord >= cfg->recordCount) return nullptr;
+    if (totalRecordsReturned >= cfg->recordCount) return nullptr;
 
     int recordSize = Record::getRecordSize();
-    unique_ptr<uint8_t[]> data = std::make_unique<uint8_t[]>(recordSize);
+    unique_ptr<uint8_t[]> data = make_unique<uint8_t[]>(recordSize);
 
     int recordRemaining = recordSize;
     int recordOffset = 0;
 
     while (true) {
         if (recordRemaining < 1) {
-            nextRecord++;
+            totalRecordsReturned++;
             return make_shared<Record>(data);
         }
 
