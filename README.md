@@ -26,6 +26,11 @@ This method returns a boolean value to display if the class was sorted or not.
 This method will print out the class' statistics, including the count (number of records returned by the class), checksum, sorted, and duplicate count values.
 
 ## TournamentPQ
+### Class Constructor
+
+### next()
+
+### isFirstWinner()
 
 
 

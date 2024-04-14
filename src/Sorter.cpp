@@ -241,6 +241,7 @@ void Sorter::makeFreeSpace() {
 
     int numToMove = (int)(sorted * cfg->fraction);
     if(numToMove < 1) numToMove = 1;
+    if(numToMove > cfg->memoryBlockCount - 1) numToMove = cfg->memoryBlockCount - 1;
 
     releaseMemory(numToMove);
 }
