@@ -8,7 +8,7 @@
  * @return whatever verifyMain returns.
  */
 
-int verifyMain(int argc, char** argv);
+#include "VerifyMain.h"
 
 int main(int argc, char** argv)  {
     return verifyMain(argc, argv);

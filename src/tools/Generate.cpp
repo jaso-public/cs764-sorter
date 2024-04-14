@@ -8,7 +8,7 @@
  * @return whatever generateMain returns.
  */
 
-int generateMain(int argc, char** argv);
+#include "Generate.h"
 
 int main(int argc, char** argv)  {
     return generateMain(argc, argv);

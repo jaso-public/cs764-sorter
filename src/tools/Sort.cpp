@@ -8,7 +8,7 @@
  * @return whatever sortMain returns.
  */
 
-int sortMain(int argc, char** argv);
+#include "SortMain.h"
 
 int main(int argc, char** argv)  {
     return sortMain(argc, argv);
