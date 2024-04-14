@@ -70,7 +70,7 @@ void testSorting(string testName, int recordSize, int recordCount){
     cfg->ssdReadSize = 500;
     cfg->ssdStorageSize = 50000;
 
-    auto provider = make_shared<RandomProvider>(recordCount, false);
+    auto provider = make_shared<RandomProvider>(recordCount);
     auto printer1 = make_shared<Printer>(provider, testName+"-before");
     auto lower = make_shared<Witness>(printer1);
     auto sorter = make_shared<Sorter>(cfg, lower);

@@ -362,10 +362,13 @@ add_custom_command(TARGET testStorageProvider
 
 add_executable(testStagedProvider
         src/Provider.h
+        src/Provider.cpp
         src/Record.cpp
         src/Record.h
         src/StagedProvider.cpp
         src/StagedProvider.h
+        src/StorageProvider.cpp
+        src/StorageProvider.h
         src/TournamentPQ.cpp
         src/TournamentPQ.h
         src/IODevice.h
