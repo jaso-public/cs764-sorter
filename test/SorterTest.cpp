@@ -75,14 +75,10 @@ void testSorting(string testName, int recordSize, int recordCount){
     auto lower = make_shared<Witness>(printer1);
     auto sorter = make_shared<Sorter>(cfg, lower);
     auto upper = make_shared<Witness>(sorter);
-    auto printer2 = make_shared<Printer>(upper,testName+"-after");
-
-    auto device = make_shared<IODevice>("output.txt");
-    auto consumer = make_shared<DeviceConsumer>(printer2, device, 256 * 1024);
+    auto consumer = make_shared<NoopConsumer>(upper);
     consumer->consume();
 
     std::ostream* out = &std::cout;
-    device->writeStats(*out);
 
     assert(("The count of the lower witness should have equaled the record count" && recordCount == lower->getCount()));
     assert(("The count of the upper witness should equaled the record count" && recordCount == upper->getCount()));

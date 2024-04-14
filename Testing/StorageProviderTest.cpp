@@ -22,13 +22,11 @@ void doTest(long recordCount) {
         storage.write(storageOffset, data, recordSize);
         delete(data);
         storageOffset += recordSize;
-
     }
 
     uint8_t* memory = new  uint8_t[10*1024*1024]; // 10MB
 
     uint8_t* buffer = memory;
-
 
     unique_ptr<StorageConfig> storageConfig = make_unique<StorageConfig>();
     storageConfig->buffer = buffer;

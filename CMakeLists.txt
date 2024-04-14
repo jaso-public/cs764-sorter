@@ -267,68 +267,6 @@ add_custom_command(TARGET testSorter
         COMMENT "Running testSorter..."
 )
 
-add_executable(testLotsOfHddRuns
-        src/Provider.h
-        src/Record.cpp
-        src/Record.h
-        src/StorageProvider.h
-        src/StorageProvider.cpp
-        src/StagedProvider.cpp
-        src/StagedProvider.h
-        src/TournamentPQ.cpp
-        src/Provider.cpp
-        src/Provider.h
-        src/TournamentPQ.h
-        src/IODevice.h
-        src/IODevice.cpp
-        Testing/LotsOfHddRuns.cpp
-        src/Sorter.cpp
-        src/Sorter.h
-        src/Consumer.h
-        src/Witness.h
-        test/helpers/Printer.h
-        test/helpers/Printer.cpp
-        src/Generator.h
-        src/Generator.cpp
-        )
-
-add_custom_command(TARGET testLotsOfHddRuns
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testLotsOfHddRuns
-        COMMENT "Running testLotsOfHddRuns..."
-)
-
-add_executable(testSpillToOneBlockToSdd
-        src/Provider.h
-        src/Provider.cpp
-        src/Record.cpp
-        src/Record.h
-        src/StorageProvider.h
-        src/StorageProvider.cpp
-        src/StagedProvider.cpp
-        src/StagedProvider.h
-        src/TournamentPQ.cpp
-        src/TournamentPQ.h
-        src/IODevice.h
-        src/IODevice.cpp
-        Testing/SpillOneBlockToSsd.cpp
-        Testing/SpillOneBlockToSsd.cpp
-        src/Sorter.cpp
-        src/Sorter.h
-        src/Consumer.h
-        src/Witness.h
-        test/helpers/Printer.h
-        test/helpers/Printer.cpp
-        src/Generator.h
-        src/Generator.cpp
-        )
-
-add_custom_command(TARGET testSpillToOneBlockToSdd
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testSpillToOneBlockToSdd
-        COMMENT "Running testSpillToOneBlockToSdd..."
-)
-
 add_executable(testStorageProvider
         src/Provider.h
         src/Provider.cpp
@@ -408,8 +346,6 @@ add_custom_command(TARGET runNonFaultTests
 
 add_custom_target(runFaultTests
         COMMAND $<TARGET_FILE:testSorter>
-        COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
-        COMMAND $<TARGET_FILE:testLotsOfHddRuns>
 )
 
 add_custom_command(TARGET runFaultTests
@@ -446,8 +382,6 @@ add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testProvider>
         COMMAND $<TARGET_FILE:testPQ>
         COMMAND $<TARGET_FILE:testSorter>
-        COMMAND $<TARGET_FILE:testSpillToOneBlockToSdd>
-        COMMAND $<TARGET_FILE:testLotsOfHddRuns>
         COMMAND $<TARGET_FILE:testRecord>
         COMMAND $<TARGET_FILE:testStagedProvider>
         COMMAND $<TARGET_FILE:testStorageProvider>

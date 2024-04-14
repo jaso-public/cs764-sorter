@@ -1,8 +1,6 @@
 # CS764-sorter
 CS 764 class project for doing external sorts
 
-# Functions
-
 # Implemented Techniques
 ## Tournament Tree
 The tournament tree can be seen within the TournamentPQ.cpp and TournamentPQ.h files located within the ./src directory
