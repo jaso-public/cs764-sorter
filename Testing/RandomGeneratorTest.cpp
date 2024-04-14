@@ -2,9 +2,9 @@
 #include "src/Generator.h"
 #include "Provider.h"
 
-void testCount10() {
-    auto generator = make_shared<RandomProvider>(10);
-    for (int i = 0; i < 10; i++){
+void testRandomGenerator(int recordCount){
+    auto generator = make_shared<RandomProvider>(recordCount);
+    for (int i = 0; i < recordCount; i++){
         shared_ptr<Record>  ptr = generator->next();
         assert("Next should have existed" && ptr != nullptr );
     }
@@ -12,18 +12,7 @@ void testCount10() {
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
-void testCount50() {
-    auto generator = make_shared<RandomProvider>(50);
-    for (int i = 0; i < 50; i++){
-        shared_ptr<Record> ptr = generator->next();
-        assert("Next should have existed" && ptr != nullptr );
-    }
-    shared_ptr<Record>  ptr = generator->next();
-    assert("Next should have given a null pointer" && ptr == nullptr );
-}
-
-
 int main(){
-    testCount10();
-    testCount50();
+    testRandomGenerator(10);
+    testRandomGenerator(50);
 }
