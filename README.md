@@ -26,13 +26,39 @@ This method returns a boolean value to display if the class was sorted or not.
 This method will print out the class' statistics, including the count (number of records returned by the class), checksum, sorted, and duplicate count values.
 
 ## TournamentPQ
+This class is utilized to obtain the next record with the smallest key from a vector of providers.
 ### Class Constructor
+The constructor initializes a tournament between the given providers.
 
 ### next()
+This method will return the next record with the smallest key from the given providers in the tournament or a null pointer if the tournament is complete. It will continue to run the tournament between the providers until the tournament is complete.
 
 ### isFirstWinner()
+This method compares two records and is utilized to assist in the completion of the tournament. If the first given record exists and is smaller than the second given record or the second given record does not exist, then it returns true. In all other cases, it returns false.
 
+## Storage Config
+The Storage Config class is a class that stores values to be utilized within the Storage Provider class. It helps guide the reading of records from SSD chunks.
 
+## Storage Provider
+This class it utilized to read chunks from the SSD until all SSD chunks have been read.
+
+### Class Constructor
+The class constructor initializes the class' initial values and Storage Config.
+
+### next()
+The next method will read the next record from the current SSD chunk or obtain a new SSD chunk to return a record from if it exists. If there are no more records/chunks to read, it will return a null pointer.
+
+## StagingConfig
+This class contains values to be used within the Staged Provider class.
+
+## Staged Provider
+This class is utilized to obtain and read records between the HDD and SSD. It will continue to transfer chunks between the HDD to the SSD until there are no longer any records on the HDD.
+
+### Class Constructor
+The constructor sets the class' default values and Staging Config class.
+
+## next()
+The next method will continue to pull chunks out of the HDD and place them into the SSD for reading. If all records have been read from the HDD, then a null pointer will be returned.
 
 
 # Implemented Techniques

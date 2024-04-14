@@ -4,7 +4,7 @@
  * This class is used to read chunks from the SSD
  */
 StorageProvider::StorageProvider(unique_ptr<StorageConfig> &config) {
-    cfg = std::move(config);
+    cfg = move(config);
 
     storageOffset = cfg->startOffset;
     storageRemaining = cfg->recordCount * Record::getRecordSize();
