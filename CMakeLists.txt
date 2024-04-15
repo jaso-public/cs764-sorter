@@ -29,7 +29,8 @@ add_executable(sort
         src/Sorter.cpp
         src/Convert.h
         src/tools/SortMain.cpp
-        src/tools/Sort.cpp)
+        src/tools/Sort.cpp
+        )
 
 add_executable(generate
         src/Record.h
@@ -67,7 +68,6 @@ add_executable(testRecord
         src/Record.h
         src/Generator.h
         src/Generator.cpp
-
         )
 
 add_custom_command(TARGET testRecord
