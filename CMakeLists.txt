@@ -315,7 +315,8 @@ add_executable(testGenerateRecords
         src/Sorter.cpp
         src/Convert.h
         src/tools/SortMain.cpp
-        src/tools/Sort.cpp src/tools/Verify.cpp src/tools/Generate.cpp src/tools/VerifyMain.h src/tools/SortMain.h src/tools/Generate.h)
+        src/tools/VerifyMain.cpp
+        src/tools/VerifyMain.h src/tools/SortMain.h src/tools/Generate.h)
 
 add_custom_command(TARGET testGenerateRecords
         POST_BUILD
