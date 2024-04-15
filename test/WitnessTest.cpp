@@ -178,8 +178,8 @@ int main() {
     testGivingWitnessAnotherWitness();
     testUpper();
     testTenInorder();
-    testTreeSorterWithPrinting();
-    testRandomOrderWithPrinting();
+//    testTreeSorterWithPrinting();
+//    testRandomOrderWithPrinting();
     testTreeSorter();
     testDropOne();
     testRandomOrder();

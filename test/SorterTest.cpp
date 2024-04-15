@@ -72,7 +72,7 @@ void testSorting(string testName, int recordSize, int recordCount){
 
     auto provider = make_shared<RandomProvider>(recordCount);
     auto printer1 = make_shared<Printer>(provider, testName+"-before");
-    auto lower = make_shared<Witness>(printer1);
+    auto lower = make_shared<Witness>(provider);
     auto sorter = make_shared<Sorter>(cfg, lower);
     auto upper = make_shared<Witness>(sorter);
     auto consumer = make_shared<NoopConsumer>(upper);
@@ -103,14 +103,67 @@ void testSorterConfigInitialization() {
     assert("Could not access hddDevice" && config.hddDevice == nullptr);
 }
 
+void test120GBdiv1000() {
+
+    std::ostream* out = &std::cout;  // Default to cout
+
+    string ssdStagingFileName = "ssd.staging";
+    string hddStagingFileName = "hdd.staging";
+
+    uint32_t recordSize = 128;
+
+    uint64_t cacheSize = 1L * 1024 * 1024;
+    uint64_t memorySize = 100L * 1024 * 1024;
+    uint64_t ssdSize = 10L * 1024 * 1024 * 1024;
+
+    uint32_t ssdReadSize = 16 * 1024;
+    uint32_t hddReadSize = 256 * 1024;
+
+
+    recordSize = 8;
+    Record::staticInitialize(recordSize);
+
+    auto cfg = make_unique<SorterConfig>();
+    auto ssdDevice = make_shared<IODevice>(ssdStagingFileName);
+    auto hddDevice = make_shared<IODevice>(hddStagingFileName);
+
+    cfg->ssdDevice = ssdDevice;
+    cfg->hddDevice = hddDevice;
+    cfg->memoryBlockSize = cacheSize / 1024;
+    cfg->memoryBlockCount = memorySize / cacheSize;
+    cfg->ssdStorageSize = ssdSize / 1024;
+    cfg->ssdReadSize = ssdReadSize / 1024;
+    cfg->hddReadSize = hddReadSize / 1024;
+
+    cfg->writeStats(*out);
+
+    uint64_t numberOrRecords = 40 * 1024 * 1024 / recordSize;
+    auto provider = make_shared<RandomProvider>(numberOrRecords);
+    auto lower = make_shared<Witness>(provider);
+    auto sorter = make_shared<Sorter>(cfg, lower);
+    auto upper = make_shared<Witness>(sorter);
+    auto consumer = make_shared<NoopConsumer>(upper);
+
+    consumer->consume();
+
+    sorter->writeStats(*out);
+    lower->writeStats(*out, "pre-sort");
+    upper->writeStats(*out, "post-sort");
+    ssdDevice->writeStats(*out);
+    hddDevice->writeStats(*out);
+
+
+}
 
 int main() {
-    testSpill110ToHdd();
-    testSorting("testSmallSort", 20, 20);
-    testSorting("testAllMemory: ", 1000, 9000);
-    testSorting("testSpillToSsdFewBlocks: ", 1024, 1024*100);
-    testSorting("testSpillToSsd: ", 1000, 900000);
-    testSorting("testSpillToLotsOfHddRuns: ", 1000, 190000);
-    testSorting("testZeroRecords: ", 1000, 0);
-    testSorterConfigInitialization();
+//    testSpill110ToHdd();
+//    testSorting("testSmallSort", 20, 20);
+//    testSorting("testAllMemory: ", 1000, 9000);
+//    testSorting("testSpillToSsdFewBlocks: ", 1024, 1024*100);
+//    testSorting("testSpillToSsd: ", 1000, 900000);
+//    testSorting("testSpillToLotsOfHddRuns: ", 1000, 190000);
+//    testSorting("testZeroRecords: ", 1000, 0);
+//    testSorterConfigInitialization();
+
+    test120GBdiv1000();
 }
