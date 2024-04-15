@@ -25,7 +25,7 @@ public:
     int memoryBlockCount = 100;                      // total blocks of memory (DRAM is 100MB)
 
     shared_ptr<IODevice> ssdDevice = nullptr;        // IO device to read and write from/to SSD
-    int ssdReadSize = 16 * 1024;                     // size of a read (~16,000 KB)
+    int ssdReadSize = 16 * 1024;                     // size of a SSD read (~16,000 KB)
     long ssdStorageSize = 10L * 1024 * 1024 * 1024;  // size of SSD (10GB)
 
     shared_ptr<IODevice> hddDevice = nullptr;        // IO device to read and write from/to HDD
@@ -38,6 +38,9 @@ public:
     void writeStats(std::ostream& out);
 };
 
+/**
+ * This class represents a run which is a group of records that can fit into memory
+ */
 class Run {
 public:
     Run(long _numRecords, long _offset): numRecords(_numRecords), offset(_offset) {}
@@ -55,8 +58,8 @@ class Sorter: public Provider {
 public:
     /**
      * Initializes class' values and begins sorting algorithm
-     * @param cfg sorter configuration
-     * @param source the provider to obtain records from
+     * @param cfg sorter config
+     * @param source the provider to obtain unsorted, records from
      */
     Sorter(unique_ptr<SorterConfig> &cfg, shared_ptr<Provider> source);
     /**
@@ -72,29 +75,51 @@ public:
 
 private:
     shared_ptr<SorterConfig> cfg;                                     // class' sorter config class
-    shared_ptr<Provider> source;                                      // the provider that is giving records to the class
+    shared_ptr<Provider> source;                                      // the provider that is giving unsorted records to the class
 
     shared_ptr<Provider> sortedProvider;                              // the provider that is returning sorted records
 
-    vector<shared_ptr<Run>> memoryRuns;
-    vector<shared_ptr<Run>> ssdRuns;
-    vector<shared_ptr<Run>> hddRuns;
+    vector<shared_ptr<Run>> memoryRuns;                               // the runs that in DRAM
+    vector<shared_ptr<Run>> ssdRuns;                                  // runs in SSD
+    vector<shared_ptr<Run>> hddRuns;                                  // runs in HDD
 
-    chrono::time_point<std::chrono::high_resolution_clock> startTime;  // the time of the start of the sort; starts as soon as class is initialized
+    chrono::time_point<std::chrono::high_resolution_clock> startTime; // the time of the start of the sort; starts as soon as class is initialized
 
-    long ssdOffset;                                                    // location in SSD to read from
-    long ssdRemaining;                                                 // total amount of unoccupied/filled SSD memory
-    long hddOffset;                                                    // location in HDD to read from
+    long ssdOffset;                                                   // current location in SSD
+    long ssdRemaining;                                                // total amount of unoccupied/unfilled SSD memory
+    long hddOffset;                                                   // current location in HDD
 
-    uint8_t *buffer;                                                   // memory buffer to store records in DRAM
-    int bufferLength;                                                  // size of DRAM
-    int lastMemoryRun;
+    uint8_t *buffer;                                                  // memory buffer to store records in DRAM
+    int bufferLength;                                                 // size of buffer
+    int lastMemoryRun;                                                // offset of the last memory run stored
 
 
+    /**
+     * This method preforms the external merge sort logic
+     * @return a provider that will return records in sorted order
+     */
     shared_ptr<Provider> startSort();
+    /**
+     * This method enables graceful degradation by defining a spill value (fraction) to spill from memory
+     */
     void makeFreeSpace();
+    /**
+     * This method will free up the memory space before or after a merge so more records can be stored; memory is freed by writing runs to the SSD and/or HDD via storeRuns()
+     * @param numberBuffersToRelease the number of runs to free from memory
+     */
     void releaseMemory(int numberBuffersToRelease);
+    /**
+     * This method writes records SSD or the HDD depending on the available space in the SSD
+     * @param provider the provider to provide records
+     * @param recordCount the total number of records that the provider contains
+     */
     void storeRun(shared_ptr<Provider> provider, long recordCount);
+    /**
+     * This method will return the nearest, rounded up value that is a multiple of the given multiple variable
+     * @param value the value to potentially round up
+     * @param multiple the desired multiple of the value
+     * @return the value, if it is a multiple of multiple or the closest multiple of multiple that is greater than the value
+    */
     long roundUp(long value, long multiple);
 };
 

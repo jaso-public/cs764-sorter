@@ -67,7 +67,7 @@ The sorter configuration class contains values to provide to the Sorter class su
 This method will print the values held by the class to the output stream including: spill fraction, cache size, memory size, HDD read size, SSD read size, and SSD size.
 
 ## Sorter
-contains all of our logic for completing the sort including: graceful degradation, spilling, and merging.
+This class contains all of our logic for completing the sort including: graceful degradation, spilling, and merging.
 
 ### Class Constructor
 The constructor initializes the class' values and ensures that an IO device was created for both the SSD and HDD. It begins the sorting algorithm by calling startSort().
@@ -79,20 +79,22 @@ This method will return the next sorted record.
 This method prints out the statistics of the sorting algorithm to a given output stream including its time of completion and comparison count.
 
 ### startSort()
+This method completes the external merge sort logic. It returns a provider that will return records in sorted order.
 
 ### makeFreeSpace()
+This method preforms spilling from a higher memory hierarchy to a lower one. It enables graceful degradation by defining a spill fraction.
 
 ### releaseMemory(int numberBuffersToRelease)
+This method is able to free up memory before or after a merge by writing runs to the SSD and/or HDD via storeRun().
 
 ### storeRun(shared_ptr<Provider> provider, long recordCount)
+This method will store runs by writing them to the SSD or HDD depending on the available space of the SSD.
 
 ### roundUp(long value, long multiple)
+This method will return the nearest, rounded up multiple of the variable multiple in comparison to the given value.
 
 ## Run
-
-### Class Constructor
-
-
+This class represents a run which is a group of records that can fit into memory. It is used as a type in sorting.
 
 # Implemented Techniques
 ## Tournament Tree
@@ -118,6 +120,7 @@ The generator class accepts various flags including the "-s" flag for record siz
 ### Beyond One Merge Step
 
 ## Optimized Merge Patterns
+We completed optimized merge patterns through the sorter class.
 
 ## Verifying Sort Order
 The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record. If not, the class' sorted variable is set to false (line 34). This boolean value can be obtained from the class' isSorted() method (lines 66-68). This class can be found in the Witness.h file in ./src.

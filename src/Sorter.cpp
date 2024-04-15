@@ -63,10 +63,14 @@ shared_ptr<Record> Sorter::next() {
     return sortedProvider->next();
 }
 
-
+/**
+ * This method preforms the external merge sort logic
+ * @return a provider that will return records in sorted order
+*/
 shared_ptr<Provider> Sorter::startSort() {
     int maxRecordsPerRun = cfg->memoryBlockSize / Record::getRecordSize();
 
+    // creates a single provider for each record in a run
     vector<shared_ptr<Provider>> singles(maxRecordsPerRun);
     for (int i = 0; i < maxRecordsPerRun; ++i) {
         singles[i] = make_unique<SingleProvider>();
@@ -81,6 +85,7 @@ shared_ptr<Provider> Sorter::startSort() {
                 endReached = true;
                 break;
             }
+            // gives each provider in singles a record to return
             shared_ptr<SingleProvider> singleProvider = dynamic_pointer_cast<SingleProvider>(singles[recordCount++]);
             singleProvider->reset(recordPtr);
         }
@@ -123,7 +128,7 @@ shared_ptr<Provider> Sorter::startSort() {
         }
 
         // set up the providers for the final merge run.
-        // add all the memory to the provider as well as ssd/hdd runs with the device's perferred io size.
+        // add all the memory to the provider as well as ssd/hdd runs with the device's preferred io size.
         vector<shared_ptr<Provider>> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
         int index = 0;
         for (shared_ptr<Run> run: memoryRuns) {
@@ -141,7 +146,7 @@ shared_ptr<Provider> Sorter::startSort() {
             storageConfig->buffer = buffer + offset;
             storageConfig->bufferLength = cfg->hddReadSize;
             storageConfig->storage = cfg->hddDevice;
-            offset += cfg->hddReadSize;  // leave room in the buffer to stage hdd dtata
+            offset += cfg->hddReadSize;  // leave room in the buffer to stage hdd data
             providers[index++] = make_shared<StorageProvider>(storageConfig);
         }
 
@@ -171,7 +176,7 @@ shared_ptr<Provider> Sorter::startSort() {
 
     // max number of merge runs that can be merged using cfg.ssdReadSize chunk sized memory for each run
     // Note we reserve one cfg.hddReadSize block of memory to transfer data from the hdd back to the ssd
-    // and each run requires enough space to read an ssd read sized chunk into memory
+    // and each run requires enough space to read a ssd read sized chunk into memory
     int maxMergeRuns = ((cfg->memoryBlockCount * cfg->memoryBlockSize) - cfg->hddReadSize) / cfg->ssdReadSize;
     int runsToMergeForCount = ssdRuns.size() + hddRuns.size() - maxMergeRuns;
 
@@ -255,6 +260,9 @@ shared_ptr<Provider> Sorter::startSort() {
     return result;
 }
 
+/**
+ * This method enables graceful degradation by defining a spill value (fraction) to spill from memory
+ */
 void Sorter::makeFreeSpace() {
     long sorted = ssdOffset + hddOffset;
     sorted /= cfg->memoryBlockSize;
@@ -268,6 +276,10 @@ void Sorter::makeFreeSpace() {
     releaseMemory(numToMove);
 }
 
+/**
+ * This method will free up the memory space before or after a merge so more records can be stored; memory is freed by writing runs to the SSD and/or HDD via storeRuns()
+ * @param numberBuffersToRelease the number of runs to free from memory
+*/
 void Sorter::releaseMemory(int numberBuffersToRelease) {
     vector<shared_ptr<Provider>> providers(numberBuffersToRelease);
 
@@ -288,6 +300,11 @@ void Sorter::releaseMemory(int numberBuffersToRelease) {
 }
 
 
+/**
+ * This method writes records SSD or the HDD depending on the available space in the SSD
+ * @param provider the provider to provide records
+ * @param recordCount the total number of records that the provider contains
+*/
 void Sorter::storeRun(shared_ptr<Provider> provider, long recordCount) {
     int recordSize = Record::getRecordSize();
     long spaceRequired = recordCount * recordSize;
@@ -335,6 +352,12 @@ void Sorter::storeRun(shared_ptr<Provider> provider, long recordCount) {
     device->write(deviceOffset, buffer, bufferOffset);
 }
 
+/**
+ * This method will return the nearest, rounded up value that is a multiple of the given multiple variable
+ * @param value the value to potentially round up
+ * @param multiple the desired multiple of the value
+ * @return the value, if it is a multiple of multiple or the closest multiple of multiple that is greater than the value
+ */
 long Sorter::roundUp(long value, long multiple) {
     long quotient = value / multiple;
     if(quotient * multiple == value) return value;
