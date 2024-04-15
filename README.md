@@ -60,6 +60,14 @@ The constructor sets the class' default values and Staging Config class.
 ### next()
 The next method will continue to pull chunks out of the HDD and place them into the SSD for reading. If all records have been read from the HDD, then a null pointer will be returned.
 
+## SorterConfig
+The sorter configuration class contains values to provide to the Sorter class such as the size of memory and the size of the SSD.
+
+### writeStats(std::ostream& out)
+This method will print the values held by the class to the output stream including: spill fraction, cache size, memory size, HDD read size, SSD read size, and SSD size.
+
+
+
 
 # Implemented Techniques
 ## Tournament Tree
