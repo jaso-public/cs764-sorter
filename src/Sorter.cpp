@@ -7,7 +7,10 @@
 #include "StagedProvider.h"
 #include "TournamentPQ.h"
 
-
+/**
+ * Prints values held by the class to the output stream including: spill fraction, cache size, memory size, HDD read size, SSD read size, and SSD size
+ * @param out stream to write statistics to
+*/
 void SorterConfig::writeStats(std::ostream& out) {
     out << "Sorter Configuration:" << endl;
     out << "    spill fraction   : " << fixed << setprecision(3) << (fraction*100.0)  << "%" << endl;
@@ -18,8 +21,13 @@ void SorterConfig::writeStats(std::ostream& out) {
     out << "    SSD size         : " << ssdStorageSize << endl;
 }
 
+/**
+ * Initializes class' values and begins sorting algorithm
+ * @param cfg sorter configuration
+ * @param source the provider to obtain records from
+*/
 Sorter::Sorter(unique_ptr<SorterConfig> &config, shared_ptr<Provider> src) {
-    startTime = std::chrono::high_resolution_clock::now();
+    startTime = chrono::high_resolution_clock::now();
 
     cfg = std::move(config);
 
@@ -47,6 +55,10 @@ Sorter::Sorter(unique_ptr<SorterConfig> &config, shared_ptr<Provider> src) {
     sortedProvider = startSort();
 }
 
+/**
+ * Provides the next, sorted record
+ * @return a pointer to the next, sorted record or a null pointer if all records have been returned
+*/
 shared_ptr<Record> Sorter::next() {
     return sortedProvider->next();
 }
@@ -329,9 +341,13 @@ long Sorter::roundUp(long value, long multiple) {
     return (quotient + 1) * multiple;
 }
 
+/**
+ * Prints out the statistics of the sorting algorithm including the elapsed time it took for sorting to complete and how many comparisons occurred
+ * @param out the stream to write the statistics to
+*/
 void Sorter::writeStats(std::ostream& out) {
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - startTime);
+    auto end = chrono::high_resolution_clock::now();
+    auto duration =chrono::duration_cast<std::chrono::nanoseconds>(end - startTime);
     double elapsed = duration.count();
     elapsed = elapsed / 1e9;
 

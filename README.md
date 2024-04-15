@@ -66,6 +66,31 @@ The sorter configuration class contains values to provide to the Sorter class su
 ### writeStats(std::ostream& out)
 This method will print the values held by the class to the output stream including: spill fraction, cache size, memory size, HDD read size, SSD read size, and SSD size.
 
+## Sorter
+contains all of our logic for completing the sort including: graceful degradation, spilling, and merging.
+
+### Class Constructor
+The constructor initializes the class' values and ensures that an IO device was created for both the SSD and HDD. It begins the sorting algorithm by calling startSort().
+
+### next()
+This method will return the next sorted record.
+
+### writeStats(std::ostream& out)
+This method prints out the statistics of the sorting algorithm to a given output stream including its time of completion and comparison count.
+
+### startSort()
+
+### makeFreeSpace()
+
+### releaseMemory(int numberBuffersToRelease)
+
+### storeRun(shared_ptr<Provider> provider, long recordCount)
+
+### roundUp(long value, long multiple)
+
+## Run
+
+### Class Constructor
 
 
 
