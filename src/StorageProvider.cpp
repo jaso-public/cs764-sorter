@@ -1,7 +1,8 @@
 #include "StorageProvider.h"
 
 /**
- * This class is used to read chunks from the SSD
+ * Class constructor
+ * @param cfg the configuration file
  */
 StorageProvider::StorageProvider(unique_ptr<StorageConfig> &config) {
     cfg = std::move(config);

@@ -60,7 +60,8 @@ TournamentPQ::TournamentPQ(vector<shared_ptr<Provider>> providers, int numProvid
 
 
 /**
- * Returns the next unique record in the sorted sequence
+ * Gets the next record from the provider
+ * @returns a pointer to the next record or a null pointer if a next record doesn't exist
  */
 shared_ptr<Record> TournamentPQ::next() {
     int provider = losers[0];

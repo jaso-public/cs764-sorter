@@ -66,18 +66,6 @@ vector<shared_ptr<Record>> generateRandom(int recordCount) {
     return generateRandom(recordCount, false);
 }
 
-vector<shared_ptr<Record>> generateDuplicate(int recordCount) {
-    return generateRandom(recordCount);
-}
-
-vector<shared_ptr<Record>> generateRandomWithCrc(int recordCount) {
-    vector<shared_ptr<Record>> results = generateRandom(recordCount);
-
-    //TODO actually add the crc
-
-    return results;
-}
-
 bool isCrcValid(shared_ptr<Record> record) {
     // TODO actually check the embedded crc value in the record.
     return true;
