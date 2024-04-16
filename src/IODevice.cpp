@@ -32,6 +32,9 @@ IODevice::IODevice(string filePath) {
 
 }
 
+/**
+ * Class destructor that will close the file that is being read/written to
+*/
 IODevice::~IODevice() {
     if(fd < 0) return;
 
@@ -50,7 +53,7 @@ IODevice::~IODevice() {
  * @param len the number of byes to be read
  */
 int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
 
     uint32_t count = pread(fd, buffer, len, offset);
     if(count < 0) {
@@ -58,8 +61,8 @@ int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
         exit(-1);
     }
 
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start);
     double elapsed = duration.count();
     elapsed = elapsed / 1e9;
 
@@ -80,7 +83,7 @@ int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
 void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
     if(len == 0) return;
 
-    auto start = std::chrono::high_resolution_clock::now();
+    auto start = chrono::high_resolution_clock::now();
 
     uint32_t count = pwrite(fd, src, len, offset);
     if(count != len) {
@@ -88,8 +91,8 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
         exit(-1);
     }
 
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start);
     double elapsed = duration.count();
     elapsed = elapsed / 1e9;
 
@@ -99,7 +102,11 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
     if(elapsed > maxWriteSeconds) maxWriteSeconds = elapsed;
 }
 
-void IODevice::writeStats(std::ostream& out) {
+/**
+ * This method will print out statistics from the read/write operations
+ * @param out the stream to print the statistics to
+ */
+void IODevice::writeStats(ostream& out) {
     out << "Device: " << path << endl;
 
     if(getReadCount() + getWriteCount() == 0) {

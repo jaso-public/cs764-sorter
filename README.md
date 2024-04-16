@@ -189,6 +189,28 @@ The class constructor automatically drops the first record from the given source
 ### next()
 This method returns the next record from the provider or a null pointer if all records have been returned.
 
+## IODevice
+This class will read and write data from a file. It is utilized to read data from the input file and to read/write from temporary files and the final output file.
+
+### Class Constructor
+The class constructor will initialize the class' variables and open the given file for reading and writing. It will catch an exception if the given file cannot be open.
+
+### Class Destructor
+The class destructor will close the file that the class is reading/writing from.
+
+### read(uint64_t offset, uint8_t* dst, uint32_t len)
+This method will read the desired number of bytes from the file at the specified offset into the given buffer. 
+
+### write(uint64_t offset, uint8_t* src, uint32_t len)
+This method will write the specified number of bytes from the file into the given buffer at the specified offset.
+
+This method will print out statistics from the read/write operations to the given stream. Some of the statistics it displays are the read count, read size, and write size.
+
+### Get methods
+This class contains a variety of get methods, such as getReadCount(), getReadSize(), and getTotalRead(). These methods will return the appropriate class variables corresponding to their method name. These methods are able to display simple statistics about the class' read and write operations.
+
+
+
 # Implemented Techniques
 ## Tournament Tree
 The tournament tree can be seen within the TournamentPQ.cpp and TournamentPQ.h files located within the ./src directory

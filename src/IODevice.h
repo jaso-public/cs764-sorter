@@ -16,7 +16,15 @@ using namespace std;
 class IODevice {
 
 public:
+    /**
+    * Class constructor; Opens the given file in read/write mode
+    * @param givenFile the string file path of the file
+    * Source for exception handling code: https://cplusplus.com/reference/ios/ios/exceptions/
+    */
     IODevice(string filePath);
+    /**
+     * Class destructor that will close the file that is being read/written to
+     */
     ~IODevice();
 
     /**
@@ -38,15 +46,20 @@ public:
      // TODO get rid of the off (can just send in the right ptr)
     void write(uint64_t offset, uint8_t* src, uint32_t len);
 
+    //TODO: remove flush?
     void flush();
-    void writeStats(std::ostream& out);
+    /**
+     * This method will print out statistics from the read/write operations
+     * @param out the stream to print the statistics to
+     */
+    void writeStats(ostream& out);
 
-        /**
-         * as this IoDevice does I/O operations to and from the device,
-         * it records simple statistics about the read and write operations.
-         * The methods below should be fairly obvious about what the measurement
-         * is recording for each statistic.
-         */
+    /**
+     * as this IoDevice does I/O operations to and from the device,
+     * it records simple statistics about the read and write operations.
+     * The methods below should be fairly obvious about what the measurement
+     * is recording for each statistic.
+    */
     uint64_t getReadCount();     // cumulative numbers of times read was called
     uint64_t getReadSize();      // cumulative numbers of bytes read from this device
     double   getTotalRead();     // cumulative time measured in seconds for all read operations
