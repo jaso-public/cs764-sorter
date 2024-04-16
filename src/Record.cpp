@@ -4,11 +4,19 @@
 uint32_t Record::recordSize = 64;
 uint64_t Record::compareCount = 0;
 
+/**
+ * Sets the class' static variables
+ * @param _recordSize the size of each record
+ */
 void Record::staticInitialize(uint32_t _recordSize) {
     recordSize = _recordSize;
     compareCount = 0;
 }
 
+/**
+ * Stores the given record into the class' record variable (data)
+ * @param newData given record
+ */
 Record::Record(unique_ptr<uint8_t[]> &newData) {
     if(newData == nullptr) {
         cerr << "cannot construct a Record with a nullptr" <<endl;
@@ -22,6 +30,11 @@ Record::Record(unique_ptr<uint8_t[]> &newData) {
     data = std::move(newData);
 }
 
+/**
+ * This method compares the class' record to the given record (other)
+ * @param other the record to compare with the class' record
+ * @return 1 if other is smaller than the class' record, 0 if the two records or equal, or false
+ */
 int Record::compareTo(const shared_ptr<Record> &other) {
     compareCount++;
     return memcmp(this->data.get(), other->data.get(), recordSize);

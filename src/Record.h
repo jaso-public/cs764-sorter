@@ -9,10 +9,23 @@ using namespace std;
 
 class Record {
 public:
+    /**
+     * Sets the class' static variables
+     * @param _recordSize the size of each record
+     */
     static void staticInitialize(uint32_t recordSize);
 
+    /**
+     * Stores the given record into the class' record variable (data)
+     * @param newData given record
+     */
     Record(unique_ptr<uint8_t[]> &newData);
 
+    /**
+     * This method compares the class' record to the given record (other)
+     * @param other the record to compare with the class' record
+     * @return 1 if other is smaller than the class' record, 0 if the two records or equal, or false
+     */
     int compareTo(const shared_ptr<Record> &other);
 
     void store(uint8_t *dst);
@@ -35,6 +48,6 @@ public:
 
 private:
     static uint32_t recordSize;   // size of the record
-    static uint64_t compareCount; // the number of compares that
+    static uint64_t compareCount; // the number of compares that occurred between the record
     unique_ptr<uint8_t[]> data;   // the actual bytes of the record
 };

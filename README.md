@@ -94,7 +94,36 @@ This method will store runs by writing them to the SSD or HDD depending on the a
 This method will return the nearest, rounded up multiple of the variable multiple in comparison to the given value.
 
 ## Run
-This class represents a run which is a group of records that can fit into memory. It is used as a type in sorting.
+This class represents a run which is a group of records that can fit into memory. It is used as a type in the Sorter class.
+
+## Record
+The record class is utilized to store and to preform operations on the records.
+
+### Class Constructor
+The class constructor stores the record within the class' data variable.
+
+### staticInitialize(uint32_t recordSize)
+This method is utilized to set the static variables of the class, recordSize and compareCount.
+
+### compareTo(const shared_ptr<Record> &other)
+This method will compare a given record (other) to the current record. It will return a value 1, 0, or -1 to indicate how the two records compare to each other. 
+
+### store(uint8_t *dst)
+
+
+### store(uint8_t *dst, int offset, int numToCopy)
+
+### checksum()
+
+### dump(string message)
+
+### getRecordSize()
+
+### getCompareCount()
+
+### resetCompareCount()
+
+
 
 # Implemented Techniques
 ## Tournament Tree
