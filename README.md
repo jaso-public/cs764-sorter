@@ -135,7 +135,7 @@ The provider class will generate all the desired records. It contains a virtual 
 ### next()
 This method is the virtual method that each Provider must implement. With each call to next(), a record is received in some order that is determined by the Provider type. For example, if the records are being provided by a file, then they will be returned in the order that they were in within the file. If the Provider is the Sorter, then records will be returned in sorted order. This method will continue to return a record until all records have been returned. Then, it returns a null pointer.
 
-## Single Provider
+## SingleProvider
 This class is a simple provider that can easily be reused. It will return only one record, that is set by reset() before returning null pointers. Its reset() function can be called multiple times.
 
 ### Class constructor
@@ -147,7 +147,7 @@ This method will set the record to be returned by the Single Provider to a recor
 ### next()
 This method will return a pointer to a record or a null pointer if the record has already been returned after being reset().
 
-## Memory Provider
+## MemoryProvider
 The Memory Provider extracts records from a packed buffer of records. It requires that records are sorted within the buffer and that each record consumes exactly recordSize number of bytes. You must know how many records are stored in the buffer when you use the MemoryProvider  (There are no sentinels in the buffers)
 
 ### Class Constructor
@@ -156,7 +156,7 @@ The class constructor obtains the buffer to extract records from and initializes
 ### next()
 This method will return the next record from the buffer. If all records from the buffer have been returned, it will return a null pointer.
 
-## Empty Provider
+## EmptyProvider
 This class is an empty provider that only returns null pointers via its next() method. It was created to by utilized by the Sorter when there are no more records to return.
 
 ### next()
@@ -171,6 +171,18 @@ This class has multiple class constructors that enables a user to determine how 
 ### next() 
 This method returns the generated record with the specified characteristics or a null pointer if the total number of records has already been generated.
 
+## DeviceProvider
+This is a provider that reads records from a device (file) and provides them to other providers via its next() method. It will eventually read the entire contents of the file. If the final read is not a complete record, it will write an error message to cerr, and it will return a null pointer instead of a record.
+
+### Class Constructor
+
+### next()
+
+## DropFirst
+
+### Class Constructor
+
+### next()
 
 
 # Implemented Techniques
