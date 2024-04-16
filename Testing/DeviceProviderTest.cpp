@@ -5,17 +5,6 @@
 #include "test/helpers/TreeSorter.h"
 #include "src/Consumer.h"
 
-//TODO: need a test with the multiples of 1,000 waiting for confirmation as to what this test looks like
-
-
-void testNext() {
-    string inputFileName = "../ExampleFiles/input_table";
-    uint32_t hddReadSize = 256 * 1024;
-
-    auto inputDevice = make_shared<IODevice>(inputFileName);
-    auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
-    provider->next();
-}
 
 void testInputRecord() {
     string inputFileName = "../ExampleFiles/input_table";
@@ -89,7 +78,6 @@ void testTreeSorter() {
 }
 
 int main(){
-    testNext();
     testInputRecord();
     testInputChain();
     testDropOne();

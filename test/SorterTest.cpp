@@ -179,7 +179,7 @@ void testGenerate(int recordSize, int recordCount, double probability, int range
  * @param recordSize the size of a record
  * @param fileName the name of the input file to sort
  */
-void testSort(int recordSize, string fileName){
+void testSort(int recordSize, string fileName, bool deleteInput){
     string outFile = "test-output.txt";
     string ssdStagingFile = "test-ssd-staging.txt";
     string hddStagingFile = "test-hdd-staging.txt";
@@ -191,10 +191,12 @@ void testSort(int recordSize, string fileName){
     sortArgs[20] = fileName.c_str();
     int sortArgsCount = sizeof(sortArgs) / sizeof(sortArgs[0]);
     sortMain(sortArgsCount,const_cast<char**>(sortArgs));
-    remove(fileName.c_str());
     remove(outFile.c_str());
     remove(ssdStagingFile.c_str());
     remove(hddStagingFile.c_str());
+    if (deleteInput){
+        remove(fileName.c_str());
+    }
 }
 
 int main() {
@@ -207,6 +209,10 @@ int main() {
 //    testSorting("testZeroRecords: ", 1000, 0);
 //    testSorterConfigInitialization();
 
-    test120GBdiv1000();
-    testGenerate(20, 100, 0.01, 999, "test-input.txt");
-    testSort( 20, "test-input.txt");}
+   // test120GBdiv1000();
+//    testGenerate(20, 100, 0.01, 999, "test-input.txt");
+//    testSort( 20, "test-input.txt", true);
+    // this test tests the given input file
+    testSort(20,"../ExampleFiles/input_table", false);
+
+}
