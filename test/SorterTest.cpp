@@ -210,9 +210,7 @@ int main() {
 //    testSorterConfigInitialization();
 
    // test120GBdiv1000();
-//    testGenerate(20, 100, 0.01, 999, "test-input.txt");
-//    testSort( 20, "test-input.txt", true);
-    // this test tests the given input file
-    testSort(20,"../ExampleFiles/input_table", false);
-
+   //TODO: there is still an error here with the whole arguments issue
+    testGenerate(20, 100, 0.01, 999, "test-input.txt");
+    testSort( 20, "test-input.txt", false);
 }

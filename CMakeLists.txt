@@ -85,7 +85,14 @@ add_executable(testProvider
         src/Generator.h
         src/Generator.cpp
         src/IODevice.h
-        src/IODevice.cpp)
+        src/IODevice.cpp
+        src/Witness.h
+        src/Consumer.h
+        test/helpers/TreeSorter.h
+        test/helpers/TreeSorter.cpp
+        test/helpers/Printer.h
+        test/helpers/Printer.cpp
+)
 
 add_custom_command(TARGET testProvider
         POST_BUILD
@@ -149,34 +156,6 @@ add_custom_command(TARGET testConsumer
         COMMENT "Running testConsumer..."
 )
 
-
-add_executable(testDeviceProvider
-        Testing/DeviceProviderTest.cpp
-        src/IODevice.cpp
-        src/IODevice.h
-        src/Record.cpp
-        src/Record.h
-        src/Provider.h
-        src/Provider.cpp
-        src/Witness.h
-        src/Generator.h
-        src/Generator.cpp
-        src/Consumer.h
-        test/helpers/TreeSorter.h
-        test/helpers/TreeSorter.cpp
-        test/helpers/Printer.h
-        test/helpers/Printer.cpp
-        src/Record.cpp
-        src/Record.h
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testDeviceProvider
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testDeviceProvider
-        COMMENT "Running testDeviceProvider..."
-)
 
 add_executable(testPQ
         src/Provider.h
@@ -299,7 +278,6 @@ add_custom_command(TARGET testStagedProvider
 add_custom_target(runNonFaultTests
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testIODevice>
-        COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testPQ>
 )
@@ -341,7 +319,6 @@ add_custom_command(TARGET runErrorTests
 add_custom_target(runAllTests
         COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testIODevice>
-        COMMAND $<TARGET_FILE:testDeviceProvider>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testProvider>
         COMMAND $<TARGET_FILE:testPQ>

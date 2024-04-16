@@ -1,11 +1,13 @@
-#include <iostream>
 #include <cassert>
-
 #include "Record.h"
 #include "Provider.h"
 #include "src/Generator.h"
+#include <string>
+#include "src/Witness.h"
+#include "test/helpers/TreeSorter.h"
+#include "src/Consumer.h"
 
-//TODO: want a tester that automatically makes an input file, tests it, and deletes it
+
 void testTenRecords() {
     auto source = make_shared<RandomProvider>(10);
 
@@ -34,8 +36,7 @@ testSingleProvider() {
     assert("Next should have given a null pointer" && single->next() == nullptr );
 }
 
-void
-testMemoryProvider() {
+void testMemoryProvider() {
     int recordCount = 10;
     auto records = generateRandom(recordCount);
     uint8_t buffer [1000];
@@ -72,6 +73,72 @@ void testRandomProvider(int recordCount){
     assert("Next should have given a null pointer" && ptr == nullptr );
 }
 
+void testNextWithDeviceProvider(string inputFileName, int recordCount, int recordSize) {
+    Record::staticInitialize(recordSize);
+    uint32_t hddReadSize = 256 * 1024;
+
+    auto inputDevice = make_shared<IODevice>(inputFileName);
+    auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
+
+    for (int i = 0; i < recordCount; i++){
+        shared_ptr<Record> ptr = provider->next();
+        assert("Next should have existed" && ptr != nullptr );
+    }
+    shared_ptr<Record>  ptr = provider->next();
+    assert("Next should have given a null pointer" && ptr == nullptr );
+}
+
+void testInputChainWithDeviceProvider(string inputFileName, int recordCount, int recordSize) {
+    Record::staticInitialize(recordSize);
+    uint32_t hddReadSize = 256 * 1024;
+
+    auto inputDevice = make_shared<IODevice>(inputFileName);
+    auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
+    shared_ptr<Witness>  lower = make_shared<Witness>(provider);
+    shared_ptr<Witness>  upper = make_shared<Witness>(lower);
+    auto consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
+
+    assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount() == upper->getCount());
+    assert("The count of the upper witness was wrong" && recordCount == upper->getCount());
+    assert("The sorting of the witnesses should have been the same" && upper->isSorted() == lower->isSorted());
+}
+
+void testDropOneWithDeviceProvider(string inputFileName, int recordCount, int recordSize) {
+    Record::staticInitialize(recordSize);
+    uint32_t hddReadSize = 256 * 1024;
+
+    auto inputDevice = make_shared<IODevice>(inputFileName);
+    auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
+    shared_ptr<Witness>  lower = make_shared<Witness>(provider);
+    shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
+    shared_ptr<Witness>  upper = make_shared<Witness>(dropper);
+    auto consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
+
+    assert("The count of the lower witness did not equal the count of the upper but should have" && upper->getCount() == lower->getCount() - 1);
+    assert("The count of the upper witness was wrong" && recordCount -1 == upper->getCount());
+    assert("The sorting of the witnesses should have been the same" && upper->isSorted() == lower->isSorted());
+}
+
+void testTreeSorterWithDeviceProvider(string inputFileName, int recordCount, int recordSize) {
+    Record::staticInitialize(recordSize);
+    uint32_t hddReadSize = 256 * 1024;
+
+    auto inputDevice = make_shared<IODevice>(inputFileName);
+    auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
+    shared_ptr<Witness>  lower = make_shared<Witness>(provider);
+    shared_ptr<DropFirst> dropper = make_shared<DropFirst>(lower);
+    shared_ptr<TreeSorter> sorter = make_shared<TreeSorter>(dropper);
+    shared_ptr<Witness>  upper = make_shared<Witness>(sorter);
+    auto consumer = make_shared<NoopConsumer>(upper);
+    consumer->consume();
+
+    assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount()-1 == upper->getCount());
+    assert("The count of the upper witness was wrong" && recordCount-1 == upper->getCount());
+    assert("The sorting of the witnesses should have been the same" && upper->isSorted() != lower->isSorted());
+}
+
 int main(){
     testTenRecords();
     testSingleProvider();
@@ -79,5 +146,8 @@ int main(){
     testEmptyProvider();
     testRandomProvider(10);
     testRandomProvider(50);
-
+    testNextWithDeviceProvider("../ExampleFiles/input_table",20, 1024);
+    testInputChainWithDeviceProvider("../ExampleFiles/input_table",20, 1024);
+    testDropOneWithDeviceProvider("../ExampleFiles/input_table",20, 1024);
+    testTreeSorterWithDeviceProvider("../ExampleFiles/input_table",20, 1024);
 }
