@@ -82,37 +82,63 @@ private:
 
 /**
  * This class is an empty provider that continues to return a nullptr
- * everytime next() is called.  It the provider used by the Sorter when
+ * everytime next() is called. It is used by the Sorter when
  * there are no records to be sorted.
  */
 class EmptyProvider: public Provider {
 public:
     EmptyProvider() {}
 
+    /**
+     * This method only returns null pointers, indicating that no records are to be returned
+     * @return a null pointer
+     */
     shared_ptr<Record> next() override {
         return nullptr;
     }
 };
 
-
+/**
+ * This class will generate random records. It is utilized for testing purposes.
+ */
 class RandomProvider: public Provider {
 public:
+    /**
+     * Class constructor that accepts a given record count specification
+     * @param _recordCount total number of records to return by next()
+     */
     RandomProvider(int _recordCount);
+    /**
+    * Class constructor that accepts a given record count and can add a new line character to the end of each record
+    * @param _recordCount total number of records to return by next()
+     *@param _newLine boolean value indicating whether or not to include a new line character to the end of the record
+    */
     RandomProvider(int _recordCount, bool _newLine);
+    /**
+     * Class constructor that accepts a user's input for all values involved in generating records
+     * @param _recordCount total number of records to return by next()
+     * @param _duplicateProbability the percentage of records to generate records within the specified range
+     * @param _duplicateRange the upper bound of the range to generate records within the probability percentage between
+     * @param _newLine boolean value indicating whether or not to include a new line character to the end of the record
+     */
     RandomProvider(int _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine);
-    shared_ptr<Record> next() override; // implementation of the Provider interface
+    /**
+     * Generates a record with the defined characteristics from the constructor
+     * @return the generated record or a null pointer if all records have been generated
+     */
+    shared_ptr<Record> next() override;
 
 private:
-    random_device rd;  // Device to seed the random generators
-    mt19937 gen;
-    mt19937 duplicateGen;
-    std::uniform_real_distribution<> randomProbability; // Probability distribution
-    std::uniform_int_distribution<> randomRange;        // Range distribution
+    random_device rd;                                   // device to seed the random generators
+    mt19937 gen;                                        // seed the main generator
+    mt19937 duplicateGen;                               // seed the duplicate generator
+    std::uniform_real_distribution<> randomProbability; // probability distribution
+    std::uniform_int_distribution<> randomRange;        // range distribution
 
-    uint64_t recordCount;
-    double duplicateProbability;
-    bool newLine;
-    uint64_t generated;
+    uint64_t recordCount;                               // total number of records to generate
+    double duplicateProbability;                        // percentage of records to generate within the specified range
+    bool newLine;                                       // indicating if a new line character should be added at the end of a record
+    uint64_t generated;                                 // total number of record already generated
 };
 
 

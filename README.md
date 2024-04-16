@@ -156,6 +156,22 @@ The class constructor obtains the buffer to extract records from and initializes
 ### next()
 This method will return the next record from the buffer. If all records from the buffer have been returned, it will return a null pointer.
 
+## Empty Provider
+This class is an empty provider that only returns null pointers via its next() method. It was created to by utilized by the Sorter when there are no more records to return.
+
+### next()
+This method will continue to return null pointers, indicating that there are no records to be returned.
+
+## RandomProvider
+This class will generate random records based on various user specifications including the record count, duplicate probability, duplicate range, and/or the inclusion of a new line character at the end of the record. It is utilized for testing purposes to generate records instead of reading from an input file.
+
+### Class Constructors
+This class has multiple class constructors that enables a user to determine how many values for record generation that they would like to customize. The recordCount value represents how many records that this provider should return. The newLine boolean value will determine if a new line character is added to the end of the record. This option was included as it makes records easier to read and identify when printing them out or writing them to files. The duplicateProbability variable is the percentage of records that should be generated within the specified range (0-duplicateRange). This enables use to generate duplicates with a likely probability. 
+
+### next() 
+This method returns the generated record with the specified characteristics or a null pointer if the total number of records has already been generated.
+
+
 
 # Implemented Techniques
 ## Tournament Tree

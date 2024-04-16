@@ -94,6 +94,13 @@ shared_ptr<Record> DeviceProvider::next() {
     return make_shared<Record>(bytes);
 }
 
+/**
+  * Class constructor that accepts a user's input for all values involved in generating records
+  * @param _recordCount total number of records to return by next()
+  * @param _duplicateProbability the percentage of records to generate records within the specified range
+  * @param _duplicateRange the upper bound of the range to generate records within the probability percentage between
+  * @param _newLine boolean value indicating whether or not to include a new line character to the end of the record
+ */
 RandomProvider::RandomProvider(int _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine)
         : recordCount(_recordCount),
           duplicateProbability(_duplicateProbability),
@@ -103,11 +110,22 @@ RandomProvider::RandomProvider(int _recordCount, double _duplicateProbability, i
           randomProbability(0.0, 1.0),  // Initialize the probability distribution
           randomRange(0, _duplicateRange)  // Initialize the range distribution with _duplicateRange
 {}
-
+/**
+ * Class constructor that accepts a given record count and can add a new line character to the end of each record
+ * @param _recordCount total number of records to return by next()
+  *@param _newLine boolean value indicating whether or not to include a new line character to the end of the record
+ */
 RandomProvider::RandomProvider(int _recordCount, bool _newLine): RandomProvider(_recordCount, 0.0, 10, _newLine) {}
+/**
+ * Class constructor that accepts a given record count specification
+ * @param _recordCount total number of records to return by next()
+ */
 RandomProvider::RandomProvider(int _recordCount): RandomProvider(_recordCount, 0.0, 10, true) {}
 
-
+/**
+ * Generates a record with the defined characteristics from the constructor
+ * @return the generated record or a null pointer if all records have been generated
+*/
 shared_ptr<Record> RandomProvider::next() {
     if (generated >= recordCount) return nullptr;
     generated++;
