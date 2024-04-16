@@ -18,7 +18,7 @@ using namespace std;
  * the records are coming from, for example if the records are being provided
  * by a file, then the records will arrive in the order they are stored in
  * the file, if the provider is the Sorter, then the records will be provided
- * in sorted order. There are many different providers, the simplest one are
+ * in sorted order. There are many different providers, the simplest ones are
  * defined in the header file.
  */
 class Provider {

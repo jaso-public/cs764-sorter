@@ -109,19 +109,25 @@ This method is utilized to set the static variables of the class, recordSize and
 This method will compare a given record (other) to the current record. It will return a value 1, 0, or -1 to indicate how the two records compare to each other. 
 
 ### store(uint8_t *dst)
-
+This method copies the contents of the record into the specified memory location.
 
 ### store(uint8_t *dst, int offset, int numToCopy)
+This method will copy a part of the record, starting at the offset value, into the specified memory location.
 
 ### checksum()
+This method computes and returns the checksum of the record
 
 ### dump(string message)
+This method will print out the contents of the record and its checksum.
 
 ### getRecordSize()
+This method returns the size of the record.
 
 ### getCompareCount()
+This method will return the number of times the record has been compared to another record.
 
 ### resetCompareCount()
+This method will reset the record's compare count back to 0.
 
 
 

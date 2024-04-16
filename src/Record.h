@@ -28,22 +28,45 @@ public:
      */
     int compareTo(const shared_ptr<Record> &other);
 
+    /**
+     * This method copies the contents of the record (data) into the specified memory location
+     * @param dst the desired location in memory
+     */
     void store(uint8_t *dst);
 
     /**
-     * stores part of the record into the destination array
+     * Stores part of the record into the destination array
      * @param dst the destination where the bytes will be stored
      * @param offset the starting offset in the record from where to begin the transfer
      * @param numToCopy the number of bytes to be moved to the destination
      */
     void store(uint8_t *dst, int offset, int numToCopy);
 
+    /**
+     * Computes the checksum of the record
+     * @return the record's checksum
+     */
     uint64_t checksum();
 
+    /**
+     * Prints out the contents and checksum of the record
+     * @param message to identify the method call
+     */
     void dump(string message);
 
+    /**
+     * Displays the record size
+     * @return record size
+     */
     static uint32_t getRecordSize() {return recordSize;}
+    /**
+     * Keeps track of how many times a record has been compared to another record
+     * @return the compare count
+     */
     static uint64_t getCompareCount() {return compareCount;}
+    /**
+     * Resets the compareCount value back to its initial value of 0
+     */
     static void resetCompareCount() {compareCount = 0;}
 
 private:
