@@ -12,47 +12,41 @@
 using namespace std;
 
 /**
- * This is the provider class that will generate all the desired records
- * it provides an a virtual method that all other providers implement.
- * You call next to receive the records in some order depending on where
- * the records are coming from, for example if the records are being provided
- * by a file, then the records will arrive in the order they are stored in
- * the file, if the provider is the Sorter, then the records will be provided
- * in sorted order. There are many different providers, the simplest ones are
- * defined in the header file.
+ * This is the provider class that will generate all the desired records.
+ * It contains a next() virtual method that all other Providers implement.
  */
 class Provider {
 
 public:
-    /**
-     * Generates the next record
-     * @returns the a pointer to the next record or a null pointer record if the end of the list been reached
-     */
     virtual ~Provider() {}
+    /**
+     * Obtains the next record from the Provider
+     * @returns a pointer to the next record or a null pointer if there are no more records left to return
+     */
     virtual shared_ptr<Record> next() = 0;
 };
 
 /**
- * A single provider is a simple provider that can be reused.  The reset method
- * provides the provider with a single record that will be returned the next
- * time that the next() method is called.  The record is only returned once, so
- * after returning the reset record, the next() will continue to return nullptr.
+ * This is a Provider that only returns a single record. Additional records can be returned if the reset() method is utilized.
  */
 class SingleProvider: public Provider {
 public:
     SingleProvider();
 
     /**
-     * Sets the class record's variable to the given record
-     * @param r the new record variable of the class
+     * Sets the class' record variable to the given record
+     * @param r the new record of the class to be returned in the next call to next()
      */
     void reset(shared_ptr<Record> r);
 
-    // returns the class record's variable and then turns it to null
+    /**
+     * Returns the class' single record
+     * @return the class' single record or a null pointer if the single record has already been returned but not reset
+     */
     shared_ptr<Record> next() override;
 
 private:
-    shared_ptr<Record> record; // a pointer to a record or a null pointer if the record does not exist
+    shared_ptr<Record> record; // a pointer to a record or a null pointer if the record does not exist/already has been returned
 };
 
 /**
