@@ -1,5 +1,5 @@
 # CS764-sorter
-CS 764 class project for doing external sorts
+This is an external merge sort application that was written for the CS-764 class project. 
 
 # Classes
 ## Witness
@@ -172,18 +172,22 @@ This class has multiple class constructors that enables a user to determine how 
 This method returns the generated record with the specified characteristics or a null pointer if the total number of records has already been generated.
 
 ## DeviceProvider
-This is a provider that reads records from a device (file) and provides them to other providers via its next() method. It will eventually read the entire contents of the file. If the final read is not a complete record, it will write an error message to cerr, and it will return a null pointer instead of a record.
+This is a provider that reads records from a device (file) and provides them to other providers via its next() method. It will eventually read the entire contents of the file. If the final read is not a complete record, it will write an error message to cerr, and it will return a null pointer instead of a record. This class is used to read records from the given input.txt file.
 
 ### Class Constructor
+The class constructor initializes the class' initial values including the IODevice that will allow records from the particular file to be read.
 
 ### next()
+This method will continue to read records from the given file until the end of the file has been reached. It will print out an error message to cerr that will indicate only a partial record was left as the final read. If this error occurs, a null pointer will be returned. If all records were successfully returned, it will return a null pointer.
 
 ## DropFirst
+This class is a provider that will drop the first record (will not return it) before returning records with each next() call. It is only utilized for testing purposes.
 
 ### Class Constructor
+The class constructor automatically drops the first record from the given source, so it is not returned.
 
 ### next()
-
+This method returns the next record from the provider or a null pointer if all records have been returned.
 
 # Implemented Techniques
 ## Tournament Tree

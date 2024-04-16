@@ -49,7 +49,11 @@ shared_ptr<Record> MemoryProvider::next() {
     return make_shared<Record>(data);
 }
 
-
+/**
+ * Class constructor that initializes class' values
+ * @param _device the device that will read the records from the file
+ * @param _bufferSize the size of the buffer that will be used to return records
+ */
 DeviceProvider::DeviceProvider(shared_ptr<IODevice> _device, int _bufferSize) {
     device = _device;
     deviceOffset = 0;
@@ -60,6 +64,11 @@ DeviceProvider::DeviceProvider(shared_ptr<IODevice> _device, int _bufferSize) {
     eofReached = false;
 }
 
+/**
+ * Returns a record until the end of the file has been reached
+ * It will write an error message to cerr if only a partial record is read as the final read and return a null pointer
+ * @return a record from a file or a null pointer if the end of the file has been reached/an error occurred
+*/
 shared_ptr<Record> DeviceProvider::next() {
     if(eofReached) return nullptr;
 
@@ -81,8 +90,7 @@ shared_ptr<Record> DeviceProvider::next() {
             deviceOffset += bufferRemaining;
             bufferOffset = 0;
         }
-
-        int bytesToMove = bufferRemaining ;
+        int bytesToMove = bufferRemaining;
         if(bytesToMove > remaining) bytesToMove = remaining;
         memcpy(bytes.get()+offset, buffer.get()+bufferOffset, bytesToMove);
         bufferRemaining -= bytesToMove;
@@ -147,9 +155,9 @@ DropFirst::DropFirst(shared_ptr<Provider> _source): source(_source) {
 }
 
 /**
- * Gets the next record from the provider or a null record
+ * Gets the next record from the provider if it exists
  * @return a pointer to the next record or a null pointer if a next record does not exist
- */
+*/
 shared_ptr<Record> DropFirst::next() {
     return source->next();
 }

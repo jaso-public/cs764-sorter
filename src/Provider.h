@@ -143,15 +143,22 @@ private:
 
 
 /**
- * DeviceProvider is a provider that read records from a device (file) and
- * providers them to other via the Provider::next method.  This provider
- * will eventually read the entire contents of the file.  If the final
- * read is not a complete records, then provider will write an error
- * message to cerr and will return null instead of a record.
+ * DeviceProvider is a provider that read records from a device (file)
+ * until the next() method has returned all records or encountered an error
  */
 class DeviceProvider: public Provider {
 public:
+    /**
+     * Class constructor that initializes class' values
+     * @param _device the device that will read the records from the file
+     * @param _bufferSize the size of the buffer that will be used to return records
+     */
     DeviceProvider(shared_ptr<IODevice> _device, int _bufferSize);
+    /**
+     * Returns a record until the end of the file has been reached
+     * It will write an error message to cerr if only a partial record is read as the final read and return a null pointer
+     * @return a record from a file or a null pointer if the end of the file has been reached/an error occurred
+     */
     shared_ptr<Record> next() override;
 
 private:
@@ -174,10 +181,18 @@ private:
  */
 class DropFirst: public Provider {
 public:
+    /**
+     * Class constructor that automatically drops the first record
+     * @param givenSource the provider to obtain records from
+     */
     DropFirst(shared_ptr<Provider> _source);
+    /**
+     * Gets the next record from the provider if it exists
+     * @return a pointer to the next record or a null pointer if a next record does not exist
+     */
     shared_ptr<Record> next() override; // see Provider
 
 private:
-    shared_ptr<Provider> source; // the source used to get the records
+    shared_ptr<Provider> source;        // the source used to get the records
 };
 
