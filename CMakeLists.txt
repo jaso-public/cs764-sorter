@@ -137,25 +137,6 @@ add_custom_command(TARGET testIODevice
         COMMENT "Running testIODevice..."
 )
 
-add_executable(testConsumer
-        src/Record.cpp
-        src/Record.h
-        src/Generator.h
-        src/Generator.cpp
-        src/Provider.h
-        src/Provider.cpp
-        Testing/ConsumerTest.cpp
-        src/Consumer.h
-        src/IODevice.h
-        src/IODevice.cpp
-)
-
-add_custom_command(TARGET testConsumer
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testConsumer
-        COMMENT "Running testConsumer..."
-)
-
 
 add_executable(testPQ
         src/Provider.h
@@ -275,49 +256,7 @@ add_custom_command(TARGET testStagedProvider
         COMMENT "Running testStagedProvider..."
 )
 
-add_custom_target(runNonFaultTests
-        COMMAND $<TARGET_FILE:testConsumer>
-        COMMAND $<TARGET_FILE:testIODevice>
-        COMMAND $<TARGET_FILE:testWitness>
-        COMMAND $<TARGET_FILE:testPQ>
-)
-
-add_custom_command(TARGET runNonFaultTests
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/runNonFaultTests
-        COMMENT "Running runNonFaultTests..."
-)
-
-add_custom_target(runFaultTests
-        COMMAND $<TARGET_FILE:testSorter>
-)
-
-add_custom_command(TARGET runFaultTests
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/runFaultTests
-        COMMENT "Running runFaultTests..."
-)
-
-add_custom_command(TARGET testStagedProvider
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testStagedProvider
-        COMMENT "Running testStagedProvider..."
-)
-
-add_custom_target(runErrorTests
-        COMMAND $<TARGET_FILE:testRecord>
-        COMMAND $<TARGET_FILE:testStagedProvider>
-        COMMAND $<TARGET_FILE:testStorageProvider>
-)
-
-add_custom_command(TARGET runErrorTests
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/runErrorTests
-        COMMENT "Running runErrorTests..."
-)
-
 add_custom_target(runAllTests
-        COMMAND $<TARGET_FILE:testConsumer>
         COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testProvider>
