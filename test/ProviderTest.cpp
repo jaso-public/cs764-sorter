@@ -134,6 +134,9 @@ void testTreeSorterWithDeviceProvider(string inputFileName, int recordCount, int
     auto consumer = make_shared<NoopConsumer>(upper);
     consumer->consume();
 
+    // just ensures consumer will return null pointer (consumes everything)
+    shared_ptr<Record> ptr = provider->next();
+    assert("Next should have given a null pointer" && ptr == nullptr );
     assert("The count of the lower witness did not equal the count of the upper but should have" && lower->getCount()-1 == upper->getCount());
     assert("The count of the upper witness was wrong" && recordCount-1 == upper->getCount());
     assert("The sorting of the witnesses should have been the same" && upper->isSorted() != lower->isSorted());
