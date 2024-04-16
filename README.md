@@ -209,6 +209,14 @@ This method will print out statistics from the read/write operations to the give
 ### Get methods
 This class contains a variety of get methods, such as getReadCount(), getReadSize(), and getTotalRead(). These methods will return the appropriate class variables corresponding to their method name. These methods are able to display simple statistics about the class' read and write operations.
 
+## Convert
+This method is utilized with SortMain.cpp and GenerateMain.cpp to parse the given arguments from the user. It enables the flags, such as -s, to be parsed from the users input when generating and sorting records.
+### parseInteger(const char* str, IntegerType& outValue)
+This method will parse integers from the input argument. It obtains and sets values such as the record size and record count from the input arguments.
+
+### parseFloatingPoint(const std::string& str, T& value)
+This method will parse floating points from the input arguments. It obtains and sets the probability value, indicated by the -p flag, when generating records.
+
 
 
 # Implemented Techniques
