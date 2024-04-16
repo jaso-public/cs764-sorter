@@ -222,6 +222,11 @@ add_executable(testSorter
         test/helpers/Printer.h
         test/helpers/Printer.cpp
         test/SorterTest.cpp
+        src/tools/GenerateMain.cpp
+        src/Convert.h
+        src/tools/SortMain.cpp
+        src/tools/VerifyMain.cpp
+        src/tools/VerifyMain.h src/tools/SortMain.h src/tools/Generate.h
         )
 
 add_custom_command(TARGET testSorter
@@ -289,39 +294,6 @@ add_custom_command(TARGET testStagedProvider
         POST_BUILD
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testStagedProvider
         COMMENT "Running testStagedProvider..."
-)
-
-add_executable(testGenerateRecords
-        src/Record.h
-        src/Record.cpp
-        src/Provider.h
-        src/Provider.cpp
-        src/Consumer.h
-        src/Consumer.cpp
-        src/IODevice.h
-        src/IODevice.cpp
-        src/Generator.h
-        src/Generator.cpp
-        src/tools/GenerateMain.cpp
-        Testing/TestGenerateRecords.cpp
-        src/StagedProvider.h
-        src/StagedProvider.cpp
-        src/StorageProvider.h
-        src/StorageProvider.cpp
-        src/TournamentPQ.cpp
-        src/TournamentPQ.h
-        src/Witness.h
-        src/Sorter.h
-        src/Sorter.cpp
-        src/Convert.h
-        src/tools/SortMain.cpp
-        src/tools/VerifyMain.cpp
-        src/tools/VerifyMain.h src/tools/SortMain.h src/tools/Generate.h)
-
-add_custom_command(TARGET testGenerateRecords
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testGenerateRecords
-        COMMENT "Running testGenerateRecords..."
 )
 
 add_custom_target(runNonFaultTests

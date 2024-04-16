@@ -10,6 +10,8 @@
 #include "src/Consumer.h"
 #include "src/Generator.h"
 #include "test/helpers/Printer.h"
+#include "./src/tools/Generate.h"
+#include "./src/tools/SortMain.h"
 
 using namespace std;
 
@@ -151,8 +153,48 @@ void test120GBdiv1000() {
     upper->writeStats(*out, "post-sort");
     ssdDevice->writeStats(*out);
     hddDevice->writeStats(*out);
+}
 
+/**
+ * This test will generate an input file with the following characteristics
+ * @param recordSize size of each record
+ * @param recordCount total records to generate
+ * @param probability the probability of total records to make fall in range
+ * @param range range to generate the specified probability of records in
+ * @param name the name of the input file to place the generated records in
+ */
+void testGenerate(int recordSize, int recordCount, double probability, int range, string fileName) {
+    const char* generateArgs[] = {"generate", "-s", nullptr,"-c", nullptr, "-f", nullptr, "-p", nullptr, "-r", nullptr};
+    generateArgs[2] = to_string(recordSize).c_str();
+    generateArgs[4] = to_string(recordCount).c_str();
+    generateArgs[6] = fileName.c_str();
+    generateArgs[8] = to_string(probability).c_str();
+    generateArgs[10] = to_string(range).c_str();
+    int generateArgsCount = sizeof(generateArgs) / sizeof(generateArgs[0]);
+    generateMain(generateArgsCount, const_cast<char**>(generateArgs));
+}
 
+/**
+ * This test will sort any input file
+ * @param recordSize the size of a record
+ * @param fileName the name of the input file to sort
+ */
+void testSort(int recordSize, string fileName){
+    string outFile = "test-output.txt";
+    string ssdStagingFile = "test-ssd-staging.txt";
+    string hddStagingFile = "test-hdd-staging.txt";
+    const char* sortArgs[] = {"sort", "-i", nullptr, "-j", nullptr, "-d", nullptr, "-h", nullptr, "-s", nullptr, "-j", nullptr, "-d", nullptr, "-h", nullptr, "-s", nullptr, "-i", nullptr};
+    sortArgs[12] = outFile.c_str();
+    sortArgs[14] = ssdStagingFile.c_str();
+    sortArgs[16] = hddStagingFile.c_str();
+    sortArgs[18] = to_string(recordSize).c_str();
+    sortArgs[20] = fileName.c_str();
+    int sortArgsCount = sizeof(sortArgs) / sizeof(sortArgs[0]);
+    sortMain(sortArgsCount,const_cast<char**>(sortArgs));
+    remove(fileName.c_str());
+    remove(outFile.c_str());
+    remove(ssdStagingFile.c_str());
+    remove(hddStagingFile.c_str());
 }
 
 int main() {
@@ -166,4 +208,5 @@ int main() {
 //    testSorterConfigInitialization();
 
     test120GBdiv1000();
-}
+    testGenerate(20, 100, 0.01, 999, "test-input.txt");
+    testSort( 20, "test-input.txt");}
