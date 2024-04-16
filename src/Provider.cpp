@@ -1,25 +1,40 @@
 #include "Provider.h"
 #include "Generator.h"
 
+/**
+ * Initializes the class' record variable to null as it needs to be set by reset() first
+*/
 SingleProvider::SingleProvider(): record(nullptr) {}
 
 /**
- * Sets the class record's variable to the given record
- * @param r the new record variable of the class
- */
+ * Sets the class' record variable to the given record
+ * @param r the new record of the class to be returned in the next call to next()
+*/
 void SingleProvider::reset(shared_ptr<Record> r) {
     record = r;
 }
 
-// returns the class record's variable and then turns it to null
+/**
+ * Returns the class' record
+ * @return the class' record set by reset() or a null pointer if the record has already been returned
+*/
 shared_ptr<Record> SingleProvider::next() {
-shared_ptr<Record> result = record;
-record = nullptr;
-return result;
+    shared_ptr<Record> result = record;
+    record = nullptr;
+    return result;
 }
 
+/**
+ * Class constructor that initializes class' variables
+ * @param _buffer buffer to extract records from
+ * @param _recordCount total number of records to extract
+*/
 MemoryProvider::MemoryProvider(uint8_t *_buffer, uint32_t _recordCount) : buffer(_buffer), recordCount(_recordCount), generatedRecordCount(0) {}
 
+/**
+ * Gets and returns the next record out of the buffer
+ * @return a record or a null pointer if all records have been returned
+*/
 shared_ptr<Record> MemoryProvider::next() {
     if (generatedRecordCount >= recordCount) return nullptr;
 
@@ -27,7 +42,7 @@ shared_ptr<Record> MemoryProvider::next() {
 
     uint32_t offset = generatedRecordCount * recordSize;
 
-    unique_ptr<uint8_t[]> data = std::make_unique<uint8_t[]>(recordSize);
+    unique_ptr<uint8_t[]> data = make_unique<uint8_t[]>(recordSize);
     memcpy(data.get(), buffer + offset, recordSize);
 
     generatedRecordCount++;
@@ -41,7 +56,7 @@ DeviceProvider::DeviceProvider(shared_ptr<IODevice> _device, int _bufferSize) {
     bufferSize = _bufferSize;
     bufferOffset = _bufferSize;
     bufferRemaining = 0;
-    buffer = std::make_unique<uint8_t[]>(bufferSize);
+    buffer = make_unique<uint8_t[]>(bufferSize);
     eofReached = false;
 }
 
@@ -51,7 +66,7 @@ shared_ptr<Record> DeviceProvider::next() {
     int recordSize = Record::getRecordSize();
     int remaining = recordSize;
     int offset = 0;
-    auto bytes = std::make_unique<uint8_t[]>(recordSize);
+    auto bytes = make_unique<uint8_t[]>(recordSize);
 
     while(remaining>0) {
         if(bufferRemaining == 0) {

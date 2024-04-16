@@ -136,17 +136,25 @@ The provider class will generate all the desired records. It contains a virtual 
 This method is the virtual method that each Provider must implement. With each call to next(), a record is received in some order that is determined by the Provider type. For example, if the records are being provided by a file, then they will be returned in the order that they were in within the file. If the Provider is the Sorter, then records will be returned in sorted order. This method will continue to return a record until all records have been returned. Then, it returns a null pointer.
 
 ## Single Provider
-This class is a simple provider that can easily be reused. It will return only one record before returning null pointers unless it is reset.
+This class is a simple provider that can easily be reused. It will return only one record, that is set by reset() before returning null pointers. Its reset() function can be called multiple times.
+
+### Class constructor
+The constructor sets the class' record variable to be a null pointer. This means that a call to next() will continue to return a null pointer until a record is set via reset().
 
 ### reset()
-This method will set the record to be returned by the Single Provider to a record that will be returned by the next call to next(). The record is only returned once, so 
-after returning the reset record by calling next(), the next calls to next() will continue to return null pointers.
+This method will set the record to be returned by the Single Provider to a record that will be returned by the next call to next(). The record is only returned once then, the next calls to next() will continue to return null pointers.
 
 ### next()
-This method will return a pointer to a record or a null pointer if the single record has already been returned and the class has not been reset.
+This method will return a pointer to a record or a null pointer if the record has already been returned after being reset().
 
+## Memory Provider
+The Memory Provider extracts records from a packed buffer of records. It requires that records are sorted within the buffer and that each record consumes exactly recordSize number of bytes. You must know how many records are stored in the buffer when you use the MemoryProvider  (There are no sentinels in the buffers)
 
+### Class Constructor
+The class constructor obtains the buffer to extract records from and initializes class variables.
 
+### next()
+This method will return the next record from the buffer. If all records from the buffer have been returned, it will return a null pointer.
 
 
 # Implemented Techniques

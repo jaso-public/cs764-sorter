@@ -27,10 +27,13 @@ public:
 };
 
 /**
- * This is a Provider that only returns a single record. Additional records can be returned if the reset() method is utilized.
+ * This is a Provider that only returns a single record that is established by reset().
  */
 class SingleProvider: public Provider {
 public:
+    /**
+     * Initializes the class' record variable to null as it needs to be set by reset() first
+     */
     SingleProvider();
 
     /**
@@ -40,8 +43,8 @@ public:
     void reset(shared_ptr<Record> r);
 
     /**
-     * Returns the class' single record
-     * @return the class' single record or a null pointer if the single record has already been returned but not reset
+     * Returns the class' record
+     * @return the class' record set by reset() or a null pointer if the record has already been returned
      */
     shared_ptr<Record> next() override;
 
@@ -50,21 +53,30 @@ private:
 };
 
 /**
- * The memory provider extracts records from packed buffer of records.
- * The memory buffer requires that records are stored in the buffer one
+ * This class extracts records from a packed buffer of records.
+ * It requires that records are stored in the buffer one
  * after another and that each record consumes exactly recordSize number
  * of byte.  You must know how many records are stored in the buffer when
  * you use the MemoryProvider (There are no sentinels in the buffers)
  */
 class MemoryProvider: public Provider {
 public:
+    /**
+     * Class constructor that initializes class' variables
+     * @param _buffer buffer to extract records from
+     * @param _recordCount total number of records to extract
+     */
     MemoryProvider(uint8_t *_buffer, uint32_t _recordCount);
+    /**
+     * Gets and returns the next record out of the buffer
+     * @return a record or a null pointer if all records have been returned
+     */
     shared_ptr<Record> next() override;
 
 private:
-    uint8_t *buffer; // the buffer holding the record data
-    uint64_t generatedRecordCount;
-    uint64_t recordCount;
+    uint8_t *buffer;                  // the buffer holding the record data
+    uint64_t generatedRecordCount;    // the total number of records currently returned by the class
+    uint64_t recordCount;             // the total number of records to be returned
 };
 
 
