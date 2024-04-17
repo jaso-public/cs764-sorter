@@ -17,7 +17,7 @@ An explanation of these customizations and their flags are explained below.
 - -r: enables a user to set the upperbound of the range in which records of the specified percentage will be generated between. This range consists of 0 to the given range. Its default value is 100.
 - -n: enables a user to decide if a new line character should be included at the end of each generated record. The inclusion of the new line character allows records to be easier to read within the given file. The default value is to not include this character.
 
-### Compile and Run Generator
+### Compile and Run Generate Tool
 #### Step 1: Build the CMake File
 Navigate into the build directory and run Cmake ..
 #### Step 2: run make generate
@@ -26,8 +26,10 @@ This will compile all the necessary classes to create an input file
 If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./generate -s 120
 
 ## Sort
+//TODO:
 
 ## Verify
+//TODO:
 
 # Classes
 ## Witness
@@ -270,6 +272,8 @@ This is a class that will write the records that it consumes from the provider t
 ### doWrite()
 
 ### appendRecord(shared_ptr<Record> &ptr)
+
+## Generator
 
 # Implemented Techniques
 ## Tournament Tree
