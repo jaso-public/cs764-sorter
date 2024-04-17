@@ -89,15 +89,7 @@ void doTest(uint64_t size, long recordCount, int stagingLength, int bufferLength
     remove(storageFileName);
 }
 
-void testSmall() {
-    doTest(123, 50,564,2048);
-}
-
-void testMedium() {
-    doTest(12003, 50,1024,2048);
-}
-
 int main(){
-    testSmall();
-    testMedium();
+    doTest(123, 50,564,2048);
+    doTest(12003, 50,1024,2048);
 }
