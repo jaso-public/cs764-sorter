@@ -7,10 +7,18 @@ using namespace std;
 
 
 void doTest(long recordCount) {
+    const char* storageFileName = "storage.tmp";
+
+    ofstream storageFile(storageFileName);
+
+    if (!storageFile) {
+        cerr << "An error occurred creating the storage file: " << storageFileName << endl;
+    }
+
     auto source = make_shared<RandomProvider>(recordCount);
     shared_ptr<Witness>  before = make_shared<Witness>(source);
 
-    IODevice storage("../Files/storage.tmp");
+    IODevice storage(storageFileName);
 
     long storageOffset = 0;
     while(true) {
@@ -39,7 +47,7 @@ void doTest(long recordCount) {
     assert(("The count of the before witness should have equaled the count of the after witness" && before->getCount() == after->getCount()));
     assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before->getChecksum() == after->getChecksum()));
 
-    remove("storage.tmp");
+    remove(storageFileName);
 }
 
 int main(){
