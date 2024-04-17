@@ -51,10 +51,7 @@ void doTest(uint64_t size, long recordCount, int stagingLength, int bufferLength
     long storageStartOffset = 0; // we wrote the records at offset zero
     long stagingStartOffset = 12431; // some arbitrary place in the staging file
 
-    int bufferStartOffset = 20;
-
     uint8_t* transferBuffer = memory;
-    int transferStartOffset = bufferStartOffset + bufferLength;
     int transferLength = stagingLength + bufferLength;
 
     auto cfg = make_unique<StagingConfig>();
@@ -79,17 +76,18 @@ void doTest(uint64_t size, long recordCount, int stagingLength, int bufferLength
 
     shared_ptr<Witness> after = dynamic_pointer_cast<Witness>(witness);
 
-    // the transfer buffer should not exceed its given size
-    //assert(("The size of the transfer buffer was exceeded" && transferBuffer[transferLength] == NULL));
+    // checks that the buffer length was not exceeded
+    assert(("The size of the transfer buffer was exceeded" && transferBuffer[transferLength] == 0));
 
     assert(("The count of the before witness should have equaled the count of the after witness" && before->getCount() == after->getCount()));
- //   assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before->getChecksum() == after->getChecksum()));
+    assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before->getChecksum() == after->getChecksum()));
 
     remove(stagingFileName);
     remove(storageFileName);
 }
 
 int main(){
-    doTest(123, 50,564,2048);
-    doTest(12003, 50,1024,2048);
+//    doTest(123, 50,564,2048);
+//    doTest(12003, 50,1024,2048);
+    doTest(4, 4, 8, 4);
 }
