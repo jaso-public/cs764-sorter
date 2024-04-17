@@ -19,7 +19,7 @@ An explanation of these customizations and their flags are explained below.
 
 ### Compile and Run Generate Tool
 #### Step 1: Build the CMake File
-Navigate into the build directory and run Cmake ..
+Navigate into the build directory and run cmake ..
 #### Step 2: Run make generate
 This will compile all the necessary classes to create the input file.
 #### Step 3: Run ./generate 
@@ -42,7 +42,7 @@ The flags for this command are explained below.
 
 ### Compile and Run Sort
 #### Step 1: Build the CMake File
-Navigate into the build directory and run Cmake ..
+Navigate into the build directory and run cmake ..
 #### Step 2: Run make sort
 This will compile all the necessary classes needed to preform the external sort.
 #### Step 3: Run ./sort
@@ -57,7 +57,7 @@ The verify tool checks that user input can be parsed and a given input file can 
 
 ### Compile and Run Verify
 #### Step 1: Build the CMake File
-Navigate into the build directory and run Cmake ..
+Navigate into the build directory and run cmake ..
 #### Step 2: Run make verify
 This will compile all the necessary classes needed to run this verify function.
 #### Step 3: Run ./verify
@@ -298,12 +298,16 @@ This method will continue to call the provider's next() method until all records
 This is a class that will write the records that it consumes from the provider to a particular file. This consumer is utilized to write our sorted records to the output.txt file.
 
 ### Class Constructor
+The constructor initializes the class' variables and creates a buffer of the desired size. This buffer will be used to store records before writing them to the output file.
 
 ### consume()
+This method contains to obtain records from the provider and passes them to the appendRecord() function, so they are placed within the buffer. This function continues to run until all records have been obtained (a null pointer has been returned).
 
 ### doWrite()
+This method writes records from the buffer to the output file via the IO Device. It then clears the buffer, so it can store more records.
 
 ### appendRecord(shared_ptr<Record> &ptr)
+This method will continue to store records until the buffer until the buffer is full. Once the buffer is full, it will call doWrite() to write the buffer contents to the output file.
 
 ## Generator
 

@@ -52,14 +52,34 @@ private:
 
 /**
  * This class will write records obtained from the given provider to a file
+ * It is utilized to write the sorted record to the output file
  */
 class DeviceConsumer : public Consumer {
 public:
+    /**
+    * Class constructor that initializes class variables and creates a buffer of the desired size
+    * @param _source the provider to obtain records from
+    * @param _device IO device that will write to the output file
+    * @param _bufferSize the size of the buffer to store records in
+    */
     DeviceConsumer(shared_ptr<Provider> _source, shared_ptr<IODevice> _device, int _bufferSize);
+    /**
+    * Continues to obtain records from the provider and passes them to the appendRecord() function
+    * Flushes the record data once all records have been consumed
+    */
     void consume() override;
 
 private:
+    /**
+     * This method will write the buffer's contents to the file within the IO device
+     * It will then reset the buffer offset, so it can store more records
+     */
     void doWrite();
+    /**
+     * This method will continue to store records into the buffer until the buffer is full
+     * Once the buffer is full, it will call doWrite() to write the buffer contents to the particular file
+     * @param ptr the next record to write to the buffer
+    */
     void appendRecord(shared_ptr<Record> &ptr);
     shared_ptr<Provider> source;                   // the source that will generate records
     shared_ptr<IODevice> outputDevice;             // the output device where the records will be written
