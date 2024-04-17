@@ -2,7 +2,7 @@
 This is an external merge sort application that was written for the CS-764 class project. 
 
 # Tools
-The tools (in the ./src/tools directory) enable the external merge sort to run.
+The tools (in the ./src/tools directory) enable creating an input file with randomly generated, alphanumeric record and allowing the external merge sort to run.
 
 ## Generate
 The generate tools enable the creation of an input.txt file that contains randomly generated, alphanumeric records. It will parse user input to customize the creation of records by allowing a user to determine: 
@@ -20,13 +20,33 @@ An explanation of these customizations and their flags are explained below.
 ### Compile and Run Generate Tool
 #### Step 1: Build the CMake File
 Navigate into the build directory and run Cmake ..
-#### Step 2: run make generate
-This will compile all the necessary classes to create an input file
-#### Step 3: run ./generate 
+#### Step 2: Run make generate
+This will compile all the necessary classes to create the input file.
+#### Step 3: Run ./generate 
 If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./generate -s 120
 
 ## Sort
-//TODO:
+The sort tools compile and run the external merge sort logic with an input.txt file. This logic can be found in SortMain.cpp. Like the generate method, it contains a variety of flags that allow the completion of the sort logic to be customized. 
+The flags for this command are explained below.
+
+### Flags
+- -o: enables the user to determine the given trace file. Its default value is an empty string.
+- -i: enables the user to determine the input file that will contain the unsorted records. Its default value is input.txt.
+- -j: enables the user to determine the output file that the sorted records will be written to. Its default value is output.txt.
+- -d: enables the user to determine the file that the SSD's staged records will be read/written to. Its default value is ssd.staging.
+- -h: enables the user to determine the file that the HDD's staged records will be read/written to. Its default value is hdd.staging.
+- -s: enables the user to determine the record size of the generated records. Its default value if 128.
+- -x: enables the user to determine the cache size. Its default value is 1MB.
+- -y: enables the user to determine the memory size. Its default value is 100MB.
+- -z: enables the user to determine the SSD size. Its default value is 10GB.
+
+### Compile and Run Sort
+#### Step 1: Build the CMake File
+Navigate into the build directory and run Cmake ..
+#### Step 2: Run make sort
+This will compile all the necessary classes needed to preform the external sort.
+#### Step 3: Run ./sort
+If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./sort -s 120
 
 ## Verify
 //TODO:
