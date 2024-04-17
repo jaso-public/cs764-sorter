@@ -50,7 +50,8 @@ If you would like to add customizations to this program, such as defining the re
 
 ## Verify
 The verify tool checks that user input can be parsed and a given input file can be properly handled by the IODevice and filtered through the providers, witness, and consumer. It contains 2 flags that allow the user to determine the input file and the record size.
-These flags are:
+
+### Flags
 - -s: enables a user to determine the record size of the generated records. Its default value if 128.
 - -i: enables the user to determine the input file that will contain the unsorted records. Its default value is input.txt.
 
