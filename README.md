@@ -49,7 +49,18 @@ This will compile all the necessary classes needed to preform the external sort.
 If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./sort -s 120
 
 ## Verify
-//TODO:
+The verify tool checks that user input can be parsed and a given input file can be properly handled by the IODevice and filtered through the providers, witness, and consumer. It contains 2 flags that allow the user to determine the input file and the record size.
+These flags are:
+- -s: enables a user to determine the record size of the generated records. Its default value if 128.
+- -i: enables the user to determine the input file that will contain the unsorted records. Its default value is input.txt.
+
+### Compile and Run Verify
+#### Step 1: Build the CMake File
+Navigate into the build directory and run Cmake ..
+#### Step 2: Run make verify
+This will compile all the necessary classes needed to run this verify function.
+#### Step 3: Run ./verify
+If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./verify -s 120
 
 # Classes
 ## Witness

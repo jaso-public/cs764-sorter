@@ -9,8 +9,8 @@
 using namespace std;
 
 void verifyUsage(const char* message) {
-    std::cout << "Error: " << message << std::endl;
-    std::cout << "other usage stuff needs to go here" << std::endl;
+    cout << "Error: " << message << endl;
+    cout << "other usage stuff needs to go here" << endl;
     exit(1);
 }
 
@@ -42,7 +42,7 @@ int verifyMain (int argc, char * argv []) {
         }
     }
 
-    std::ostream* out = &std::cout;  // Default to cout
+    ostream* out = &cout;  // Default to cout
     *out << "input file: " << inputFileName << std::endl;
 
     *out << "record size: " << recordSize << std::endl;
@@ -58,6 +58,6 @@ int verifyMain (int argc, char * argv []) {
 
     inputDevice->writeStats(*out);
     witness->writeStats(*out, "VerifyTool");
-    *out << "record size: " << recordSize << std::endl;
+    *out << "record size: " << recordSize << endl;
     return 0;
 }
