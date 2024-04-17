@@ -11,7 +11,7 @@ An explanation of these customizations and their flags are explained below.
 
 ### Flags
 - -s: enables a user to determine the record size of the generated records. Its default value if 128.
-- f: enables a user to determine the name of the output file filled with generated records. Its default value is input.txt.
+- -f: enables a user to determine the name of the output file filled with generated records. Its default value is input.txt.
 - -c: enables a user to determine the total number of records that are generated. Its default value is 1000.
 - -p: enables a user to determine the percentage of records generated that will be required to fall within a set range. This percentage determines the likelihood that duplicate records are generated. Its default value is 0.
 - -r: enables a user to set the upperbound of the range in which records of the specified percentage will be generated between. This range consists of 0 to the given range. Its default value is 100.
