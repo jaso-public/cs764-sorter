@@ -26,7 +26,6 @@ void sortUsage(const char* message) {
     cout << "       -x<cacheSize>           desired size of the cache. " << endl;
     cout << "       -y<memorySize>          desired size of the memory (DRAM). " << endl;
     cout << "       -z<ssdSize>             desired size of the SSD. " << endl;
-    cout << "       -n                      make the last byte of the record a new line." << endl;
     cout << endl;
     exit(1);
 }
