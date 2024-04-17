@@ -1,6 +1,34 @@
 # CS764-sorter
 This is an external merge sort application that was written for the CS-764 class project. 
 
+# Tools
+The tools (in the ./src/tools directory) enable the external merge sort to run.
+
+## Generate
+The generate tools enable the creation of an input.txt file that contains randomly generated, alphanumeric records. It will parse user input to customize the creation of records by allowing a user to determine: 
+the name of the input file, record count, record size, probability, range, and the inclusion of a new line character at the end of each record.
+An explanation of these customizations and their flags are explained below. 
+
+### Flags
+- -s: enables a user to determine the record size of the generated records. Its default value if 128.
+- f: enables a user to determine the name of the output file filled with generated records. Its default value is input.txt.
+- -c: enables a user to determine the total number of records that are generated. Its default value is 1000.
+- -p: enables a user to determine the percentage of records generated that will be required to fall within a set range. This percentage determines the likelihood that duplicate records are generated. Its default value is 0.
+- -r: enables a user to set the upperbound of the range in which records of the specified percentage will be generated between. This range consists of 0 to the given range. Its default value is 100.
+- -n: enables a user to decide if a new line character should be included at the end of each generated record. The inclusion of the new line character allows records to be easier to read within the given file. The default value is to not include this character.
+
+### Compile and Run Generator
+#### Step 1: Build the CMake File
+Navigate into the build directory and run Cmake ..
+#### Step 2: run make generate
+This will compile all the necessary classes to create an input file
+#### Step 3: run ./generate 
+If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./generate -s 120
+
+## Sort
+
+## Verify
+
 # Classes
 ## Witness
 The witness class is designed to verify the correctness of the sorting algorithm by comparing a witness before sorting to a witness after sorting.
@@ -217,7 +245,31 @@ This method will parse integers from the input argument. It obtains and sets val
 ### parseFloatingPoint(const std::string& str, T& value)
 This method will parse floating points from the input arguments. It obtains and sets the probability value, indicated by the -p flag, when generating records.
 
+## Consumer
+The Consumer class is utilized to continuously consume records from a provider until all records have been consumed. Like the Provider class, the Consumer class is a virtual class that will be implemented by various Consumers
 
+### consume()
+This method is a virtual method that must be implemented by all other Consumers. It will continue to consume all records from a provider until there are no records left.
+
+## NoopConsumer
+This class is a testing class that simply just continues to call the providers next() method until all records have been returned (a null pointer was reached).
+
+### Class Constructor
+The constructor sets the given source provider to the class' provider, so it can return records.
+
+### consume()
+This method will continue to call the provider's next() method until all records have been returned (a null pointer is returned).
+
+## DeviceConsumer
+This is a class that will write the records that it consumes from the provider to a particular file. This consumer is utilized to write our sorted records to the output.txt file.
+
+### Class Constructor
+
+### consume()
+
+### doWrite()
+
+### appendRecord(shared_ptr<Record> &ptr)
 
 # Implemented Techniques
 ## Tournament Tree
