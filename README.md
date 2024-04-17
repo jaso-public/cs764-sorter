@@ -310,6 +310,16 @@ This method writes records from the buffer to the output file via the IO Device.
 This method will continue to store records until the buffer until the buffer is full. Once the buffer is full, it will call doWrite() to write the buffer contents to the output file.
 
 ## Generator
+This class contains methods that can create two different types of records, one filled with alphanumeric values and one filled with an integer.
+
+### makeRandomRecord(std::mt19937 &gen, bool newLine)
+This method creates a record filled with random alphanumeric values. The newLine parameter indicates whether a new line character should be included at the end of the record. The inclusion of this new line character can make viewing the generated record in a file or through a stream easier.
+
+### makeIntegerRecord(uint32_t value, bool newLine)
+This method creates a record filled with a given integer value. The newLine parameter indicates whether a new line character should be included at the end of the record. The inclusion of this new line character can make viewing the generated record in a file or through a stream easier.
+
+### isCrcValid(shared_ptr<Record> record)
+This method will check the correctness and validity of a given record's CRC value.
 
 # Implemented Techniques
 ## Tournament Tree
