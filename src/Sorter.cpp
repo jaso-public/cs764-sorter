@@ -249,7 +249,7 @@ shared_ptr<Provider> Sorter::startSort() {
         unique_ptr<StorageConfig> storageConfig = make_unique<StorageConfig>();
         storageConfig->recordCount = run->numRecords;
         storageConfig->startOffset = run->offset;
-        storageConfig->buffer = buffer;
+        storageConfig->buffer = buffer + memoryOffset;
         storageConfig->bufferLength = cfg->ssdReadSize;
         storageConfig->storage = cfg->ssdDevice;
         providers.push_back(make_shared<StorageProvider>(storageConfig));

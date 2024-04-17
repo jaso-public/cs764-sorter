@@ -70,7 +70,7 @@ shared_ptr<Record> StagedProvider::next() {
                     // and the rest of the data needs to be written to the staging area
                     // move pointers to point to correct destination in destination and source
                     memcpy(cfg->buffer, cfg->transferBuffer, cfg->bufferLength);
-                    cfg->staging->write(cfg->stagingStartOffset, cfg->transferBuffer, sizeToRead - cfg->bufferLength);
+                    cfg->staging->write(cfg->stagingStartOffset, cfg->transferBuffer + cfg->bufferLength, sizeToRead - cfg->bufferLength);
                     stagingOffset = 0;
                     stagingRemaining = sizeToRead - cfg->bufferLength;
                     bufferOffset = 0;
