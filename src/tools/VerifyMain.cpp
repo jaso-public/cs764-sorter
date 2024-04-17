@@ -8,12 +8,25 @@
 
 using namespace std;
 
+/**
+ * This method will print out an error if something goes wrong within verifyMain()
+ * It also displays information about the flags verifyMain() utilizes
+ * @param message the desired error message
+ */
 void verifyUsage(const char* message) {
     cout << "Error: " << message << endl;
-    cout << "other usage stuff needs to go here" << endl;
+    cout << "[options]" << endl;
+    cout << "       -s<recordSize>  size of the records to generate. " << endl;
+    cout << "       -i<inputFileName>       name of the input file to pass to the IO Device." << endl;
     exit(1);
 }
 
+/**
+ * This method checks that user input can be parsed and a given input file can be properly handled by the IODevice
+ * and filtered through the providers, witness, and consumer
+ * @param argc standard main number of args
+ * @param argv char** args for the program
+ */
 int verifyMain (int argc, char * argv []) {
     int opt;
 

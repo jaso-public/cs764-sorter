@@ -9,6 +9,12 @@
 
 using namespace std;
 
+/**
+ * This method is utilized to display an error message if something goes wrong in generateMain()
+ * It also contains information regarding how generating records works
+ * @param programName name of the program being executed
+ * @param message a given error message
+ */
 void generateUsage(const char* programName, const char* message) {
     cout << "Error: " << message << endl;
     cout << "usage: " << programName << " [options]" << endl;
@@ -27,11 +33,11 @@ void generateUsage(const char* programName, const char* message) {
     cout << "Although the generator makes random keys, the likelihood of getting duplicate keys" << endl;
     cout << "is very low (depending on your key length).  For some test loads, you may want the " << endl;
     cout << "generated file to contain duplicate keys with a much higher probability.  To do this" << endl;
-    cout << "you can specify the probability (-p) and range (-r) for the generator.  The probablity" << endl;
-    cout << "is the liklihood that the next key generated will be created in the range specified.  " << endl;
+    cout << "you can specify the probability (-p) and range (-r) for the generator.  The probability" << endl;
+    cout << "is the likelihood that the next key generated will be created in the range specified.  " << endl;
     cout << "For example if you specify a probability of 0.1 and a range of 100 (-p 0.1 -r 100) then" << endl;
     cout << "1/10 of the records generated on average will have keys in the range [0,100].  If you" << endl;
-    cout << "were to genereate one million records, then about 100,000 of them would have keys in the" << endl;
+    cout << "were to generate one million records, then about 100,000 of them would have keys in the" << endl;
     cout << "range.  Therefore you should expect on average that there 1000 duplicate keys for each of" << endl;
     cout << "the specially generated keys." << endl;
     cout << endl;
@@ -39,6 +45,12 @@ void generateUsage(const char* programName, const char* message) {
     exit(1);
 }
 
+/**
+ * This method will create an input file with random, alphanumeric records
+ * It is utilized to create test files for our sort algorithm
+ * @param argc standard main number of args
+ * @param argv char** args for the program
+ */
 int generateMain (int argc, char * argv []) {
 
     string fileName = "input.txt";
