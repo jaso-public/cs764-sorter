@@ -54,7 +54,7 @@ int sortMain (int argc, char * argv []) {
     uint32_t hddReadSize = 256 * 1024;
 
 
-
+    optind = 1;
     while ((opt = getopt(argc, argv, "o:i:j:d:h:s:k:l:x:y:z:")) != -1) {
         switch (opt) {
             case 'o':

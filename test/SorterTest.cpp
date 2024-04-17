@@ -183,12 +183,12 @@ void testSort(int recordSize, string fileName, bool deleteInput){
     string outFile = "test-output.txt";
     string ssdStagingFile = "test-ssd-staging.txt";
     string hddStagingFile = "test-hdd-staging.txt";
-    const char* sortArgs[] = {"sort", "-i", nullptr, "-j", nullptr, "-d", nullptr, "-h", nullptr, "-s", nullptr, "-j", nullptr, "-d", nullptr, "-h", nullptr, "-s", nullptr, "-i", nullptr};
-    sortArgs[12] = outFile.c_str();
-    sortArgs[14] = ssdStagingFile.c_str();
-    sortArgs[16] = hddStagingFile.c_str();
-    sortArgs[18] = to_string(recordSize).c_str();
-    sortArgs[20] = fileName.c_str();
+    const char* sortArgs[] = {"sort", "-j", nullptr, "-d", nullptr, "-h", nullptr, "-s", nullptr, "-i", nullptr};
+    sortArgs[2] = outFile.c_str();
+    sortArgs[4] = ssdStagingFile.c_str();
+    sortArgs[6] = hddStagingFile.c_str();
+    sortArgs[8] = to_string(recordSize).c_str();
+    sortArgs[10] = fileName.c_str();
     int sortArgsCount = sizeof(sortArgs) / sizeof(sortArgs[0]);
     sortMain(sortArgsCount,const_cast<char**>(sortArgs));
     remove(outFile.c_str());
@@ -210,7 +210,7 @@ int main() {
 //    testSorterConfigInitialization();
 
    // test120GBdiv1000();
-   //TODO: there is still an error here with the whole arguments issue
     testGenerate(20, 100, 0.01, 999, "test-input.txt");
     testSort( 20, "test-input.txt", false);
+    testSort( 1024, "../ExampleFiles/input_table", false);
 }

@@ -61,6 +61,7 @@ int generateMain (int argc, char * argv []) {
     bool newLine = false;
 
     int opt;
+    optind = 1;
     while ((opt = getopt(argc, argv, "f:c:s:p:r:nh")) != -1) {
         switch (opt) {
             case 'h':
