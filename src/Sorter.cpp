@@ -69,6 +69,7 @@ shared_ptr<Record> Sorter::next() {
 */
 shared_ptr<Provider> Sorter::startSort() {
     int maxRecordsPerRun = cfg->memoryBlockSize / Record::getRecordSize();
+    uint64_t totalRecords = 0;
 
     // creates a single provider for each record in a run
     vector<shared_ptr<Provider>> singles(maxRecordsPerRun);
@@ -85,6 +86,7 @@ shared_ptr<Provider> Sorter::startSort() {
                 endReached = true;
                 break;
             }
+            totalRecords++;
             // gives each provider in singles a record to return
             shared_ptr<SingleProvider> singleProvider = dynamic_pointer_cast<SingleProvider>(singles[recordCount++]);
             singleProvider->reset(recordPtr);
@@ -117,23 +119,43 @@ shared_ptr<Provider> Sorter::startSort() {
         return result;
     }
 
+    int memoryRequired = ssdRuns.size() * cfg->ssdReadSize + (hddRuns.size() + 1) * cfg->hddReadSize;
+    int totalMemory = cfg->memoryBlockCount * cfg->memoryBlockSize;
+
+    cout << "------------------" << endl;
+    cout << "just finished reading all the records from the source provider." << endl;
+    cout << "totalRecords:" << totalRecords << endl;
+    cout << "memoryRuns.size():" << memoryRuns.size() << endl;
+    cout << "ssdRuns.size():" << ssdRuns.size() << endl;
+    cout << "hddRuns.size():" << hddRuns.size() << endl;
+
+    cout << "figure out if have enough memory to merge the existing runs" << endl;
+    cout << "memoryRequired:" << memoryRequired << endl;
+    cout << "totalMemory:" << totalMemory << endl;
+
     // see if we can do the final merge with the memory we have.
     // i.e not too many runs and no need to stage hdd runs to ssd
-    int memoryRequired = ssdRuns.size() * cfg->ssdReadSize + (hddRuns.size() + 1) * cfg->hddReadSize;
-    if (memoryRequired < cfg->memoryBlockCount * cfg->memoryBlockSize) {
+    if (memoryRequired < totalMemory) {
+        cout << "there is enough memory to do the final merge -- no need to merge ssd runs to hdd" << endl;
+        cout << "lastMemoryRun:" << lastMemoryRun << endl;
+        cout << "figure out if we have flush some existing memory runs to free up enough memory" << endl; 
         if (memoryRequired > lastMemoryRun) {
             int memoryToRelease = roundUp(memoryRequired - lastMemoryRun, cfg->memoryBlockSize);
             int runsToRelease = memoryToRelease / cfg->memoryBlockSize;
+            cout << "merge some memory runs to ssd/hdd so re have enought memory for the final merge" << endl;
+            cout << "memoryToRelease:" << memoryToRelease << endl;
+            cout << "runsToRelease:" << runsToRelease << endl;
             releaseMemory(runsToRelease);
+        } else {
+            cout << "there is already enough free memory to set up the final merge" << endl;
         }
 
         // set up the providers for the final merge run.
         // add all the memory to the provider as well as ssd/hdd runs with the device's preferred io size.
-        vector<shared_ptr<Provider>> providers(memoryRuns.size() + ssdRuns.size() + hddRuns.size());
-        int index = 0;
+        vector<shared_ptr<Provider>> providers;
+//        int index = 0;
         for (shared_ptr<Run> run: memoryRuns) {
-            shared_ptr<Provider> memPtr = make_shared<MemoryProvider>(buffer+run->offset, run->numRecords);
-            providers[index++] = memPtr;
+            providers.push_back(make_shared<MemoryProvider>(buffer+run->offset, run->numRecords));
         }
 
         // start using the memory from the beginning of the buffer to stage data from the ssd/hdd.
@@ -147,7 +169,7 @@ shared_ptr<Provider> Sorter::startSort() {
             storageConfig->bufferLength = cfg->hddReadSize;
             storageConfig->storage = cfg->hddDevice;
             offset += cfg->hddReadSize;  // leave room in the buffer to stage hdd data
-            providers[index++] = make_shared<StorageProvider>(storageConfig);
+            providers.push_back(make_shared<StorageProvider>(storageConfig));
         }
 
         for (shared_ptr<Run> run: ssdRuns) {
@@ -158,16 +180,20 @@ shared_ptr<Provider> Sorter::startSort() {
             storageConfig->bufferLength = cfg->ssdReadSize;
             storageConfig->storage = cfg->ssdDevice;
             offset += cfg->ssdReadSize;
-            providers[index++] = make_shared<StorageProvider>(storageConfig);
+            providers.push_back(make_shared<StorageProvider>(storageConfig));
         }
 
-        shared_ptr<Provider> result = make_shared<TournamentPQ>(providers, index);
+        shared_ptr<Provider> result = make_shared<TournamentPQ>(providers, providers.size());
         return result;
     }
 
     // we did not have enough memory to do the final merge, so lets flush all of our memory
     // runs and use all the memory to stage the final merge run.
+    cout << "need to merge some ssd runs so that we can set up for the final run -- flush all memory runs" << endl;
     releaseMemory(memoryRuns.size());
+
+    cout << "------------------" << endl;
+    cout << "before setting up the final merge we need to reduce the number of runs and/or make free space on the ssd" << endl;
 
 
     // there are two constraints that we have to worry about now:
@@ -182,6 +208,8 @@ shared_ptr<Provider> Sorter::startSort() {
 
     // figure out how much space we need for staging hdd data
     long stagingRequired = (hddRuns.size() + 1) * (cfg->hddReadSize - cfg->ssdReadSize);
+    cout << "stagingRequired:" << stagingRequired << " bytes" << endl;
+
     int runsToMergeForSpace = 0;
     for (shared_ptr<Run> run: ssdRuns) {
         if (run->offset > stagingRequired) break;
@@ -190,15 +218,13 @@ shared_ptr<Provider> Sorter::startSort() {
 
     int runsToMerge = max(runsToMergeForSpace, runsToMergeForCount);
 
-    cout << "------------------" << "\n";
     cout << "maxMergeRuns:" << maxMergeRuns << endl;
-    cout << "memoryRuns.size():" << memoryRuns.size() << "\n";
-    cout << "ssdRuns.size():" << ssdRuns.size() << "\n";
-    cout << "hddRuns.size():" << hddRuns.size() << "\n";
-    cout << "runsToMerge:" << runsToMerge << "\n";
-    cout << "runsToMergeForCount:" << runsToMergeForCount << "\n";
-    cout << "runsToMergeForSpace:" << runsToMergeForSpace << "\n";
-    cout << "maxMergeRuns:" << maxMergeRuns << "\n";
+    cout << "memoryRuns.size():" << memoryRuns.size() << endl;
+    cout << "ssdRuns.size():" << ssdRuns.size() << endl;
+    cout << "hddRuns.size():" << hddRuns.size() << endl;
+    cout << "runsToMergeForCount:" << runsToMergeForCount << endl;
+    cout << "runsToMergeForSpace:" << runsToMergeForSpace << endl;
+    cout << "runsToMerge:" << runsToMerge << endl;
 
 
     vector<shared_ptr<Provider>> providers(runsToMerge);
@@ -222,6 +248,12 @@ shared_ptr<Provider> Sorter::startSort() {
     }
 
     storeRun(make_shared<TournamentPQ>(providers, runsToMerge), recordCount);
+
+    cout << "------------------" << endl;
+    cout << "set up for the final merge" << endl;
+    cout << "memoryRuns.size():" << memoryRuns.size() << endl;
+    cout << "ssdRuns.size():" << ssdRuns.size() << endl;
+    cout << "hddRuns.size():" << hddRuns.size() << endl;
 
     providers.clear();
     int memoryOffset = cfg->hddReadSize;

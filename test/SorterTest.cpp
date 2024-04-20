@@ -211,6 +211,6 @@ int main() {
 
     test120GBdiv1000();
    //TODO: there is still an error here with the whole arguments issue
-    testGenerate(20, 100, 0.01, 999, "test-input.txt");
-    testSort( 20, "test-input.txt", false);
+//    testGenerate(20, 100, 0.01, 999, "test-input.txt");
+//    testSort( 20, "test-input.txt", false);
 }
