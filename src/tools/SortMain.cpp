@@ -1,5 +1,4 @@
 #include <unistd.h>  // for getopts
-// #include <iostream>
 
 #include "Convert.h"
 #include "Provider.h"
@@ -10,12 +9,32 @@
 
 using namespace std;
 
+/**
+ * This method displays an error message if something goes wrong within sortMain()
+ * It also includes information about how to customize the sort
+ * @param message the given error message
+ */
 void sortUsage(const char* message) {
-    std::cout << "Error: " << message << std::endl;
-    std::cout << "other usage stuff needs to go here" << std::endl;
+    cout << "Error: " << message << endl;
+    cout << " [options]" << endl;
+    cout << "       -o<traceFileName>       name of the trace file to write to." << endl;
+    cout << "       -i<inputFileName>       name of the input file to sort." << endl;
+    cout << "       -j<outputFileName>      name of the output file to write the sorted records to. " << endl;
+    cout << "       -d<ssdStagingFileName>  name of the SSD staging file to read/write to. " << endl;
+    cout << "       -h<hddStagingFileName>  name of the HDD staging file to read/write to. " << endl;
+    cout << "       -s<recordSize>          size of an individual record. " << endl;
+    cout << "       -x<cacheSize>           desired size of the cache. " << endl;
+    cout << "       -y<memorySize>          desired size of the memory (DRAM). " << endl;
+    cout << "       -z<ssdSize>             desired size of the SSD. " << endl;
+    cout << endl;
     exit(1);
 }
 
+/**
+ * This function executes the external merge sort logic on an input file
+ * @param argc standard main number od args
+ * @param argv char** args for the program
+ */
 int sortMain (int argc, char * argv []) {
     int opt;
 
@@ -35,7 +54,7 @@ int sortMain (int argc, char * argv []) {
     uint32_t hddReadSize = 256 * 1024;
 
 
-
+    optind = 1;
     while ((opt = getopt(argc, argv, "o:i:j:d:h:s:k:l:x:y:z:")) != -1) {
         switch (opt) {
             case 'o':

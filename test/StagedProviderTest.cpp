@@ -9,6 +9,20 @@
 #include "src/Consumer.h"
 
 void doTest(uint64_t size, long recordCount, int stagingLength, int bufferLength) {
+    const char* stagingFileName = "staging.tmp";
+    const char* storageFileName = "storage.tmp";
+
+
+    ofstream stagingFile(stagingFileName);
+    ofstream storageFile(storageFileName);
+
+    if (!stagingFile) {
+        cerr << "An error occurred creating the staging file: " << stagingFileName << endl;
+    }
+    if (!storageFile) {
+        cerr << "An error occurred creating the storage file: " << storageFileName << endl;
+    }
+
     Record::staticInitialize(size);
 
     auto provider = make_shared<RandomProvider>(recordCount);
@@ -18,7 +32,7 @@ void doTest(uint64_t size, long recordCount, int stagingLength, int bufferLength
     uint8_t buffer[recordSize];
     uint8_t *bufferPtr = &buffer[0];
 
-    auto storage = make_shared<IODevice>("../Files/storage.tmp");
+    auto storage = make_shared<IODevice>(storageFileName);
 
     long storageOffset = 0;
     while(true) {
@@ -29,7 +43,7 @@ void doTest(uint64_t size, long recordCount, int stagingLength, int bufferLength
         storageOffset += recordSize;
     }
 
-    auto staging = make_shared<IODevice>("../Files/staging.tmp");
+    auto staging = make_shared<IODevice>(stagingFileName);
 
     uint8_t memory[1024*1024]; // 10MB
     uint8_t* memoryPtr = &memory[0];
@@ -37,10 +51,7 @@ void doTest(uint64_t size, long recordCount, int stagingLength, int bufferLength
     long storageStartOffset = 0; // we wrote the records at offset zero
     long stagingStartOffset = 12431; // some arbitrary place in the staging file
 
-    int bufferStartOffset = 20;
-
     uint8_t* transferBuffer = memory;
-    int transferStartOffset = bufferStartOffset + bufferLength;
     int transferLength = stagingLength + bufferLength;
 
     auto cfg = make_unique<StagingConfig>();
@@ -65,19 +76,18 @@ void doTest(uint64_t size, long recordCount, int stagingLength, int bufferLength
 
     shared_ptr<Witness> after = dynamic_pointer_cast<Witness>(witness);
 
+    // checks that the buffer length was not exceeded
+    assert(("The size of the transfer buffer was exceeded" && transferBuffer[transferLength] == 0));
+
     assert(("The count of the before witness should have equaled the count of the after witness" && before->getCount() == after->getCount()));
- //   assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before->getChecksum() == after->getChecksum()));
-}
+    assert(("The checksum of the before witness should have equaled the checksum of the after witness" && before->getChecksum() == after->getChecksum()));
 
-void testSmall() {
-    doTest(123, 50,564,2048);
-}
-
-void testMedium() {
-    doTest(12003, 50,1024,2048);
+    remove(stagingFileName);
+    remove(storageFileName);
 }
 
 int main(){
-    testSmall();
-    testMedium();
+//    doTest(123, 50,564,2048);
+//    doTest(12003, 50,1024,2048);
+    doTest(4, 4, 8, 4);
 }

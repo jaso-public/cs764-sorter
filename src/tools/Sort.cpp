@@ -1,7 +1,8 @@
 /**
  * a bogus main function that just calls into sortMain.
  * This way the linker does not get unhappy because we
- * have more that obe main function.
+ * have more that obe main function. It was created to allow us to
+ * write test cases that call sortMain().
  *
  * @param argc standard main number od args
  * @param argv char** args for the program

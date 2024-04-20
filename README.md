@@ -15,7 +15,10 @@ An explanation of these customizations and their flags are explained below.
 - -c: enables a user to determine the total number of records that are generated. Its default value is 1000.
 - -p: enables a user to determine the percentage of records generated that will be required to fall within a set range. This percentage determines the likelihood that duplicate records are generated. Its default value is 0.
 - -r: enables a user to set the upperbound of the range in which records of the specified percentage will be generated between. This range consists of 0 to the given range. Its default value is 100.
-- -n: enables a user to decide if a new line character should be included at the end of each generated record. The inclusion of the new line character allows records to be easier to read within the given file. The default value is to not include this character.
+- -n: enables a user to decide if a new line character should be included at the end of each generated record. The inclusion of the new line character allows records to be easier to read within the given file. The default value is to not include this character. If you want to include this character, all you need to do is add the flag without a value.
+
+### GenerateMain.cpp
+This file contains the function, generateMain(), that will generate the records and input file. If an error occurs within this method, generateUsage() will be called to print the error message.
 
 ### Compile and Run Generate Tool
 #### Step 1: Build the CMake File
@@ -40,6 +43,9 @@ The flags for this command are explained below.
 - -y: enables the user to determine the memory size. Its default value is 100MB.
 - -z: enables the user to determine the SSD size. Its default value is 10GB.
 
+### SortMain.cpp
+This file contains the function, sortMain(), that will preform the external merge sort on an input file. If an error occurs within this method, sortUsage() will be called to print the error message.
+
 ### Compile and Run Sort
 #### Step 1: Build the CMake File
 Navigate into the build directory and run cmake ..
@@ -54,6 +60,9 @@ The verify tool checks that user input can be parsed and a given input file can 
 ### Flags
 - -s: enables a user to determine the record size of the generated records. Its default value if 128.
 - -i: enables the user to determine the input file that will contain the unsorted records. Its default value is input.txt.
+
+### VerifyMain.cpp
+This file contains the function, verifyMain(), that reads in a users arguments and passes an input file through our chain of providers and consumers. If an error occurs within this method, verifyUsage() will be called to print the error message.
 
 ### Compile and Run Verify
 #### Step 1: Build the CMake File
