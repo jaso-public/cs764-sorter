@@ -21,7 +21,10 @@ public:
     * @param givenFile the string file path of the file
     * Source for exception handling code: https://cplusplus.com/reference/ios/ios/exceptions/
     */
-    IODevice(string filePath);
+    IODevice(string _filePath, std::ostream* _out);
+    IODevice(string _filePath) : IODevice(_filePath, nullptr) {}
+    ;
+
     /**
      * Class destructor that will close the file that is being read/written to
      */
@@ -71,6 +74,7 @@ public:
     double   getMaxWrite();       // the elapsed time of the longest write operation for this device
 
 private:
+    std::ostream* out;        // out stream to print io info
     int fd;                   // the file descriptor of the opened device (file)
     string path;              // the path to the device (file name)
 

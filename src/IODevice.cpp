@@ -13,8 +13,9 @@
  * @param givenFile the string file path of the file
  * Source for exception handling code: https://cplusplus.com/reference/ios/ios/exceptions/
  */
-IODevice::IODevice(string filePath) {
-    path = filePath;
+IODevice::IODevice(string _filePath, std::ostream* _out) {
+    out = _out;
+    path = _filePath;
     readCount = 0;
     readSize= 0;
     totalReadSeconds= 0.0;
@@ -70,6 +71,9 @@ int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
     readSize += count;
     totalReadSeconds += elapsed;
     if(elapsed > maxReadSeconds) maxReadSeconds = elapsed;
+
+    if(out!= nullptr) cout << "read " << path << " offset:" << offset << " length:" << len << " call:" << readCount << " bytesRead:" << count << endl;
+
     return count;
 }
 
@@ -81,6 +85,7 @@ int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
  * @param len the number of byes to be written
  */
 void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
+
     if(len == 0) return;
 
     auto start = chrono::high_resolution_clock::now();
@@ -100,6 +105,8 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
     writeSize += len;
     totalWriteSeconds += elapsed;
     if(elapsed > maxWriteSeconds) maxWriteSeconds = elapsed;
+
+    if(out!= nullptr) cout << "write " << path << " offset:" << offset << " length:" << len << " call:" << writeCount << endl;
 }
 
 /**
