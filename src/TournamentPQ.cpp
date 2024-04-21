@@ -84,8 +84,6 @@ shared_ptr<Record> TournamentPQ::next() {
     }
     losers[0] = winner;
 
-    shared_ptr<Record> ptrResult = result;
-
-    return ptrResult;
+    return result;
 }
 
