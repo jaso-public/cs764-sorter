@@ -208,7 +208,7 @@ add_executable(testStorageProvider
         src/TournamentPQ.h
         src/IODevice.h
         src/IODevice.cpp
-        Testing/StorageProviderTest.cpp
+        test/StorageProviderTest.cpp
         src/Sorter.cpp
         src/Sorter.h
         src/Consumer.h
