@@ -54,9 +54,10 @@ int sortMain (int argc, char * argv []) {
     uint32_t hddReadSize = 256 * 1024;
 
     bool verbose = false;
+    bool deduplicate = false;
 
     optind = 1;
-    while ((opt = getopt(argc, argv, "o:i:j:d:h:s:k:l:x:y:z:v")) != -1) {
+    while ((opt = getopt(argc, argv, "o:i:j:g:h:s:k:l:x:y:z:vd")) != -1) {
         switch (opt) {
             case 'o':
                 traceFileName = optarg;
@@ -67,7 +68,7 @@ int sortMain (int argc, char * argv []) {
             case 'j':
                 outputFileName = optarg;
                 break;
-            case 'd':
+            case 'g':
                 ssdStagingFileName = optarg;
                 break;
             case 'h':
@@ -92,6 +93,9 @@ int sortMain (int argc, char * argv []) {
                 if(! parseInteger(optarg, ssdSize)) {
                     sortUsage("unable to parse the ssd size");
                 }
+                break;
+            case 'd':
+                deduplicate = true;
                 break;
             case 'v':
                 verbose = true;
@@ -126,10 +130,11 @@ int sortMain (int argc, char * argv []) {
     *out << "    ssd staging file : " << ssdStagingFileName << std::endl;
     *out << "    hdd staging file : " << hddStagingFileName << std::endl;
     *out << "    record size      : " << recordSize << std::endl;
+    *out << "    deduplicate      : " << (deduplicate ? "true" : "false") << std::endl;
     Record::staticInitialize(recordSize);
 
     std::ostream* verboseOut = nullptr;
-    if(verbose) verbose = out;
+    if(verbose) verboseOut = out;
 
     auto cfg = make_unique<SorterConfig>();
     auto ssdDevice = make_shared<IODevice>(ssdStagingFileName, out);
@@ -144,12 +149,14 @@ int sortMain (int argc, char * argv []) {
 
     cfg->writeStats(*out);
 
-    auto inputDevice = make_shared<IODevice>(inputFileName, out);
+    auto inputDevice = make_shared<IODevice>(inputFileName, verboseOut);
     auto provider = make_shared<DeviceProvider>(inputDevice, hddReadSize);
     auto lower = make_shared<Witness>(provider);
-    auto sorter = make_shared<Sorter>(cfg, lower);
-    auto upper = make_shared<Witness>(sorter);
-    auto outputDevice = make_shared<IODevice>(outputFileName, out);
+    auto sorter = make_shared<Sorter>(cfg, lower, verboseOut);
+    shared_ptr<Provider> nextProvider = sorter;
+    if(deduplicate) nextProvider = make_shared<DeduplicaterProvider>(sorter);
+    auto upper = make_shared<Witness>(nextProvider);
+    auto outputDevice = make_shared<IODevice>(outputFileName, verboseOut);
     auto consumer = make_shared<DeviceConsumer>(upper, outputDevice, hddReadSize);
 
     consumer->consume();

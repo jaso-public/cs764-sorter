@@ -72,7 +72,7 @@ int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
     totalReadSeconds += elapsed;
     if(elapsed > maxReadSeconds) maxReadSeconds = elapsed;
 
-    if(out!= nullptr) cout << "read " << path << " offset:" << offset << " length:" << len << " call:" << readCount << " bytesRead:" << count << endl;
+    if(out!= nullptr) *out << "read " << path << " offset:" << offset << " length:" << len << " call:" << readCount << " bytesRead:" << count << endl;
 
     return count;
 }
@@ -106,7 +106,7 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
     totalWriteSeconds += elapsed;
     if(elapsed > maxWriteSeconds) maxWriteSeconds = elapsed;
 
-    if(out!= nullptr) cout << "write " << path << " offset:" << offset << " length:" << len << " call:" << writeCount << endl;
+    if(out!= nullptr) *out << "write " << path << " offset:" << offset << " length:" << len << " call:" << writeCount << endl;
 }
 
 /**

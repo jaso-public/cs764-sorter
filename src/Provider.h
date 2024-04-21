@@ -79,6 +79,39 @@ private:
     uint64_t recordCount;             // the total number of records to be returned
 };
 
+class DeduplicaterProvider: public Provider {
+public:
+    /**
+     * Class constructor that initializes class' variables
+     * @param _buffer buffer to extract records from
+     * @param _recordCount total number of records to extract
+     */
+    DeduplicaterProvider(shared_ptr<Provider> _source) {
+        source = _source;
+        nextRecord = source->next();
+    }
+
+    /**
+     * Gets and returns the next record out of the buffer
+     * @return a record or a null pointer if all records have been returned
+     */
+    shared_ptr<Record> next() override {
+        if(nextRecord == nullptr) return nextRecord;
+        auto result = nextRecord;
+
+        do {
+            nextRecord = source->next();
+            if(nextRecord == nullptr) return result;
+        } while(result->compareTo(nextRecord) == 0);
+
+        return result;
+    }
+
+private:
+    shared_ptr<Provider> source;
+    shared_ptr<Record> nextRecord;
+};
+
 
 /**
  * This class is an empty provider that continues to return a nullptr

@@ -61,7 +61,9 @@ public:
      * @param cfg sorter config
      * @param source the provider to obtain unsorted, records from
      */
-    Sorter(unique_ptr<SorterConfig> &cfg, shared_ptr<Provider> source);
+    Sorter(unique_ptr<SorterConfig> &cfg, shared_ptr<Provider> _source, std::ostream* _out);
+    Sorter(unique_ptr<SorterConfig> &cfg, shared_ptr<Provider> _source): Sorter(cfg, _source, nullptr) {}
+
     /**
      * Provides the next, sorted record
      * @return a pointer to the next, sorted record or a null pointer if all records have been returned
@@ -76,6 +78,7 @@ public:
 private:
     shared_ptr<SorterConfig> cfg;                                     // class' sorter config class
     shared_ptr<Provider> source;                                      // the provider that is giving unsorted records to the class
+    std::ostream* out;                                                // out stream to print some sorting info
 
     shared_ptr<Provider> sortedProvider;                              // the provider that is returning sorted records
 
