@@ -23,7 +23,6 @@ public:
     */
     IODevice(string _filePath, std::ostream* _out);
     IODevice(string _filePath) : IODevice(_filePath, nullptr) {}
-    ;
 
     /**
      * Class destructor that will close the file that is being read/written to
