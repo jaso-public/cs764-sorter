@@ -56,21 +56,6 @@ public:
      */
     void writeStats(ostream& out);
 
-    /**
-     * as this IoDevice does I/O operations to and from the device,
-     * it records simple statistics about the read and write operations.
-     * The methods below should be fairly obvious about what the measurement
-     * is recording for each statistic.
-    */
-    uint64_t getReadCount();     // cumulative numbers of times read was called
-    uint64_t getReadSize();      // cumulative numbers of bytes read from this device
-    double   getTotalRead();     // cumulative time measured in seconds for all read operations
-    double   getMaxRead();       // the elapsed time of the longest read operation for this device
-
-    uint64_t getWriteCount();     // cumulative numbers of times write was called
-    uint64_t getWriteSize();      // cumulative numbers of bytes write from this device
-    double   getTotalWrite();     // cumulative time measured in seconds for all write operations
-    double   getMaxWrite();       // the elapsed time of the longest write operation for this device
 
 private:
     std::ostream* out;        // out stream to print io info

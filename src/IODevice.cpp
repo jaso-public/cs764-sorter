@@ -120,35 +120,25 @@ void IODevice::write(uint64_t offset, uint8_t* src, uint32_t len) {
 void IODevice::writeStats(ostream& out) {
     out << "Device: " << path << endl;
 
-    if(getReadCount() + getWriteCount() == 0) {
+    if(readCount + writeCount == 0) {
         out << "    never accessed" << endl;
     }
 
-    if(getReadCount() > 0) {
+    if(readCount > 0) {
         out << "    read" << endl;
-        out << "        count        : " << getReadCount() << " calls" << endl;
-        out << "        size         : " << getReadSize() << " bytes" << endl;
-        out << fixed << setprecision(6) << "        time         : " << getTotalRead() << " seconds" << endl;
-        if(getTotalRead()>0) out << fixed << setprecision(0) << "        average      : " << ((double)getReadSize() / getTotalRead()) << " bytes/second" << endl;
-        out << fixed << setprecision(6) << "        maxTime      : " << getMaxRead() << " seconds" << endl;
+        out << "        count        : " << readCount << " calls" << endl;
+        out << "        size         : " << readSize << " bytes" << endl;
+        out << fixed << setprecision(6) << "        time         : " << totalReadSeconds << " seconds" << endl;
+        if(totalReadSeconds>0) out << fixed << setprecision(0) << "        average      : " << ((double)readSize / totalReadSeconds) << " bytes/second" << endl;
+        out << fixed << setprecision(6) << "        maxTime      : " << maxReadSeconds << " seconds" << endl;
     }
 
-    if(getWriteCount() > 0) {
+    if(writeCount > 0) {
         out << "    write" << endl;
-        out << "        count        : " << getWriteCount() << " calls" <<endl;
-        out << "        size         : " << getWriteSize() << " bytes" << endl;
-        out << fixed << setprecision(6) << "        time         : " << getTotalWrite() << " seconds" << endl;
-        if (getTotalWrite() > 0) out << fixed << setprecision(0) << "        average      : " << ((double) getWriteSize() / getTotalWrite()) << " bytes/second" << endl;
-        out << fixed << setprecision(6) << "        maxTime      : " << getMaxWrite() << " seconds" << endl;
+        out << "        count        : " << writeCount << " calls" <<endl;
+        out << "        size         : " << writeSize << " bytes" << endl;
+        out << fixed << setprecision(6) << "        time         : " << totalWriteSeconds << " seconds" << endl;
+        if (totalWriteSeconds > 0) out << fixed << setprecision(0) << "        average      : " << ((double) writeSize / totalWriteSeconds) << " bytes/second" << endl;
+        out << fixed << setprecision(6) << "        maxTime      : " << maxWriteSeconds << " seconds" << endl;
     }
 }
-
-uint64_t IODevice::getReadCount() { return readCount; }
-uint64_t IODevice::getReadSize() { return readSize; }
-double   IODevice::getTotalRead() { return totalReadSeconds; }
-double   IODevice::getMaxRead() { return maxReadSeconds; }
-
-uint64_t IODevice::getWriteCount() { return writeCount; }
-uint64_t IODevice::getWriteSize() { return writeSize; }
-double   IODevice::getTotalWrite() { return totalWriteSeconds; }
-double   IODevice::getMaxWrite() { return maxWriteSeconds; }
