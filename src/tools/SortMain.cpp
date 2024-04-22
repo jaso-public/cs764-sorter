@@ -20,12 +20,14 @@ void sortUsage(const char* message) {
     cout << "       -o<traceFileName>       name of the trace file to write to." << endl;
     cout << "       -i<inputFileName>       name of the input file to sort." << endl;
     cout << "       -j<outputFileName>      name of the output file to write the sorted records to. " << endl;
-    cout << "       -d<ssdStagingFileName>  name of the SSD staging file to read/write to. " << endl;
+    cout << "       -g<ssdStagingFileName>  name of the SSD staging file to read/write to. " << endl;
     cout << "       -h<hddStagingFileName>  name of the HDD staging file to read/write to. " << endl;
     cout << "       -s<recordSize>          size of an individual record. " << endl;
     cout << "       -x<cacheSize>           desired size of the cache. " << endl;
     cout << "       -y<memorySize>          desired size of the memory (DRAM). " << endl;
     cout << "       -z<ssdSize>             desired size of the SSD. " << endl;
+    cout << "       -d                      remove duplicate records. " << endl;
+    cout << "       -v                      verbose output. " << endl;
     cout << endl;
     exit(1);
 }
@@ -36,6 +38,11 @@ void sortUsage(const char* message) {
  * @param argv char** args for the program
  */
 int sortMain (int argc, char * argv []) {
+
+    if(argc==1) {
+        sortUsage("usage");
+    }
+
     int opt;
 
     string inputFileName = "input.txt";
