@@ -39,6 +39,7 @@ The flags for this command are explained below.
 - -d: enables the user to determine the file that the SSD's staged records will be read/written to. Its default value is ssd.staging.
 - -h: enables the user to determine the file that the HDD's staged records will be read/written to. Its default value is hdd.staging.
 - -s: enables the user to determine the record size of the generated records. Its default value if 128.
+- -v: enables the user to see additional information/statistics from the sort logic in the terminal. Such information includes statistics from the IODevice class' methods. To utilize this flag, just include the flag within the programs execution without any value.
 - -x: enables the user to determine the cache size. Its default value is 1MB.
 - -y: enables the user to determine the memory size. Its default value is 100MB.
 - -z: enables the user to determine the SSD size. Its default value is 10GB.
