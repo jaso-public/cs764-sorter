@@ -137,8 +137,8 @@ int sortMain (int argc, char * argv []) {
     if(verbose) verboseOut = out;
 
     auto cfg = make_unique<SorterConfig>();
-    auto ssdDevice = make_shared<IODevice>(ssdStagingFileName, out);
-    auto hddDevice = make_shared<IODevice>(hddStagingFileName, out);
+    auto ssdDevice = make_shared<IODevice>(ssdStagingFileName, verboseOut);
+    auto hddDevice = make_shared<IODevice>(hddStagingFileName, verboseOut);
 
     cfg->ssdDevice = ssdDevice;
     cfg->hddDevice = hddDevice;
