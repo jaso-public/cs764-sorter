@@ -12,7 +12,7 @@ public:
      * Class constructor
      * @param source a provider to obtain records from
      */
-    Witness(shared_ptr<Provider> source): source(source), record(source->next()), count(0), checksum(0), sorted(true) {}
+    Witness(shared_ptr<Provider> source): source(source), record(source->next()), count(0), checksum(0), sorted(true), duplicateCount(0) {}
 
     /**
      * Returns a pointer to the next record from the provider
