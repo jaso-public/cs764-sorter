@@ -284,12 +284,10 @@ The class destructor will close the file that the class is reading/writing from.
 This method will read the desired number of bytes from the file at the specified offset into the given buffer. If the class' out variable is not a null pointer, it will print out statistics from the read.
 
 ### write(uint64_t offset, uint8_t* src, uint32_t len)
-This method will write the specified number of bytes from the file into the given buffer at the specified offset.
+This method will write the specified number of bytes from the file into the given buffer at the specified offset. If the class' out variable is not a null pointer, it will print out statistics from the write.
 
-This method will print out statistics from the read/write operations to the given stream. Some of the statistics it displays are the read count, read size, and write size. If the class' out variable is not a null pointer, it will print out statistics from the write.
-
-### Get methods
-This class contains a variety of get methods, such as getReadCount(), getReadSize(), and getTotalRead(). These methods will return the appropriate class variables corresponding to their method name. These methods are able to display simple statistics about the class' read and write operations.
+### writeStats(ostream& out)
+This method will print out statistics from the read/write operations to the given stream. Some of the statistics it displays are the read count, read size, and write size.
 
 ## Convert
 This method is utilized with SortMain.cpp and GenerateMain.cpp to parse the given arguments from the user. It enables the flags, such as -s, to be parsed from the users input when generating and sorting records.
