@@ -341,14 +341,16 @@ This method will check the correctness and validity of a given record's CRC valu
 
 # Implemented Techniques
 ## Tournament Tree
-The tournament tree can be seen within the TournamentPQ.cpp and TournamentPQ.h files located within the ./src directory
+The tournament tree's methods can be seen within the TournamentPQ.cpp and TournamentPQ.h files located within the ./src directory. It is utilized within the Sorter.cpp file that is also within the ./src directory to sort records. Within Sorter.cpp, it is utilized on lines 109, 195, 259, 301, and 341.
 
 ## Variable Size Records
-The generator class accepts various flags including the "-s" flag for record size and the "-c" flag for record count. This enables a user to generate records of variable sizes and counts. This can be seen within the generate.cpp file in the ./src/tools directory.
+The generator class accepts various flags including the "-s" flag for record size and the "-c" flag for record count. This enables a user to generate records of variable sizes and counts to an input.txt. This can be seen within the generate.cpp file in the ./src/tools directory. For sorting a given input file, the sortMain() method in ./tools/SortMain.cpp accepts the flag "-s" to allow the user to define a given record size. This size is sent to the Record's class' staticInitialize() method to be used when preforming operations on records. This call can be seen in SortMain.cpp at line 141.
 
-## Minimum Count of Row
+## Minimum Count of Row Comparisons
+
 
 ## Duplicate Removal
+Duplicate removal is completed by the DeduplicaterProvider. This provider is given the sorted output, and then, it only returns unique records from this sorted output. This provider can be seen within Provider.h at lines 86-118. Its place within our execution chain of providers/consumers can be seen within SortMain.cpp at line 164.
 
 ## Cache Size Mini Runs
 
@@ -366,7 +368,7 @@ The generator class accepts various flags including the "-s" flag for record siz
 We completed optimized merge patterns through the sorter class.
 
 ## Verifying Sort Order
-The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record. If not, the class' sorted variable is set to false (line 34). This boolean value can be obtained from the class' isSorted() method (lines 66-68). This class can be found in the Witness.h file in ./src.
+The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record via the compareTo() method of the record class. If not, the class' sorted variable is set to false (line 32-34). This boolean value can be obtained from the class' isSorted() method (lines 66-68). This class can be found in the Witness.h file in ./src.
 
 # Time Taken for Test Case
 ## Input Sizes
@@ -374,24 +376,6 @@ The verification of the sort order is completed via the Witness class. It ensure
 ### 125MB
 ### 12GB
 ### 120GB
-record count: 1073741824
-record size: 120
-probability: 0.01
-range: 9999
-new line: 1
-Device: input.txt
-write
-count        : 491520 calls
-size         : 128849018880 bytes
-time         : 33.204455 seconds
-average      : 3880473812 bytes/second
-maxTime      : 0.030100 seconds
-Witness: generate
-record count     : 1073741824
-checksum         : 2323403496170342774
-sorted           : false
-duplicate count  : 7
-
 
 ## Record Sizes
 ### 20B
