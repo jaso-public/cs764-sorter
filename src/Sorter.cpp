@@ -304,7 +304,7 @@ shared_ptr<Provider> Sorter::startSort() {
 }
 
 /**
- * This method enables graceful degradation by defining a spill value (fraction) to spill from memory
+ * This method enables graceful degradation by defining a spill value of memory blocks to spill from memory
  */
 void Sorter::makeFreeSpace() {
     long sorted = ssdOffset + hddOffset;
@@ -390,7 +390,6 @@ void Sorter::storeRun(shared_ptr<Provider> provider, long recordCount) {
             bufferRemaining -= recordSize;
         }
     }
-
     // finally write out what ever is left in the buffer.
     device->write(deviceOffset, buffer, bufferOffset);
 }

@@ -104,8 +104,8 @@ private:
      */
     shared_ptr<Provider> startSort();
     /**
-     * This method enables graceful degradation by defining a spill value (fraction) to spill from memory
-     */
+    * This method enables graceful degradation by defining a spill value of memory blocks to spill from memory
+    */
     void makeFreeSpace();
     /**
      * This method will free up the memory space before or after a merge so more records can be stored; memory is freed by writing runs to the SSD and/or HDD via storeRuns()
