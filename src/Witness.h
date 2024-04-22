@@ -27,7 +27,10 @@ public:
         checksum ^= result->checksum();
 
         record = source->next();
-        if(record == nullptr) return result;
+        if(record == nullptr) {
+            cerr << "Witness source returned null" << endl;
+            return result;
+        }
 
         int cmp = result->compareTo(record);
         if(cmp == 0) duplicateCount++;

@@ -22,7 +22,10 @@ DeviceConsumer::DeviceConsumer(shared_ptr<Provider> _source, shared_ptr<IODevice
 void DeviceConsumer::consume() {
     while(true) {
         shared_ptr<Record> ptr = source->next();
-        if(ptr == nullptr) break;
+        if(ptr == nullptr) {
+            cerr << "DeviceConsumer source returned null" << endl;
+            break;
+        }
         appendRecord(ptr);
     }
     doWrite(); // flush any pending data
