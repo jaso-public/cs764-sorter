@@ -18,7 +18,8 @@ class IODevice {
 public:
     /**
     * Class constructor; Opens the given file in read/write mode
-    * @param givenFile the string file path of the file
+    * @param _filePath the string file path of the file
+    * @param _out the stream to display read/write data; if it is a nullptr, then the data will not be displayed
     * Source for exception handling code: https://cplusplus.com/reference/ios/ios/exceptions/
     */
     IODevice(string _filePath, std::ostream* _out);
@@ -31,6 +32,7 @@ public:
 
     /**
      * Reads a number of bytes from the file at a certain location
+     * Prints out read statistics if the class' out variable is not a nullptr
      * @param offset the file pointer offset where reading will begin
      * @param buffer place to store read data
      * @param len the number of byes to be read
@@ -40,6 +42,7 @@ public:
     
     /**
      * Writes a number of bytes from the file at a certain location
+     * Prints out write statistics if the class' out variable is not a nullptr
      * @param offset the file pointer offset where writing will begin
      * @param buffer place to store written data
      * @param off the location of the first write

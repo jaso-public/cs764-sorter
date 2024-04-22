@@ -25,6 +25,7 @@ void SorterConfig::writeStats(std::ostream& out) {
  * Initializes class' values and begins sorting algorithm
  * @param cfg sorter configuration
  * @param source the provider to obtain records from
+ * @param _out a pointer to a stream to display sorter statistics to; if it is a null pointer, then no statistics will be displayed
 */
 Sorter::Sorter(unique_ptr<SorterConfig> &config, shared_ptr<Provider> src, std::ostream* _out) {
     startTime = chrono::high_resolution_clock::now();
@@ -105,6 +106,7 @@ shared_ptr<Provider> Sorter::startSort() {
 
             lastMemoryRun -= cfg->memoryBlockSize;
 
+            // sending all the providers storing the records for our mini run to the tournament PQ for sorting
             shared_ptr<Provider> pq = make_shared<TournamentPQ>(singles, recordCount);
             for (int i = 0; i < recordCount; i++) {
                 shared_ptr<Record> ptr = pq->next();

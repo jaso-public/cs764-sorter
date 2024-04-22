@@ -33,12 +33,14 @@ The sort tools compile and run the external merge sort logic with an input.txt f
 The flags for this command are explained below.
 
 ### Flags
+- -d: enables the user to determine if duplicate records should be included within the sorted output. To remove duplicates, just include this flag within the programs execution without any following value.
 - -o: enables the user to determine the given trace file. Its default value is an empty string.
 - -i: enables the user to determine the input file that will contain the unsorted records. Its default value is input.txt.
 - -j: enables the user to determine the output file that the sorted records will be written to. Its default value is output.txt.
-- -d: enables the user to determine the file that the SSD's staged records will be read/written to. Its default value is ssd.staging.
+- -g: enables the user to determine the file that the SSD's staged records will be read/written to. Its default value is ssd.staging.
 - -h: enables the user to determine the file that the HDD's staged records will be read/written to. Its default value is hdd.staging.
 - -s: enables the user to determine the record size of the generated records. Its default value if 128.
+- -v: enables the user to see additional information/statistics from the sort logic in the terminal. Such information includes statistics from the IODevice and Sorter classes' methods. To utilize this flag, just include the flag within the programs execution without any value.
 - -x: enables the user to determine the cache size. Its default value is 1MB.
 - -y: enables the user to determine the memory size. Its default value is 100MB.
 - -z: enables the user to determine the SSD size. Its default value is 10GB.
@@ -141,7 +143,7 @@ This method will print the values held by the class to the output stream includi
 This class contains all of our logic for completing the sort including: graceful degradation, spilling, and merging.
 
 ### Class Constructor
-The constructor initializes the class' values and ensures that an IO device was created for both the SSD and HDD. It begins the sorting algorithm by calling startSort().
+The constructor initializes the class' values and ensures that an IO device was created for both the SSD and HDD. It begins the sorting algorithm by calling startSort(). It accepts a pointer to a stream to write statistics about the sorting logic to. If this pointer is a null pointer, no statistics will be displayed.
 
 ### next()
 This method will return the next sorted record.
@@ -227,6 +229,15 @@ The class constructor obtains the buffer to extract records from and initializes
 ### next()
 This method will return the next record from the buffer. If all records from the buffer have been returned, it will return a null pointer.
 
+## DeduplicaterProvider
+This provider only returns unique records from the given provider, eliminating duplicate records. It is utilized to remove duplicate records from the sorted records.
+
+### Class Constructor
+The class constructor sets the given provider to the class provider and stores the first record returned from the provider to compare to the next returned record for duplicate removal.
+
+### next()
+This method will return the next, unique record from the provider. If all unique records have been returned, it will return a null pointer.
+
 ## EmptyProvider
 This class is an empty provider that only returns null pointers via its next() method. It was created to by utilized by the Sorter when there are no more records to return.
 
@@ -264,21 +275,19 @@ This method returns the next record from the provider or a null pointer if all r
 This class will read and write data from a file. It is utilized to read data from the input file and to read/write from temporary files and the final output file.
 
 ### Class Constructor
-The class constructor will initialize the class' variables and open the given file for reading and writing. It will catch an exception if the given file cannot be open.
+The class constructor will initialize the class' variables and open the given file for reading and writing. It will catch an exception if the given file cannot be open. If its _out parameter is not a null pointer, then statistics from the read() and write() functions will be displayed when they are called. If it is a null pointer, then no statistics will be printed to the stream.
 
 ### Class Destructor
 The class destructor will close the file that the class is reading/writing from.
 
 ### read(uint64_t offset, uint8_t* dst, uint32_t len)
-This method will read the desired number of bytes from the file at the specified offset into the given buffer. 
+This method will read the desired number of bytes from the file at the specified offset into the given buffer. If the class' out variable is not a null pointer, it will print out statistics from the read.
 
 ### write(uint64_t offset, uint8_t* src, uint32_t len)
-This method will write the specified number of bytes from the file into the given buffer at the specified offset.
+This method will write the specified number of bytes from the file into the given buffer at the specified offset. If the class' out variable is not a null pointer, it will print out statistics from the write.
 
+### writeStats(ostream& out)
 This method will print out statistics from the read/write operations to the given stream. Some of the statistics it displays are the read count, read size, and write size.
-
-### Get methods
-This class contains a variety of get methods, such as getReadCount(), getReadSize(), and getTotalRead(). These methods will return the appropriate class variables corresponding to their method name. These methods are able to display simple statistics about the class' read and write operations.
 
 ## Convert
 This method is utilized with SortMain.cpp and GenerateMain.cpp to parse the given arguments from the user. It enables the flags, such as -s, to be parsed from the users input when generating and sorting records.
@@ -332,32 +341,37 @@ This method will check the correctness and validity of a given record's CRC valu
 
 # Implemented Techniques
 ## Tournament Tree
-The tournament tree can be seen within the TournamentPQ.cpp and TournamentPQ.h files located within the ./src directory
+The tournament tree's methods can be seen within the TournamentPQ.cpp and TournamentPQ.h files located within the ./src directory. It is utilized within the Sorter.cpp file that is also within the ./src directory to sort records. Within Sorter.cpp, it is utilized on lines 109, 195, 259, 301, and 341.
 
 ## Variable Size Records
-The generator class accepts various flags including the "-s" flag for record size and the "-c" flag for record count. This enables a user to generate records of variable sizes and counts. This can be seen within the generate.cpp file in the ./src/tools directory.
+The generator class accepts various flags including the "-s" flag for record size and the "-c" flag for record count. This enables a user to generate records of variable sizes and counts to an input.txt. This can be seen within the generate.cpp file in the ./src/tools directory. For sorting a given input file, the sortMain() method in ./tools/SortMain.cpp accepts the flag "-s" to allow the user to define a given record size. This size is sent to the Record's class' staticInitialize() method to be used when preforming operations on records. This call can be seen in SortMain.cpp at line 141.
 
-## Minimum Count of Row
+## Minimum Count of Row Comparisons
 
 ## Duplicate Removal
+Duplicate removal is completed by the DeduplicaterProvider. This provider is given the sorted output, and then, it only returns unique records from this sorted output. This provider can be seen within Provider.h at lines 86-118. Its place within our execution chain of providers/consumers can be seen within SortMain.cpp at line 164.
 
 ## Cache Size Mini Runs
+In our code, the size of cache is represented by memoryBlockSize defined in the SorterConfig class. Within the start of our sorting logic, we create a vector of Single Providers that is the size of the total number of records that can fit into the cache (Sorter.cpp, lines 72-80). We then give each Single Provider a record to return that comes from our source (Sorter.cpp, line 86-94).
+Then, we send all of these records to the TournamentPQ class to be sorted (Sorter.cpp line 110). This the cache size mini run. We then store this mini run within DRAM (Sorter.cpp, line 116). This process continues until all records from the source provider has been returned. Note that staging also occurs within the listed code portions, but this will be detailed further below.
 
 ## Device Optimized Page Sizes
 
 ## Spilling Memory-to-SSD
+Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called.
  
 ## Spilling Memory from SSD to Disk
 
 ## Graceful Degradation
 ### Into Merging
+Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. In makeFreeSpace(), the number of memory blocks to stage to a lower memory storage is partially determined by a fraction from the SorterConfig (Sorter.cpp, line 315). This fraction enables graceful degradation because it determines how many memory blocks are going to be staged to either the SSD or HDD, but it will only release part of the space within DRAM, not the entire DRAM's contents unless there is only one memory block left.
 ### Beyond One Merge Step
 
 ## Optimized Merge Patterns
-We completed optimized merge patterns through the sorter class.
+We completed optimized merge patterns through the Sorter class. First, we have a check to ensure that the sort logic quickly determines if there is nothing to sort. This is completed on lines 119-122 in Sorter.cpp.
 
 ## Verifying Sort Order
-The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record. If not, the class' sorted variable is set to false (line 34). This boolean value can be obtained from the class' isSorted() method (lines 66-68). This class can be found in the Witness.h file in ./src.
+The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record via the compareTo() method of the record class. If not, the class' sorted variable is set to false (line 32-34). This boolean value can be obtained from the class' isSorted() method (lines 66-68). This class can be found in the Witness.h file in ./src.
 
 # Time Taken for Test Case
 ## Input Sizes
@@ -365,24 +379,6 @@ The verification of the sort order is completed via the Witness class. It ensure
 ### 125MB
 ### 12GB
 ### 120GB
-record count: 1073741824
-record size: 120
-probability: 0.01
-range: 9999
-new line: 1
-Device: input.txt
-write
-count        : 491520 calls
-size         : 128849018880 bytes
-time         : 33.204455 seconds
-average      : 3880473812 bytes/second
-maxTime      : 0.030100 seconds
-Witness: generate
-record count     : 1073741824
-checksum         : 2323403496170342774
-sorted           : false
-duplicate count  : 7
-
 
 ## Record Sizes
 ### 20B
