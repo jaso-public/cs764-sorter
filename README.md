@@ -264,7 +264,7 @@ This method returns the next record from the provider or a null pointer if all r
 This class will read and write data from a file. It is utilized to read data from the input file and to read/write from temporary files and the final output file.
 
 ### Class Constructor
-The class constructor will initialize the class' variables and open the given file for reading and writing. It will catch an exception if the given file cannot be open.
+The class constructor will initialize the class' variables and open the given file for reading and writing. It will catch an exception if the given file cannot be open. If its _out parameter is not a null pointer, then statistics from the read() and write() functions will be displayed when they are called. If it is a null pointer, then no statistics will be printed to the stream.
 
 ### Class Destructor
 The class destructor will close the file that the class is reading/writing from.

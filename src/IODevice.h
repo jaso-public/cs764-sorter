@@ -18,7 +18,8 @@ class IODevice {
 public:
     /**
     * Class constructor; Opens the given file in read/write mode
-    * @param givenFile the string file path of the file
+    * @param _filePath the string file path of the file
+    * @param _out the stream to display read/write data; if it is a nullptr, then the data will not be displayed
     * Source for exception handling code: https://cplusplus.com/reference/ios/ios/exceptions/
     */
     IODevice(string _filePath, std::ostream* _out);
