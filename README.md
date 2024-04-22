@@ -348,24 +348,27 @@ The generator class accepts various flags including the "-s" flag for record siz
 
 ## Minimum Count of Row Comparisons
 
-
 ## Duplicate Removal
 Duplicate removal is completed by the DeduplicaterProvider. This provider is given the sorted output, and then, it only returns unique records from this sorted output. This provider can be seen within Provider.h at lines 86-118. Its place within our execution chain of providers/consumers can be seen within SortMain.cpp at line 164.
 
 ## Cache Size Mini Runs
+In our code, the size of cache is represented by memoryBlockSize defined in the SorterConfig class. Within the start of our sorting logic, we create a vector of Single Providers that is the size of the total number of records that can fit into the cache (Sorter.cpp, lines 72-80). We then give each Single Provider a record to return that comes from our source (Sorter.cpp, line 86-94).
+Then, we send all of these records to the TournamentPQ class to be sorted (Sorter.cpp line 110). This the cache size mini run. We then store this mini run within DRAM (Sorter.cpp, line 116). This process continues until all records from the source provider has been returned. Note that staging also occurs within the listed code portions, but this will be detailed further below.
 
 ## Device Optimized Page Sizes
 
 ## Spilling Memory-to-SSD
+Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called.
  
 ## Spilling Memory from SSD to Disk
 
 ## Graceful Degradation
 ### Into Merging
+Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. In makeFreeSpace(), the number of memory blocks to stage to a lower memory storage is partially determined by a fraction from the SorterConfig (Sorter.cpp, line 315). This fraction enables graceful degradation because it determines how many memory blocks are going to be staged to either the SSD or HDD, but it will only release part of the space within DRAM, not the entire DRAM's contents unless there is only one memory block left.
 ### Beyond One Merge Step
 
 ## Optimized Merge Patterns
-We completed optimized merge patterns through the sorter class.
+We completed optimized merge patterns through the Sorter class. First, we have a check to ensure that the sort logic quickly determines if there is nothing to sort. This is completed on lines 119-122 in Sorter.cpp.
 
 ## Verifying Sort Order
 The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record via the compareTo() method of the record class. If not, the class' sorted variable is set to false (line 32-34). This boolean value can be obtained from the class' isSorted() method (lines 66-68). This class can be found in the Witness.h file in ./src.
