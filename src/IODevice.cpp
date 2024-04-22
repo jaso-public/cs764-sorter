@@ -50,6 +50,7 @@ IODevice::~IODevice() {
 
 /**
  * Reads a number of bytes from the file at a certain location
+ * Prints out read statistics if the class' out variable is not a nullptr
  * @param offset the file pointer offset where reading will begin
  * @param buffer place to store read data
  * @param len the number of byes to be read
@@ -83,6 +84,7 @@ int IODevice::read(uint64_t offset, uint8_t* buffer, uint32_t len) {
 
 /**
  * Writes a number of bytes from the file at a certain location
+ * Prints out write statistics if the class' out variable is not a nullptr
  * @param offset the file pointer offset where writing will begin
  * @param buffer place to store written data
  * @param len the number of byes to be written

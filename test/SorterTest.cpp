@@ -183,7 +183,7 @@ void testSort(int recordSize, string fileName, bool deleteInput){
     string outFile = "test-output.txt";
     string ssdStagingFile = "test-ssd-staging.txt";
     string hddStagingFile = "test-hdd-staging.txt";
-    const char* sortArgs[] = {"sort", "-j", nullptr, "-d", nullptr, "-h", nullptr, "-s", nullptr, "-i", nullptr};
+    const char* sortArgs[] = {"sort", "-j", nullptr, "-g", nullptr, "-h", nullptr, "-s", nullptr, "-i", nullptr, "-d"};
     sortArgs[2] = outFile.c_str();
     sortArgs[4] = ssdStagingFile.c_str();
     sortArgs[6] = hddStagingFile.c_str();

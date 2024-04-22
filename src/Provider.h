@@ -79,20 +79,25 @@ private:
     uint64_t recordCount;             // the total number of records to be returned
 };
 
+
+/**
+ * This is a provider that only returns unique records. It is utilized to remove duplicate records from the sorted output.
+ */
 class DeduplicaterProvider: public Provider {
 public:
     /**
      * Class constructor that initializes class' variables
-     * @param _buffer buffer to extract records from
-     * @param _recordCount total number of records to extract
+     * Sets the nextRecord variable as the first record from the source provider
+     * @param _source provider to get records from
      */
     DeduplicaterProvider(shared_ptr<Provider> _source) {
         source = _source;
+        // gets and sets the first record from the source provider
         nextRecord = source->next();
     }
 
     /**
-     * Gets and returns the next record out of the buffer
+     * Gets and returns the next unique records from the provider
      * @return a record or a null pointer if all records have been returned
      */
     shared_ptr<Record> next() override {
@@ -108,8 +113,8 @@ public:
     }
 
 private:
-    shared_ptr<Provider> source;
-    shared_ptr<Record> nextRecord;
+    shared_ptr<Provider> source;    // provider to get records from
+    shared_ptr<Record> nextRecord;  // record to compare to the next returned record
 };
 
 

@@ -33,13 +33,14 @@ The sort tools compile and run the external merge sort logic with an input.txt f
 The flags for this command are explained below.
 
 ### Flags
+- -d: enables the user to determine if duplicate records should be included within the sorted output. To remove duplicates, just include this flag within the programs execution without any following value.
 - -o: enables the user to determine the given trace file. Its default value is an empty string.
 - -i: enables the user to determine the input file that will contain the unsorted records. Its default value is input.txt.
 - -j: enables the user to determine the output file that the sorted records will be written to. Its default value is output.txt.
-- -d: enables the user to determine the file that the SSD's staged records will be read/written to. Its default value is ssd.staging.
+- -g: enables the user to determine the file that the SSD's staged records will be read/written to. Its default value is ssd.staging.
 - -h: enables the user to determine the file that the HDD's staged records will be read/written to. Its default value is hdd.staging.
 - -s: enables the user to determine the record size of the generated records. Its default value if 128.
-- -v: enables the user to see additional information/statistics from the sort logic in the terminal. Such information includes statistics from the IODevice class' methods. To utilize this flag, just include the flag within the programs execution without any value.
+- -v: enables the user to see additional information/statistics from the sort logic in the terminal. Such information includes statistics from the IODevice and Sorter classes' methods. To utilize this flag, just include the flag within the programs execution without any value.
 - -x: enables the user to determine the cache size. Its default value is 1MB.
 - -y: enables the user to determine the memory size. Its default value is 100MB.
 - -z: enables the user to determine the SSD size. Its default value is 10GB.
@@ -142,7 +143,7 @@ This method will print the values held by the class to the output stream includi
 This class contains all of our logic for completing the sort including: graceful degradation, spilling, and merging.
 
 ### Class Constructor
-The constructor initializes the class' values and ensures that an IO device was created for both the SSD and HDD. It begins the sorting algorithm by calling startSort().
+The constructor initializes the class' values and ensures that an IO device was created for both the SSD and HDD. It begins the sorting algorithm by calling startSort(). It accepts a pointer to a stream to write statistics about the sorting logic to. If this pointer is a null pointer, no statistics will be displayed.
 
 ### next()
 This method will return the next sorted record.
@@ -228,6 +229,15 @@ The class constructor obtains the buffer to extract records from and initializes
 ### next()
 This method will return the next record from the buffer. If all records from the buffer have been returned, it will return a null pointer.
 
+## DeduplicaterProvider
+This provider only returns unique records from the given provider, eliminating duplicate records. It is utilized to remove duplicate records from the sorted records.
+
+### Class Constructor
+The class constructor sets the given provider to the class provider and stores the first record returned from the provider to compare to the next returned record for duplicate removal.
+
+### next()
+This method will return the next, unique record from the provider. If all unique records have been returned, it will return a null pointer.
+
 ## EmptyProvider
 This class is an empty provider that only returns null pointers via its next() method. It was created to by utilized by the Sorter when there are no more records to return.
 
@@ -271,12 +281,12 @@ The class constructor will initialize the class' variables and open the given fi
 The class destructor will close the file that the class is reading/writing from.
 
 ### read(uint64_t offset, uint8_t* dst, uint32_t len)
-This method will read the desired number of bytes from the file at the specified offset into the given buffer. 
+This method will read the desired number of bytes from the file at the specified offset into the given buffer. If the class' out variable is not a null pointer, it will print out statistics from the read.
 
 ### write(uint64_t offset, uint8_t* src, uint32_t len)
 This method will write the specified number of bytes from the file into the given buffer at the specified offset.
 
-This method will print out statistics from the read/write operations to the given stream. Some of the statistics it displays are the read count, read size, and write size.
+This method will print out statistics from the read/write operations to the given stream. Some of the statistics it displays are the read count, read size, and write size. If the class' out variable is not a null pointer, it will print out statistics from the write.
 
 ### Get methods
 This class contains a variety of get methods, such as getReadCount(), getReadSize(), and getTotalRead(). These methods will return the appropriate class variables corresponding to their method name. These methods are able to display simple statistics about the class' read and write operations.

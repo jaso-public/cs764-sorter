@@ -60,6 +60,7 @@ public:
      * Initializes class' values and begins sorting algorithm
      * @param cfg sorter config
      * @param source the provider to obtain unsorted, records from
+     * @param _out a pointer to a stream to display sorter statistics to; if it is a null pointer, then no statistics will be displayed
      */
     Sorter(unique_ptr<SorterConfig> &cfg, shared_ptr<Provider> _source, std::ostream* _out);
     Sorter(unique_ptr<SorterConfig> &cfg, shared_ptr<Provider> _source): Sorter(cfg, _source, nullptr) {}
