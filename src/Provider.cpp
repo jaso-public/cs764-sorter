@@ -109,7 +109,7 @@ shared_ptr<Record> DeviceProvider::next() {
   * @param _duplicateRange the upper bound of the range to generate records within the probability percentage between
   * @param _newLine boolean value indicating whether or not to include a new line character to the end of the record
  */
-RandomProvider::RandomProvider(int _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine)
+RandomProvider::RandomProvider(uint64_t _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine)
         : recordCount(_recordCount),
           duplicateProbability(_duplicateProbability),
           newLine(_newLine),
@@ -123,12 +123,12 @@ RandomProvider::RandomProvider(int _recordCount, double _duplicateProbability, i
  * @param _recordCount total number of records to return by next()
   *@param _newLine boolean value indicating whether or not to include a new line character to the end of the record
  */
-RandomProvider::RandomProvider(int _recordCount, bool _newLine): RandomProvider(_recordCount, 0.0, 10, _newLine) {}
+RandomProvider::RandomProvider(uint64_t _recordCount, bool _newLine): RandomProvider(_recordCount, 0.0, 10, _newLine) {}
 /**
  * Class constructor that accepts a given record count specification
  * @param _recordCount total number of records to return by next()
  */
-RandomProvider::RandomProvider(int _recordCount): RandomProvider(_recordCount, 0.0, 10, true) {}
+RandomProvider::RandomProvider(uint64_t _recordCount): RandomProvider(_recordCount, 0.0, 10, true) {}
 
 /**
  * Generates a record with the defined characteristics from the constructor
