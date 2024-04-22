@@ -357,10 +357,13 @@ Then, we send all of these records to the TournamentPQ class to be sorted (Sorte
 
 ## Device Optimized Page Sizes
 
-## Spilling Memory-to-SSD
-Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called.
+## Spilling
+Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. This method will call releaseMemory() with the desires number of cache sized memory blocks to release. This method will create providers with all the records that will be released from the spill. Then, these providers are sent to the storeRun() method so the records can be written to one of the storage locations (Sorter.cpp, line 342).
+### Spilling Memory-to-SSD
+If there is enough memory within the SSD for the given spill to be stored, then the records will be placed onto the SSD. This is determined by evaluating whether the size and count of the records can fit within the SSD (Sorter.cpp, line 358). If this condition is true, then the SSD is set to the chosen device for writing and the space is allocated within the SSD (Sorter.cpp, lines 360-364). Then, the records are written to the SSD (Sorter.cpp, lines 374-394).
+
  
-## Spilling Memory from SSD to Disk
+### Spilling Memory from SSD to Disk
 
 ## Graceful Degradation
 ### Into Merging
