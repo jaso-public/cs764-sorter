@@ -135,7 +135,11 @@ RandomProvider::RandomProvider(int _recordCount): RandomProvider(_recordCount, 0
  * @return the generated record or a null pointer if all records have been generated
 */
 shared_ptr<Record> RandomProvider::next() {
-    if (generated >= recordCount) return nullptr;
+    if (generated >= recordCount) {
+        cerr << "RandomProvider source returned null generated:" << generated << " recordCount:" << recordCount << endl;
+        return nullptr;
+    }
+
     generated++;
 
     if (randomProbability(gen) < duplicateProbability) {
