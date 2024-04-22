@@ -145,13 +145,13 @@ public:
      * Class constructor that accepts a given record count specification
      * @param _recordCount total number of records to return by next()
      */
-    RandomProvider(int _recordCount);
+    RandomProvider(uint64_t _recordCount);
     /**
     * Class constructor that accepts a given record count and can add a new line character to the end of each record
     * @param _recordCount total number of records to return by next()
      *@param _newLine boolean value indicating whether or not to include a new line character to the end of the record
     */
-    RandomProvider(int _recordCount, bool _newLine);
+    RandomProvider(uint64_t _recordCount, bool _newLine);
     /**
      * Class constructor that accepts a user's input for all values involved in generating records
      * @param _recordCount total number of records to return by next()
@@ -159,7 +159,7 @@ public:
      * @param _duplicateRange the upper bound of the range to generate records within the probability percentage between
      * @param _newLine boolean value indicating whether or not to include a new line character to the end of the record
      */
-    RandomProvider(int _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine);
+    RandomProvider(uint64_t _recordCount, double _duplicateProbability, int _duplicateRange, bool _newLine);
     /**
      * Generates a record with the defined characteristics from the constructor
      * @return the generated record or a null pointer if all records have been generated
