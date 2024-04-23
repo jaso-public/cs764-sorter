@@ -2,7 +2,7 @@
 This is an external merge sort application that was written for the CS-764 class project. 
 
 # Tools
-The tools (in the ./src/tools directory) enable creating an input file with randomly generated, alphanumeric record and allowing the external merge sort to run.
+The tools (in the ./src/tools directory) enable creating an input file with randomly generated, alphanumeric records and allowing the external merge sort to run.
 
 ## Generate
 The generate tools enable the creation of an input.txt file that contains randomly generated, alphanumeric records. It will parse user input to customize the creation of records by allowing a user to determine: 
@@ -10,7 +10,7 @@ the name of the input file, record count, record size, probability, range, and t
 An explanation of these customizations and their flags are explained below. 
 
 ### Flags
-- -s: enables a user to determine the record size of the generated records. Its default value if 128.
+- -s: enables a user to determine the record size (in bytes) of the generated records. Its default value is 128.
 - -f: enables a user to determine the name of the output file filled with generated records. Its default value is input.txt.
 - -c: enables a user to determine the total number of records that are generated. Its default value is 1000.
 - -p: enables a user to determine the percentage of records generated that will be required to fall within a set range. This percentage determines the likelihood that duplicate records are generated. Its default value is 0.
@@ -26,10 +26,10 @@ Navigate into the build directory and run cmake ..
 #### Step 2: Run make generate
 This will compile all the necessary classes to create the input file.
 #### Step 3: Run ./generate 
-If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./generate -s 120
+If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./generate -s 120 will run the program and produce records of size 120 bytes.
 
 ## Sort
-The sort tools compile and run the external merge sort logic with an input.txt file. This logic can be found in SortMain.cpp. Like the generate method, it contains a variety of flags that allow the completion of the sort logic to be customized. 
+The sort tools compile and run the external merge sort logic with a given input.txt file. This logic can be found in SortMain.cpp. Like the generate method, it contains a variety of flags that allow the completion of the sort logic to be customized. 
 The flags for this command are explained below.
 
 ### Flags
@@ -39,7 +39,7 @@ The flags for this command are explained below.
 - -j: enables the user to determine the output file that the sorted records will be written to. Its default value is output.txt.
 - -g: enables the user to determine the file that the SSD's staged records will be read/written to. Its default value is ssd.staging.
 - -h: enables the user to determine the file that the HDD's staged records will be read/written to. Its default value is hdd.staging.
-- -s: enables the user to determine the record size of the generated records. Its default value if 128.
+- -s: enables the user to determine the record size (in bytes) of the generated records. Its default value if 128.
 - -v: enables the user to see additional information/statistics from the sort logic in the terminal. Such information includes statistics from the IODevice and Sorter classes' methods. To utilize this flag, just include the flag within the programs execution without any value.
 - -x: enables the user to determine the cache size. Its default value is 1MB.
 - -y: enables the user to determine the memory size. Its default value is 100MB.
@@ -54,17 +54,17 @@ Navigate into the build directory and run cmake ..
 #### Step 2: Run make sort
 This will compile all the necessary classes needed to preform the external sort.
 #### Step 3: Run ./sort
-If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./sort -s 120
+If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./sort -s 120 which will run the program with a record size of 120 bytes.
 
 ## Verify
 The verify tool checks that user input can be parsed and a given input file can be properly handled by the IODevice and filtered through the providers, witness, and consumer. It contains 2 flags that allow the user to determine the input file and the record size.
 
 ### Flags
-- -s: enables a user to determine the record size of the generated records. Its default value if 128.
+- -s: enables a user to determine the record size (in bytes) of the generated records. Its default value if 128.
 - -i: enables the user to determine the input file that will contain the unsorted records. Its default value is input.txt.
 
 ### VerifyMain.cpp
-This file contains the function, verifyMain(), that reads in a users arguments and passes an input file through our chain of providers and consumers. If an error occurs within this method, verifyUsage() will be called to print the error message.
+This file contains the function, verifyMain(), that reads in a user's arguments and passes an input file through our chain of providers and consumers. If an error occurs within this method, verifyUsage() will be called to print the error message.
 
 ### Compile and Run Verify
 #### Step 1: Build the CMake File
@@ -72,7 +72,7 @@ Navigate into the build directory and run cmake ..
 #### Step 2: Run make verify
 This will compile all the necessary classes needed to run this verify function.
 #### Step 3: Run ./verify
-If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./verify -s 120
+If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./verify -s 120 will run the program with records of size 120 bytes.
 
 # Classes
 ## Witness
