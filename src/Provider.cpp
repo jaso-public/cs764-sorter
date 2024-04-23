@@ -136,7 +136,6 @@ RandomProvider::RandomProvider(uint64_t _recordCount): RandomProvider(_recordCou
 */
 shared_ptr<Record> RandomProvider::next() {
     if (generated >= recordCount) {
-        cerr << "RandomProvider source returned null generated:" << generated << " recordCount:" << recordCount << endl;
         return nullptr;
     }
 

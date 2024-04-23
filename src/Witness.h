@@ -28,7 +28,6 @@ public:
 
         record = source->next();
         if(record == nullptr) {
-            cerr << "Witness source returned null" << endl;
             return result;
         }
 

@@ -23,7 +23,6 @@ void DeviceConsumer::consume() {
     while(true) {
         shared_ptr<Record> ptr = source->next();
         if(ptr == nullptr) {
-            cerr << "DeviceConsumer source returned null" << endl;
             break;
         }
         appendRecord(ptr);
