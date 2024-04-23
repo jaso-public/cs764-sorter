@@ -150,7 +150,7 @@ shared_ptr<Provider> Sorter::startSort() {
             int memoryToRelease = roundUp(memoryRequired - lastMemoryRun, cfg->memoryBlockSize);
             int runsToRelease = memoryToRelease / cfg->memoryBlockSize;
             if(out != nullptr) {
-                *out << "merge some memory runs to ssd/hdd so re have enought memory for the final merge" << endl;
+                *out << "merge some memory runs to ssd/hdd so we have enough memory for the final merge" << endl;
                 *out << "memoryToRelease:" << memoryToRelease << endl;
                 *out << "runsToRelease:" << runsToRelease << endl;
             }

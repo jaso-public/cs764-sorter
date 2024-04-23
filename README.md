@@ -347,6 +347,7 @@ The tournament tree's methods can be seen within the TournamentPQ.cpp and Tourna
 The generator class accepts various flags including the "-s" flag for record size and the "-c" flag for record count. This enables a user to generate records of variable sizes and counts to an input.txt. This can be seen within the generate.cpp file in the ./src/tools directory. For sorting a given input file, the sortMain() method in ./tools/SortMain.cpp accepts the flag "-s" to allow the user to define a given record size. This size is sent to the Record's class' staticInitialize() method to be used when preforming operations on records. This call can be seen in SortMain.cpp at line 141.
 
 ## Minimum Count of Row Comparisons
+We attempt to compare records as little as possible by continuously placing records into the tournament tree during intermediate steps. For example, we have all our mini runs placed within a tournament tree (Sorter.cpp, line 110). This enables us to sort records within our mini runs.
 
 ## Duplicate Removal
 Duplicate removal is completed by the DeduplicaterProvider. This provider is given the sorted output, and then, it only returns unique records from this sorted output. This provider can be seen within Provider.h at lines 86-118. Its place within our execution chain of providers/consumers can be seen within SortMain.cpp at line 164.
@@ -358,20 +359,22 @@ Then, we send all of these records to the TournamentPQ class to be sorted (Sorte
 ## Device Optimized Page Sizes
 
 ## Spilling
-Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. This method will call releaseMemory() with the desires number of cache sized memory blocks to release. This method will create providers with all the records that will be released from the spill. Then, these providers are sent to the storeRun() method so the records can be written to one of the storage locations (Sorter.cpp, line 342).
+Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. This method will call releaseMemory() with the desired number of cache sized memory blocks to release. This method will create providers with all the records that will be released from memory within the spill. Then, these providers are sent to the storeRun() method, so the records can be written to one of the storage locations (Sorter.cpp, line 342).
 ### Spilling Memory-to-SSD
 If there is enough memory within the SSD for the given spill to be stored, then the records will be placed onto the SSD. This is determined by evaluating whether the size and count of the records can fit within the SSD (Sorter.cpp, line 358). If this condition is true, then the SSD is set to the chosen device for writing and the space is allocated within the SSD (Sorter.cpp, lines 360-364). Then, the records are written to the SSD (Sorter.cpp, lines 374-394).
-
  
 ### Spilling Memory from SSD to Disk
+If the space required to store the given records is greater than the amount of space available within the SSD, then we store the records within the HDD (Sorter.cpp, lines 366-394). When we are completing an intermediate merge by sorting and merging runs within the SSD, we write the intermediate merge to either the SSD or HDD, depending on the available space (Sorter.cpp, line 260).
 
 ## Graceful Degradation
 ### Into Merging
-Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. In makeFreeSpace(), the number of memory blocks to stage to a lower memory storage is partially determined by a fraction from the SorterConfig (Sorter.cpp, line 315). This fraction enables graceful degradation because it determines how many memory blocks are going to be staged to either the SSD or HDD, but it will only release part of the space within DRAM, not the entire DRAM's contents unless there is only one memory block left.
+Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. In makeFreeSpace(), the number of memory blocks to store to a lower memory storage is partially determined by a fraction from the SorterConfig (Sorter.cpp, line 315). This fraction enables graceful degradation because it determines how many memory blocks are going to be stored to either the SSD or HDD, but it will only release part of the space within DRAM, not the entire DRAM's contents unless there is only one memory block left.
 ### Beyond One Merge Step
+Once all the records are stored into some part of memory, we begin the final merge.
 
 ## Optimized Merge Patterns
-We completed optimized merge patterns through the Sorter class. First, we have a check to ensure that the sort logic quickly determines if there is nothing to sort. This is completed on lines 119-122 in Sorter.cpp.
+We completed optimized merge patterns through the Sorter class. First, we have a check to ensure that the sort logic quickly determines if there is nothing to sort. This is completed on lines 119-122 in Sorter.cpp. Then, once we have all the records in memory, we check to make sure that a final merge cannot be completed before preforming any merge steps (Sorter.cpp, line 143). If this can occur, we complete the sort logic without staging to the SSD or HDD (Sorter.cpp, lines 143-198) If this cannot occur, then we begin staging, merging, and sorting records from the SSD and HDD.
+We calculate the maximum runs to merge within an intermediate merge by considering how many runs from the SSD can fit into memory and the total number of runs within the HDD and SSD (Sorter.cpp, lines 216-217). From this, we determine the optimal number of runs to merge (Sorter.cpp, line 229). For each run, we sort chunks within the SSD and store them within the appropriate place, SSD or HDD (Sorter.cpp, lines 245-260).
 
 ## Verifying Sort Order
 The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record via the compareTo() method of the record class. If not, the class' sorted variable is set to false (line 32-34). This boolean value can be obtained from the class' isSorted() method (lines 66-68). This class can be found in the Witness.h file in ./src.
@@ -379,19 +382,32 @@ The verification of the sort order is completed via the Witness class. It ensure
 # Time Taken for Test Case
 ## Input Sizes
 ### 50MB
+- 20B:
+- 1,000B: 
+-  2,000B: 
 ### 125MB
 ### 12GB
-### 120GB
 
-## Record Sizes
-### 20B
-### 1,000B
-### 2,000B
+### 120GB
+- 20B: ~5.4 hours (19246.377955 )
+- 1,000B: ~1.3 hours (4735.762537 seconds) 
+-  2,000B: ~1.6 hours (5894.875798 seconds)
+
+
+
 
 # Individual Contributions
+The structure of our project's completion was as follows:
+- February: We met as a group to determine how to complete the project. We outlined the Record class together, and then, Morgan started implementing the C++ code. Jaso started to outline the logic and structure of the code in Java while Morgan continued to C++ implementation.
+- March: Jaso completed an implementation of the sorter in Java. Morgan continued with the C++ code, basing the structure off of the Java code, and Jaso offered guidance and assistance when needed.
+- April: We both worked to debug and finalize the C++ sorter to get it to work/ready for submission. This included completing some paired programming over Zoom.
 ## Jaso
 
+
 ## Morgan
+- Converted the Java version of the sorter into C++
+- Added additional test cases to the C++ version
+- Completed the README File
 
 
 
