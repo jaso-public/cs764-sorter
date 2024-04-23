@@ -81,16 +81,16 @@ The witness class is designed to verify the correctness of the sorting algorithm
 Its class constructor takes in a provider that it will obtain records from. It initializes the class' values, including the count (number of returned records), checksum, and the default sorted value of true.
 
 ### next()
-The next method returns the next record from the provider or a null pointer if the next record does not exist. It also continuously computes the class' checksum value which is used when verifying the sort order between the lower and upper witness. This method keeps track of the number of duplicate records that were uncovered, and it changes the class' sorted value to false if two unsorted, consecutive records were ucovered.
+The next method returns the next record from the provider or a null pointer if the next record does not exist. It also continuously computes the class' checksum value which is used when verifying the sort order between the lower and upper witness. This method keeps track of the number of duplicate records that were uncovered, and it changes the class' sorted value to false if two unsorted, consecutive records were uncovered.
 
 ### getCount()
-This method returns the total number of records that have been returned by the class
+This method returns the total number of records that have been returned by the class.
 
 ### getDuplicateCount()
 This method returns the total number of duplicates that the class has seen.
 
 ### getChecksum()
-This method returns the class' computed checksum value that can be used to verify the validity between two witnesses
+This method returns the class' computed checksum value that can be used to verify the validity between two witnesses.
 
 ### isSorted()
 This method returns a boolean value to display if the class was sorted or not.
@@ -170,7 +170,7 @@ This method will return the nearest, rounded up multiple of the variable multipl
 This class represents a run which is a group of records that can fit into memory. It is used as a type in the Sorter class.
 
 ## Record
-The record class is utilized to store and to preform operations on the records.
+The record class is utilized to store and preform operations on the records.
 
 ### Class Constructor
 The class constructor stores the record within the class' data variable.
@@ -188,7 +188,7 @@ This method copies the contents of the record into the specified memory location
 This method will copy a part of the record, starting at the offset value, into the specified memory location.
 
 ### checksum()
-This method computes and returns the checksum of the record
+This method computes and returns the checksum of the record.
 
 ### dump(string message)
 This method will print out the contents of the record and its checksum.
@@ -209,13 +209,13 @@ The provider class will generate all the desired records. It contains a virtual 
 This method is the virtual method that each Provider must implement. With each call to next(), a record is received in some order that is determined by the Provider type. For example, if the records are being provided by a file, then they will be returned in the order that they were in within the file. If the Provider is the Sorter, then records will be returned in sorted order. This method will continue to return a record until all records have been returned. Then, it returns a null pointer.
 
 ## SingleProvider
-This class is a simple provider that can easily be reused. It will return only one record, that is set by reset() before returning null pointers. Its reset() function can be called multiple times.
+This class is a simple provider that can easily be reused. It will return only one record, that is set by reset(), before returning null pointers. Its reset() function can be called multiple times.
 
 ### Class constructor
 The constructor sets the class' record variable to be a null pointer. This means that a call to next() will continue to return a null pointer until a record is set via reset().
 
 ### reset()
-This method will set the record to be returned by the Single Provider to a record that will be returned by the next call to next(). The record is only returned once then, the next calls to next() will continue to return null pointers.
+This method will set the record to be returned by the Single Provider to a record that will be returned by the next call to next(). The record is only returned once, then, the next calls to next() will continue to return null pointers until reset() is used again.
 
 ### next()
 This method will return a pointer to a record or a null pointer if the record has already been returned after being reset().
