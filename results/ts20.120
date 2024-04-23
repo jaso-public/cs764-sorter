@@ -1,0 +1,68 @@
+Parameters:ts20.120
+    trace file       : ts20.120
+    input file       : /hdd/s20.120
+    output file      : /hdd/s20.120.sorted
+    ssd staging file : ssd.staging
+    hdd staging file : /hdd/staging
+    record size      : 20
+    deduplicate      : false
+Sorter Configuration:
+    spill fraction   : 0.500%
+    cache size       : 1048576
+    memory size      : 104857600
+    HDD read size    : 262144
+    SSD read size    : 16384
+    SSD size         : 10737418240
+Sorter results: 
+    compare count    : 202850762502 comparisons
+    elapsed time     : 19246.377955 seconds
+Witness: pre-sort
+    record count     : 6000000000
+    checksum         : 7932548930150955294
+    sorted           : false
+    duplicate count  : 7
+Witness: post-sort
+    record count     : 6000000000
+    checksum         : 7932548930150955294
+    sorted           : true
+    duplicate count  : 5996437
+Device: /hdd/s20.120
+    read
+        count        : 457765 calls
+        size         : 120000000000 bytes
+        time         : 416.477478 seconds
+        average      : 288130827 bytes/second
+        maxTime      : 0.500557 seconds
+Device: /hdd/s20.120.sorted
+    write
+        count        : 457764 calls
+        size         : 120000000000 bytes
+        time         : 155.807729 seconds
+        average      : 770180022 bytes/second
+        maxTime      : 0.288651 seconds
+Device: ssd.staging
+    read
+        count        : 6922740 calls
+        size         : 113420328960 bytes
+        time         : 64.437159 seconds
+        average      : 1760169602 bytes/second
+        maxTime      : 0.041777 seconds
+    write
+        count        : 428180 calls
+        size         : 113420328960 bytes
+        time         : 93.816025 seconds
+        average      : 1208965410 bytes/second
+        maxTime      : 0.118355 seconds
+Device: /hdd/staging
+    read
+        count        : 417975 calls
+        size         : 109567876560 bytes
+        time         : 1934.363046 seconds
+        average      : 56642871 bytes/second
+        maxTime      : 0.610978 seconds
+    write
+        count        : 104494 calls
+        size         : 109567876560 bytes
+        time         : 90.125895 seconds
+        average      : 1215720257 bytes/second
+        maxTime      : 0.664723 seconds
