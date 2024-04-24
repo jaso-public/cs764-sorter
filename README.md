@@ -384,7 +384,7 @@ The verification of the sort order is completed via the Witness class. It ensure
 # Time Taken for Test Case
 ## Input Sizes
 ### 50MB
-- 20B:
+- 20B: ~1.7 hours (5971.847213 seconds)
 - 1,000B: 
 -  2,000B: 
 ### 125MB
