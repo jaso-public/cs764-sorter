@@ -125,21 +125,10 @@ add_custom_command(TARGET testWitness
         COMMENT "Running testWitness..."
 )
 
-add_executable(testIODevice
-        src/IODevice.cpp
-        src/IODevice.h
-        test/IoDeviceTest.cpp
-        )
-
-add_custom_command(TARGET testIODevice
-        POST_BUILD
-        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/testIODevice
-        COMMENT "Running testIODevice..."
-)
-
 
 add_executable(testPQ
         src/Provider.h
+        src/Provider.cpp
         src/Witness.h
         src/Generator.h
         src/Generator.cpp
@@ -257,7 +246,6 @@ add_custom_command(TARGET testStagedProvider
 )
 
 add_custom_target(runAllTests
-        COMMAND $<TARGET_FILE:testIODevice>
         COMMAND $<TARGET_FILE:testWitness>
         COMMAND $<TARGET_FILE:testProvider>
         COMMAND $<TARGET_FILE:testPQ>

@@ -1,5 +1,25 @@
 # CS764-sorter
 This is an external merge sort application that was written for the CS-764 class project. 
+# Setup and Run Project
+These steps can be seen/run via the build-all.sh script in the root directory. This script will generate and sort the input file with its specified parameters.
+#### Step 1: Clone Repo
+git clone https://github.com/jaso-public/cs764-sorter.git
+#### Step 2: Navigate into Project Directory
+cd cs764-sorter/
+#### Step 3: Make Build Directory
+mkdir build
+#### Step 4: Navigate into Build Directory
+cd build
+#### Step 5: Configure Project
+cmake -DCMAKE_BUILD_TYPE=Release ..
+#### Step 6: Compile Files
+make
+#### Step 7: Generate Records
+./generate (flags explained below)
+#### Step 8: Sort Records
+./sort (flags explained below)
+#### Step 9: Verify Sort
+./verify (flags explained below)
 
 # Tools
 The tools (in the ./src/tools directory) enable creating an input file with randomly generated, alphanumeric records and allowing the external merge sort to run.
@@ -348,10 +368,10 @@ The generator class accepts various flags including the "-s" flag for record siz
 
 ## Minimum Count of Row Comparisons
 We attempt to compare records as little as possible by continuously placing records into the tournament tree before and during merging. For example, we have all our mini runs placed within a tournament tree (Sorter.cpp, line 110). This enables us to sort records within our mini runs. We also continuously place records within a tournament tree for intermediate merges and the final merge (Sorter.cpp, lines 196, 260, 302, and 342).
-We get rid of duplicates by comparing the sorted records returned within the DeduplicaterProvider class (Provider.h, lines 86-118). We wait to get rid of duplicates until the records are sorted so duplicate records are next to each other.
+We get rid of duplicates by comparing the sorted records returned within the DeduplicaterProvider class (Provider.h, lines 104-117). We wait to get rid of duplicates until the records are sorted so duplicate records are next to each other. 6 billion keys would require 32.5 comparisons per key.
 
 ## Duplicate Removal
-Duplicate removal is completed by the DeduplicaterProvider. This provider is given the sorted output, and then, it only returns unique records from this sorted output (Provider.h, lines 86-118). Its place within our execution chain of providers/consumers can be seen within SortMain.cpp at line 164.
+Duplicate removal is completed by the DeduplicaterProvider. This provider is given the sorted output, and then, it only returns unique records from this sorted output (Provider.h, lines 86-131). Its place within our execution chain of providers/consumers can be seen within SortMain.cpp at line 164.
 
 ## Cache Size Mini Runs
 In our code, the size of cache is represented by memoryBlockSize defined in the SorterConfig class (Sorter.h, line 24). Within the start of our sorting logic, we create a vector of Single Providers that is the size of the total number of records that can fit into the cache (Sorter.cpp, lines 73-80). We then give each Single Provider a record to return that comes from our source (Sorter.cpp, line 86-94). If we need run out of space within memory, we release a certain amount of cache size chunks in makeFreeSpace(Sorter.h, lines 310-319).
@@ -389,7 +409,13 @@ The verification of the sort order is completed via the Witness class. It ensure
 | 1,000B | 0.188938 seconds  | 0.466911 seconds   | 95.807228 seconds   | 4735.762537 seconds  |           
 | 2,000B | 0.144610 seconds  | 0.386599 seconds   | 201.225705 seconds  | 5894.875798 seconds  |
 
-6 billion keys would require 32.5 comparisons per key.
+# Total Number of Comparisons Per Key
+
+|        | 50MB | 125MB | 12GB | 120GB |
+|--------|------|-------|------|-------|
+| 20B    | 22.1 | 23.4  | 31.3 | 33.8  |           
+| 1,000B | 16.4 | 17.7  | 25.6 | 28.1  |           
+| 2,000B | 15.4 | 16.7  | 24.6 | 27.1  |
 
 
 # Contributions

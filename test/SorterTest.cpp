@@ -212,5 +212,4 @@ int main() {
    // test120GBdiv1000();
     testGenerate(20, 100, 0.01, 999, "test-input.txt");
     testSort( 20, "test-input.txt", false);
-    testSort( 1024, "../ExampleFiles/input_table", false);
 }

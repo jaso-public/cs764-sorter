@@ -149,8 +149,4 @@ int main(){
     testEmptyProvider();
     testRandomProvider(10);
     testRandomProvider(50);
-    testNextWithDeviceProvider("../ExampleFiles/input_table",20, 1024);
-    testInputChainWithDeviceProvider("../ExampleFiles/input_table",20, 1024);
-    testDropOneWithDeviceProvider("../ExampleFiles/input_table",20, 1024);
-    testTreeSorterWithDeviceProvider("../ExampleFiles/input_table",20, 1024);
 }

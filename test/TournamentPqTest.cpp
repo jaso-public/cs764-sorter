@@ -13,32 +13,19 @@ using namespace std;
 
 
 void doTest(int numProviders) {
-    int itemsPerProvider = 10;
-    cerr << "first test " << numProviders <<" " << itemsPerProvider << endl;
-
-    // make a big list of records
-    auto records = generateInOrder(numProviders * itemsPerProvider);
-
-    cerr << "generateInOrder\n";
-
-    // make an array provider so we can pass the records thru a witness
-
-    shared_ptr<Provider> source = make_shared<RandomProvider>(10);
+    Record::staticInitialize(120);
+    shared_ptr<Provider> source = make_shared<RandomProvider>(numProviders);
     shared_ptr<Witness> before = make_shared<Witness>(source);
 
-    cerr << "made  Witness before\n";
-
-    vector<shared_ptr<Provider>> providers;
-
-    for(int i=0; i<numProviders ; i++) {
-        vector<shared_ptr<Record>> perProviderRecords;
-        for (int j = 0; j < 10; j++) {
-            perProviderRecords.push_back(before->next());
-        }
-        providers.push_back(make_shared<Provider>("prov", perProviderRecords));
+    vector<shared_ptr<Provider>> singles(numProviders);
+    for (int i = 0; i < numProviders; ++i) {
+        singles[i] = make_unique<SingleProvider>();
+        shared_ptr<Record> recordPtr = source->next();
+        shared_ptr<SingleProvider> singleProvider = dynamic_pointer_cast<SingleProvider>(singles[i]);
+        singleProvider->reset(recordPtr);
     }
 
-    shared_ptr<TournamentPQ> pq = make_shared<TournamentPQ>(providers, numProviders);
+    shared_ptr<TournamentPQ> pq = make_shared<TournamentPQ>(singles, numProviders);
     shared_ptr<Witness> w = make_shared<Witness>(pq);
     shared_ptr<NoopConsumer> consumer = make_shared<NoopConsumer>(w);
     consumer->consume();

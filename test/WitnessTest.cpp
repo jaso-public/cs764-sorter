@@ -5,7 +5,6 @@
 #include "Provider.h"
 #include "Witness.h"
 #include "Consumer.h"
-#include "Generator.h"
 
 #include "test/helpers/Printer.h"
 #include "test/helpers/TreeSorter.h"
