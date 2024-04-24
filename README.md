@@ -221,7 +221,7 @@ This method will set the record to be returned by the Single Provider to a recor
 This method will return a pointer to a record or a null pointer if the record has already been returned after being reset().
 
 ## MemoryProvider
-The Memory Provider extracts records from a packed buffer of records. It requires that records are sorted within the buffer and that each record consumes exactly recordSize number of bytes. You must know how many records are stored in the buffer when you use the MemoryProvider  (There are no sentinels in the buffers)
+The memory provider extracts records from a packed buffer of records. It requires that records are sorted within the buffer and that each record consumes exactly recordSize number of bytes. You must know how many records are stored in the buffer when you use the MemoryProvider  (There are no sentinels in the buffers)
 
 ### Class Constructor
 The class constructor obtains the buffer to extract records from and initializes class variables.
@@ -230,7 +230,7 @@ The class constructor obtains the buffer to extract records from and initializes
 This method will return the next record from the buffer. If all records from the buffer have been returned, it will return a null pointer.
 
 ## DeduplicaterProvider
-This provider only returns unique records from the given provider, eliminating duplicate records. It is utilized to remove duplicate records from the sorted records.
+This provider only returns unique records from the given provider, eliminating duplicate records. It is utilized to remove duplicate records from a provider with sorted records.
 
 ### Class Constructor
 The class constructor sets the given provider to the class provider and stores the first record returned from the provider to compare to the next returned record for duplicate removal.
@@ -239,7 +239,7 @@ The class constructor sets the given provider to the class provider and stores t
 This method will return the next, unique record from the provider. If all unique records have been returned, it will return a null pointer.
 
 ## EmptyProvider
-This class is an empty provider that only returns null pointers via its next() method. It was created to by utilized by the Sorter when there are no more records to return.
+This class is an empty provider that only returns null pointers via its next() method. It was created to be utilized within Sorter.cpp when there are no records to return.
 
 ### next()
 This method will continue to return null pointers, indicating that there are no records to be returned.
@@ -248,7 +248,7 @@ This method will continue to return null pointers, indicating that there are no 
 This class will generate random records based on various user specifications including the record count, duplicate probability, duplicate range, and/or the inclusion of a new line character at the end of the record. It is utilized for testing purposes to generate records instead of reading from an input file.
 
 ### Class Constructors
-This class has multiple class constructors that enables a user to determine how many values for record generation that they would like to customize. The recordCount value represents how many records that this provider should return. The newLine boolean value will determine if a new line character is added to the end of the record. This option was included as it makes records easier to read and identify when printing them out or writing them to files. The duplicateProbability variable is the percentage of records that should be generated within the specified range (0-duplicateRange). This enables use to generate duplicates with a likely probability. 
+This class has multiple class constructors that enables a user to determine how many values for record generation that they would like to customize. The recordCount value represents how many records that this provider should return. The newLine boolean value will determine if a new line character is added to the end of each record. This option was included as it makes records easier to read and identify when printing them out or writing them to files. The duplicateProbability variable is the percentage of records that should be generated within the specified range (0-duplicateRange). This enables use to generate duplicates with a certain probability. 
 
 ### next() 
 This method returns the generated record with the specified characteristics or a null pointer if the total number of records has already been generated.
@@ -290,7 +290,7 @@ This method will write the specified number of bytes from the file into the give
 This method will print out statistics from the read/write operations to the given stream. Some of the statistics it displays are the read count, read size, and write size.
 
 ## Convert
-This method is utilized with SortMain.cpp and GenerateMain.cpp to parse the given arguments from the user. It enables the flags, such as -s, to be parsed from the users input when generating and sorting records.
+This method is utilized with SortMain.cpp and GenerateMain.cpp to parse the given arguments from the user. It enables the flags, such as -s, to be parsed from the user's input when generating and sorting records.
 ### parseInteger(const char* str, IntegerType& outValue)
 This method will parse integers from the input argument. It obtains and sets values such as the record size and record count from the input arguments.
 
@@ -298,13 +298,13 @@ This method will parse integers from the input argument. It obtains and sets val
 This method will parse floating points from the input arguments. It obtains and sets the probability value, indicated by the -p flag, when generating records.
 
 ## Consumer
-The Consumer class is utilized to continuously consume records from a provider until all records have been consumed. Like the Provider class, the Consumer class is a virtual class that will be implemented by various Consumers
+The consumer class is utilized to continuously consume records from a provider until all records have been consumed. Like the provider class, the consumer class is a virtual class that will be implemented by various consumers.
 
 ### consume()
-This method is a virtual method that must be implemented by all other Consumers. It will continue to consume all records from a provider until there are no records left.
+This method is a virtual method that must be implemented by all other consumers. It will continue to consume all records from a provider until there are no records left.
 
 ## NoopConsumer
-This class is a testing class that simply just continues to call the providers next() method until all records have been returned (a null pointer was reached).
+This class is a testing class that simply just continues to call the provider's next() method until all records have been returned (a null pointer was reached).
 
 ### Class Constructor
 The constructor sets the given source provider to the class' provider, so it can return records.
@@ -319,13 +319,13 @@ This is a class that will write the records that it consumes from the provider t
 The constructor initializes the class' variables and creates a buffer of the desired size. This buffer will be used to store records before writing them to the output file.
 
 ### consume()
-This method contains to obtain records from the provider and passes them to the appendRecord() function, so they are placed within the buffer. This function continues to run until all records have been obtained (a null pointer has been returned).
+This method continues to obtain records from the provider and passes them to the appendRecord() function, so they are placed within the buffer. This function continues to run until all records have been obtained (a null pointer has been returned).
 
 ### doWrite()
-This method writes records from the buffer to the output file via the IO Device. It then clears the buffer, so it can store more records.
+This method writes records from the buffer to the output file via the IODevice. It then clears the buffer, so it can store more records.
 
 ### appendRecord(shared_ptr<Record> &ptr)
-This method will continue to store records until the buffer until the buffer is full. Once the buffer is full, it will call doWrite() to write the buffer contents to the output file.
+This method will continue to store records until the buffer is full. Once the buffer is full, it will call doWrite() to write the buffer's contents to the output file.
 
 ## Generator
 This class contains methods that can create two different types of records, one filled with alphanumeric values and one filled with an integer.
