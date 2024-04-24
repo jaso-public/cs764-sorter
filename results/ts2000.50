@@ -1,0 +1,46 @@
+Parameters:ts2000.50
+    trace file       : ts2000.50
+    input file       : input.txt
+    output file      : output.txt
+    ssd staging file : ssd.staging
+    hdd staging file : hdd.staging
+    record size      : 2000
+    deduplicate      : false
+Sorter Configuration:
+    spill fraction   : 0.500%
+    cache size       : 1048576
+    memory size      : 104857600
+    HDD read size    : 262144
+    SSD read size    : 16384
+    SSD size         : 10737418240
+Sorter results: 
+    compare count    : 385875 comparisons
+    elapsed time     : 0.060372 seconds
+Witness: pre-sort
+    record count     : 25000
+    checksum         : 3635601328197289563
+    sorted           : false
+    duplicate count  : 0
+Witness: post-sort
+    record count     : 25000
+    checksum         : 3635601328197289563
+    sorted           : true
+    duplicate count  : 0
+Device: input.txt
+    read
+        count        : 192 calls
+        size         : 50000000 bytes
+        time         : 0.006327 seconds
+        average      : 7902226073 bytes/second
+        maxTime      : 0.000097 seconds
+Device: output.txt
+    write
+        count        : 191 calls
+        size         : 50000000 bytes
+        time         : 0.006487 seconds
+        average      : 7707571055 bytes/second
+        maxTime      : 0.000269 seconds
+Device: ssd.staging
+    never accessed
+Device: hdd.staging
+    never accessed

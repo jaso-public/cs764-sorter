@@ -1,0 +1,57 @@
+Parameters:ts20.125
+    trace file       : ts20.125
+    input file       : input.txt
+    output file      : output.txt
+    ssd staging file : ssd.staging
+    hdd staging file : hdd.staging
+    record size      : 20
+    deduplicate      : false
+Sorter Configuration:
+    spill fraction   : 0.500%
+    cache size       : 1048576
+    memory size      : 104857600
+    HDD read size    : 262144
+    SSD read size    : 16384
+    SSD size         : 10737418240
+Sorter results: 
+    compare count    : 146341054 comparisons
+    elapsed time     : 3.475824 seconds
+Witness: pre-sort
+    record count     : 6250000
+    checksum         : 8232037402694477086
+    sorted           : false
+    duplicate count  : 0
+Witness: post-sort
+    record count     : 6250000
+    checksum         : 8232037402694477086
+    sorted           : true
+    duplicate count  : 5209
+Device: input.txt
+    read
+        count        : 478 calls
+        size         : 125000000 bytes
+        time         : 0.008523 seconds
+        average      : 14665897939 bytes/second
+        maxTime      : 0.000048 seconds
+Device: output.txt
+    write
+        count        : 477 calls
+        size         : 125000000 bytes
+        time         : 0.014486 seconds
+        average      : 8628778689 bytes/second
+        maxTime      : 0.000539 seconds
+Device: ssd.staging
+    read
+        count        : 1344 calls
+        size         : 22019760 bytes
+        time         : 0.002596 seconds
+        average      : 8482312145 bytes/second
+        maxTime      : 0.000013 seconds
+    write
+        count        : 21 calls
+        size         : 22019760 bytes
+        time         : 0.001732 seconds
+        average      : 12714074553 bytes/second
+        maxTime      : 0.000143 seconds
+Device: hdd.staging
+    never accessed

@@ -1,0 +1,68 @@
+Parameters:ts2000.12
+    trace file       : ts2000.12
+    input file       : input.txt
+    output file      : output.txt
+    ssd staging file : ssd.staging
+    hdd staging file : hdd.staging
+    record size      : 2000
+    deduplicate      : false
+Sorter Configuration:
+    spill fraction   : 0.500%
+    cache size       : 1048576
+    memory size      : 104857600
+    HDD read size    : 262144
+    SSD read size    : 16384
+    SSD size         : 10737418240
+Sorter results: 
+    compare count    : 159854246 comparisons
+    elapsed time     : 114.764483 seconds
+Witness: pre-sort
+    record count     : 6442451
+    checksum         : 9103580246003483253
+    sorted           : false
+    duplicate count  : 0
+Witness: post-sort
+    record count     : 6442451
+    checksum         : 9103580246003483253
+    sorted           : true
+    duplicate count  : 5426
+Device: input.txt
+    read
+        count        : 49154 calls
+        size         : 12884902000 bytes
+        time         : 1.612327 seconds
+        average      : 7991493781 bytes/second
+        maxTime      : 0.028699 seconds
+Device: output.txt
+    write
+        count        : 49153 calls
+        size         : 12884902000 bytes
+        time         : 7.412578 seconds
+        average      : 1738248432 bytes/second
+        maxTime      : 0.112931 seconds
+Device: ssd.staging
+    read
+        count        : 653437 calls
+        size         : 10701918000 bytes
+        time         : 83.220457 seconds
+        average      : 128597203 bytes/second
+        maxTime      : 0.021844 seconds
+    write
+        count        : 10212 calls
+        size         : 10701918000 bytes
+        time         : 5.616271 seconds
+        average      : 1905520217 bytes/second
+        maxTime      : 0.116036 seconds
+Device: hdd.staging
+    read
+        count        : 8032 calls
+        size         : 2104384000 bytes
+        time         : 1.751350 seconds
+        average      : 1201578117 bytes/second
+        maxTime      : 0.018206 seconds
+    write
+        count        : 2008 calls
+        size         : 2104384000 bytes
+        time         : 2.062656 seconds
+        average      : 1020230298 bytes/second
+        maxTime      : 0.074506 seconds
