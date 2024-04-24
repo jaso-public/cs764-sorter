@@ -91,6 +91,7 @@ public:
      * @param _source provider to get records from
      */
     DeduplicaterProvider(shared_ptr<Provider> _source) {
+        duplicateCount = 0;
         source = _source;
         // gets and sets the first record from the source provider
         nextRecord = source->next();
