@@ -33,7 +33,7 @@ The sort tools compile and run the external merge sort logic with a given input.
 The flags for this command are explained below.
 
 ### Flags
-- -d: enables the user to determine if duplicate records should be included within the sorted output. To remove duplicates, just include this flag within the programs execution without any following value.
+- -d: enables the user to determine if duplicate records should not be included within the sorted output. To remove duplicates, just include this flag within the programs execution without any following value.
 - -o: enables the user to determine the given trace file. Its default value is an empty string.
 - -i: enables the user to determine the input file that will contain the unsorted records. Its default value is input.txt.
 - -j: enables the user to determine the output file that the sorted records will be written to. Its default value is output.txt.
@@ -358,7 +358,7 @@ In our code, the size of cache is represented by memoryBlockSize defined in the 
 Then, we send all of these records to the TournamentPQ class to be sorted (Sorter.cpp line 110). We then store this mini run within DRAM (Sorter.cpp, line 116). This process continues until all records from the source provider have been returned. When completing the final merge, we release memory that is a multiple of the cache size if there is not enough free space in memory for the final merge (Sorter.cpp, lines 150-157).
 
 ## Device Optimized Page Sizes
-We enable our SSD and HDD reading devices to determine the size of the pages that they read (Sorter.h, line 28 and line 32). We selected these sizes to be ~16,000KB for the SSD and 256MB for the HDD.
+We enable our SSD and HDD reading devices to determine the size of the pages that they read (Sorter.h, line 28 and line 32). We selected these sizes to be ~16,000KB for the SSD and 256KB for the HDD which were the sizes mentioned in class. However, these sizes are determined within the SorterConfig, so they can be adjusted.
 
 ## Spilling
 Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. This method will call releaseMemory() with the desired number of cache sized memory blocks to release. This method will create providers with all the records that will be released from memory within the spill. Then, these providers are sent to the storeRun() method, so the records can be written to one of the storage locations (Sorter.cpp, line 342).
@@ -366,7 +366,7 @@ Spilling is triggered within the Sorter.cpp class when there is only one memory 
 If there is enough memory within the SSD for the given spill to be stored, then the records will be placed onto the SSD. This is determined by evaluating whether the size and count of the records can fit within the SSD (Sorter.cpp, line 358). If this condition is true, then the SSD is set to the chosen device for writing and the space is allocated within the SSD (Sorter.cpp, lines 360-364). Then, the records are written to the SSD (Sorter.cpp, lines 374-394).
  
 ### Spilling Memory from SSD to Disk
-If the space required to store the given records is greater than the amount of space available within the SSD, then we store the records within the HDD (Sorter.cpp, lines 366-394). When we are completing an intermediate merge by sorting and merging runs within the SSD, we write the intermediate merge to either the SSD or HDD, depending on the available space (Sorter.cpp, line 260).
+If the space required to store the given records is greater than the amount of space available within the SSD, then we store the records within the HDD (Sorter.cpp, lines 366-394). When we are completing an intermediate merge by sorting and merging runs within the SSD, we write the intermediate merge to either the SSD or HDD, depending on the available space (Sorter.cpp, line 260). Since this intermediate merge is pulling records from the SSD, this storeRun() call represents spilling from the SSD to HDD (Sorter.h, line 245).
 
 ## Graceful Degradation
 ### Into Merging
@@ -387,9 +387,9 @@ The verification of the sort order is completed via the Witness class. It ensure
 |--------|-------------------|--------------------|---------------------|----------------------|
 | 20B    | 4.602265 seconds  | 12.185310 seconds  | 1516.341326 seconds | 19246.377955 seconds |           
 | 1,000B | 0.188938 seconds  | 0.466911 seconds   | 95.807228 seconds   | 4735.762537 seconds  |           
-| 2,000B | 0.144610 seconds  | 0.386599 seconds   | 201.225705 seconds  | 5894.875798 seconds  |           
+| 2,000B | 0.144610 seconds  | 0.386599 seconds   | 201.225705 seconds  | 5894.875798 seconds  |
 
-
+6 billion keys would require 32.5 comparisons per key.
 
 
 # Contributions

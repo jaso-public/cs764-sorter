@@ -103,18 +103,30 @@ public:
     shared_ptr<Record> next() override {
         if(nextRecord == nullptr) return nextRecord;
         auto result = nextRecord;
-
-        do {
+        while (true) {
             nextRecord = source->next();
             if(nextRecord == nullptr) return result;
-        } while(result->compareTo(nextRecord) == 0);
-
-        return result;
+            int cmp = result->compareTo(nextRecord);
+            if (cmp == 0){
+                duplicateCount++;
+            } else{
+                return result;
+            }
+        }
+    }
+    /**
+     * Prints the total number of duplicates that the provider found
+     * @param out is the stream to write the output to
+     */
+    void writeDuplicateStats(std::ostream& out) {
+        out << "DeduplicateProvider: " << endl;
+        out << "    duplicate count  : " << duplicateCount << endl;
     }
 
 private:
     shared_ptr<Provider> source;    // provider to get records from
     shared_ptr<Record> nextRecord;  // record to compare to the next returned record
+    uint64_t duplicateCount;     // total number of duplicates that have been removed
 };
 
 

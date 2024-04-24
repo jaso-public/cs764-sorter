@@ -171,6 +171,10 @@ int sortMain (int argc, char * argv []) {
     sorter->writeStats(*out);
     lower->writeStats(*out, "pre-sort");
     upper->writeStats(*out, "post-sort");
+    if (deduplicate){
+        auto deduplicaterProvider = std::dynamic_pointer_cast<DeduplicaterProvider>(nextProvider);
+        deduplicaterProvider->writeDuplicateStats(*out);
+    }
     inputDevice->writeStats(*out);
     outputDevice->writeStats(*out);
     ssdDevice->writeStats(*out);
