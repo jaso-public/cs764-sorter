@@ -382,23 +382,12 @@ We calculate the maximum runs to merge within an intermediate merge by consideri
 The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record via the compareTo() method of the record class. If not, the class' sorted variable is set to false (Witness.h, lines 32-34). This boolean value can be obtained from the class' isSorted() method (Witness.h, lines 69-71).
 
 # Time Taken for Test Case
-## Input Sizes
-### 50MB
-- 20B: ~1.7 hours (5971.847213 seconds)
-- 1,000B: 
--  2,000B: 
-### 125MB
-- 20B:
-- 1,000B:
--  2,000B:
-### 12GB
-- 20B:
-- 1,000B:
--  2,000B:
-### 120GB
-- 20B: ~5.4 hours (19246.377955 )
-- 1,000B: ~1.3 hours (4735.762537 seconds) 
--  2,000B: ~1.6 hours (5894.875798 seconds)
+
+|        | 50MB              | 125MB              | 12GB                | 120GB                |
+|--------|-------------------|--------------------|---------------------|----------------------|
+| 20B    | 4.602265 seconds  | 12.185310 seconds  | 1516.341326 seconds | 19246.377955 seconds |           
+| 1,000B | 0.188938 seconds  | 0.466911 seconds   | 95.807228 seconds   | 4735.762537 seconds  |           
+| 2,000B | 0.144610 seconds  | 0.386599 seconds   | 201.225705 seconds  | 5894.875798 seconds  |           
 
 
 
