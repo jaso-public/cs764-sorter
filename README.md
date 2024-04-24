@@ -94,6 +94,82 @@ This will compile all the necessary classes needed to run this verify function.
 #### Step 3: Run ./verify
 If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./verify -s 120 will run the program with records of size 120 bytes.
 
+# Implemented Techniques
+## Tournament Tree
+The tournament tree's methods can be seen within the TournamentPQ.cpp and TournamentPQ.h files located within the ./src directory. It is utilized within the Sorter.cpp file that is also within the ./src directory to sort records before and during merging. Within Sorter.cpp, it is utilized on lines 110, 196, 260, 302, and 342. We utilize the tournament tree to sort mini runs, the intermediate merges, and the final merge.
+
+## Variable Size Records
+The generator class accepts various flags including the "-s" flag for record size and the "-c" flag for record count. This enables a user to generate records of variable sizes and counts to an input.txt. This can be seen within the generate.cpp file in the ./src/tools directory. For sorting a given input file, the sortMain() method in ./tools/SortMain.cpp accepts the flag "-s" to allow the user to define a given record size. This size is sent to the Record's class' staticInitialize() method to be used when preforming operations on records (SortMain.cpp, line 141).
+
+## Minimum Count of Row Comparisons
+We attempt to compare records as little as possible by continuously placing records into the tournament tree before and during merging. For example, we have all our mini runs placed within a tournament tree (Sorter.cpp, line 110). This enables us to sort records within our mini runs. We also continuously place records within a tournament tree for intermediate merges and the final merge (Sorter.cpp, lines 196, 260, 302, and 342).
+We get rid of duplicates by comparing the sorted records returned within the DeduplicaterProvider class (Provider.h, lines 104-117). We wait to get rid of duplicates until the records are sorted so duplicate records are next to each other. 6 billion keys would require 32.5 comparisons per key.
+
+## Duplicate Removal
+Duplicate removal is completed by the DeduplicaterProvider. This provider is given the sorted output, and then, it only returns unique records from this sorted output (Provider.h, lines 86-131). Its place within our execution chain of providers/consumers can be seen within SortMain.cpp at line 164.
+
+## Cache Size Mini Runs
+In our code, the size of cache is represented by memoryBlockSize defined in the SorterConfig class (Sorter.h, line 24). Within the start of our sorting logic, we create a vector of Single Providers that is the size of the total number of records that can fit into the cache (Sorter.cpp, lines 73-80). We then give each Single Provider a record to return that comes from our source (Sorter.cpp, line 86-94). If we need run out of space within memory, we release a certain amount of cache size chunks in makeFreeSpace(Sorter.h, lines 310-319).
+Then, we send all of these records to the TournamentPQ class to be sorted (Sorter.cpp line 110). We then store this mini run within DRAM (Sorter.cpp, line 116). This process continues until all records from the source provider have been returned. When completing the final merge, we release memory that is a multiple of the cache size if there is not enough free space in memory for the final merge (Sorter.cpp, lines 150-157).
+
+## Device Optimized Page Sizes
+We enable our SSD and HDD reading devices to determine the size of the pages that they read (Sorter.h, line 28 and line 32). We selected these sizes to be ~16,000KB for the SSD and 256KB for the HDD which were the sizes mentioned in class. However, these sizes are determined within the SorterConfig, so they can be adjusted.
+
+## Spilling
+Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. This method will call releaseMemory() with the desired number of cache sized memory blocks to release. This method will create providers with all the records that will be released from memory within the spill. Then, these providers are sent to the storeRun() method, so the records can be written to one of the storage locations (Sorter.cpp, line 342).
+### Spilling Memory-to-SSD
+If there is enough memory within the SSD for the given spill to be stored, then the records will be placed onto the SSD. This is determined by evaluating whether the size and count of the records can fit within the SSD (Sorter.cpp, line 358). If this condition is true, then the SSD is set to the chosen device for writing and the space is allocated within the SSD (Sorter.cpp, lines 360-364). Then, the records are written to the SSD (Sorter.cpp, lines 374-394).
+
+### Spilling Memory from SSD to Disk
+If the space required to store the given records is greater than the amount of space available within the SSD, then we store the records within the HDD (Sorter.cpp, lines 366-394). When we are completing an intermediate merge by sorting and merging runs within the SSD, we write the intermediate merge to either the SSD or HDD, depending on the available space (Sorter.cpp, line 260). Since this intermediate merge is pulling records from the SSD, this storeRun() call represents spilling from the SSD to HDD (Sorter.h, line 245).
+
+## Graceful Degradation
+### Into Merging
+Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). We always leave one memory block of the buffer available to be utilized for staging. Once this occurs, makeFreeSpace() is called. In makeFreeSpace(), the number of memory blocks to store to a lower memory storage is partially determined by a fraction from the SorterConfig (Sorter.cpp, line 315). This fraction enables graceful degradation because it determines how many memory blocks are going to be stored to either the SSD or HDD, but it will only release part of the space within DRAM, not the entire DRAM's contents unless there is only one memory block left.
+### Beyond One Merge Step
+Once all the records are stored into some part of memory, we begin the final merge (Sorter.cpp, line 143). If we need to preform staging from the HDD to SSD, we leave an hddReadSize block of memory available to enable the transferring of data from the HDD back into the SSD (Sorter.cpp, line 216). We read SSD size chunks into memory for sorting.
+
+## Optimized Merge Patterns
+We completed optimized merge patterns through the Sorter.cpp class. First, we have a check to ensure that the sort logic quickly determines if there is nothing to sort after reading records from the provider (Sorter.cpp, lines 120-123). Then, once we have all the records in memory, we check to make sure that a final merge cannot be completed before preforming any merge steps (Sorter.cpp, line 143). If this can occur, we complete the sort logic without staging runs from the HDD to SSD (Sorter.cpp, lines 143-198). If this cannot occur, then we begin staging, merging, and sorting records from the SSD and HDD. We leave a memory block of memory available to enable the transferring of data from the HDD back to the SSD during merging (Sorter.cpp, line 215).
+We calculate the maximum runs to merge within an intermediate merge by considering how many runs from the SSD can fit into memory and the total number of runs within the HDD and SSD (Sorter.cpp, lines 216-217). From this, we determine the optimal number of runs to merge (Sorter.cpp, line 229). We efficiently sort records by placing SSD chunks into memory and then storing them back into the SSD and HDD within a tournament tree (Sorter.cpp, lines 243-260). After this is complete, we are ready for the final merge. For the final merge, we create providers that contain all our intermediate, sorted chunks of records. We place all of these providers within a tournament priority queue to be returned by the Sorter (Sorter.cpp, lines 302-303).
+
+## Verifying Sort Order
+The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record via the compareTo() method of the record class. If not, the class' sorted variable is set to false (Witness.h, lines 32-34). This boolean value can be obtained from the class' isSorted() method (Witness.h, lines 69-71).
+
+# Metrics
+
+## Time Taken for Test Cases
+
+|        | 50MB              | 125MB              | 12GB                | 120GB                |
+|--------|-------------------|--------------------|---------------------|----------------------|
+| 20B    | 4.602265 seconds  | 12.185310 seconds  | 1516.341326 seconds | 19246.377955 seconds |           
+| 1,000B | 0.188938 seconds  | 0.466911 seconds   | 95.807228 seconds   | 4735.762537 seconds  |           
+| 2,000B | 0.144610 seconds  | 0.386599 seconds   | 201.225705 seconds  | 5894.875798 seconds  |
+
+## Total Number of Comparisons Per Key
+
+|        | 50MB | 125MB | 12GB | 120GB |
+|--------|------|-------|------|-------|
+| 20B    | 22.1 | 23.4  | 31.3 | 33.8  |           
+| 1,000B | 16.4 | 17.7  | 25.6 | 28.1  |           
+| 2,000B | 15.4 | 16.7  | 24.6 | 27.1  |
+
+
+# Contributions
+The structure of our project's completion was as follows:
+- February: We met as a group to determine how to complete the project. We outlined the Record class together, and then, Morgan started implementing the C++ classes. Jaso started to outline the logic and structure of the code in Java while Morgan continued with the C++ implementation.
+- March: Jaso completed an implementation of the sorter in Java. Morgan continued with the C++ implementation, basing the structure off of the Java code, and Jaso offered guidance and assistance when needed.
+- April: We both worked to debug and finalize the C++ sorter to get it to work/ready for submission. This included completing some paired programming over Zoom.
+## Individual Contributions
+### Jaso
+- Created a working Java version of the sorter with test cases
+- Fixed bugs and added missing required functionalities to C++ sorter that the implementation as of March did not have
+- Optimized the C++ implementation of the sorter
+
+### Morgan
+- Converted the Java version of the sorter into C++
+- Added additional test cases for the sorter and its classes in C++
+
 # Classes
 ## Witness
 The witness class is designed to verify the correctness of the sorting algorithm by comparing a witness before sorting to a witness after sorting.
@@ -359,79 +435,7 @@ This method creates a record filled with a given integer value. The newLine para
 ### isCrcValid(shared_ptr<Record> record)
 This method will check the correctness and validity of a given record's CRC value.
 
-# Implemented Techniques
-## Tournament Tree
-The tournament tree's methods can be seen within the TournamentPQ.cpp and TournamentPQ.h files located within the ./src directory. It is utilized within the Sorter.cpp file that is also within the ./src directory to sort records before and during merging. Within Sorter.cpp, it is utilized on lines 110, 196, 260, 302, and 342. We utilize the tournament tree to sort mini runs, the intermediate merges, and the final merge.
 
-## Variable Size Records
-The generator class accepts various flags including the "-s" flag for record size and the "-c" flag for record count. This enables a user to generate records of variable sizes and counts to an input.txt. This can be seen within the generate.cpp file in the ./src/tools directory. For sorting a given input file, the sortMain() method in ./tools/SortMain.cpp accepts the flag "-s" to allow the user to define a given record size. This size is sent to the Record's class' staticInitialize() method to be used when preforming operations on records (SortMain.cpp, line 141).
-
-## Minimum Count of Row Comparisons
-We attempt to compare records as little as possible by continuously placing records into the tournament tree before and during merging. For example, we have all our mini runs placed within a tournament tree (Sorter.cpp, line 110). This enables us to sort records within our mini runs. We also continuously place records within a tournament tree for intermediate merges and the final merge (Sorter.cpp, lines 196, 260, 302, and 342).
-We get rid of duplicates by comparing the sorted records returned within the DeduplicaterProvider class (Provider.h, lines 104-117). We wait to get rid of duplicates until the records are sorted so duplicate records are next to each other. 6 billion keys would require 32.5 comparisons per key.
-
-## Duplicate Removal
-Duplicate removal is completed by the DeduplicaterProvider. This provider is given the sorted output, and then, it only returns unique records from this sorted output (Provider.h, lines 86-131). Its place within our execution chain of providers/consumers can be seen within SortMain.cpp at line 164.
-
-## Cache Size Mini Runs
-In our code, the size of cache is represented by memoryBlockSize defined in the SorterConfig class (Sorter.h, line 24). Within the start of our sorting logic, we create a vector of Single Providers that is the size of the total number of records that can fit into the cache (Sorter.cpp, lines 73-80). We then give each Single Provider a record to return that comes from our source (Sorter.cpp, line 86-94). If we need run out of space within memory, we release a certain amount of cache size chunks in makeFreeSpace(Sorter.h, lines 310-319).
-Then, we send all of these records to the TournamentPQ class to be sorted (Sorter.cpp line 110). We then store this mini run within DRAM (Sorter.cpp, line 116). This process continues until all records from the source provider have been returned. When completing the final merge, we release memory that is a multiple of the cache size if there is not enough free space in memory for the final merge (Sorter.cpp, lines 150-157).
-
-## Device Optimized Page Sizes
-We enable our SSD and HDD reading devices to determine the size of the pages that they read (Sorter.h, line 28 and line 32). We selected these sizes to be ~16,000KB for the SSD and 256KB for the HDD which were the sizes mentioned in class. However, these sizes are determined within the SorterConfig, so they can be adjusted.
-
-## Spilling
-Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). Once this occurs, makeFreeSpace() is called. This method will call releaseMemory() with the desired number of cache sized memory blocks to release. This method will create providers with all the records that will be released from memory within the spill. Then, these providers are sent to the storeRun() method, so the records can be written to one of the storage locations (Sorter.cpp, line 342).
-### Spilling Memory-to-SSD
-If there is enough memory within the SSD for the given spill to be stored, then the records will be placed onto the SSD. This is determined by evaluating whether the size and count of the records can fit within the SSD (Sorter.cpp, line 358). If this condition is true, then the SSD is set to the chosen device for writing and the space is allocated within the SSD (Sorter.cpp, lines 360-364). Then, the records are written to the SSD (Sorter.cpp, lines 374-394).
- 
-### Spilling Memory from SSD to Disk
-If the space required to store the given records is greater than the amount of space available within the SSD, then we store the records within the HDD (Sorter.cpp, lines 366-394). When we are completing an intermediate merge by sorting and merging runs within the SSD, we write the intermediate merge to either the SSD or HDD, depending on the available space (Sorter.cpp, line 260). Since this intermediate merge is pulling records from the SSD, this storeRun() call represents spilling from the SSD to HDD (Sorter.h, line 245).
-
-## Graceful Degradation
-### Into Merging
-Spilling is triggered within the Sorter.cpp class when there is only one memory block (cache size space) left within the DRAM (Sorter.cpp, line 105). We always leave one memory block of the buffer available to be utilized for staging. Once this occurs, makeFreeSpace() is called. In makeFreeSpace(), the number of memory blocks to store to a lower memory storage is partially determined by a fraction from the SorterConfig (Sorter.cpp, line 315). This fraction enables graceful degradation because it determines how many memory blocks are going to be stored to either the SSD or HDD, but it will only release part of the space within DRAM, not the entire DRAM's contents unless there is only one memory block left.
-### Beyond One Merge Step
-Once all the records are stored into some part of memory, we begin the final merge (Sorter.cpp, line 143). If we need to preform staging from the HDD to SSD, we leave an hddReadSize block of memory available to enable the transferring of data from the HDD back into the SSD (Sorter.cpp, line 216). We read SSD size chunks into memory for sorting.
-
-## Optimized Merge Patterns
-We completed optimized merge patterns through the Sorter.cpp class. First, we have a check to ensure that the sort logic quickly determines if there is nothing to sort after reading records from the provider (Sorter.cpp, lines 120-123). Then, once we have all the records in memory, we check to make sure that a final merge cannot be completed before preforming any merge steps (Sorter.cpp, line 143). If this can occur, we complete the sort logic without staging runs from the HDD to SSD (Sorter.cpp, lines 143-198). If this cannot occur, then we begin staging, merging, and sorting records from the SSD and HDD. We leave a memory block of memory available to enable the transferring of data from the HDD back to the SSD during merging (Sorter.cpp, line 215).
-We calculate the maximum runs to merge within an intermediate merge by considering how many runs from the SSD can fit into memory and the total number of runs within the HDD and SSD (Sorter.cpp, lines 216-217). From this, we determine the optimal number of runs to merge (Sorter.cpp, line 229). We efficiently sort records by placing SSD chunks into memory and then storing them back into the SSD and HDD within a tournament tree (Sorter.cpp, lines 243-260). After this is complete, we are ready for the final merge. For the final merge, we create providers that contain all our intermediate, sorted chunks of records. We place all of these providers within a tournament priority queue to be returned by the Sorter (Sorter.cpp, lines 302-303).
-
-## Verifying Sort Order
-The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record via the compareTo() method of the record class. If not, the class' sorted variable is set to false (Witness.h, lines 32-34). This boolean value can be obtained from the class' isSorted() method (Witness.h, lines 69-71).
-
-# Time Taken for Test Cases
-
-|        | 50MB              | 125MB              | 12GB                | 120GB                |
-|--------|-------------------|--------------------|---------------------|----------------------|
-| 20B    | 4.602265 seconds  | 12.185310 seconds  | 1516.341326 seconds | 19246.377955 seconds |           
-| 1,000B | 0.188938 seconds  | 0.466911 seconds   | 95.807228 seconds   | 4735.762537 seconds  |           
-| 2,000B | 0.144610 seconds  | 0.386599 seconds   | 201.225705 seconds  | 5894.875798 seconds  |
-
-# Total Number of Comparisons Per Key
-
-|        | 50MB | 125MB | 12GB | 120GB |
-|--------|------|-------|------|-------|
-| 20B    | 22.1 | 23.4  | 31.3 | 33.8  |           
-| 1,000B | 16.4 | 17.7  | 25.6 | 28.1  |           
-| 2,000B | 15.4 | 16.7  | 24.6 | 27.1  |
-
-
-# Contributions
-The structure of our project's completion was as follows:
-- February: We met as a group to determine how to complete the project. We outlined the Record class together, and then, Morgan started implementing the C++ classes. Jaso started to outline the logic and structure of the code in Java while Morgan continued with the C++ implementation.
-- March: Jaso completed an implementation of the sorter in Java. Morgan continued with the C++ implementation, basing the structure off of the Java code, and Jaso offered guidance and assistance when needed.
-- April: We both worked to debug and finalize the C++ sorter to get it to work/ready for submission. This included completing some paired programming over Zoom.
-## Individual Contributions
-### Jaso
-- Created a working Java version of the sorter with test cases
-- Fixed bugs and added missing required functionalities to C++ sorter that the implementation as of March did not have
-- Optimized the C++ implementation of the sorter
-
-### Morgan
-- Converted the Java version of the sorter into C++
-- Added additional test cases for the sorter and its classes in C++
 
 
 
