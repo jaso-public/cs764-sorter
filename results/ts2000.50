@@ -1,9 +1,9 @@
 Parameters:ts2000.50
     trace file       : ts2000.50
-    input file       : input.txt
-    output file      : output.txt
+    input file       : /hdd/s2000.50
+    output file      : /hdd/s2000.50.sorted
     ssd staging file : ssd.staging
-    hdd staging file : hdd.staging
+    hdd staging file : /hdd/staging
     record size      : 2000
     deduplicate      : false
 Sorter Configuration:
@@ -14,33 +14,33 @@ Sorter Configuration:
     SSD read size    : 16384
     SSD size         : 10737418240
 Sorter results: 
-    compare count    : 385875 comparisons
-    elapsed time     : 0.060372 seconds
+    compare count    : 385941 comparisons
+    elapsed time     : 0.144610 seconds
 Witness: pre-sort
     record count     : 25000
-    checksum         : 3635601328197289563
+    checksum         : 4554111562166396489
     sorted           : false
     duplicate count  : 0
 Witness: post-sort
     record count     : 25000
-    checksum         : 3635601328197289563
+    checksum         : 4554111562166396489
     sorted           : true
     duplicate count  : 0
-Device: input.txt
+Device: /hdd/s2000.50
     read
         count        : 192 calls
         size         : 50000000 bytes
-        time         : 0.006327 seconds
-        average      : 7902226073 bytes/second
-        maxTime      : 0.000097 seconds
-Device: output.txt
+        time         : 0.009722 seconds
+        average      : 5143137106 bytes/second
+        maxTime      : 0.000068 seconds
+Device: /hdd/s2000.50.sorted
     write
         count        : 191 calls
         size         : 50000000 bytes
-        time         : 0.006487 seconds
-        average      : 7707571055 bytes/second
-        maxTime      : 0.000269 seconds
+        time         : 0.042506 seconds
+        average      : 1176300011 bytes/second
+        maxTime      : 0.000255 seconds
 Device: ssd.staging
     never accessed
-Device: hdd.staging
+Device: /hdd/staging
     never accessed

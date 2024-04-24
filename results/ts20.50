@@ -1,9 +1,9 @@
 Parameters:ts20.50
     trace file       : ts20.50
-    input file       : input.txt
-    output file      : ./hdd/s20.50.sorted
+    input file       : /hdd/s20.50
+    output file      : /hdd/s20.50.sorted
     ssd staging file : ssd.staging
-    hdd staging file : hdd.staging
+    hdd staging file : /hdd/staging
     record size      : 20
     deduplicate      : false
 Sorter Configuration:
@@ -14,55 +14,33 @@ Sorter Configuration:
     SSD read size    : 16384
     SSD size         : 10737418240
 Sorter results: 
-    compare count    : 218331689722 comparisons
-    elapsed time     : 5971.847213 seconds
+    compare count    : 55353993 comparisons
+    elapsed time     : 4.602265 seconds
 Witness: pre-sort
-    record count     : 6442450944
-    checksum         : 680162475913598243
+    record count     : 2500000
+    checksum         : 1087367917911043351
     sorted           : false
     duplicate count  : 0
 Witness: post-sort
-    record count     : 6442450944
-    checksum         : 680162475913598243
+    record count     : 2500000
+    checksum         : 1087367917911043351
     sorted           : true
-    duplicate count  : 58969343
-Device: input.txt
+    duplicate count  : 1599
+Device: /hdd/s20.50
     read
-        count        : 491521 calls
-        size         : 128849018880 bytes
-        time         : 13.724914 seconds
-        average      : 9387965615 bytes/second
-        maxTime      : 0.005621 seconds
-Device: ./hdd/s20.50.sorted
+        count        : 192 calls
+        size         : 50000000 bytes
+        time         : 0.012129 seconds
+        average      : 4122189615 bytes/second
+        maxTime      : 0.000131 seconds
+Device: /hdd/s20.50.sorted
     write
-        count        : 491520 calls
-        size         : 128849018880 bytes
-        time         : 28.010416 seconds
-        average      : 4600039379 bytes/second
-        maxTime      : 0.245079 seconds
+        count        : 191 calls
+        size         : 50000000 bytes
+        time         : 0.017674 seconds
+        average      : 2829089925 bytes/second
+        maxTime      : 0.000124 seconds
 Device: ssd.staging
-    read
-        count        : 7430332 calls
-        size         : 121736588992 bytes
-        time         : 347.546583 seconds
-        average      : 350274164 bytes/second
-        maxTime      : 0.031786 seconds
-    write
-        count        : 461987 calls
-        size         : 121736588992 bytes
-        time         : 18.146666 seconds
-        average      : 6708482434 bytes/second
-        maxTime      : 0.194908 seconds
-Device: hdd.staging
-    read
-        count        : 451772 calls
-        size         : 118427512080 bytes
-        time         : 157.245071 seconds
-        average      : 753139740 bytes/second
-        maxTime      : 0.017726 seconds
-    write
-        count        : 112943 calls
-        size         : 118427512080 bytes
-        time         : 35.729472 seconds
-        average      : 3314560935 bytes/second
-        maxTime      : 1.375681 seconds
+    never accessed
+Device: /hdd/staging
+    never accessed

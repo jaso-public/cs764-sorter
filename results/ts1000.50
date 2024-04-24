@@ -1,9 +1,9 @@
 Parameters:ts1000.50
     trace file       : ts1000.50
-    input file       : input.txt
-    output file      : output.txt
+    input file       : /hdd/s1000.50
+    output file      : /hdd/s1000.50.sorted
     ssd staging file : ssd.staging
-    hdd staging file : hdd.staging
+    hdd staging file : /hdd/staging
     record size      : 1000
     deduplicate      : false
 Sorter Configuration:
@@ -14,33 +14,33 @@ Sorter Configuration:
     SSD read size    : 16384
     SSD size         : 10737418240
 Sorter results: 
-    compare count    : 821921 comparisons
-    elapsed time     : 0.059410 seconds
+    compare count    : 821834 comparisons
+    elapsed time     : 0.188938 seconds
 Witness: pre-sort
     record count     : 50000
-    checksum         : 7932605147635867149
+    checksum         : 4985549775947712302
     sorted           : false
     duplicate count  : 0
 Witness: post-sort
     record count     : 50000
-    checksum         : 7932605147635867149
+    checksum         : 4985549775947712302
     sorted           : true
-    duplicate count  : 0
-Device: input.txt
+    duplicate count  : 3
+Device: /hdd/s1000.50
     read
         count        : 192 calls
         size         : 50000000 bytes
-        time         : 0.003390 seconds
-        average      : 14750872514 bytes/second
-        maxTime      : 0.000020 seconds
-Device: output.txt
+        time         : 0.010384 seconds
+        average      : 4815132614 bytes/second
+        maxTime      : 0.000107 seconds
+Device: /hdd/s1000.50.sorted
     write
         count        : 191 calls
         size         : 50000000 bytes
-        time         : 0.005060 seconds
-        average      : 9881741250 bytes/second
-        maxTime      : 0.000215 seconds
+        time         : 0.041931 seconds
+        average      : 1192426489 bytes/second
+        maxTime      : 0.000295 seconds
 Device: ssd.staging
     never accessed
-Device: hdd.staging
+Device: /hdd/staging
     never accessed
