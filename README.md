@@ -392,18 +392,20 @@ The verification of the sort order is completed via the Witness class. It ensure
 
 
 
-# Individual Contributions
+# Contributions
 The structure of our project's completion was as follows:
-- February: We met as a group to determine how to complete the project. We outlined the Record class together, and then, Morgan started implementing the C++ code. Jaso started to outline the logic and structure of the code in Java while Morgan continued to C++ implementation.
-- March: Jaso completed an implementation of the sorter in Java. Morgan continued with the C++ code, basing the structure off of the Java code, and Jaso offered guidance and assistance when needed.
+- February: We met as a group to determine how to complete the project. We outlined the Record class together, and then, Morgan started implementing the C++ classes. Jaso started to outline the logic and structure of the code in Java while Morgan continued with the C++ implementation.
+- March: Jaso completed an implementation of the sorter in Java. Morgan continued with the C++ implementation, basing the structure off of the Java code, and Jaso offered guidance and assistance when needed.
 - April: We both worked to debug and finalize the C++ sorter to get it to work/ready for submission. This included completing some paired programming over Zoom.
-## Jaso
+## Individual Contributions
+### Jaso
+- Created a working Java version of the sorter with test cases
+- Fixed bugs and added missing required functionalities to C++ sorter that the implementation as of March did not have
+- Optimized the C++ implementation of the sorter
 
-
-## Morgan
+### Morgan
 - Converted the Java version of the sorter into C++
-- Added additional test cases to the C++ version
-- Completed the README File
+- Added additional test cases for the sorter and its classes in C++
 
 
 
