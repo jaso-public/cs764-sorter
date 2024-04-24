@@ -1,0 +1,57 @@
+Parameters:ts1000.1gb.dups
+    trace file       : ts1000.1gb.dups
+    input file       : /hdd/s1000.1gb.dups
+    output file      : /hdd/s1000.1gb.dups.sorted
+    ssd staging file : ssd.staging
+    hdd staging file : hdd.staging
+    record size      : 1000
+    deduplicate      : false
+Sorter Configuration:
+    spill fraction   : 0.500%
+    cache size       : 1048576
+    memory size      : 104857600
+    HDD read size    : 262144
+    SSD read size    : 16384
+    SSD size         : 10737418240
+Sorter results: 
+    compare count    : 21199160 comparisons
+    elapsed time     : 3.721011 seconds
+Witness: pre-sort
+    record count     : 1000000
+    checksum         : 2963178362575128690
+    sorted           : false
+    duplicate count  : 1027
+Witness: post-sort
+    record count     : 1000000
+    checksum         : 2963178362575128690
+    sorted           : true
+    duplicate count  : 999000
+Device: /hdd/s1000.1gb.dups
+    read
+        count        : 3816 calls
+        size         : 1000000000 bytes
+        time         : 0.179364 seconds
+        average      : 5575268870 bytes/second
+        maxTime      : 0.000155 seconds
+Device: /hdd/s1000.1gb.dups.sorted
+    write
+        count        : 3815 calls
+        size         : 1000000000 bytes
+        time         : 0.395213 seconds
+        average      : 2530282682 bytes/second
+        maxTime      : 0.000147 seconds
+Device: ssd.staging
+    read
+        count        : 55245 calls
+        size         : 904632000 bytes
+        time         : 0.284443 seconds
+        average      : 3180361158 bytes/second
+        maxTime      : 0.000037 seconds
+    write
+        count        : 864 calls
+        size         : 904632000 bytes
+        time         : 0.461614 seconds
+        average      : 1959715600 bytes/second
+        maxTime      : 0.000598 seconds
+Device: hdd.staging
+    never accessed

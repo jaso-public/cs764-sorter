@@ -1,0 +1,59 @@
+Parameters:ts1000.1gb.nodups
+    trace file       : ts1000.1gb.nodups
+    input file       : /hdd/s1000.1gb.dups
+    output file      : /hdd/s1000.1gb.dups.sorted
+    ssd staging file : ssd.staging
+    hdd staging file : hdd.staging
+    record size      : 1000
+    deduplicate      : true
+Sorter Configuration:
+    spill fraction   : 0.500%
+    cache size       : 1048576
+    memory size      : 104857600
+    HDD read size    : 262144
+    SSD read size    : 16384
+    SSD size         : 10737418240
+Sorter results: 
+    compare count    : 21200159 comparisons
+    elapsed time     : 3.189546 seconds
+Witness: pre-sort
+    record count     : 1000000
+    checksum         : 2963178362575128690
+    sorted           : false
+    duplicate count  : 1027
+Witness: post-sort
+    record count     : 1000
+    checksum         : 798926251934110754
+    sorted           : true
+    duplicate count  : 0
+DeduplicateProvider: 
+    duplicate count  : 999000
+Device: /hdd/s1000.1gb.dups
+    read
+        count        : 3816 calls
+        size         : 1000000000 bytes
+        time         : 0.179551 seconds
+        average      : 5569459898 bytes/second
+        maxTime      : 0.000116 seconds
+Device: /hdd/s1000.1gb.dups.sorted
+    write
+        count        : 4 calls
+        size         : 1000000 bytes
+        time         : 0.000588 seconds
+        average      : 1699813021 bytes/second
+        maxTime      : 0.000158 seconds
+Device: ssd.staging
+    read
+        count        : 55245 calls
+        size         : 904632000 bytes
+        time         : 0.266894 seconds
+        average      : 3389475134 bytes/second
+        maxTime      : 0.000013 seconds
+    write
+        count        : 864 calls
+        size         : 904632000 bytes
+        time         : 0.462368 seconds
+        average      : 1956521090 bytes/second
+        maxTime      : 0.001442 seconds
+Device: hdd.staging
+    never accessed
