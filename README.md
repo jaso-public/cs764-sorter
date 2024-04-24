@@ -381,7 +381,7 @@ We calculate the maximum runs to merge within an intermediate merge by consideri
 ## Verifying Sort Order
 The verification of the sort order is completed via the Witness class. It ensures that each next() record is greater than the previously returned record via the compareTo() method of the record class. If not, the class' sorted variable is set to false (Witness.h, lines 32-34). This boolean value can be obtained from the class' isSorted() method (Witness.h, lines 69-71).
 
-# Time Taken for Test Case
+# Time Taken for Test Cases
 
 |        | 50MB              | 125MB              | 12GB                | 120GB                |
 |--------|-------------------|--------------------|---------------------|----------------------|
