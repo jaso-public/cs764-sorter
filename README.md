@@ -39,13 +39,6 @@ An explanation of these customizations and their flags are explained below.
 
 ### GenerateMain.cpp
 This file contains the function, generateMain(), that will generate the records and input file. If an error occurs within this method, generateUsage() will be called to print the error message.
-
-### Compile and Run Generate Tool
-#### Step 1: Build the CMake File
-Navigate into the build directory and run cmake ..
-#### Step 2: Run make generate
-This will compile all the necessary classes to create the input file.
-#### Step 3: Run ./generate 
 If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./generate -s 120 will run the program and produce records of size 120 bytes.
 
 ## Sort
@@ -67,13 +60,6 @@ The flags for this command are explained below.
 
 ### SortMain.cpp
 This file contains the function, sortMain(), that will preform the external merge sort on an input file. If an error occurs within this method, sortUsage() will be called to print the error message.
-
-### Compile and Run Sort
-#### Step 1: Build the CMake File
-Navigate into the build directory and run cmake ..
-#### Step 2: Run make sort
-This will compile all the necessary classes needed to preform the external sort.
-#### Step 3: Run ./sort
 If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./sort -s 120 which will run the program with a record size of 120 bytes.
 
 ## Verify
@@ -85,13 +71,6 @@ The verify tool checks that user input can be parsed and a given input file can 
 
 ### VerifyMain.cpp
 This file contains the function, verifyMain(), that reads in a user's arguments and passes an input file through our chain of providers and consumers. If an error occurs within this method, verifyUsage() will be called to print the error message.
-
-### Compile and Run Verify
-#### Step 1: Build the CMake File
-Navigate into the build directory and run cmake ..
-#### Step 2: Run make verify
-This will compile all the necessary classes needed to run this verify function.
-#### Step 3: Run ./verify
 If you would like to add customizations to this program, such as defining the record size, include all the necessary flags and values. Ex: ./verify -s 120 will run the program with records of size 120 bytes.
 
 # Implemented Techniques
@@ -132,11 +111,11 @@ Spilling is first triggered within the ./src/Sorter.cpp class when there is only
 makeFreeSpace() will call releaseMemory() that will free up the desired memory space and call storeRun() to write the records to storage (Sorter.cpp lines 326-395).
 
 ### Beyond One Merge Step
-Once all the input records are stored into some part of memory, we begin merging records (Sorter.cpp, line 143). If we need to preform staging from the HDD to SSD, we leave an hddReadSize block of memory available to enable the transferring of data from the HDD back into the SSD (Sorter.cpp, line 216). We read SSD size chunks into memory for sorting.
+Once all the input records are stored into some part of memory, we begin merging records (Sorter.cpp, starting at line 143). If we need to preform staging from the HDD to SSD, we leave an hddReadSize block of memory available to enable the transferring of data from the HDD back into the SSD (Sorter.cpp, line 216). We read SSD read size chunks into memory for sorting. While merging runs from the SSD, we leave the first block of memory available to stage data while storing the run (Sorter.cpp, line 243). We store our intermediate merges into the SSD and HDD, depending on the available space as explained under "Spilling Memory from SSD to Disk." If staging from the HDD to the SSD was required and it's time for the final merge, we will first transfer all records from the HDD to the SSD (Sorter.cpp, lines 273-289). This enables us to retrieve all the records within the HDD a singular time. We store these records within the providers vector (Sorter.cpp, lines 285). Then, we add all of our sorted SSD runs into the providers vector (Sorter.cpp, lines 291-300). Once we have obtained all these runs, we return these providers within a tournament tree where each call the next() will return a sorted record (Sorter.cpp, lines 302-303).
 
 ## Optimized Merge Patterns
 We completed optimized merge patterns within the ./src/Sorter.cpp class. First, we have a check to ensure that the sort logic quickly determines if there is nothing to sort after reading records from the provider (Sorter.cpp, lines 120-123). Then, once we have all the records in memory, we check to make sure that a final merge cannot be completed before preforming any merge steps (Sorter.cpp, line 143). If this can occur, we complete the sort logic without staging runs from the HDD to SSD (Sorter.cpp, lines 143-198). If this cannot occur, then we begin staging, merging, and sorting records from the SSD and HDD. We always leave an hddReadSize memory block of memory available to enable the transferring of data from the HDD back to the SSD during merging (Sorter.cpp, line 216).
-We calculate the maximum runs to merge within an intermediate merge by considering how many runs from the SSD can fit into memory and the total number of runs within the HDD and SSD (Sorter.cpp, lines 216-229). We efficiently sort records by placing SSD chunks into memory and then storing them back into the SSD and HDD within a tournament tree (Sorter.cpp, lines 243-260). After this is complete, we are ready for the final merge. For the final merge, we create providers that contain all our intermediate, sorted chunks of records (runs) (Sorter.h, lines 273-300). We place all of these providers within a tournament priority queue to be returned by the Sorter (Sorter.cpp, lines 302-303). We calculated efficient page sizes for the SSD and HDD that we utilized as explained above.
+We calculate the maximum runs to merge within an intermediate merge by considering how many runs from the SSD can fit into memory and the total number of runs within the HDD and SSD (Sorter.cpp, lines 216-229). We efficiently sort records by placing SSD chunks into memory and then storing them back into the SSD and HDD within a tournament tree (Sorter.cpp, lines 243-260). After this is complete, we are ready for the final merge. For the final merge, we create providers that contain all our intermediate, sorted chunks of records (runs) (Sorter.h, lines 273-300). More details about the optimization of this step can be seen under "Beyond One Merge Step." We place all of these providers within a tournament priority queue to be returned by the Sorter (Sorter.cpp, lines 302-303). We calculated efficient page sizes for the SSD and HDD that we utilized as explained above under "Device Optimized Page Sizes."
 
 ## Verifying Sort Order
 The verification of the sort order is completed via the Witness class (./src/Witness.h). It ensures that each next() record is greater than the previously returned record via the compareTo() method of the record class (./src/Record.cpp, lines 38-41). If not, the class' sorted variable is set to false (Witness.h, lines 34-36). This boolean value can be obtained from the class' isSorted() method to reveal if the records were sorted (Witness.h, lines 68-70). In our chain of providers/consumers, we expect the lower witness to not be sorted and the upper witness to be sorted (./src/tools/SortMain.cpp, lines 161 and 165). We print out the statistics for each of these witnesses after sorting to see their sorted value (./src/tools/SortMain.cpp, 172 and 173).
