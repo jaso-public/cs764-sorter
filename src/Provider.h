@@ -127,7 +127,7 @@ public:
 private:
     shared_ptr<Provider> source;    // provider to get records from
     shared_ptr<Record> nextRecord;  // record to compare to the next returned record
-    uint64_t duplicateCount;     // total number of duplicates that have been removed
+    uint64_t duplicateCount;        // total number of duplicates that have been removed
 };
 
 
